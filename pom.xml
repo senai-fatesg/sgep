@@ -21,6 +21,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>br.com.ambientinformatica.fatesg</groupId>
+			<artifactId>fatesg-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>		
+		<dependency>
 			<groupId>br.com.ambientinformatica</groupId>
 			<artifactId>ambient-jpa</artifactId>
 			<version>2.0.0</version>
