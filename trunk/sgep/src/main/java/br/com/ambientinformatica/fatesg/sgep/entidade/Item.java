@@ -17,5 +17,24 @@ public class Item{
 	private String alternativa;
 	
 	private String assunto;
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getAlternativa() {
+		return alternativa;
+	}
+
+	public String getAssunto() {
+		return assunto;
+	}
+
+	public void setAlternativa(String alternativa) {
+		this.alternativa = alternativa;
+	}
+
+	public void setAssunto(String assunto) {
+		this.assunto = assunto;
+	}
 }
