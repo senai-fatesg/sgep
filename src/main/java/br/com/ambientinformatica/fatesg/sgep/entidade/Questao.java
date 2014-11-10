@@ -26,4 +26,48 @@ public class Questao{
 	
 	@Enumerated(EnumType.STRING)
 	private EnumDificuldade dificuldade;
+
+	public Long getId() {
+		return id;
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public String getEnunciado() {
+		return enunciado;
+	}
+
+	public String getAssunto() {
+		return assunto;
+	}
+
+	public char getResposta() {
+		return resposta;
+	}
+
+	public EnumDificuldade getDificuldade() {
+		return dificuldade;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public void setEnunciado(String enunciado) {
+		this.enunciado = enunciado;
+	}
+
+	public void setAssunto(String assunto) {
+		this.assunto = assunto;
+	}
+
+	public void setResposta(char resposta) {
+		this.resposta = resposta;
+	}
+
+	public void setDificuldade(EnumDificuldade dificuldade) {
+		this.dificuldade = dificuldade;
+	}
 }

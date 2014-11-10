@@ -22,4 +22,24 @@ public class Cabecalho{
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new Date();
+
+	public int getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(int periodo) {
+		this.periodo = periodo;
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+
+	public Long getId() {
+		return id;
+	}	
 }

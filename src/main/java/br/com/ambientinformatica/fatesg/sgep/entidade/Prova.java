@@ -14,4 +14,7 @@ public class Prova{
 	@SequenceGenerator(name = "prova_seq", sequenceName = "prova_seq", allocationSize = 1, initialValue = 1)
 	private Long id;
 
+	public Long getId() {
+		return id;
+	}
 }
