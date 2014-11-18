@@ -23,6 +23,11 @@ public class ItensProva{
 	
 	private int numero;
 
+	public ItensProva(Prova prova, Questao questao){
+		this.prova = prova;
+		this.questao = questao;
+	}
+	
 	public Long getId() {
 		return id;
 	}
