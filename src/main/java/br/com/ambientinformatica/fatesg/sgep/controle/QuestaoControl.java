@@ -11,36 +11,19 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
-import br.com.ambientinformatica.fatesg.sgep.entidade.ItensProva;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Prova;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Questao;
-import br.com.ambientinformatica.fatesg.sgep.persistencia.ProvaDao;
+import br.com.ambientinformatica.fatesg.sgep.persistencia.QuestaoDao;
 
-@Controller("ProvaControl")
+@Controller("QuestganoControl")
 @Scope("conversation")
-public class ProvaControl {
+public class QuestaoControl {
 	@Autowired
-	private ProvaDao provaDao;
+	private QuestaoDao questaoDao;
 
-	private List<Prova> provas = new ArrayList<Prova>();
+	private List<Questao> questoes = new ArrayList<Questao>();
 
 	private Questao questao = new Questao();
-
-	private Prova prova = new Prova();
-
-	public void addQuestao(Questao questao) {
-		ItensProva novoItem = new ItensProva(prova, questao);
-		if (questao.getItens().contains(novoItem)) {
-			ItensProva item = questao.getItens().get(
-					questao.getItens().indexOf(novoItem));
-		} else {
-			questao.getItens().add(novoItem);
-		}
-	}
-
-	public void removerItem(ItensProva item) {
-		questao.getItens().remove(item);
-	}
 
 	@PostConstruct
 	public void init() {
@@ -49,9 +32,9 @@ public class ProvaControl {
 
 	public void confirmar(ActionEvent evt) {
 		try {
-			provaDao.alterar(prova);
+			questaoDao.alterar(questao);
 			listar(evt);
-			prova = new Prova();
+			questao = new Questao();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
@@ -59,7 +42,7 @@ public class ProvaControl {
 
 	public void listar(ActionEvent evt) {
 		try {
-			provas = provaDao.listar();
+			questoes = questaoDao.listar();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
@@ -67,28 +50,20 @@ public class ProvaControl {
 
 	public void excluir() {
 		try {
-			provaDao.excluirPorId(prova.getId());
-			prova = new Prova();
-			provas = provaDao.listar();
+			questaoDao.excluirPorId(questao.getId());
+			questao = new Questao();
+			questoes = questaoDao.listar();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
 
 	public void limpar() {
-		prova = new Prova();
+		questao = new Questao();
 	}
 
-	public Prova getProva() {
-		return prova;
-	}
-
-	public List<Prova> getProvas() {
-		return provas;
-	}
-
-	public void setProva(Prova prova) {
-		this.prova = prova;
+	public List<Questao> getQuestoes() {
+		return questoes;
 	}
 
 	public Questao getQuestao() {
@@ -97,5 +72,6 @@ public class ProvaControl {
 
 	public void setQuestao(Questao questao) {
 		this.questao = questao;
-	}	
+	}
+		
 }
