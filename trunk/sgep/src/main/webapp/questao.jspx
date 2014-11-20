@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+
+		<p:panel header="Formulário" id="panel">
+			<h:panelGrid columns="2">
+				<a:field label="Enunciado">
+					<h:inputTextarea value="#{QuestaoControl.questao.enunciado }"></h:inputTextarea>
+				</a:field>
+				<a:field label="Assunto">
+					<h:inputTextarea value="#{QuestaoControl.questao.assunto }"></h:inputTextarea>
+				</a:field>
+				<a:field label="Primeira Alternativa">
+					<h:inputTextarea
+						value="#{QuestaoControl.questao.primeiraAlternativa }"></h:inputTextarea>
+				</a:field>
+				<a:field label="Segunda Alternativa">
+					<h:inputTextarea
+						value="#{QuestaoControl.questao.segundaAlternativa }"></h:inputTextarea>
+				</a:field>
+				<a:field label="Terceira Alternativa">
+					<h:inputTextarea
+						value="#{QuestaoControl.questao.terceiraAlternativa }"></h:inputTextarea>
+				</a:field>
+				<a:field label="Quarta Alternativa">
+					<h:inputTextarea
+						value="#{QuestaoControl.questao.quartaAlternativa }"></h:inputTextarea>
+				</a:field>
+				<a:field label="Quinta Alternativa">
+					<h:inputTextarea
+						value="#{QuestaoControl.questao.quintaAlternativa }"></h:inputTextarea>
+				</a:field>
+				<a:field label="Resposta">
+					<h:inputTextarea value="#{QuestaoControl.questao.resposta }"></h:inputTextarea>
+				</a:field>
+				<a:field label="Estado" spaceLeft="15px">
+					<h:selectOneMenu id="estado"
+						value="#{QuestaoControl.questao.estado}">
+						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItems value="#{ QuestaoControl.estados}" var="tipo"
+							itemValue="#{tipo}" itemLabel="#{tipo}" />
+					</h:selectOneMenu>
+				</a:field>
+				<a:field label="Dificuldade" spaceLeft="15px">
+					<h:selectOneMenu id="dificuldade"
+						value="#{QuestaoControl.questao.dificuldade}">
+						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItems value="#{ QuestaoControl.dificuldades}" var="tipo"
+							itemValue="#{tipo}" itemLabel="#{tipo}" />
+					</h:selectOneMenu>
+				</a:field>
+				<p:commandButton actionListener="#{QuestaoControl.confirmar }"
+					value="Confirmar" update="questoes, panel"></p:commandButton>
+			</h:panelGrid>
+		</p:panel>
+
+		<p:dataTable id="questoes" value="#{QuestaoControl.questoes }"
+			var="cont" width="100%" emptyMessage="Sem registros">
+			<f:facet name="header">
+				<h:outputText value="Lista de Querstões"></h:outputText>
+			</f:facet>
+			<p:column sortBy="#{cont.nome }">
+				<f:facet name="header">
+					<h:outputText value="Nome"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.nome }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.telefone }">
+				<f:facet name="header">
+					<h:outputText value="Telefone"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.telefone }"></h:outputText>
+			</p:column>
+		</p:dataTable>
+
+	</ui:define>
+</ui:composition>
