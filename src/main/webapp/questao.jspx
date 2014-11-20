@@ -42,7 +42,7 @@
 				<a:field label="Estado" spaceLeft="15px">
 					<h:selectOneMenu id="estado"
 						value="#{QuestaoControl.questao.estado}">
-						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItem itemLabel="Selecione..." itemValue="" />
 						<f:selectItems value="#{ QuestaoControl.estados}" var="tipo"
 							itemValue="#{tipo}" itemLabel="#{tipo}" />
 					</h:selectOneMenu>
