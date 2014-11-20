@@ -3,7 +3,12 @@
 	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
 	<persistence-unit name="sgep">
-		<class>br.com.ambientinformatica.fatesg.api.Pessoa</class>
+		<class>br.com.ambientinformatica.fatesg.sgep.entidade.Questao</class>
+		<class>br.com.ambientinformatica.fatesg.sgep.entidade.Prova</class>
+		<class>br.com.ambientinformatica.fatesg.api.Disciplina</class>
+		<class>br.com.ambientinformatica.fatesg.api.Colaborador</class>
+		<class>br.com.ambientinformatica.fatesg.sgep.entidade.ItensProva</class>
+		<class>br.com.ambientinformatica.fatesg.sgep.entidade.Sessao</class>
 		<properties>
 			<property name="javax.persistence.validation.mode" value="callback" />
 			<property name="javax.persistence.validation.group.pre-update"
