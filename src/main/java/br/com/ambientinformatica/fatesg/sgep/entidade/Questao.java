@@ -267,6 +267,5 @@ public class Questao{
 		} else if (!terceiraAlternativa.equals(other.terceiraAlternativa))
 			return false;
 		return true;
-	}
-	
+	}	
 }
