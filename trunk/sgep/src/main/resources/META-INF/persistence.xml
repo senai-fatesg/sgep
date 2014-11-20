@@ -9,6 +9,14 @@
 		<class>br.com.ambientinformatica.fatesg.api.Colaborador</class>
 		<class>br.com.ambientinformatica.fatesg.sgep.entidade.ItensProva</class>
 		<class>br.com.ambientinformatica.fatesg.sgep.entidade.Sessao</class>
+		<class>br.com.ambientinformatica.fatesg.api.Curso</class>
+		<class>br.com.ambientinformatica.fatesg.api.UnidadeEnsino</class>
+		<class>br.com.ambientinformatica.fatesg.api.Aluno</class>
+		<class>br.com.ambientinformatica.fatesg.api.Avaliacao</class>
+		<class>br.com.ambientinformatica.fatesg.api.CronogramaAula</class>
+		<class>br.com.ambientinformatica.fatesg.api.Instituicao</class>
+		<class>br.com.ambientinformatica.fatesg.api.Matriz</class>
+		<class>br.com.ambientinformatica.fatesg.api.PlanoDeEnsino</class>
 		<properties>
 			<property name="javax.persistence.validation.mode" value="callback" />
 			<property name="javax.persistence.validation.group.pre-update"
