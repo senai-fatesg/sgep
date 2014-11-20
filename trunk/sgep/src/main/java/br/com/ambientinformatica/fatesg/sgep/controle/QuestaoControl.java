@@ -5,16 +5,19 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
+import br.com.ambientinformatica.fatesg.sgep.entidade.EnumDificuldade;
+import br.com.ambientinformatica.fatesg.sgep.entidade.EnumEstado;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Questao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.QuestaoDao;
 
-@Controller("QuestganoControl")
+@Controller("QuestaoControl")
 @Scope("conversation")
 public class QuestaoControl {
 	@Autowired
@@ -55,6 +58,14 @@ public class QuestaoControl {
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
+	}
+	
+	public List<SelectItem> getEstados() {
+		return UtilFaces.getListEnum(EnumEstado.values());
+	}
+	
+	public List<SelectItem> getDificuldades() {
+		return UtilFaces.getListEnum(EnumDificuldade.values());
 	}
 
 	public void limpar() {
