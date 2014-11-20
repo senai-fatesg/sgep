@@ -23,6 +23,9 @@ public class ItensProva{
 	
 	private int numero;
 
+	public ItensProva(){
+		
+	}
 	public ItensProva(Prova prova, Questao questao){
 		this.prova = prova;
 		this.questao = questao;

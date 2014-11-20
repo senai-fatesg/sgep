@@ -43,9 +43,8 @@ public class Questao{
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="questao")
 	private List<ItensProva > itens = new ArrayList<ItensProva>() ;
-	
-	
-	@ManyToOne
+		
+	@ManyToOne()
 	private Colaborador professor;
 	
 	@ManyToOne
