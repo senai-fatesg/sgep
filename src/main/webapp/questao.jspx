@@ -37,7 +37,8 @@
 						value="#{QuestaoControl.questao.quintaAlternativa }"></h:inputTextarea>
 				</a:field>
 				<a:field label="Resposta">
-					<h:inputTextarea value="#{QuestaoControl.questao.resposta }"></h:inputTextarea>
+					<p:inputText value="#{DisciplinaControl.disciplina.id }"
+					style="width:50px" maxlength="1"/>
 				</a:field>
 				<a:field label="Estado" spaceLeft="15px">
 					<h:selectOneMenu id="estado"
