@@ -66,17 +66,17 @@
 			<f:facet name="header">
 				<h:outputText value="Lista de Querstões"></h:outputText>
 			</f:facet>
-			<p:column sortBy="#{cont.nome }">
+			<p:column sortBy="#{cont.enunciado }">
 				<f:facet name="header">
-					<h:outputText value="Nome"></h:outputText>
+					<h:outputText value="Enunciado"></h:outputText>
 				</f:facet>
-				<h:outputText value="#{cont.nome }"></h:outputText>
+				<h:outputText value="#{cont.enunciado }"></h:outputText>
 			</p:column>
-			<p:column sortBy="#{cont.telefone }">
+			<p:column sortBy="#{cont.assunto }">
 				<f:facet name="header">
-					<h:outputText value="Telefone"></h:outputText>
+					<h:outputText value="Assunto"></h:outputText>
 				</f:facet>
-				<h:outputText value="#{cont.telefone }"></h:outputText>
+				<h:outputText value="#{cont.assunto }"></h:outputText>
 			</p:column>
 		</p:dataTable>
 
