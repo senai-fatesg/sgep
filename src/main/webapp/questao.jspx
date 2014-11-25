@@ -11,42 +11,42 @@
 		<p:panel header="Formulário" id="panel">
 			<a:field label="Enunciado">
 				<h:inputTextarea value="#{QuestaoControl.questao.enunciado }"
-					style="width:600px"></h:inputTextarea>
+					style="width:500px"></h:inputTextarea>
 			</a:field>
 			<a:field label="Assunto" spaceLeft="15px">
 				<h:inputTextarea value="#{QuestaoControl.questao.assunto }"
-					style="width:600px"></h:inputTextarea>
+					style="width:500px"></h:inputTextarea>
 			</a:field>
 			<a:newLine />
 			<a:field label="Primeira Alternativa">
 				<h:inputTextarea
 					value="#{QuestaoControl.questao.primeiraAlternativa }"
-					style="width:600px"></h:inputTextarea>
+					style="width:500px"></h:inputTextarea>
 			</a:field>
 			<a:field label="Segunda Alternativa" spaceLeft="15px">
 				<h:inputTextarea
 					value="#{QuestaoControl.questao.segundaAlternativa }"
-					style="width:600px"></h:inputTextarea>
+					style="width:500px"></h:inputTextarea>
 			</a:field>
 			<a:newLine />
 			<a:field label="Terceira Alternativa">
 				<h:inputTextarea
 					value="#{QuestaoControl.questao.terceiraAlternativa }"
-					style="width:600px"></h:inputTextarea>
+					style="width:500px"></h:inputTextarea>
 			</a:field>
 			<a:field label="Quarta Alternativa" spaceLeft="15px">
 				<h:inputTextarea
 					value="#{QuestaoControl.questao.quartaAlternativa }"
-					style="width:600px"></h:inputTextarea>
+					style="width:500px"></h:inputTextarea>
 			</a:field>
 			<a:newLine />
 			<a:field label="Quinta Alternativa">
 				<h:inputTextarea
 					value="#{QuestaoControl.questao.quintaAlternativa }"
-					style="width:600px"></h:inputTextarea>
+					style="width:500px"></h:inputTextarea>
 			</a:field>
 			<a:field label="Resposta" spaceLeft="15px">
-				<p:inputText value="#{DisciplinaControl.disciplina.id }"
+				<p:inputText value="#{QuestaoControl.questao.resposta }"
 					style="width:50px" maxlength="1" />
 			</a:field>
 			<a:field label="Estado" spaceLeft="15px">
@@ -59,7 +59,7 @@
 			</a:field>
 			<a:field label="Dificuldade" spaceLeft="15px">
 				<h:selectOneMenu id="dificuldade"
-					value="#{QuestaoControl.questao.dificuldade}" style="width:200px">
+					value="#{QuestaoControl.questao.dificuldade}" style="width:202px">
 					<f:selectItem itemLabel="Selecione" itemValue="" />
 					<f:selectItems value="#{ QuestaoControl.dificuldades}" var="tipo"
 						itemValue="#{tipo}" itemLabel="#{tipo}" />
@@ -87,6 +87,24 @@
 					<h:outputText value="Assunto"></h:outputText>
 				</f:facet>
 				<h:outputText value="#{cont.assunto }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.resposta }">
+				<f:facet name="header">
+					<h:outputText value="Resposta"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.resposta }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.estado }">
+				<f:facet name="header">
+					<h:outputText value="Estado"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.estado }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.dificuldade }">
+				<f:facet name="header">
+					<h:outputText value="Dificuldade"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.dificuldade }"></h:outputText>
 			</p:column>
 		</p:dataTable>
 
