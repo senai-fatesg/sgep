@@ -9,58 +9,68 @@
 	<ui:define name="corpo">
 
 		<p:panel header="Formulário" id="panel">
-			<h:panelGrid columns="2">
-				<a:field label="Enunciado">
-					<h:inputTextarea value="#{QuestaoControl.questao.enunciado }"></h:inputTextarea>
-				</a:field>
-				<a:field label="Assunto">
-					<h:inputTextarea value="#{QuestaoControl.questao.assunto }"></h:inputTextarea>
-				</a:field>
-				<a:field label="Primeira Alternativa">
-					<h:inputTextarea
-						value="#{QuestaoControl.questao.primeiraAlternativa }"></h:inputTextarea>
-				</a:field>
-				<a:field label="Segunda Alternativa">
-					<h:inputTextarea
-						value="#{QuestaoControl.questao.segundaAlternativa }"></h:inputTextarea>
-				</a:field>
-				<a:field label="Terceira Alternativa">
-					<h:inputTextarea
-						value="#{QuestaoControl.questao.terceiraAlternativa }"></h:inputTextarea>
-				</a:field>
-				<a:field label="Quarta Alternativa">
-					<h:inputTextarea
-						value="#{QuestaoControl.questao.quartaAlternativa }"></h:inputTextarea>
-				</a:field>
-				<a:field label="Quinta Alternativa">
-					<h:inputTextarea
-						value="#{QuestaoControl.questao.quintaAlternativa }"></h:inputTextarea>
-				</a:field>
-				<a:field label="Resposta">
-					<p:inputText value="#{DisciplinaControl.disciplina.id }"
-					style="width:50px" maxlength="1"/>
-				</a:field>
-				<a:field label="Estado" spaceLeft="15px">
-					<h:selectOneMenu id="estado"
-						value="#{QuestaoControl.questao.estado}">
-						<f:selectItem itemLabel="Selecione..." itemValue="" />
-						<f:selectItems value="#{ QuestaoControl.estados}" var="tipo"
-							itemValue="#{tipo}" itemLabel="#{tipo}" />
-					</h:selectOneMenu>
-				</a:field>
-				<a:field label="Dificuldade" spaceLeft="15px">
-					<h:selectOneMenu id="dificuldade"
-						value="#{QuestaoControl.questao.dificuldade}">
-						<f:selectItem itemLabel="Selecione" itemValue="" />
-						<f:selectItems value="#{ QuestaoControl.dificuldades}" var="tipo"
-							itemValue="#{tipo}" itemLabel="#{tipo}" />
-					</h:selectOneMenu>
-				</a:field>
-				<p:commandButton actionListener="#{QuestaoControl.confirmar }"
-					value="Confirmar" update="questoes, panel"></p:commandButton>
-			</h:panelGrid>
+			<a:field label="Enunciado">
+				<h:inputTextarea value="#{QuestaoControl.questao.enunciado }"
+					style="width:600px"></h:inputTextarea>
+			</a:field>
+			<a:field label="Assunto" spaceLeft="15px">
+				<h:inputTextarea value="#{QuestaoControl.questao.assunto }"
+					style="width:600px"></h:inputTextarea>
+			</a:field>
+			<a:newLine />
+			<a:field label="Primeira Alternativa">
+				<h:inputTextarea
+					value="#{QuestaoControl.questao.primeiraAlternativa }"
+					style="width:600px"></h:inputTextarea>
+			</a:field>
+			<a:field label="Segunda Alternativa" spaceLeft="15px">
+				<h:inputTextarea
+					value="#{QuestaoControl.questao.segundaAlternativa }"
+					style="width:600px"></h:inputTextarea>
+			</a:field>
+			<a:newLine />
+			<a:field label="Terceira Alternativa">
+				<h:inputTextarea
+					value="#{QuestaoControl.questao.terceiraAlternativa }"
+					style="width:600px"></h:inputTextarea>
+			</a:field>
+			<a:field label="Quarta Alternativa" spaceLeft="15px">
+				<h:inputTextarea
+					value="#{QuestaoControl.questao.quartaAlternativa }"
+					style="width:600px"></h:inputTextarea>
+			</a:field>
+			<a:newLine />
+			<a:field label="Quinta Alternativa">
+				<h:inputTextarea
+					value="#{QuestaoControl.questao.quintaAlternativa }"
+					style="width:600px"></h:inputTextarea>
+			</a:field>
+			<a:field label="Resposta" spaceLeft="15px">
+				<p:inputText value="#{DisciplinaControl.disciplina.id }"
+					style="width:50px" maxlength="1" />
+			</a:field>
+			<a:field label="Estado" spaceLeft="15px">
+				<h:selectOneMenu id="estado"
+					value="#{QuestaoControl.questao.estado}" style="width:200px">
+					<f:selectItem itemLabel="Selecione..." itemValue="" />
+					<f:selectItems value="#{ QuestaoControl.estados}" var="tipo"
+						itemValue="#{tipo}" itemLabel="#{tipo}" />
+				</h:selectOneMenu>
+			</a:field>
+			<a:field label="Dificuldade" spaceLeft="15px">
+				<h:selectOneMenu id="dificuldade"
+					value="#{QuestaoControl.questao.dificuldade}" style="width:200px">
+					<f:selectItem itemLabel="Selecione" itemValue="" />
+					<f:selectItems value="#{ QuestaoControl.dificuldades}" var="tipo"
+						itemValue="#{tipo}" itemLabel="#{tipo}" />
+				</h:selectOneMenu>
+			</a:field>
+			<a:newLine />
+			<a:newLine />
+			<p:commandButton actionListener="#{QuestaoControl.confirmar }"
+				value="Confirmar" update="questoes, panel"></p:commandButton>
 		</p:panel>
-
+		<a:newLine />
 		<p:dataTable id="questoes" value="#{QuestaoControl.questoes }"
 			var="cont" width="100%" emptyMessage="Sem registros">
 			<f:facet name="header">
