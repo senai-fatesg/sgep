@@ -61,43 +61,33 @@ import org.primefaces.model.StreamedContent;
 
 public class RelatorioUtil {
 
-	public static final int	RELATORIO_PDF							= 1;
-	public static final int	RELATORIO_EXCEL						= 2;
-	public static final int	RELATORIO_HTML							= 3;
-	public static final int	RELATORIO_PLANILHA_OPEN_OFFICE	= 4;
-
+	public static final int	PROVA_PDF							= 1;
+	public static final int	RELATORIO_HTML							= 2;
+	
 	public StreamedContent geraRelatorio(HashMap parametrosRelatorio, String nomeRelatorioJasper, String nomeRelatorioSaida, int tipoRelatorio) throws UtilException {
 		StreamedContent arquivoRetorno = null;
 
 		try {
 			FacesContext context = FacesContext.getCurrentInstance();
 			Connection conexao = this.getConexao();
-			String caminhoRelatorio = context.getExternalContext().getRealPath("relatorios");
+			String caminhoRelatorio = context.getExternalContext().getRealPath("provas");
 			String caminhoArquivoJasper = caminhoRelatorio + File.separator + nomeRelatorioJasper + ".jasper";
 			String caminhoArquivoRelatorio = null;
 
-			JasperReport relatorioJasper = (JasperReport) JRLoader.loadObject(caminhoArquivoJasper);
+			JasperReport relatorioJasper = (JasperReport) JRLoader.loadObjectFromFile(caminhoArquivoJasper);
 			JasperPrint impressoraJasper = JasperFillManager.fillReport(relatorioJasper, parametrosRelatorio, conexao);
 			JRExporter tipoArquivoExportado = null;
 			String extensaoArquivoExportado = "";
 			File arquivoGerado = null;
 
 			switch (tipoRelatorio) {
-				case RelatorioUtil.RELATORIO_PDF :
+				case RelatorioUtil.PROVA_PDF :
 					tipoArquivoExportado = new JRPdfExporter();
 					extensaoArquivoExportado = "pdf";
 					break;
 				case RelatorioUtil.RELATORIO_HTML :
 					tipoArquivoExportado = new JRHtmlExporter();
 					extensaoArquivoExportado = "html";
-					break;
-				case RelatorioUtil.RELATORIO_EXCEL :
-					tipoArquivoExportado = new JRXlsExporter();
-					extensaoArquivoExportado = "xls";
-					break;
-				case RelatorioUtil.RELATORIO_PLANILHA_OPEN_OFFICE :
-					tipoArquivoExportado = new JROdtExporter();
-					extensaoArquivoExportado = "ods";
 					break;
 				default :
 					tipoArquivoExportado = new JRPdfExporter();
@@ -126,7 +116,7 @@ public class RelatorioUtil {
 		try {
 			Context initContext = new InitialContext();
 			Context envContext = (Context) initContext.lookup("java:/comp/env/");
-			javax.sql.DataSource ds = (javax.sql.DataSource) envContext.lookup("jdbc/FinanceiroDB");
+			javax.sql.DataSource ds = (javax.sql.DataSource) envContext.lookup("jdbc/sgep");
 			conexao = (java.sql.Connection) ds.getConnection();
 		} catch (NamingException e) {
 			throw new UtilException("Não foi possível encontrar o nome da conexão do banco.", e);

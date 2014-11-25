@@ -97,5 +97,5 @@ public class ProvaControl {
 
 	public void setQuestao(Questao questao) {
 		this.questao = questao;
-	}	
+	}
 }
