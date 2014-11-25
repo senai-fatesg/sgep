@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
+import br.com.ambientinformatica.fatesg.api.dao.ColaboradorDao;
+import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
 import br.com.ambientinformatica.fatesg.sgep.entidade.EnumDificuldade;
 import br.com.ambientinformatica.fatesg.sgep.entidade.EnumEstado;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Questao;
@@ -32,6 +34,13 @@ public class QuestaoControl implements Serializable {
 	private List<Questao> questoes = new ArrayList<Questao>();
 
 	private Questao questao = new Questao();
+
+	private Colaborador professor = new Colaborador();
+
+	private List<Colaborador> professores = new ArrayList<Colaborador>();
+
+	@Autowired
+	ColaboradorDao colaboradorDao;
 
 	@PostConstruct
 	public void init() {
@@ -66,6 +75,16 @@ public class QuestaoControl implements Serializable {
 		}
 	}
 
+	public List<Colaborador> completarColaboradores(String nome) {
+		List<Colaborador> listaColaboradores = colaboradorDao
+				.consultarPeloNome(nome);
+		if (listaColaboradores.size() == 0) {
+			UtilFaces
+					.addMensagemFaces("Professor não encontrado\nVerifique se o nome está correto.");
+		}
+		return listaColaboradores;
+	}
+
 	public List<SelectItem> getEstados() {
 		return UtilFaces.getListEnum(EnumEstado.values());
 	}
@@ -89,5 +108,38 @@ public class QuestaoControl implements Serializable {
 	public void setQuestao(Questao questao) {
 		this.questao = questao;
 	}
+
+	public Colaborador getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Colaborador professor) {
+		this.professor = professor;
+	}
+
+	public List<Colaborador> getProfessores() {
+		return professores;
+	}
+
+	public void setProfessores(List<Colaborador> professores) {
+		this.professores = professores;
+	}
+
+	public QuestaoDao getQuestaoDao() {
+		return questaoDao;
+	}
+
+	public void setQuestaoDao(QuestaoDao questaoDao) {
+		this.questaoDao = questaoDao;
+	}
+
+	public ColaboradorDao getColaboradorDao() {
+		return colaboradorDao;
+	}
+
+	public void setColaboradorDao(ColaboradorDao colaboradorDao) {
+		this.colaboradorDao = colaboradorDao;
+	}
+	
 
 }
