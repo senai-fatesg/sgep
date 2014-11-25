@@ -65,6 +65,17 @@
 						itemValue="#{tipo}" itemLabel="#{tipo}" />
 				</h:selectOneMenu>
 			</a:field>
+			<a:field label="Professor" width="440px" spaceLeft="15px">
+				<p:autoComplete id="completUsuario"
+					value="#{QuestaoControl.questao.professor}"
+					completeMethod="#{QuestaoControl.completarColaboradores}"
+					minQueryLength="3" var="colaborador"
+					itemLabel="#{colaborador.nome}" itemValue="#{colaborador}"
+					converter="colaboradorConverter">
+				</p:autoComplete>
+				<p:watermark value="Pesquise pelo Nome"
+					for="completUsuario" />
+			</a:field>
 			<a:newLine />
 			<a:newLine />
 			<p:commandButton actionListener="#{QuestaoControl.confirmar }"
