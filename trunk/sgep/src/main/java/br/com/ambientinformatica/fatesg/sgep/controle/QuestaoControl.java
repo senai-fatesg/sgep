@@ -1,5 +1,6 @@
 package br.com.ambientinformatica.fatesg.sgep.controle;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,12 @@ import br.com.ambientinformatica.fatesg.sgep.persistencia.QuestaoDao;
 
 @Controller("QuestaoControl")
 @Scope("conversation")
-public class QuestaoControl {
+public class QuestaoControl implements Serializable {
+	/**
+	 * author Glaicon Reis
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Autowired
 	private QuestaoDao questaoDao;
 
@@ -59,11 +65,11 @@ public class QuestaoControl {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
-	
+
 	public List<SelectItem> getEstados() {
 		return UtilFaces.getListEnum(EnumEstado.values());
 	}
-	
+
 	public List<SelectItem> getDificuldades() {
 		return UtilFaces.getListEnum(EnumDificuldade.values());
 	}
@@ -83,5 +89,5 @@ public class QuestaoControl {
 	public void setQuestao(Questao questao) {
 		this.questao = questao;
 	}
-		
+
 }
