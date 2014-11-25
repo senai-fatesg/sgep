@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+
+		<p:panel header="Cadastro de Sessão" id="panel">
+			<a:field label="Enunciado">
+				<h:inputText value="#{SessaoControl.sessao.titulo }"
+					style="width:500px"></h:inputText>
+			</a:field>
+			<a:field label="Assunto" spaceLeft="15px">
+				<h:inputTextarea value="#{SessaoControl.sessao.descricao }"
+					style="width:500px"></h:inputTextarea>
+			</a:field>
+			<a:newLine />
+			<a:newLine />
+			<p:commandButton actionListener="#{SessaoControl.confirmar }"
+				value="Confirmar" update="sessoes, panel"></p:commandButton>
+		</p:panel>
+		<a:newLine />
+		<p:dataTable id="sessoes" value="#{SessaoControl.sessoes }"
+			var="cont" width="100%" emptyMessage="Sem registros">
+			<f:facet name="header">
+				<h:outputText value="Lista de Sessões"></h:outputText>
+			</f:facet>
+			<p:column sortBy="#{cont.titulo }">
+				<f:facet name="header">
+					<h:outputText value="Título"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.titulo }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.descricao }">
+				<f:facet name="header">
+					<h:outputText value="Descrição"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.descricao }"></h:outputText>
+			</p:column>
+		</p:dataTable>
+
+	</ui:define>
+</ui:composition>
