@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+
+		<p:panel header="Cadastro de Prova" id="panel">
+			<a:field label="Período">
+				<h:inputText value="#{ProvaControl.prova.periodo }"></h:inputText>
+			</a:field>
+			<a:field label="Data" spaceLeft="15px">
+				<p:calendar> value="#{ProvaControl.prova.descricao }"</p:calendar> >
+			</a:field>
+			<a:newLine />
+			<a:newLine />
+			<p:commandButton actionListener="#{ProvaControl.confirmar }"
+				value="Confirmar" update="provas, panel"></p:commandButton>
+		</p:panel>
+		<a:newLine />
+		<p:dataTable id="provas" value="#{ProvaControl.sessoes }" var="cont"
+			width="100%" emptyMessage="Sem registros">
+			<f:facet name="header">
+				<h:outputText value="Lista de Provas"></h:outputText>
+			</f:facet>
+			<p:column sortBy="#{cont.periodo }">
+				<f:facet name="header">
+					<h:outputText value="Período"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.periodo }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.data }">
+				<f:facet name="header">
+					<h:outputText value="Data"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.data }"></h:outputText>
+			</p:column>
+		</p:dataTable>
+
+	</ui:define>
+</ui:composition>
