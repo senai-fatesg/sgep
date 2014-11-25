@@ -1,5 +1,6 @@
 package br.com.ambientinformatica.fatesg.sgep.entidade;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +15,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
-import br.com.ambientinformatica.fatesg.api.Colaborador;
-import br.com.ambientinformatica.fatesg.api.Disciplina;
+import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
+import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
+
 
 @Entity
-public class Questao{
+public class Questao implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "questao_seq", strategy = GenerationType.SEQUENCE)
@@ -106,6 +110,14 @@ public class Questao{
 
 	public EnumEstado getEstado() {
 		return estado;
+	}
+
+	public void setEstado(EnumEstado estado) {
+		this.estado = estado;
+	}
+
+	public void setDificuldade(EnumDificuldade dificuldade) {
+		this.dificuldade = dificuldade;
 	}
 
 	public EnumDificuldade getDificuldade() {
