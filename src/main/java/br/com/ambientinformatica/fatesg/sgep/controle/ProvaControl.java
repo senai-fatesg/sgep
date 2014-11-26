@@ -33,6 +33,8 @@ public class ProvaControl {
 	private Prova prova = new Prova();
 	
 	private Prova provaSelecionada = new Prova();
+	
+	private ItensProva itensProva = new ItensProva();
 
 	public void addQuestao(Questao questao) {
 		ItensProva novoItem = new ItensProva(prova, questao);
@@ -128,6 +130,14 @@ public class ProvaControl {
 	      } catch (Exception e) {
 	         UtilFaces.addMensagemFaces(e);
 	      }
+	}
+
+	public ItensProva getItensProva() {
+		return itensProva;
+	}
+
+	public void setItensProva(ItensProva itensProva) {
+		this.itensProva = itensProva;
 	}
 	
 }

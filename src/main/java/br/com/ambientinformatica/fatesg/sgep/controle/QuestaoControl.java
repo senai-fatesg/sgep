@@ -38,6 +38,8 @@ public class QuestaoControl implements Serializable {
 	private Colaborador professor = new Colaborador();
 
 	private List<Colaborador> professores = new ArrayList<Colaborador>();
+	
+	private Questao questaoSelecionada = new Questao();
 
 	ColaboradorDao colaboradorDao;
 
@@ -138,6 +140,23 @@ public class QuestaoControl implements Serializable {
 
 	public void setColaboradorDao(ColaboradorDao colaboradorDao) {
 		this.colaboradorDao = colaboradorDao;
+	}
+
+	public Questao getQuestaoSelecionada() {
+		return questaoSelecionada;
+	}
+
+	public void setQuestaoSelecionada(Questao questaoSelecionada) {
+		try {
+	         if(questaoSelecionada != null){
+	            Questao q = questaoDao.consultar(questaoSelecionada.getId());
+	            this.questaoSelecionada = q;
+	         }else{
+	            this.questaoSelecionada = null;
+	         }
+	      } catch (Exception e) {
+	         UtilFaces.addMensagemFaces(e);
+	      }
 	}
 
 }
