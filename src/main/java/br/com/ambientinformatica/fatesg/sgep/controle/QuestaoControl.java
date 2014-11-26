@@ -39,7 +39,6 @@ public class QuestaoControl implements Serializable {
 
 	private List<Colaborador> professores = new ArrayList<Colaborador>();
 
-	@Autowired
 	ColaboradorDao colaboradorDao;
 
 	@PostConstruct
@@ -140,6 +139,5 @@ public class QuestaoControl implements Serializable {
 	public void setColaboradorDao(ColaboradorDao colaboradorDao) {
 		this.colaboradorDao = colaboradorDao;
 	}
-	
 
 }
