@@ -14,13 +14,17 @@ import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.fatesg.sgep.entidade.ItensProva;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Prova;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Questao;
+import br.com.ambientinformatica.fatesg.sgep.entidade.Sessao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.ProvaDao;
+import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoDao;
 
 @Controller("ProvaControl")
 @Scope("conversation")
 public class ProvaControl {
 	@Autowired
 	private ProvaDao provaDao;
+	
+	private SessaoDao sessaoDao;
 
 	private List<Prova> provas = new ArrayList<Prova>();
 
@@ -79,6 +83,14 @@ public class ProvaControl {
 
 	public void limpar() {
 		prova = new Prova();
+	}
+	
+	public List<Sessao> completarSessao(String titulo){
+		List<Sessao> listaSessoes = sessaoDao.consultarPeloTitulo(titulo);
+		if (listaSessoes.size() == 0) {
+			UtilFaces.addMensagemFaces("Sessão não encontrada");
+		}
+		return listaSessoes;
 	}
 
 	public Prova getProva() {
