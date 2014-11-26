@@ -13,7 +13,7 @@
 				<h:inputText value="#{ProvaControl.prova.periodo }"></h:inputText>
 			</a:field>
 			<a:field label="Data" spaceLeft="15px">
-				<p:calendar> value="#{ProvaControl.prova.descricao }"</p:calendar> >
+				<p:calendar> value="#{ProvaControl.prova.data }"</p:calendar> >
 			</a:field>
 			<a:newLine />
 			<a:newLine />
@@ -21,7 +21,7 @@
 				value="Confirmar" update="provas, panel"></p:commandButton>
 		</p:panel>
 		<a:newLine />
-		<p:dataTable id="provas" value="#{ProvaControl.sessoes }" var="cont"
+		<p:dataTable id="provas" value="#{ProvaControl.provas }" var="cont"
 			width="100%" emptyMessage="Sem registros">
 			<f:facet name="header">
 				<h:outputText value="Lista de Provas"></h:outputText>

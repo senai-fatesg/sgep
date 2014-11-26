@@ -10,118 +10,34 @@
 
 		<p:panel header="Formulário" id="panel">
 			<p:commandButton icon="ui-icon-extlink"
-				actionListener="#{ProvaControl.view }" value="Selecionar Prova">
-				<p:ajax event="dialogReturn"
-					listener="#{ProvaControl.selecionarProva}" update="growl" />
+				oncomplete="selecionarProva.show()" value="Selecionar Prova"
+				update=":formCorpo:selecionarProva">
+				<f:setPropertyActionListener
+					target="#{ProvaControl.provaSelecionada }" value="#{prova}" />
 			</p:commandButton>
-			<a:field label="Enunciado">
-				<h:inputTextarea value="#{QuestaoControl.questao.enunciado }"
-					style="width:500px"></h:inputTextarea>
-			</a:field>
-			<a:field label="Assunto" spaceLeft="15px">
-				<h:inputTextarea value="#{QuestaoControl.questao.assunto }"
-					style="width:500px"></h:inputTextarea>
-			</a:field>
-			<a:newLine />
-			<a:field label="Primeira Alternativa">
-				<h:inputTextarea
-					value="#{QuestaoControl.questao.primeiraAlternativa }"
-					style="width:500px"></h:inputTextarea>
-			</a:field>
-			<a:field label="Segunda Alternativa" spaceLeft="15px">
-				<h:inputTextarea
-					value="#{QuestaoControl.questao.segundaAlternativa }"
-					style="width:500px"></h:inputTextarea>
-			</a:field>
-			<a:newLine />
-			<a:field label="Terceira Alternativa">
-				<h:inputTextarea
-					value="#{QuestaoControl.questao.terceiraAlternativa }"
-					style="width:500px"></h:inputTextarea>
-			</a:field>
-			<a:field label="Quarta Alternativa" spaceLeft="15px">
-				<h:inputTextarea
-					value="#{QuestaoControl.questao.quartaAlternativa }"
-					style="width:500px"></h:inputTextarea>
-			</a:field>
-			<a:newLine />
-			<a:field label="Quinta Alternativa">
-				<h:inputTextarea
-					value="#{QuestaoControl.questao.quintaAlternativa }"
-					style="width:500px"></h:inputTextarea>
-			</a:field>
-			<a:field label="Resposta" spaceLeft="15px">
-				<p:inputText value="#{QuestaoControl.questao.resposta }"
-					style="width:50px" maxlength="1" />
-			</a:field>
-			<a:field label="Estado" spaceLeft="15px">
-				<h:selectOneMenu id="estado"
-					value="#{QuestaoControl.questao.estado}" style="width:200px">
-					<f:selectItem itemLabel="Selecione..." itemValue="" />
-					<f:selectItems value="#{ QuestaoControl.estados}" var="tipo"
-						itemValue="#{tipo}" itemLabel="#{tipo}" />
-				</h:selectOneMenu>
-			</a:field>
-			<a:field label="Dificuldade" spaceLeft="15px">
-				<h:selectOneMenu id="dificuldade"
-					value="#{QuestaoControl.questao.dificuldade}" style="width:202px">
-					<f:selectItem itemLabel="Selecione" itemValue="" />
-					<f:selectItems value="#{ QuestaoControl.dificuldades}" var="tipo"
-						itemValue="#{tipo}" itemLabel="#{tipo}" />
-				</h:selectOneMenu>
-			</a:field>
-			<a:field label="Professor" width="440px" spaceLeft="15px">
-				<p:autoComplete id="completUsuario"
-					value="#{QuestaoControl.questao.professor}"
-					completeMethod="#{QuestaoControl.completarColaboradores}"
-					minQueryLength="3" var="colaborador"
-					itemLabel="#{colaborador.nome}" itemValue="#{colaborador}"
-					converter="colaboradorConverter">
-				</p:autoComplete>
-				<p:watermark value="Pesquise pelo Nome" for="completUsuario" />
-			</a:field>
-			<a:newLine />
-			<a:newLine />
-			<p:commandButton actionListener="#{QuestaoControl.confirmar }"
-				value="Confirmar" update="questoes, panel"></p:commandButton>
 		</p:panel>
 		<a:newLine />
-		<p:dataTable id="questoes" value="#{QuestaoControl.questoes }"
-			var="cont" width="100%" emptyMessage="Sem registros">
-			<f:facet name="header">
-				<h:outputText value="Lista de Querstões"></h:outputText>
-			</f:facet>
-			<p:column sortBy="#{cont.enunciado }">
-				<f:facet name="header">
-					<h:outputText value="Enunciado"></h:outputText>
-				</f:facet>
-				<h:outputText value="#{cont.enunciado }"></h:outputText>
-			</p:column>
-			<p:column sortBy="#{cont.assunto }">
-				<f:facet name="header">
-					<h:outputText value="Assunto"></h:outputText>
-				</f:facet>
-				<h:outputText value="#{cont.assunto }"></h:outputText>
-			</p:column>
-			<p:column sortBy="#{cont.resposta }">
-				<f:facet name="header">
-					<h:outputText value="Resposta"></h:outputText>
-				</f:facet>
-				<h:outputText value="#{cont.resposta }"></h:outputText>
-			</p:column>
-			<p:column sortBy="#{cont.estado }">
-				<f:facet name="header">
-					<h:outputText value="Estado"></h:outputText>
-				</f:facet>
-				<h:outputText value="#{cont.estado }"></h:outputText>
-			</p:column>
-			<p:column sortBy="#{cont.dificuldade }">
-				<f:facet name="header">
-					<h:outputText value="Dificuldade"></h:outputText>
-				</f:facet>
-				<h:outputText value="#{cont.dificuldade }"></h:outputText>
-			</p:column>
-		</p:dataTable>
+		<p:dialog id="selecionarProva" header="Provas"
+			widgetVar="selecionarProva" modal="true">
 
+			<p:dataTable id="provas" value="#{ProvaControl.provas }" var="cont"
+				width="100%" emptyMessage="Sem registros">
+				<f:facet name="header">
+					<h:outputText value="Lista de Provas"></h:outputText>
+				</f:facet>
+				<p:column sortBy="#{cont.periodo }">
+					<f:facet name="header">
+						<h:outputText value="Período"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{cont.periodo }"></h:outputText>
+				</p:column>
+				<p:column sortBy="#{cont.data }">
+					<f:facet name="header">
+						<h:outputText value="Data"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{cont.data }"></h:outputText>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
 	</ui:define>
 </ui:composition>
