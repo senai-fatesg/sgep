@@ -15,6 +15,12 @@
 				<f:setPropertyActionListener
 					target="#{ProvaControl.provaSelecionada }" value="#{prova}" />
 			</p:commandButton>
+			<a:field label="Sessão" width="270px" for="sessao">
+				<p:autoComplete id="sessao" value="#{ProvaControl.prova.sessao}"
+				completeMethod="#{ProvaControl.completarSessao}" var="s"
+				itemLabel="#{s.titulo}" itemValue="#{s}"/>
+				<p:watermark value="Pesquise pelo titulo" for="sessao"/>
+			</a:field>
 		</p:panel>
 		<a:newLine />
 		<p:dialog id="selecionarProva" header="Provas"
