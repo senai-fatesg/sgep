@@ -27,6 +27,8 @@ public class ProvaControl {
 	private Questao questao = new Questao();
 
 	private Prova prova = new Prova();
+	
+	private Prova provaSelecionada = new Prova();
 
 	public void addQuestao(Questao questao) {
 		ItensProva novoItem = new ItensProva(prova, questao);
@@ -98,4 +100,22 @@ public class ProvaControl {
 	public void setQuestao(Questao questao) {
 		this.questao = questao;
 	}
+
+	public Prova getProvaSelecionada() {
+		return provaSelecionada;
+	}
+
+	public void setProvaSelecionada(Prova provaSelecionada) {
+		try {
+	         if(provaSelecionada != null){
+	            Prova p = provaDao.consultar(provaSelecionada.getId());
+	            this.provaSelecionada = p;
+	         }else{
+	            this.provaSelecionada = null;
+	         }
+	      } catch (Exception e) {
+	         UtilFaces.addMensagemFaces(e);
+	      }
+	}
+	
 }
