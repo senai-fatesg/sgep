@@ -21,6 +21,16 @@
 				itemLabel="#{s.titulo}" itemValue="#{s}"/>
 				<p:watermark value="Pesquise pelo titulo" for="sessao"/>
 			</a:field>
+			<a:field label="Número Questão">
+				<p:inputText value="#{ProvaControl.itensProva.numero}"
+					style="width:70px" />
+			</a:field>
+			<p:commandButton icon="ui-icon-extlink"
+				oncomplete="selecionarQuestao.show()" value="Selecionar questao"
+				update=":formCorpo:selecionarQuestao">
+				<f:setPropertyActionListener
+					target="#{ProvaControl.questaoSelecionada }" value="#{questao}" />
+			</p:commandButton>
 		</p:panel>
 		<a:newLine />
 		<p:dialog id="selecionarProva" header="Provas"
@@ -44,6 +54,11 @@
 					<h:outputText value="#{cont.data }"></h:outputText>
 				</p:column>
 			</p:dataTable>
+		</p:dialog>
+		<p:dialog id="selecionarQuestao" header="Questoes"
+			widgetVar="selecionarQuestao" modal="true">
+			Listagem das Questões
+			
 		</p:dialog>
 	</ui:define>
 </ui:composition>
