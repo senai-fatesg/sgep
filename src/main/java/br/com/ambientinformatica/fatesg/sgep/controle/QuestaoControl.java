@@ -77,8 +77,7 @@ public class QuestaoControl implements Serializable {
 	}
 
 	public List<Colaborador> completarColaboradores(String nome) {
-		List<Colaborador> listaColaboradores = colaboradorDao
-				.consultarPeloNome(nome);
+		List<Colaborador> listaColaboradores = colaboradorDao.consultarPeloNome(nome);
 		if (listaColaboradores.size() == 0) {
 			UtilFaces
 					.addMensagemFaces("Professor não encontrado\nVerifique se o nome está correto.");

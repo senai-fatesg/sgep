@@ -15,21 +15,27 @@
 				<f:setPropertyActionListener
 					target="#{ProvaControl.provaSelecionada }" value="#{prova}" />
 			</p:commandButton>
+			<a:newLine />
+			<a:newLine />
+			
 			<a:field label="Sessão" width="270px" for="sessao">
-				<p:autoComplete id="sessao" value="#{ProvaControl.prova.sessao}"
-				completeMethod="#{ProvaControl.completarSessao}" var="s"
+				<p:autoComplete id="sessao" value="#{QuestaoControl.questao.sessao}"
+				completeMethod="#{SessaoControl.completarSessao}" var="s"
 				itemLabel="#{s.titulo}" itemValue="#{s}"/>
 				<p:watermark value="Pesquise pelo titulo" for="sessao"/>
-			</a:field>
-			<a:field label="Número Questão">
+				</a:field>
+		
+			<a:field label="Número">
 				<p:inputText value="#{ProvaControl.itensProva.numero}"
 					style="width:70px" />
 			</a:field>
+			<a:newLine />
+			<a:newLine />
 			<p:commandButton icon="ui-icon-extlink"
 				oncomplete="selecionarQuestao.show()" value="Selecionar questao"
 				update=":formCorpo:selecionarQuestao">
 				<f:setPropertyActionListener
-					target="#{ProvaControl.questaoSelecionada }" value="#{questao}" />
+					target="#{ProvaControl.questaoSelecionada }" value="#{questao} />
 			</p:commandButton>
 		</p:panel>
 		<a:newLine />

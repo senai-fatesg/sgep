@@ -9,11 +9,11 @@
 	<ui:define name="corpo">
 
 		<p:panel header="Cadastro de Sessão" id="panel">
-			<a:field label="Enunciado">
+			<a:field label="Título">
 				<h:inputText value="#{SessaoControl.sessao.titulo }"
 					style="width:500px"></h:inputText>
 			</a:field>
-			<a:field label="Assunto" spaceLeft="15px">
+			<a:field label="Descrição" spaceLeft="15px">
 				<h:inputTextarea value="#{SessaoControl.sessao.descricao }"
 					style="width:500px"></h:inputTextarea>
 			</a:field>

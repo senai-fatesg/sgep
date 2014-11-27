@@ -54,6 +54,9 @@ public class Questao implements Serializable{
 	@ManyToOne
 	private Disciplina disciplina;
 	
+	@ManyToOne
+	private Sessao sessao;
+	
 	@Enumerated(EnumType.STRING)
 	private EnumEstado estado;
 	
@@ -168,6 +171,14 @@ public class Questao implements Serializable{
 		this.disciplina = disciplina;
 	}
 
+	public Sessao getSessao() {
+		return sessao;
+	}
+
+	public void setSessao(Sessao sessao) {
+		this.sessao = sessao;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -201,6 +212,7 @@ public class Questao implements Serializable{
 				* result
 				+ ((segundaAlternativa == null) ? 0 : segundaAlternativa
 						.hashCode());
+		result = prime * result + ((sessao == null) ? 0 : sessao.hashCode());
 		result = prime
 				* result
 				+ ((terceiraAlternativa == null) ? 0 : terceiraAlternativa
@@ -272,6 +284,11 @@ public class Questao implements Serializable{
 			if (other.segundaAlternativa != null)
 				return false;
 		} else if (!segundaAlternativa.equals(other.segundaAlternativa))
+			return false;
+		if (sessao == null) {
+			if (other.sessao != null)
+				return false;
+		} else if (!sessao.equals(other.sessao))
 			return false;
 		if (terceiraAlternativa == null) {
 			if (other.terceiraAlternativa != null)
