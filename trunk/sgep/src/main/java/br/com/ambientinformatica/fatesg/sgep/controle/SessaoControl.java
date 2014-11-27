@@ -63,6 +63,14 @@ public class SessaoControl implements Serializable {
 		}
 	}
 
+	public List<Sessao> completarSessao(String titulo){
+		List<Sessao> listaSessoes = sessaoDao.consultarPeloTitulo(titulo);
+		if (listaSessoes.size() == 0) {
+			UtilFaces.addMensagemFaces("Sessão não encontrada");
+		}
+		return listaSessoes;
+	}
+	
 	public void limpar() {
 		sessao = new Sessao();
 	}
