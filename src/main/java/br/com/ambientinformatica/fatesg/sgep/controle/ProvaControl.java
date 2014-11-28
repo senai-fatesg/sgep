@@ -32,6 +32,9 @@ public class ProvaControl {
 	
 	private ItensProva itensProva = new ItensProva();
 
+	
+
+	
 	public void addQuestao(Questao questao) {
 		ItensProva novoItem = new ItensProva(prova, questao);
 		if (questao.getItens().contains(novoItem)) {
