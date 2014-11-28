@@ -38,10 +38,10 @@ public class QuestaoControl implements Serializable {
 	private Colaborador professor = new Colaborador();
 
 	private List<Colaborador> professores = new ArrayList<Colaborador>();
-	
-	private Questao questaoSelecionada = new Questao();
 
-	ColaboradorDao colaboradorDao;
+	private Questao questaoSelecionada = new Questao();
+	@Autowired
+	private ColaboradorDao colaboradorDao;
 
 	@PostConstruct
 	public void init() {
@@ -77,7 +77,8 @@ public class QuestaoControl implements Serializable {
 	}
 
 	public List<Colaborador> completarColaboradores(String nome) {
-		List<Colaborador> listaColaboradores = colaboradorDao.consultarPeloNome(nome);
+		List<Colaborador> listaColaboradores = colaboradorDao
+				.consultarPeloNome(nome);
 		if (listaColaboradores.size() == 0) {
 			UtilFaces
 					.addMensagemFaces("Professor não encontrado\nVerifique se o nome está correto.");
@@ -125,37 +126,21 @@ public class QuestaoControl implements Serializable {
 		this.professores = professores;
 	}
 
-	public QuestaoDao getQuestaoDao() {
-		return questaoDao;
-	}
-
-	public void setQuestaoDao(QuestaoDao questaoDao) {
-		this.questaoDao = questaoDao;
-	}
-
-	public ColaboradorDao getColaboradorDao() {
-		return colaboradorDao;
-	}
-
-	public void setColaboradorDao(ColaboradorDao colaboradorDao) {
-		this.colaboradorDao = colaboradorDao;
-	}
-
 	public Questao getQuestaoSelecionada() {
 		return questaoSelecionada;
 	}
 
 	public void setQuestaoSelecionada(Questao questaoSelecionada) {
 		try {
-	         if(questaoSelecionada != null){
-	            Questao q = questaoDao.consultar(questaoSelecionada.getId());
-	            this.questaoSelecionada = q;
-	         }else{
-	            this.questaoSelecionada = null;
-	         }
-	      } catch (Exception e) {
-	         UtilFaces.addMensagemFaces(e);
-	      }
+			if (questaoSelecionada != null) {
+				Questao q = questaoDao.consultar(questaoSelecionada.getId());
+				this.questaoSelecionada = q;
+			} else {
+				this.questaoSelecionada = null;
+			}
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces(e);
+		}
 	}
 
 }
