@@ -40,7 +40,7 @@ public class QuestaoControl implements Serializable {
 	private List<Colaborador> professores = new ArrayList<Colaborador>();
 
 	private Questao questaoSelecionada = new Questao();
-	@Autowired
+	
 	private ColaboradorDao colaboradorDao;
 
 	@PostConstruct
