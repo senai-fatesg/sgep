@@ -10,10 +10,11 @@
 
 		<p:panel header="Cadastro de Prova" id="panel">
 			<a:field label="Período">
-				<h:inputText value="#{ProvaControl.prova.periodo }"></h:inputText>
+				<p:inputText value="#{ProvaControl.prova.periodo}"
+					style="width:70px" />
 			</a:field>
 			<a:field label="Data" spaceLeft="15px">
-				<p:calendar> value="#{ProvaControl.prova.data }"</p:calendar> >
+				<p:calendar value="#{ProvaControl.prova.data }" />
 			</a:field>
 			<a:newLine />
 			<a:newLine />
@@ -38,7 +39,31 @@
 				</f:facet>
 				<h:outputText value="#{cont.data }"></h:outputText>
 			</p:column>
-		</p:dataTable>
+			<p:column headerText="Ação">
+				<p:commandButton icon="ui-icon-trash" value="Excluir"
+					oncomplete="confirmacao.show()">
 
+					<f:setPropertyActionListener target="#{ProvaControl.prova}"
+						value="#{cont}" />
+
+				</p:commandButton>
+
+				<p:commandButton icon="ui-icon-pencil" value="Editar" update="@form"
+					process="@this">
+
+					<f:setPropertyActionListener target="#{ProvaControl.prova}"
+						value="#{cont}" />
+
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+		<p:confirmDialog widgetVar="confirmacao"
+			message="Tem Certeza que deseja excluir?" severity="alert"
+			closable="true">
+
+			<p:commandButton value="Sim" actionListener="#{ProvaControl.excluir}"
+				onclick="confirmacao.hide()" update="provas" process="@this" />
+			<p:commandButton value="Não" onclick="confirmacao.hide()" />
+		</p:confirmDialog>
 	</ui:define>
 </ui:composition>
