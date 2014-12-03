@@ -13,7 +13,7 @@
 
 
 	<context:property-placeholder location="classpath:application.properties" />
-	<context:component-scan base-package="br.com.ambientinformatica.fatesg.sgep" />
+	<context:component-scan base-package="br.com.ambientinformatica.fatesg.sgep, br.com.ambientinformatica.fatesg.api" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<bean id="entityManagerFactory"
