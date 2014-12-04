@@ -41,7 +41,8 @@ public class ColaboradorConverter implements Converter {
 					e.printStackTrace();
 				}
 			} catch (NumberFormatException exception) {
-            UtilFaces.addMensagemFaces("Colaborador não é válido. Erro no Converter");
+				UtilFaces
+						.addMensagemFaces("Colaborador não é válido. Erro no Converter");
 			}
 			return colaborador;
 		} else {
