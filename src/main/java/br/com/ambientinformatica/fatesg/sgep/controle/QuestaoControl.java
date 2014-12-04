@@ -41,6 +41,7 @@ public class QuestaoControl implements Serializable {
 
 	private Questao questaoSelecionada = new Questao();
 	
+	@Autowired
 	private ColaboradorDao colaboradorDao;
 
 	@PostConstruct
