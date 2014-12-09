@@ -15,6 +15,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>br.com.ambientinformatica.fatesg</groupId>
+			<artifactId>fatesg-api</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>	
+		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.1-901.jdbc4</version>
@@ -24,12 +30,6 @@
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>br.com.ambientinformatica.fatesg</groupId>
-			<artifactId>fatesg-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>br.com.ambientinformatica</groupId>
