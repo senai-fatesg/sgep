@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+
+		<p:panel header="Formulário" id="panel">
+			<p:commandButton icon="ui-icon-extlink"
+				oncomplete="selecionarProva.show()" value="Selecionar Prova"
+				update=":formCorpo:selecionarProva">
+				<f:setPropertyActionListener
+					target="#{ProvaControl.provaSelecionada }" value="#{prova}" />
+			</p:commandButton>
+			<a:newLine />
+			<a:newLine />
+			
+			<a:field label="Sessão" width="270px" for="sessao">
+				<p:autoComplete id="sessao" value="#{QuestaoControl.questao.sessao}"
+				completeMethod="#{SessaoControl.completarSessao}" var="s"
+				itemLabel="#{s.titulo}" itemValue="#{s}"/>
+				<p:watermark value="Pesquise pelo titulo" for="sessao"/>
+				</a:field>
+		
+			<a:field label="Número">
+				<p:inputText value="#{ProvaControl.itensProva.numero}"
+					style="width:70px" />
+			</a:field>
+			<a:newLine />
+			<a:newLine />
+			<p:commandButton icon="ui-icon-extlink"
+				oncomplete="selecionarQuestao.show()" value="Selecionar questao"
+				update=":formCorpo:selecionarQuestao">
+				<f:setPropertyActionListener
+					target="#{ProvaControl.questaoSelecionada }" value="#{questao} />
+			</p:commandButton>
+		</p:panel>
+		<a:newLine />
+		<p:dialog id="selecionarProva" header="Provas"
+			widgetVar="selecionarProva" modal="true">
+
+			<p:dataTable id="provas" value="#{ProvaControl.provas }" var="cont"
+				width="100%" emptyMessage="Sem registros">
+				<f:facet name="header">
+					<h:outputText value="Lista de Provas"></h:outputText>
+				</f:facet>
+				<p:column sortBy="#{cont.periodo }">
+					<f:facet name="header">
+						<h:outputText value="Período"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{cont.periodo }"></h:outputText>
+				</p:column>
+				<p:column sortBy="#{cont.data }">
+					<f:facet name="header">
+						<h:outputText value="Data"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{cont.data }"></h:outputText>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
+		<p:dialog id="selecionarQuestao" header="Questoes"
+			widgetVar="selecionarQuestao" modal="true">
+			Listagem das Questões
+			
+		</p:dialog>
+	</ui:define>
+</ui:composition>
