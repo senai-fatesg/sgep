@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+		<p:dataTable widgetVar="colaboradores" id="dtColaboradores"
+			value="#{ColaboradorControl.colaboradores }" var="cont" width="100%"
+			emptyMessage="Sem registros" rows="20" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+			<f:facet name="header">
+				<h:outputText value="Buscar por Nome:" />
+				<p:inputText id="inputFiltroGlobal"
+					value="#{ColaboradorControl.filtroGlobal}" />
+				<p:commandButton id="cmdFiltroGlobal" icon="ui-icon-search"
+					actionListener="#{ColaboradorControl.filtrarPorNome}"
+					update="dtColaboradores" />
+					<p:commandButton action="#{ColaboradorControl.limparConsulta}"
+					value="Limpar" icon="ui-icon-cancel" update="dtColaboradores" />
+				<a:newLine />
+				<h:outputText value="Lista de Colaboradores" />
+			</f:facet>
+			<p:column sortBy="#{cont.id }">
+				<f:facet name="header">
+					<h:outputText value="Código" />
+				</f:facet>
+				<h:outputText value="#{cont.id }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.nome }">
+				<f:facet name="header">
+					<h:outputText value="Nome" />
+				</f:facet>
+				<h:outputText value="#{cont.nome }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.tipoSexo }">
+				<f:facet name="header">
+					<h:outputText value="Sexo" />
+				</f:facet>
+				<h:outputText value="#{cont.tipoSexo }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.tipo }">
+				<f:facet name="header">
+					<h:outputText value="Tipo" />
+				</f:facet>
+				<h:outputText value="#{cont.tipo }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.cpfCnpj }">
+				<f:facet name="header">
+					<h:outputText value="CPF" />
+				</f:facet>
+				<h:outputText value="#{cont.cpfCnpj }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.telefone }">
+				<f:facet name="header">
+					<h:outputText value="Telefone" />
+				</f:facet>
+				<h:outputText value="#{cont.telefone }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.celular }">
+				<f:facet name="header">
+					<h:outputText value="Celular" />
+				</f:facet>
+				<h:outputText value="#{cont.celular }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.email }">
+				<f:facet name="header">
+					<h:outputText value="E-mail" />
+				</f:facet>
+				<h:outputText value="#{cont.email }"></h:outputText>
+			</p:column>
+			<p:column headerText="Ação">
+				<p:commandButton icon="ui-icon-trash" value="Excluir"
+					oncomplete="confirmacao.show()">
+					<f:setPropertyActionListener
+						target="#{ColaboradorControl.colaborador}" value="#{cont}" />
+				</p:commandButton>
+				<p:commandButton icon="ui-icon-pencil" value="Editar"
+					action="/colaborador.jspx?faces-redirect=true">
+					<f:setPropertyActionListener
+						target="#{ColaboradorControl.colaborador}" value="#{cont}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+		<p:confirmDialog widgetVar="confirmacao"
+			message="Tem Certeza que deseja excluir?" severity="alert"
+			closable="true">
+			<p:commandButton value="Sim"
+				actionListener="#{ColaboradorControl.excluir}"
+				onclick="confirmacao.hide()" update="dtColaboradores" process="@this" />
+			<p:commandButton value="Não" onclick="confirmacao.hide()" />
+		</p:confirmDialog>
+		<a:newLine />
+		<p:spacer width="25px" />
+		<p:commandButton action="/colaborador.jspx?faces-redirect=true"
+			value="Voltar" />
+	</ui:define>
+</ui:composition>

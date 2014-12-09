@@ -35,11 +35,11 @@ public class ColaboradorConverter implements Converter {
 			try {
 				long id = Long.parseLong(value);
 
-				try {
-					colaborador = colaboradorDao.consultar(id);
-				} catch (PersistenciaException e) {
-					e.printStackTrace();
-				}
+//				try {
+//					colaborador = colaboradorDao.consultar(id);
+//				} catch (PersistenciaException e) {
+//					e.printStackTrace();
+//				}
 			} catch (NumberFormatException exception) {
 				UtilFaces
 						.addMensagemFaces("Colaborador não é válido. Erro no Converter");
