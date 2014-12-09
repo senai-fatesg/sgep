@@ -18,9 +18,7 @@ import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoDao;
 @Controller("SessaoControl")
 @Scope("conversation")
 public class SessaoControl implements Serializable {
-	/**
-	 * author Glaicon Reis
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@Autowired

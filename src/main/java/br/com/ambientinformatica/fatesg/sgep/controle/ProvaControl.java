@@ -19,6 +19,7 @@ import br.com.ambientinformatica.fatesg.sgep.persistencia.ProvaDao;
 @Controller("ProvaControl")
 @Scope("conversation")
 public class ProvaControl {
+	
 	@Autowired
 	private ProvaDao provaDao;
 	

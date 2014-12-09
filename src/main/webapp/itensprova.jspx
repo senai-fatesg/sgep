@@ -34,13 +34,11 @@
 			<p:commandButton icon="ui-icon-extlink"
 				oncomplete="selecionarQuestao.show()" value="Selecionar questao"
 				update=":formCorpo:selecionarQuestao">
-				<f:setPropertyActionListener
-					target="#{ProvaControl.questaoSelecionada }" value="#{questao} />
+				<f:setPropertyActionListener target="#{ProvaControl.questaoSelecionada }" value="#{questao} />
 			</p:commandButton>
 		</p:panel>
 		<a:newLine />
-		<p:dialog id="selecionarProva" header="Provas"
-			widgetVar="selecionarProva" modal="true">
+		<p:dialog id="selecionarProva" header="Provas" widgetVar="selecionarProva" modal="true">
 
 			<p:dataTable id="provas" value="#{ProvaControl.provas }" var="cont"
 				width="100%" emptyMessage="Sem registros">
