@@ -75,14 +75,9 @@ public class QuestaoControl implements Serializable {
 		}
 	}
 
-	public List<Colaborador> completarColaboradores(String nome) {
-		List<Colaborador> listaColaboradores = colaboradorDao
-				.consultarPeloNome(nome);
-		if (listaColaboradores.size() == 0) {
-			UtilFaces
-					.addMensagemFaces("Professor não encontrado\nVerifique se o nome está correto.");
-		}
-		return listaColaboradores;
+	public Colaborador completarColaboradores(String nome) {
+		Colaborador colaborador = colaboradorDao.consultarPorCpf(nome);
+		return colaborador;
 	}
 
 	public List<SelectItem> getEstados() {
