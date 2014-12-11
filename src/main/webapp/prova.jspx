@@ -18,52 +18,17 @@
 			</a:field>
 			<a:newLine />
 			<a:newLine />
-			<p:commandButton actionListener="#{ProvaControl.confirmar }"
-				value="Confirmar" update="provas, panel"></p:commandButton>
+			<p:commandButton icon="ui-icon-disk"
+				actionListener="#{ProvaControl.confirmar }" value="Confirmar"
+				update="panel"></p:commandButton>
+			<p:spacer width="45px" />
+			<p:commandButton action="/provaLista.jspx?faces-redirect=true"
+				value="Listar" icon="ui-icon-search" />
+			<p:spacer width="45px" />
+			<p:commandButton action="#{ProvaControl.limpar}" value="Limpar"
+				icon="ui-icon-refresh" update="panel" />
+			<a:newLine />
 		</p:panel>
 		<a:newLine />
-		<p:dataTable id="provas" value="#{ProvaControl.provas }" var="cont"
-			width="100%" emptyMessage="Sem registros">
-			<f:facet name="header">
-				<h:outputText value="Lista de Provas"></h:outputText>
-			</f:facet>
-			<p:column sortBy="#{cont.periodo }">
-				<f:facet name="header">
-					<h:outputText value="Período"></h:outputText>
-				</f:facet>
-				<h:outputText value="#{cont.periodo }"></h:outputText>
-			</p:column>
-			<p:column sortBy="#{cont.data }">
-				<f:facet name="header">
-					<h:outputText value="Data"></h:outputText>
-				</f:facet>
-				<h:outputText value="#{cont.data }"></h:outputText>
-			</p:column>
-			<p:column headerText="Ação">
-				<p:commandButton icon="ui-icon-trash" value="Excluir"
-					oncomplete="confirmacao.show()">
-
-					<f:setPropertyActionListener target="#{ProvaControl.prova}"
-						value="#{cont}" />
-
-				</p:commandButton>
-
-				<p:commandButton icon="ui-icon-pencil" value="Editar" update="@form"
-					process="@this">
-
-					<f:setPropertyActionListener target="#{ProvaControl.prova}"
-						value="#{cont}" />
-
-				</p:commandButton>
-			</p:column>
-		</p:dataTable>
-		<p:confirmDialog widgetVar="confirmacao"
-			message="Tem Certeza que deseja excluir?" severity="alert"
-			closable="true">
-
-			<p:commandButton value="Sim" actionListener="#{ProvaControl.excluir}"
-				onclick="confirmacao.hide()" update="provas" process="@this" />
-			<p:commandButton value="Não" onclick="confirmacao.hide()" />
-		</p:confirmDialog>
 	</ui:define>
 </ui:composition>

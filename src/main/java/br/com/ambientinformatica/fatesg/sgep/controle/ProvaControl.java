@@ -59,6 +59,7 @@ public class ProvaControl {
 		try {
 			provaDao.alterar(prova);
 			listar(evt);
+			UtilFaces.addMensagemFaces("Operação realizada com sucesso");
 			prova = new Prova();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);

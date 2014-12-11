@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+		<p:dataTable widgetVar="provas" id="dtprovas"
+			value="#{ProvaControl.provas }" var="cont" width="100%"
+			emptyMessage="Sem registros" rows="20" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+			<f:facet name="header">
+				<h:outputText value="Lista de Provas"></h:outputText>
+			</f:facet>
+			<p:column sortBy="#{cont.periodo }">
+				<f:facet name="header">
+					<h:outputText value="Período"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.periodo }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.data }">
+				<f:facet name="header">
+					<h:outputText value="Data"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.data }"></h:outputText>
+			</p:column>
+			<p:column headerText="Ação">
+				<p:commandButton icon="ui-icon-trash" value="Excluir"
+					oncomplete="confirmacao.show()">
+
+					<f:setPropertyActionListener target="#{ProvaControl.prova}"
+						value="#{cont}" />
+
+				</p:commandButton>
+
+				<p:commandButton icon="ui-icon-pencil" value="Editar" action="/prova.jspx?faces-redirect=true">
+
+					<f:setPropertyActionListener target="#{ProvaControl.prova}"
+						value="#{cont}" />
+
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+		<p:confirmDialog widgetVar="confirmacao"
+			message="Tem Certeza que deseja excluir?" severity="alert"
+			closable="true">
+
+			<p:commandButton value="Sim" actionListener="#{ProvaControl.excluir}"
+				onclick="confirmacao.hide()" update="dtprovas" process="@this" />
+			<p:commandButton value="Não" onclick="confirmacao.hide()" />
+		</p:confirmDialog>
+		<a:newLine />
+		<p:spacer width="25px" />
+		<p:commandButton icon="ui-icon-contact" action="/prova.jspx?faces-redirect=true"
+			value="Nova Prova" />
+	</ui:define>
+</ui:composition>
