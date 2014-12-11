@@ -34,7 +34,7 @@
 			<p:commandButton icon="ui-icon-extlink"
 				oncomplete="selecionarQuestao.show()" value="Selecionar questao"
 				update=":formCorpo:selecionarQuestao">
-				<f:setPropertyActionListener target="#{ProvaControl.questaoSelecionada }" value="#{questao} />
+				<f:setPropertyActionListener target="#{ProvaControl.questaoSelecionada }" value="#{questao}" />
 			</p:commandButton>
 		</p:panel>
 		<a:newLine />
