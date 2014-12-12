@@ -17,14 +17,14 @@
 			</p:commandButton>
 			<a:newLine />
 			<a:newLine />
-			
+
 			<a:field label="Sessão" width="270px" for="sessao">
 				<p:autoComplete id="sessao" value="#{QuestaoControl.questao.sessao}"
-				completeMethod="#{SessaoControl.completarSessao}" var="s"
-				itemLabel="#{s.titulo}" itemValue="#{s}"/>
-				<p:watermark value="Pesquise pelo titulo" for="sessao"/>
-				</a:field>
-		
+					completeMethod="#{SessaoControl.completarSessao}" var="s"
+					itemLabel="#{s.titulo}" itemValue="#{s}" />
+				<p:watermark value="Pesquise pelo titulo" for="sessao" />
+			</a:field>
+
 			<a:field label="Número">
 				<p:inputText value="#{ProvaControl.itensProva.numero}"
 					style="width:70px" />
@@ -34,11 +34,13 @@
 			<p:commandButton icon="ui-icon-extlink"
 				oncomplete="selecionarQuestao.show()" value="Selecionar questao"
 				update=":formCorpo:selecionarQuestao">
-				<f:setPropertyActionListener target="#{ProvaControl.questaoSelecionada }" value="#{questao}" />
+				<f:setPropertyActionListener
+					target="#{ProvaControl.questaoSelecionada }" value="#{questao}" />
 			</p:commandButton>
 		</p:panel>
 		<a:newLine />
-		<p:dialog id="selecionarProva" header="Provas" widgetVar="selecionarProva" modal="true">
+		<p:dialog id="selecionarProva" header="Provas"
+			widgetVar="selecionarProva" modal="true">
 
 			<p:dataTable id="provas" value="#{ProvaControl.provas }" var="cont"
 				width="100%" emptyMessage="Sem registros">
@@ -61,8 +63,53 @@
 		</p:dialog>
 		<p:dialog id="selecionarQuestao" header="Questoes"
 			widgetVar="selecionarQuestao" modal="true">
-			Listagem das Questões
-			
+			<p:dataTable widgetVar="questoes" id="dtQuestoes"
+				value="#{QuestaoControl.questoes }" var="cont" width="100%"
+				emptyMessage="Sem registros" rows="20" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<f:facet name="header">
+					<h:outputText value="Lista de Querstões"></h:outputText>
+				</f:facet>
+				<p:column sortBy="#{cont.enunciado }">
+					<f:facet name="header">
+						<h:outputText value="Enunciado"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{cont.enunciado }"></h:outputText>
+				</p:column>
+				<p:column sortBy="#{cont.assunto }">
+					<f:facet name="header">
+						<h:outputText value="Assunto"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{cont.assunto }"></h:outputText>
+				</p:column>
+				<p:column sortBy="#{cont.resposta }">
+					<f:facet name="header">
+						<h:outputText value="Resposta"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{cont.resposta }"></h:outputText>
+				</p:column>
+				<p:column sortBy="#{cont.estado }">
+					<f:facet name="header">
+						<h:outputText value="Estado"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{cont.estado }"></h:outputText>
+				</p:column>
+				<p:column sortBy="#{cont.dificuldade }">
+					<f:facet name="header">
+						<h:outputText value="Dificuldade"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{cont.dificuldade }"></h:outputText>
+				</p:column>
+				<p:column headerText="Ação">
+					<p:commandButton icon="ui-icon-search" value="Selecionar">
+
+						<f:setPropertyActionListener target="#{QuestaoControl.prova}"
+							value="#{cont}" />
+
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
 		</p:dialog>
 	</ui:define>
 </ui:composition>

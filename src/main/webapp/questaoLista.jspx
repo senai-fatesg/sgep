@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+		<p:dataTable widgetVar="questoes" id="dtQuestoes"
+			value="#{QuestaoControl.questoes }" var="cont" width="100%"
+			emptyMessage="Sem registros" rows="20" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+			<f:facet name="header">
+				<h:outputText value="Lista de Querstões"></h:outputText>
+			</f:facet>
+			<p:column sortBy="#{cont.enunciado }">
+				<f:facet name="header">
+					<h:outputText value="Enunciado"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.enunciado }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.assunto }">
+				<f:facet name="header">
+					<h:outputText value="Assunto"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.assunto }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.resposta }">
+				<f:facet name="header">
+					<h:outputText value="Resposta"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.resposta }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.estado }">
+				<f:facet name="header">
+					<h:outputText value="Estado"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.estado }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.dificuldade }">
+				<f:facet name="header">
+					<h:outputText value="Dificuldade"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.dificuldade }"></h:outputText>
+			</p:column>
+			<p:column headerText="Ação">
+				<p:commandButton icon="ui-icon-trash" value="Excluir"
+					oncomplete="confirmacao.show()">
+
+					<f:setPropertyActionListener target="#{QuestaoControl.questao}"
+						value="#{cont}" />
+
+				</p:commandButton>
+
+				<p:commandButton icon="ui-icon-pencil" value="Editar"
+					action="/questao.jspx?faces-redirect=true">
+
+					<f:setPropertyActionListener target="#{QuestaoControl.questao}"
+						value="#{cont}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+		<p:confirmDialog widgetVar="confirmacao"
+			message="Tem Certeza que deseja excluir?" severity="alert"
+			closable="true">
+			<p:commandButton value="Sim"
+				actionListener="#{QuestaoControl.excluir}"
+				onclick="confirmacao.hide()" update="dtQuestoes" process="@this" />
+			<p:commandButton value="Não" onclick="confirmacao.hide()" />
+		</p:confirmDialog>
+		<a:newLine />
+		<p:spacer width="25px" />
+		<p:commandButton icon="ui-icon-contact"
+			action="/questao.jspx?faces-redirect=true" value="Nova Questão" />
+	</ui:define>
+</ui:composition>
