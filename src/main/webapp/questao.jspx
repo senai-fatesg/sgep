@@ -8,7 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="corpo">
 
-		<p:panel header="Formulário" id="panel">
+		<p:panel header="Cadastro de Questões" id="panel">
 			<a:field label="Enunciado">
 				<h:inputTextarea value="#{QuestaoControl.questao.enunciado }"
 					style="width:500px"></h:inputTextarea>
