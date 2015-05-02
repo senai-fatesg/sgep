@@ -14,6 +14,7 @@ import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.fatesg.sgep.entidade.ItensProva;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Prova;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Questao;
+import br.com.ambientinformatica.fatesg.sgep.persistencia.ColaboradorDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.ProvaDao;
 
 @Controller("ProvaControl")
@@ -22,6 +23,9 @@ public class ProvaControl {
 	
 	@Autowired
 	private ProvaDao provaDao;
+	
+	@Autowired
+	private ColaboradorDao colaboradorDao;
 	
 	private List<Prova> provas = new ArrayList<Prova>();
 
@@ -52,6 +56,12 @@ public class ProvaControl {
 
 	@PostConstruct
 	public void init() {
+		try {
+	      colaboradorDao.listarTodos();
+      } catch (Exception e) {
+	      // TODO Auto-generated catch block
+	      e.printStackTrace();
+      }
 		listar(null);
 	}
 
