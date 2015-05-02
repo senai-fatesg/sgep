@@ -1,6 +1,8 @@
 package br.com.ambientinformatica.fatesg.sgep.persistencia;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
@@ -17,9 +19,13 @@ public class ColaboradorDaoService implements ColaboradorDao, Serializable {
 	@Override
 	public Colaborador consultarPorCpf(String cpf) {
 
-		@SuppressWarnings("unchecked")
-      Colaborador colaborador = restTemplate.getForObject("http://localhost:8080/corporatum/service/colaborador/consultarPorCpf/"+cpf, Colaborador.class);
-
-		return colaborador;
+		return restTemplate.getForObject("http://localhost:8080/corporatum/service/colaborador/consultarPorCpf/"+cpf, Colaborador.class);
+	}
+	
+	
+   @SuppressWarnings("unchecked")
+   public List<Colaborador> listarTodos() throws Exception{
+//   	return restTemplate.getForObject("http://localhost:8080/corporatum/service/colaborador/listarTodos/", List.class);
+   	return new ArrayList<Colaborador>();
 	}
 }
