@@ -7,7 +7,6 @@
 	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
 	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="corpo">
-
 		<p:panel header="Cadastro de Prova" id="panel">
 			<a:field label="Período">
 				<p:inputText value="#{ProvaControl.prova.periodo}"
@@ -16,19 +15,67 @@
 			<a:field label="Data" spaceLeft="15px">
 				<p:calendar value="#{ProvaControl.prova.data }" />
 			</a:field>
+			<a:field label="" spaceLeft="15px">			
+				<p:commandButton icon="ui-icon-plusthick"
+					actionListener="#{ProvaControl.confirmar }" value="Add Prova"
+					update="dtprovas" ></p:commandButton>
+			</a:field>
+				<p:spacer width="45px" />
+			
 			<a:newLine />
-			<a:newLine />
-			<p:commandButton icon="ui-icon-disk"
-				actionListener="#{ProvaControl.confirmar }" value="Confirmar"
-				update="panel"></p:commandButton>
+			<p:commandButton actionListener="#{ProvaControl.listar }"
+				value="Listar" icon="ui-icon-search" update="dtprovas"/>
 			<p:spacer width="45px" />
-			<p:commandButton action="/provaLista.jspx?faces-redirect=true"
-				value="Listar" icon="ui-icon-search" />
-			<p:spacer width="45px" />
-			<p:commandButton action="#{ProvaControl.limpar}" value="Limpar"
-				icon="ui-icon-refresh" update="panel" />
 			<a:newLine />
 		</p:panel>
+		<a:newLine />
+		
+		<p:dataTable widgetVar="provas" id="dtprovas"
+			value="#{ProvaControl.provas }" var="prova" width="100%"
+			emptyMessage="Sem registros" rows="20" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+			<f:facet name="header">
+				<h:outputText value="Lista de Provas"></h:outputText>
+			</f:facet>
+			<p:column sortBy="#{prova.periodo }">
+				<f:facet name="header">
+					<h:outputText value="Período"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{prova.periodo }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{prova.data }">
+				<f:facet name="header">
+					<h:outputText value="Data"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{prova.data }">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Ação">
+				<p:commandButton icon="ui-icon-trash" value="Excluir"
+					oncomplete="confirmacao.show()">
+
+					<f:setPropertyActionListener target="#{ProvaControl.prova}"
+						value="#{prova}" />
+
+				</p:commandButton>
+
+				<p:commandButton icon="ui-icon-pencil" value="Editar" action="/prova.jspx?faces-redirect=true">
+
+					<f:setPropertyActionListener target="#{ProvaControl.prova}"
+						value="#{prova}" />
+
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+		<p:confirmDialog widgetVar="confirmacao"
+			message="Tem Certeza que deseja excluir?" severity="alert"
+			closable="true">
+
+			<p:commandButton value="Sim" actionListener="#{ProvaControl.excluir}"
+				onclick="confirmacao.hide()" update="dtprovas" process="@this" />
+			<p:commandButton value="Não" onclick="confirmacao.hide()" />
+		</p:confirmDialog>
 		<a:newLine />
 	</ui:define>
 </ui:composition>
