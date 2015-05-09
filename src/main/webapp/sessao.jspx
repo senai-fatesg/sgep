@@ -12,6 +12,8 @@
 				<h:inputText value="#{SessaoControl.sessao.titulo }"
 					style="width:500px"></h:inputText>
 			</a:field>
+			<a:newLine />
+			<a:newLine />
 			<a:field label="Descrição" spaceLeft="15px">
 				<h:inputTextarea value="#{SessaoControl.sessao.descricao }"
 					style="width:500px"></h:inputTextarea>

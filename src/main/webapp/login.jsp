@@ -25,11 +25,12 @@
     	<div class="container">
         	<div class="row branding">
             	<div class="span6">
-                	<h1 class="pull-left"><a href="index.html"><strong>SGEP</strong></a></h1>
+                	<h1 class="pull-left"><strong>SGEP</strong></h1>
                 </div>            	
             </div>
          </div>        
     </div>
+   <!--  
 	<div class="container content">
         <div class="row">
             <div class="span8 leftContent">
@@ -72,9 +73,8 @@
                     </div>                                        
                 </div>
             </div>
-            
+      -->      
             <div class="span4 sidebar">
-                <h2><a href="#" class="btn btn-large btn-warning">Alguma ação</a></h2>
                 <div class="well quickSignupForm">
                   <h3>Acesso ao Sistema</h3>
 					<%
@@ -86,15 +86,9 @@
                   <label>Senha</label>
                   <input name="j_password" type="password" class="span3" />                  
                   <input class="btn btn-large btn-success btnSignup" type="submit" value="Entrar" />
-                </div>
-                <h3>Titulo caixa</h3>
-                <p>
-					Conteúdo caixa 
-                </p>                
+                </div>             
             </div>
             
     	</div>
-    </div>
-</div>
 </body>
 </html>
