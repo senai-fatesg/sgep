@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+		<p:panel header="Cadastro de Prova" id="panel">
+			<a:field label="Cadastro de Sessão">
+				<p:inputText value="#{TemplateControl.template.sessao}"
+					style="width:70px" />
+			</a:field>
+			<a:field label="" spaceLeft="15px">			
+				<p:commandButton icon="ui-icon-plusthick"
+					actionListener="#{TemplateControl.confirmar }" value="Add Prova"
+					update="dtprovas" ></p:commandButton>
+			</a:field>
+				<p:spacer width="45px" />
+			
+			<a:newLine />
+			<p:commandButton actionListener="#{TemplateControl.listar }"
+				value="Listar" icon="ui-icon-search" update="dtprovas"/>
+			<p:spacer width="45px" />
+			<a:newLine />
+		</p:panel>
+		<a:newLine />
+		
+		<p:dataTable widgetVar="provas" id="dtprovas"
+			value="#{TemplateControl.templates }" var="template" width="100%"
+			emptyMessage="Sem registros" rows="20" paginator="true"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+			<f:facet name="header">
+				<h:outputText value="Lista de Sessões"></h:outputText>
+			</f:facet>
+			<p:column sortBy="#{template.sessao }">
+				<f:facet name="header">
+					<h:outputText value="Período"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{template.sessao }"></h:outputText>
+			</p:column>
+			
+		</p:dataTable>
+		<a:newLine />
+	</ui:define>
+</ui:composition>
