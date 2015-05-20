@@ -27,6 +27,8 @@ public class SessaoControl implements Serializable {
 	private List<Sessao> sessoes = new ArrayList<Sessao>();
 
 	private Sessao sessao = new Sessao();
+	
+	private Sessao sessaoSelecionado = new Sessao();
 
 	@PostConstruct
 	public void init() {
@@ -96,6 +98,24 @@ public class SessaoControl implements Serializable {
 	public void setSessao(Sessao sessao) {
 		this.sessao = sessao;
 	}
-	
 
+	public Sessao getSessaoSelecionado() {
+		return sessaoSelecionado;
+	}
+
+	public void setSessaoSelecionado(Sessao sessaoSelecionado) {
+		
+		try {
+			if (sessaoSelecionado != null) {
+				Sessao s = sessaoDao.consultar(sessaoSelecionado.getId());
+				this.sessaoSelecionado = s;
+			}else{
+				this.sessaoSelecionado = null;
+			}
+			
+		} catch (Exception e) {
+			 UtilFaces.addMensagemFaces(e);
+		}
+	}
+	
 }

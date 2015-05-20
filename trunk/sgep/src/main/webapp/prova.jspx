@@ -57,11 +57,9 @@
 
 					<f:setPropertyActionListener target="#{ProvaControl.prova}"
 						value="#{prova}" />
-
 				</p:commandButton>
 
 				<p:commandButton icon="ui-icon-pencil" value="Editar" action="/prova.jspx?faces-redirect=true">
-
 					<f:setPropertyActionListener target="#{ProvaControl.prova}"
 						value="#{prova}" />
 

@@ -42,69 +42,74 @@
 		<p:dialog id="selecionarProva" header="Provas"
 			widgetVar="selecionarProva" modal="true">
 
-			<p:dataTable id="provas" value="#{ProvaControl.provas }" var="cont"
+			<p:dataTable id="provas" value="#{ProvaControl.provas }" var="prova"
 				width="100%" emptyMessage="Sem registros">
 				<f:facet name="header">
 					<h:outputText value="Lista de Provas"></h:outputText>
 				</f:facet>
-				<p:column sortBy="#{cont.periodo }">
+				<p:column sortBy="#{prova.periodo }">
 					<f:facet name="header">
 						<h:outputText value="Período"></h:outputText>
 					</f:facet>
-					<h:outputText value="#{cont.periodo }"></h:outputText>
+					<h:outputText value="#{prova.periodo }"></h:outputText>
 				</p:column>
-				<p:column sortBy="#{cont.data }">
+				<p:column sortBy="#{prova.data }">
 					<f:facet name="header">
 						<h:outputText value="Data"></h:outputText>
 					</f:facet>
-					<h:outputText value="#{cont.data }"></h:outputText>
+					<h:outputText value="#{prova.data }"></h:outputText>
 				</p:column>
+				<p:commandButton icon="ui-icon-pencil" value="Selecionar" action="/prova.jspx?faces-redirect=true">
+					<f:setPropertyActionListener target="#{ProvaControl.prova}"
+						value="#{prova}" />
+
+				</p:commandButton>
 			</p:dataTable>
 		</p:dialog>
 		<p:dialog id="selecionarQuestao" header="Questoes"
 			widgetVar="selecionarQuestao" modal="true">
 			<p:dataTable widgetVar="questoes" id="dtQuestoes"
-				value="#{QuestaoControl.questoes }" var="cont" width="100%"
+				value="#{QuestaoControl.questoes }" var="questao" width="100%"
 				emptyMessage="Sem registros" rows="20" paginator="true"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 				<f:facet name="header">
 					<h:outputText value="Lista de Querstões"></h:outputText>
 				</f:facet>
-				<p:column sortBy="#{cont.enunciado }">
+				<p:column sortBy="#{questao.enunciado }">
 					<f:facet name="header">
 						<h:outputText value="Enunciado"></h:outputText>
 					</f:facet>
-					<h:outputText value="#{cont.enunciado }"></h:outputText>
+					<h:outputText value="#{questao.enunciado }"></h:outputText>
 				</p:column>
-				<p:column sortBy="#{cont.assunto }">
+				<p:column sortBy="#{questao.assunto }">
 					<f:facet name="header">
 						<h:outputText value="Assunto"></h:outputText>
 					</f:facet>
-					<h:outputText value="#{cont.assunto }"></h:outputText>
+					<h:outputText value="#{questao.assunto }"></h:outputText>
 				</p:column>
-				<p:column sortBy="#{cont.resposta }">
+				<p:column sortBy="#{questao.resposta }">
 					<f:facet name="header">
 						<h:outputText value="Resposta"></h:outputText>
 					</f:facet>
-					<h:outputText value="#{cont.resposta }"></h:outputText>
+					<h:outputText value="#{questao.resposta }"></h:outputText>
 				</p:column>
-				<p:column sortBy="#{cont.estado }">
+				<p:column sortBy="#{questao.estado }">
 					<f:facet name="header">
 						<h:outputText value="Estado"></h:outputText>
 					</f:facet>
-					<h:outputText value="#{cont.estado }"></h:outputText>
+					<h:outputText value="#{questao.estado }"></h:outputText>
 				</p:column>
-				<p:column sortBy="#{cont.dificuldade }">
+				<p:column sortBy="#{questao.dificuldade }">
 					<f:facet name="header">
 						<h:outputText value="Dificuldade"></h:outputText>
 					</f:facet>
-					<h:outputText value="#{cont.dificuldade }"></h:outputText>
+					<h:outputText value="#{questao.dificuldade }"></h:outputText>
 				</p:column>
 				<p:column headerText="Ação">
 					<p:commandButton icon="ui-icon-search" value="Selecionar">
 
 						<f:setPropertyActionListener target="#{QuestaoControl.prova}"
-							value="#{cont}" />
+							value="#{questao}" />
 
 					</p:commandButton>
 				</p:column>
