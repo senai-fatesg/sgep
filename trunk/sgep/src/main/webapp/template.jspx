@@ -8,7 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="corpo">
 		<p:panel header="Cadastro de Prova" id="panel">
-			<a:field label="Cadastro de Sessão">
+			<a:field label="Cadastro de Templates">
 				<p:inputText value="#{TemplateControl.template.sessao}"
 					style="width:70px" />
 			</a:field>
