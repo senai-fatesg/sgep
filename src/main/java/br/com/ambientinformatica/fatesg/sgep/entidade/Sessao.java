@@ -1,9 +1,14 @@
 package br.com.ambientinformatica.fatesg.sgep.entidade;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -18,6 +23,9 @@ public class Sessao{
 	
 	private String descricao;
 
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<Sessao> sessoes;
+	
 	public Long getId() {
 		return id;
 	}
@@ -36,5 +44,17 @@ public class Sessao{
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public List<Sessao> getSessoes() {
+		return sessoes;
+	}
+
+	public void setSessoes(List<Sessao> sessoes) {
+		this.sessoes = sessoes;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}	
 }

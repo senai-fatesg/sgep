@@ -1,7 +1,9 @@
 package br.com.ambientinformatica.fatesg.sgep.entidade;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,8 +19,8 @@ public class Template {
 	@SequenceGenerator(name = "template_seq" , sequenceName = "template_seq", allocationSize = 1, initialValue = 1)
 	private Long id;
 	
-	@OneToMany
-	private List<Sessao> sessao;
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<Questao> questoes = new ArrayList<Questao>();
 
 	public Long getId() {
 		return id;
@@ -28,11 +30,5 @@ public class Template {
 		this.id = id;
 	}
 
-	public List<Sessao> getSessao() {
-		return sessao;
-	}
-
-	public void setSessao(List<Sessao> sessao) {
-		this.sessao = sessao;
-	}
+	
 }

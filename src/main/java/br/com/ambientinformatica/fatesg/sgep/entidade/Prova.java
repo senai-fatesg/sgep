@@ -27,9 +27,9 @@ public class Prova{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new Date();
 
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="prova")
-	private List<ItensProva> itens = new ArrayList<ItensProva>() ;
-
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<Template> templates;
+	
 	public Long getId() {
 		return id;
 	}
@@ -42,10 +42,6 @@ public class Prova{
 		return data;
 	}
 
-	public List<ItensProva> getItens() {
-		return itens;
-	}
-
 	public void setPeriodo(int periodo) {
 		this.periodo = periodo;
 	}
@@ -54,8 +50,16 @@ public class Prova{
 		this.data = data;
 	}
 
-	public void setItens(List<ItensProva> itens) {
-		this.itens = itens;
+	public List<Template> getTemplates() {
+		return templates;
+	}
+
+	public void setTemplates(List<Template> templates) {
+		this.templates = templates;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@Override
@@ -64,7 +68,7 @@ public class Prova{
 		int result = 1;
 		result = prime * result + ((data == null) ? 0 : data.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((itens == null) ? 0 : itens.hashCode());
+		result = prime * result + ((templates == null) ? 0 : templates.hashCode());
 		result = prime * result + periodo;
 		return result;
 	}
@@ -88,10 +92,10 @@ public class Prova{
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (itens == null) {
-			if (other.itens != null)
+		if (templates == null) {
+			if (other.templates != null)
 				return false;
-		} else if (!itens.equals(other.itens))
+		} else if (!templates.equals(other.templates))
 			return false;
 		if (periodo != other.periodo)
 			return false;

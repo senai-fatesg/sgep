@@ -38,22 +38,6 @@ public class ProvaControl {
 	private ItensProva itensProva = new ItensProva();
 
 	
-
-	
-	public void addQuestao(Questao questao) {
-		ItensProva novoItem = new ItensProva(prova, questao);
-		if (questao.getItens().contains(novoItem)) {
-			ItensProva item = questao.getItens().get(
-					questao.getItens().indexOf(novoItem));
-		} else {
-			questao.getItens().add(novoItem);
-		}
-	}
-
-	public void removerItem(ItensProva item) {
-		questao.getItens().remove(item);
-	}
-
 	@PostConstruct
 	public void init() {
 		try {

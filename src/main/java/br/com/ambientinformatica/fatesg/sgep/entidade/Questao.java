@@ -29,24 +29,11 @@ public class Questao implements Serializable{
 	@SequenceGenerator(name = "questao_seq" , sequenceName = "questao_seq", allocationSize = 1, initialValue = 1)
 	private Long id;
 
-	private String primeiraAlternativa;
-	
-	private String segundaAlternativa;
-	
-	private String terceiraAlternativa;
-	
-	private String quartaAlternativa;
-	
-	private String quintaAlternativa;
-	
 	private String enunciado;
 	
 	private String assunto;
 	
 	private char resposta;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="questao")
-	private List<ItensProva > itens = new ArrayList<ItensProva>() ;
 		
 	@ManyToOne
 	private Colaborador professor;
@@ -54,8 +41,6 @@ public class Questao implements Serializable{
 	@ManyToOne
 	private Disciplina disciplina;
 	
-	@ManyToOne
-	private Sessao sessao;
 	
 	@Enumerated(EnumType.STRING)
 	private EnumEstado estado;
@@ -67,26 +52,9 @@ public class Questao implements Serializable{
 		return id;
 	}
 
-	public String getPrimeiraAlternativa() {
-		return primeiraAlternativa;
-	}
-
-	public String getSegundaAlternativa() {
-		return segundaAlternativa;
-	}
-
-	public String getTerceiraAlternativa() {
-		return terceiraAlternativa;
-	}
-
-	public String getQuartaAlternativa() {
-		return quartaAlternativa;
-	}
-
-	public String getQuintaAlternativa() {
-		return quintaAlternativa;
-	}
-
+	@OneToMany
+	private List<Itens> itens;
+	
 	public String getEnunciado() {
 		return enunciado;
 	}
@@ -97,10 +65,6 @@ public class Questao implements Serializable{
 
 	public char getResposta() {
 		return resposta;
-	}
-
-	public List<ItensProva> getItens() {
-		return itens;
 	}
 
 	public Colaborador getProfessor() {
@@ -127,26 +91,6 @@ public class Questao implements Serializable{
 		return dificuldade;
 	}
 
-	public void setPrimeiraAlternativa(String primeiraAlternativa) {
-		this.primeiraAlternativa = primeiraAlternativa;
-	}
-
-	public void setSegundaAlternativa(String segundaAlternativa) {
-		this.segundaAlternativa = segundaAlternativa;
-	}
-
-	public void setTerceiraAlternativa(String terceiraAlternativa) {
-		this.terceiraAlternativa = terceiraAlternativa;
-	}
-
-	public void setQuartaAlternativa(String quartaAlternativa) {
-		this.quartaAlternativa = quartaAlternativa;
-	}
-
-	public void setQuintaAlternativa(String quintaAlternativa) {
-		this.quintaAlternativa = quintaAlternativa;
-	}
-
 	public void setEnunciado(String enunciado) {
 		this.enunciado = enunciado;
 	}
@@ -159,10 +103,6 @@ public class Questao implements Serializable{
 		this.resposta = resposta;
 	}
 
-	public void setItens(List<ItensProva> itens) {
-		this.itens = itens;
-	}
-
 	public void setProfessor(Colaborador professor) {
 		this.professor = professor;
 	}
@@ -170,13 +110,15 @@ public class Questao implements Serializable{
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
 	}
+	
+	
 
-	public Sessao getSessao() {
-		return sessao;
+	public List<Itens> getItens() {
+		return itens;
 	}
 
-	public void setSessao(Sessao sessao) {
-		this.sessao = sessao;
+	public void setItens(List<Itens> itens) {
+		this.itens = itens;
 	}
 
 	@Override
@@ -193,30 +135,6 @@ public class Questao implements Serializable{
 		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((itens == null) ? 0 : itens.hashCode());
-		result = prime
-				* result
-				+ ((primeiraAlternativa == null) ? 0 : primeiraAlternativa
-						.hashCode());
-		result = prime * result
-				+ ((professor == null) ? 0 : professor.hashCode());
-		result = prime
-				* result
-				+ ((quartaAlternativa == null) ? 0 : quartaAlternativa
-						.hashCode());
-		result = prime
-				* result
-				+ ((quintaAlternativa == null) ? 0 : quintaAlternativa
-						.hashCode());
-		result = prime * result + resposta;
-		result = prime
-				* result
-				+ ((segundaAlternativa == null) ? 0 : segundaAlternativa
-						.hashCode());
-		result = prime * result + ((sessao == null) ? 0 : sessao.hashCode());
-		result = prime
-				* result
-				+ ((terceiraAlternativa == null) ? 0 : terceiraAlternativa
-						.hashCode());
 		return result;
 	}
 
@@ -257,43 +175,6 @@ public class Questao implements Serializable{
 			if (other.itens != null)
 				return false;
 		} else if (!itens.equals(other.itens))
-			return false;
-		if (primeiraAlternativa == null) {
-			if (other.primeiraAlternativa != null)
-				return false;
-		} else if (!primeiraAlternativa.equals(other.primeiraAlternativa))
-			return false;
-		if (professor == null) {
-			if (other.professor != null)
-				return false;
-		} else if (!professor.equals(other.professor))
-			return false;
-		if (quartaAlternativa == null) {
-			if (other.quartaAlternativa != null)
-				return false;
-		} else if (!quartaAlternativa.equals(other.quartaAlternativa))
-			return false;
-		if (quintaAlternativa == null) {
-			if (other.quintaAlternativa != null)
-				return false;
-		} else if (!quintaAlternativa.equals(other.quintaAlternativa))
-			return false;
-		if (resposta != other.resposta)
-			return false;
-		if (segundaAlternativa == null) {
-			if (other.segundaAlternativa != null)
-				return false;
-		} else if (!segundaAlternativa.equals(other.segundaAlternativa))
-			return false;
-		if (sessao == null) {
-			if (other.sessao != null)
-				return false;
-		} else if (!sessao.equals(other.sessao))
-			return false;
-		if (terceiraAlternativa == null) {
-			if (other.terceiraAlternativa != null)
-				return false;
-		} else if (!terceiraAlternativa.equals(other.terceiraAlternativa))
 			return false;
 		return true;
 	}	
