@@ -20,29 +20,29 @@
 			<a:newLine />
 			<a:field label="Primeira Alternativa">
 				<h:inputTextarea
-					value="#{QuestaoControl.questao.primeiraAlternativa }"
+					value=""
 					style="width:500px"></h:inputTextarea>
 			</a:field>
 			<a:field label="Segunda Alternativa" spaceLeft="15px">
 				<h:inputTextarea
-					value="#{QuestaoControl.questao.segundaAlternativa }"
+					value=""
 					style="width:500px"></h:inputTextarea>
 			</a:field>
 			<a:newLine />
 			<a:field label="Terceira Alternativa">
 				<h:inputTextarea
-					value="#{QuestaoControl.questao.terceiraAlternativa }"
+					value=""
 					style="width:500px"></h:inputTextarea>
 			</a:field>
 			<a:field label="Quarta Alternativa" spaceLeft="15px">
 				<h:inputTextarea
-					value="#{QuestaoControl.questao.quartaAlternativa }"
+					value=""
 					style="width:500px"></h:inputTextarea>
 			</a:field>
 			<a:newLine />
 			<a:field label="Quinta Alternativa">
 				<h:inputTextarea
-					value="#{QuestaoControl.questao.quintaAlternativa }"
+					value=""
 					style="width:500px"></h:inputTextarea>
 			</a:field>
 			<a:field label="Resposta" spaceLeft="15px">

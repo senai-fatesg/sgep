@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,8 +20,10 @@ public class Template {
 	@SequenceGenerator(name = "template_seq" , sequenceName = "template_seq", allocationSize = 1, initialValue = 1)
 	private Long id;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	private List<Questao> questoes = new ArrayList<Questao>();
+	private String descricao;
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private List<Questao> questoes;
 
 	public Long getId() {
 		return id;
@@ -30,5 +33,20 @@ public class Template {
 		this.id = id;
 	}
 
-	
+	public List<Questao> getQuestoes() {
+		return questoes;
+	}
+
+	public void setQuestoes(List<Questao> questoes) {
+		this.questoes = questoes;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
 }
