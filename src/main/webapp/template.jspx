@@ -7,9 +7,9 @@
 	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
 	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="corpo">
-		<p:panel header="Cadastro de Prova" id="panel">
-			<a:field label="Cadastro de Templates">
-				<p:inputText value="#{TemplateControl.template.sessao}"
+		<p:panel header="Cadastro de Templates" id="panel">
+			<a:field label="Descrição">
+				<p:inputText value="#{TemplateControl.template.descricao}"
 					style="width:70px" />
 			</a:field>
 			<a:field label="" spaceLeft="15px">			
@@ -32,13 +32,13 @@
 			emptyMessage="Sem registros" rows="20" paginator="true"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 			<f:facet name="header">
-				<h:outputText value="Lista de Sessões"></h:outputText>
+				<h:outputText value="Lista de Templates"></h:outputText>
 			</f:facet>
-			<p:column sortBy="#{template.sessao }">
+			<p:column>
 				<f:facet name="header">
 					<h:outputText value="Período"></h:outputText>
 				</f:facet>
-				<h:outputText value="#{template.sessao }"></h:outputText>
+				<h:outputText value="#{template.descricao }"></h:outputText>
 			</p:column>
 			
 		</p:dataTable>
