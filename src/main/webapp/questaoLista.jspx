@@ -54,10 +54,10 @@
 				</p:commandButton>
 
 				<p:commandButton icon="ui-icon-pencil" value="Editar"
-					action="/questao.jspx?faces-redirect=true">
+					actionListener="#{QuestaoControl.view}"
+					oncomplete="">
 
-					<f:setPropertyActionListener target="#{QuestaoControl.questao}"
-						value="#{cont}" />
+					
 				</p:commandButton>
 			</p:column>
 		</p:dataTable>

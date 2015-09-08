@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
+import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
 import br.com.ambientinformatica.fatesg.sgep.entidade.EnumDificuldade;
 import br.com.ambientinformatica.fatesg.sgep.entidade.EnumEstado;
+import br.com.ambientinformatica.fatesg.sgep.entidade.Item;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Questao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.ColaboradorDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.QuestaoDao;
@@ -38,7 +40,9 @@ public class QuestaoControl implements Serializable {
 	private List<Colaborador> professores = new ArrayList<Colaborador>();
 
 	private Questao questaoSelecionada = new Questao();
-	
+
+	private Item item = new Item();
+
 	@Autowired
 	private ColaboradorDao colaboradorDao;
 
@@ -80,6 +84,38 @@ public class QuestaoControl implements Serializable {
 		return colaborador;
 	}
 
+	public void adicionarItem() {
+		try {
+			if (item.getId() != null) {
+			} else {
+				if (questao.getItens().size() < 5) {
+					item.setOrdem(questao.getItens().size());
+					questao.addItem(item);
+				} else {
+					UtilFaces
+							.addMensagemFaces("Atenção!\n Capacidade maxima de itens alcançada.");
+				}
+			}
+			item = new Item();
+		} catch (Exception e) {
+			UtilFaces
+					.addMensagemFaces("Ocorreu um erro inesperado ao adicionar a alternativa.\n"
+							+ e.getMessage());
+		}
+	}
+
+	public void removerItem(Item item) {
+		try {
+			this.questao.removerItem(item);
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces(e);
+		}
+	}
+
+	public void view(){
+		RequestContext.getCurrentInstance().openDialog("questao"); 
+	}
+	
 	public List<SelectItem> getEstados() {
 		return UtilFaces.getListEnum(EnumEstado.values());
 	}
@@ -118,6 +154,14 @@ public class QuestaoControl implements Serializable {
 
 	public void setProfessores(List<Colaborador> professores) {
 		this.professores = professores;
+	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
 	}
 
 	public Questao getQuestaoSelecionada() {
