@@ -8,9 +8,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -18,61 +20,102 @@ import javax.persistence.SequenceGenerator;
 import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
 import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
 
-
 @Entity
-public class Questao implements Serializable{
+public class Questao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "questao_seq", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "questao_seq" , sequenceName = "questao_seq", allocationSize = 1, initialValue = 1)
+	@SequenceGenerator(name = "questao_seq", sequenceName = "questao_seq", allocationSize = 1, initialValue = 1)
 	private Long id;
 
 	private String enunciado;
-	
+
 	private String assunto;
-	
+
 	private char resposta;
-		
+
 	@ManyToOne
 	private Colaborador professor;
-	
+
 	@ManyToOne
 	private Disciplina disciplina;
-	
-	
+
 	@Enumerated(EnumType.STRING)
 	private EnumEstado estado;
-	
+
 	@Enumerated(EnumType.STRING)
 	private EnumDificuldade dificuldade;
+
+	private Boolean objetiva = true;
+
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "questao_id")
+	private List<Item> itens = new ArrayList<Item>();
+
+	// Metodos
+	public void addItem(Item item) throws Exception{
+			if (!itens.contains(item)) {
+				this.itens. add(item);
+			}else{
+				throw new Exception("Questão já contem este item!");
+			}
+		
+	}
+
+	public void removerItem(Item item) {
+		if (itens.contains(item)) {
+			this.itens.remove(item);
+		}
+	}
 
 	public Long getId() {
 		return id;
 	}
 
-	@OneToMany
-	private List<Itens> itens;
-	
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getEnunciado() {
 		return enunciado;
+	}
+
+	public void setEnunciado(String enunciado) {
+		this.enunciado = enunciado;
 	}
 
 	public String getAssunto() {
 		return assunto;
 	}
 
+	public void setAssunto(String assunto) {
+		this.assunto = assunto;
+	}
+
 	public char getResposta() {
 		return resposta;
+	}
+
+	public void setResposta(char resposta) {
+		this.resposta = resposta;
 	}
 
 	public Colaborador getProfessor() {
 		return professor;
 	}
 
+	public void setProfessor(Colaborador professor) {
+		this.professor = professor;
+	}
+
 	public Disciplina getDisciplina() {
 		return disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
 	}
 
 	public EnumEstado getEstado() {
@@ -83,41 +126,27 @@ public class Questao implements Serializable{
 		this.estado = estado;
 	}
 
-	public void setDificuldade(EnumDificuldade dificuldade) {
-		this.dificuldade = dificuldade;
-	}
-
 	public EnumDificuldade getDificuldade() {
 		return dificuldade;
 	}
 
-	public void setEnunciado(String enunciado) {
-		this.enunciado = enunciado;
+	public void setDificuldade(EnumDificuldade dificuldade) {
+		this.dificuldade = dificuldade;
 	}
 
-	public void setAssunto(String assunto) {
-		this.assunto = assunto;
+	public Boolean getObjetiva() {
+		return objetiva;
 	}
 
-	public void setResposta(char resposta) {
-		this.resposta = resposta;
+	public void setObjetiva(Boolean objetiva) {
+		this.objetiva = objetiva;
 	}
 
-	public void setProfessor(Colaborador professor) {
-		this.professor = professor;
-	}
-
-	public void setDisciplina(Disciplina disciplina) {
-		this.disciplina = disciplina;
-	}
-	
-	
-
-	public List<Itens> getItens() {
+	public List<Item> getItens() {
 		return itens;
 	}
 
-	public void setItens(List<Itens> itens) {
+	public void setItens(List<Item> itens) {
 		this.itens = itens;
 	}
 
@@ -177,5 +206,5 @@ public class Questao implements Serializable{
 		} else if (!itens.equals(other.itens))
 			return false;
 		return true;
-	}	
+	}
 }
