@@ -71,6 +71,12 @@ public class SessaoControl implements Serializable {
 		return listaSessoes;
 	}
 	
+	public void dialogSessao(Sessao sessao){
+		this.sessao = sessao;
+		//RequestContext.getCurrentInstance().execute("PD('vCadSessao').show();");
+		
+	}
+	
 	public void limpar() {
 		sessao = new Sessao();
 	}
