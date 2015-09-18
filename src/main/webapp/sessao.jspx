@@ -8,33 +8,6 @@
 	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="corpo">
 		<p:growl id="messages" life="6000" />
-		<p:dialog id="dlgSessao" modal="true" widgetVar="vCadSessao"
-			header="Cadastro de Sessões" resizable="false"
-			onHide="#{SessaoControl.limpar()}">
-			<form id="frmCadastro">
-				<p:panel id="panel">
-					<a:field label="Título">
-						<p:inputText value="#{SessaoControl.sessao.titulo }"
-							style="width:500px" />
-					</a:field>
-					<a:newLine />
-					<a:field label="Descrição">
-						<p:inputTextarea value="#{SessaoControl.sessao.descricao }"
-							style="width:500px" />
-					</a:field>
-					<a:newLine />
-					<p:commandButton icon="ui-icon-disk"
-						actionListener="#{SessaoControl.confirmar }" value="Confirmar"
-						update="dtsessoes" process="@this" />
-					<p:spacer width="45px" />
-					<p:spacer width="45px" />
-					<p:commandButton action="#{SessaoControl.limpar}" value="Limpar"
-						icon="ui-icon-refresh" update="panel" />
-				</p:panel>
-			</form>
-		</p:dialog>
-		<form id="frmDados">
-
 			<a:newLine />
 			<p:panel>
 				<p:dataTable widgetVar="sessoes" id="dtsessoes"
@@ -63,18 +36,30 @@
 						<h:outputText value="#{ses.descricao}" />
 					</p:column>
 					<p:column headerText="Ação">
-						<p:commandButton icon="ui-icon-pencil" value="Editar" update=":formCorpo:dlgSessao"
-							oncomplete="vCadSessao.show()" process="@this">
-							<f:setPropertyActionListener target="#{SessaoControl.sessao}"
-								value="#{ses}" />
+						<p:commandButton icon="ui-icon-pencil" value="Editar" update=":formCorpo:dlgSessao"	oncomplete="vCadSessao.show()">
+							<f:setPropertyActionListener target="#{SessaoControl.sessao}" value="#{ses}" />
 						</p:commandButton>
-						<p:commandButton icon="ui-icon-trash" value="Excluir"
-							oncomplete="confirmacao.show()">
-							<f:setPropertyActionListener target="#{SessaoControl.prova}"
-								value="#{ses}" />
+						<p:commandButton icon="ui-icon-trash" value="Excluir" oncomplete="confirmacao.show()">
+							<f:setPropertyActionListener target="#{SessaoControl.prova}" value="#{ses}" />
 						</p:commandButton>
 					</p:column>
 				</p:dataTable>
+				<p:dialog id="dlgSessao" modal="true" widgetVar="vCadSessao" header="Cadastro de Sessões" resizable="false" onHide="#{SessaoControl.limpar()}">
+					<p:panel id="panel">
+						<a:field label="Título">
+							<p:inputText value="#{SessaoControl.sessao.titulo }" style="width:500px" />
+						</a:field>
+						<a:newLine />
+						<a:field label="Descrição">
+							<p:inputTextarea value="#{SessaoControl.sessao.descricao }" style="width:500px" />
+						</a:field>
+						<a:newLine />
+						<p:commandButton icon="ui-icon-disk" actionListener="#{SessaoControl.confirmar }" value="Confirmar" update="dtsessoes" process="@this" />
+						<p:spacer width="45px" />
+						<p:spacer width="45px" />
+						<p:commandButton action="#{SessaoControl.limpar}" value="Limpar" icon="ui-icon-refresh" update="panel" />
+					</p:panel>
+				</p:dialog>
 			</p:panel>
 			<p:confirmDialog widgetVar="confirmacao"
 				message="Tem Certeza que deseja excluir?" severity="alert"
@@ -87,6 +72,5 @@
 			</p:confirmDialog>
 			<a:newLine />
 			<p:spacer width="25px" />
-		</form>
 	</ui:define>
 </ui:composition>
