@@ -8,7 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="corpo">
 		<p:growl id="messages" life="6000" />
-		<p:dialog modal="true" widgetVar="vCadSessao"
+		<p:dialog id="dlgSessao" modal="true" widgetVar="vCadSessao"
 			header="Cadastro de Sessões" resizable="false"
 			onHide="#{SessaoControl.limpar()}">
 			<form id="frmCadastro">
@@ -63,8 +63,8 @@
 						<h:outputText value="#{ses.descricao}" />
 					</p:column>
 					<p:column headerText="Ação">
-						<p:commandButton icon="ui-icon-pencil" value="Editar"
-							oncomplete="vCadSessao.show()">
+						<p:commandButton icon="ui-icon-pencil" value="Editar" update=":formCorpo:dlgSessao"
+							oncomplete="vCadSessao.show()" process="@this">
 							<f:setPropertyActionListener target="#{SessaoControl.sessao}"
 								value="#{ses}" />
 						</p:commandButton>
