@@ -27,7 +27,7 @@ public class SessaoControl implements Serializable {
 	private List<Sessao> sessoes = new ArrayList<Sessao>();
 
 	private Sessao sessao = new Sessao();
-	
+
 	private Sessao sessaoSelecionado = new Sessao();
 
 	@PostConstruct
@@ -63,22 +63,16 @@ public class SessaoControl implements Serializable {
 		}
 	}
 
-	public List<Sessao> completarSessao(String titulo){
+	public List<Sessao> completarSessao(String titulo) {
 		List<Sessao> listaSessoes = sessaoDao.consultarPeloTitulo(titulo);
 		if (listaSessoes.size() == 0) {
 			UtilFaces.addMensagemFaces("Sessão não encontrada");
 		}
 		return listaSessoes;
 	}
-	
-	public void dialogSessao(Sessao sessao){
-		this.sessao = sessao;
-		//RequestContext.getCurrentInstance().execute("PD('vCadSessao').show();");
-		
-	}
-	
+
 	public void limpar() {
-		sessao = new Sessao();
+		this.sessao = new Sessao();
 	}
 
 	public SessaoDao getSessaoDao() {
@@ -110,18 +104,18 @@ public class SessaoControl implements Serializable {
 	}
 
 	public void setSessaoSelecionado(Sessao sessaoSelecionado) {
-		
+
 		try {
 			if (sessaoSelecionado != null) {
 				Sessao s = sessaoDao.consultar(sessaoSelecionado.getId());
 				this.sessaoSelecionado = s;
-			}else{
+			} else {
 				this.sessaoSelecionado = null;
 			}
-			
+
 		} catch (Exception e) {
-			 UtilFaces.addMensagemFaces(e);
+			UtilFaces.addMensagemFaces(e);
 		}
 	}
-	
+
 }
