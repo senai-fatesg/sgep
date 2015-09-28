@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Sessao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoDao;
+import br.com.ambientinformatica.jpa.exception.PersistenciaException;
 
 @Controller("SessaoControl")
 @Scope("conversation")
@@ -28,7 +29,7 @@ public class SessaoControl implements Serializable {
 
 	private Sessao sessao = new Sessao();
 
-	private Sessao sessaoSelecionado = new Sessao();
+	private Sessao sessaoSelecionada = new Sessao();
 
 	@PostConstruct
 	public void init() {
@@ -45,6 +46,16 @@ public class SessaoControl implements Serializable {
 		}
 	}
 
+	public void alterarSessaoSelecionada(ActionEvent evt){
+		try {
+			sessaoDao.alterar(sessaoSelecionada);
+			listar(evt);
+			sessaoSelecionada = new Sessao();
+		} catch (PersistenciaException e) {
+			UtilFaces.addMensagemFaces("Houve um erro ao alterar a Sessão Selecionada.");
+		}
+	}
+	
 	public void listar(ActionEvent evt) {
 		try {
 			sessoes = sessaoDao.listar();
@@ -55,8 +66,8 @@ public class SessaoControl implements Serializable {
 
 	public void excluir() {
 		try {
-			sessaoDao.excluirPorId(sessao.getId());
-			sessao = new Sessao();
+			sessaoDao.excluirPorId(sessaoSelecionada.getId());
+			sessaoSelecionada = new Sessao();
 			sessoes = sessaoDao.listar();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
@@ -72,7 +83,7 @@ public class SessaoControl implements Serializable {
 	}
 
 	public void limpar() {
-		this.sessao = new Sessao();
+		sessaoSelecionada = new Sessao();
 	}
 
 	public SessaoDao getSessaoDao() {
@@ -99,23 +110,14 @@ public class SessaoControl implements Serializable {
 		this.sessao = sessao;
 	}
 
-	public Sessao getSessaoSelecionado() {
-		return sessaoSelecionado;
+	public Sessao getSessaoSelecionada() {
+		return sessaoSelecionada;
 	}
 
-	public void setSessaoSelecionado(Sessao sessaoSelecionado) {
-
-		try {
-			if (sessaoSelecionado != null) {
-				Sessao s = sessaoDao.consultar(sessaoSelecionado.getId());
-				this.sessaoSelecionado = s;
-			} else {
-				this.sessaoSelecionado = null;
-			}
-
-		} catch (Exception e) {
-			UtilFaces.addMensagemFaces(e);
-		}
+	public void setSessaoSelecionada(Sessao sessaoSelecionada) {
+		this.sessaoSelecionada = sessaoSelecionada;
 	}
+
+	
 
 }
