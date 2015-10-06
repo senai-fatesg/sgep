@@ -12,12 +12,12 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Item implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final Long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "itens_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "itens_seq", sequenceName = "itens_seq", allocationSize = 1, initialValue = 1)
-	private Long id;
+	private Integer id;
 
 	@NotNull
 	private String descricao;
@@ -26,11 +26,11 @@ public class Item implements Serializable {
 
 	private Boolean resposta;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -12,13 +12,13 @@ public class Sessao {
 	@Id
 	@GeneratedValue(generator = "sessao_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "sessao_seq", sequenceName = "sessao_seq", allocationSize = 1, initialValue = 1)
-	private Long id;
+	private Integer id;
 
 	private String titulo;
 
 	private String descricao;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -38,7 +38,7 @@ public class Sessao {
 		this.descricao = descricao;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

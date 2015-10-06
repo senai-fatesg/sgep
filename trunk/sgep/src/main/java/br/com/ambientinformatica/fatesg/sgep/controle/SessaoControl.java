@@ -46,16 +46,17 @@ public class SessaoControl implements Serializable {
 		}
 	}
 
-	public void alterarSessaoSelecionada(ActionEvent evt){
+	public void alterarSessaoSelecionada(ActionEvent evt) {
 		try {
 			sessaoDao.alterar(sessaoSelecionada);
 			listar(evt);
 			sessaoSelecionada = new Sessao();
 		} catch (PersistenciaException e) {
-			UtilFaces.addMensagemFaces("Houve um erro ao alterar a Sessão Selecionada.");
+			UtilFaces
+					.addMensagemFaces("Houve um erro ao alterar a Sessão Selecionada.");
 		}
 	}
-	
+
 	public void listar(ActionEvent evt) {
 		try {
 			sessoes = sessaoDao.listar();
@@ -74,12 +75,19 @@ public class SessaoControl implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("finally")
 	public List<Sessao> completarSessao(String titulo) {
-		List<Sessao> listaSessoes = sessaoDao.consultarPeloTitulo(titulo);
-		if (listaSessoes.size() == 0) {
-			UtilFaces.addMensagemFaces("Sessão não encontrada");
+		List<Sessao> listaSessoes = new ArrayList<Sessao>();
+		try {
+			listaSessoes = sessaoDao.consultarPeloTitulo(titulo);
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces("Erro ao completar a Sessão");
+		} finally {
+			if (listaSessoes.size() == 0) {
+				UtilFaces.addMensagemFaces("Sessão não encontrada");
+			}
+			return listaSessoes;
 		}
-		return listaSessoes;
 	}
 
 	public void limpar() {
@@ -117,7 +125,5 @@ public class SessaoControl implements Serializable {
 	public void setSessaoSelecionada(Sessao sessaoSelecionada) {
 		this.sessaoSelecionada = sessaoSelecionada;
 	}
-
-	
 
 }

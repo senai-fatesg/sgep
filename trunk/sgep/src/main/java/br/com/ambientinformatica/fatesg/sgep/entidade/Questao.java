@@ -23,12 +23,12 @@ import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
 @Entity
 public class Questao implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final Long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "questao_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "questao_seq", sequenceName = "questao_seq", allocationSize = 1, initialValue = 1)
-	private Long id;
+	private Integer id;
 
 	private String enunciado;
 
@@ -57,7 +57,7 @@ public class Questao implements Serializable {
 	// Metodos
 	public void addItem(Item item) throws Exception{
 			if (!itens.contains(item)) {
-				this.itens. add(item);
+				this.itens.add(item);
 			}else{
 				throw new Exception("Questão já contem este item!");
 			}
@@ -70,11 +70,11 @@ public class Questao implements Serializable {
 		}
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

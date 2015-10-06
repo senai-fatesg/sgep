@@ -3,7 +3,7 @@ package br.com.ambientinformatica.fatesg.sgep.entidade;
 import br.com.ambientinformatica.util.IEnum;
 
 public enum EnumDificuldade implements IEnum {
-	Fácil("Fácil"), Médio("Médio"), Difícil("Difícil");
+	Facil("Fácil"), Medio("Médio"), Dificil("Difícil");
 
 	private final String descricao;
 

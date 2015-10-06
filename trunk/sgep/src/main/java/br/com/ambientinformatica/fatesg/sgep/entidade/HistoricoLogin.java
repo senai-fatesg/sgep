@@ -17,7 +17,7 @@ public class HistoricoLogin {
    @Id
    @GeneratedValue(generator="historico_login_seq", strategy=GenerationType.SEQUENCE)
    @SequenceGenerator(name="historico_login_seq", sequenceName="historico_login_seq", allocationSize=1, initialValue=1)
-   private Long id;
+   private Integer id;
    
    @ManyToOne
    private Usuario usuario;
@@ -41,7 +41,7 @@ public class HistoricoLogin {
       this.data = data;
    }
 
-   public Long getId() {
+   public Integer getId() {
       return id;
    }
    

@@ -13,7 +13,7 @@ public class ItensProva{
 	@Id
 	@GeneratedValue(generator = "itensProva_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "itensProva_seq" , sequenceName = "itensProva_seq", allocationSize = 1, initialValue = 1)
-	private Long id;
+	private Integer id;
 
 	@ManyToOne
 	private Prova prova;
@@ -31,7 +31,7 @@ public class ItensProva{
 		this.questao = questao;
 	}
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
