@@ -1,6 +1,5 @@
 package br.com.ambientinformatica.fatesg.sgep.entidade;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class Prova{
 	@Id
 	@GeneratedValue(generator = "cabecalho_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "cabecalho_seq" , sequenceName = "cabecalho_seq", allocationSize = 1, initialValue = 1)
-	private Long id;
+	private Integer id;
 
 	private int periodo;
 	
@@ -30,7 +29,7 @@ public class Prova{
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Template> templates;
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -58,7 +57,7 @@ public class Prova{
 		this.templates = templates;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

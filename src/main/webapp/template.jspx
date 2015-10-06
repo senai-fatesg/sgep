@@ -7,41 +7,79 @@
 	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
 	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="corpo">
-		<p:panel header="Cadastro de Templates" id="panel">
+		<p:growl id="messages" life="6000" />
+		<p:panel>
+			<p:dataTable widgetVar="provas" id="dtTemplates" value="#{TemplateControl.templates}" var="tem" width="100%"
+				emptyMessage="Sem registros" rows="20" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<f:facet name="header">
+					<h:outputText value="Lista de Templates" />
+				</f:facet>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Código" />
+					</f:facet>
+					<h:outputText value="#{tem.id}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Período" />
+					</f:facet>
+					<h:outputText value="#{tem.descricao}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<p:commandButton value="Novo" update=":formCorpo:dlgTemplate" action="#{TemplateControl.limpar}" oncomplete="PF('dlgTemplate').show()"/>
+					</f:facet>
+					<p:commandButton icon="ui-icon-pencil" value="Editar" oncomplete="PF('dlgTemplate').show()">
+						<f:setPropertyActionListener target="#{TemplateControl.templateSelecionada}" value="#{tem}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-trash" value="Excluir" oncomplete="PF('confirmacao').show()">
+						<f:setPropertyActionListener target="#{TemplateControl.templateSelecionada}" value="#{tem}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+		<p:dialog id="dlgTemplate" modal="true" widgetVar="dlgTemplate" header="Cadastro de Template" resizable="false" width="500" >
 			<a:field label="Descrição">
-				<p:inputText value="#{TemplateControl.template.descricao}"
-					style="width:70px" />
+				<p:inputText value="#{TemplateControl.templateSelecionada.descricao}" style="width:200px" />
 			</a:field>
-			<a:field label="" spaceLeft="15px">			
-				<p:commandButton icon="ui-icon-plusthick"
-					actionListener="#{TemplateControl.confirmar }" value="Add Prova"
-					update="dtprovas" ></p:commandButton>
+			<a:newLine/>
+			<a:field label="Sessão">
+				<p:autoComplete id="completSessao" minQueryLength="3" value="#{TemplateControl.sessaoItem}" completeMethod="#{TemplateControl.completarSessao}"
+					var="ses" itemLabel="#{ses.titulo}" itemValue="#{ses}" converter="sessaoConverter" forceSelection="true"
+					effect="fade" style="height:15px; margin-top: -10px; width:150px" >
+				</p:autoComplete>
+				<p:watermark value="Pesquise pelo Titulo" for="completSessao" />
 			</a:field>
-				<p:spacer width="45px" />
-			
+			<a:field  spaceLeft="15px">
+				<p:commandButton action="#{TemplateControl.adicionarSessao}" value="Adicionar"
+					 update=":formCorpo:dlgTemplate:dtsessoes" icon="ui-icon-plusthick" ajax="false"/>
+			</a:field>
 			<a:newLine />
-			<p:commandButton actionListener="#{TemplateControl.listar }"
-				value="Listar" icon="ui-icon-search" update="dtprovas"/>
+				<p:dataTable id="dtsessoes" value="#{TemplateControl.templateSelecionada.sessoes}" var="sess" emptyMessage="Sem registros" rows="10" paginator="true">
+					<p:column headerText="Titulo">
+						<h:outputText value="#{sess.titulo}"/>
+					</p:column>
+					<p:column headerText="Ação">
+						<p:commandButton icon="ui-icon-trash" action="#{TemplateControl.removerSessao}" update=":formCorpo:dlgTemplates" ajax="false">
+							<f:setPropertyActionListener target="#{TemplateControl.sessaoItem}" value="#{sess}"/>
+						</p:commandButton>
+					</p:column>
+					
+				</p:dataTable>
+			<a:field>
+				<p:commandButton icon="ui-icon-plusthick" actionListener="#{TemplateControl.confirmar}" value="Confirmar" update=":formCorpo:dtTemplates" oncomplete="dlgTemplate.hide();"/>
+			</a:field>
 			<p:spacer width="45px" />
 			<a:newLine />
-		</p:panel>
+			<a:newLine />
+		</p:dialog>
+		<p:confirmDialog widgetVar="confirmacao" message="Tem Certeza que deseja excluir?" severity="alert" closable="true">
+			<p:commandButton value="Sim" actionListener="#{TemplateControl.excluir}" onclick="confirmacao.hide()" update=":formCorpo:dtTemplates" process="@this" />
+			<p:commandButton value="Não" onclick="confirmacao.hide()" /> 
+		</p:confirmDialog>
 		<a:newLine />
-		
-		<p:dataTable widgetVar="provas" id="dtprovas"
-			value="#{TemplateControl.templates }" var="template" width="100%"
-			emptyMessage="Sem registros" rows="20" paginator="true"
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-			<f:facet name="header">
-				<h:outputText value="Lista de Templates"></h:outputText>
-			</f:facet>
-			<p:column>
-				<f:facet name="header">
-					<h:outputText value="Período"></h:outputText>
-				</f:facet>
-				<h:outputText value="#{template.descricao }"></h:outputText>
-			</p:column>
-			
-		</p:dataTable>
-		<a:newLine />
+		<p:spacer width="25px" />
 	</ui:define>
 </ui:composition>

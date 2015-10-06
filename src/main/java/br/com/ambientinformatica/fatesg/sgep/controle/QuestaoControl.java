@@ -8,7 +8,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
-import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -53,9 +52,9 @@ public class QuestaoControl implements Serializable {
 
 	public void confirmar(ActionEvent evt) {
 		try {
-			questaoDao.alterar(questao);
+			questaoDao.alterar(questaoSelecionada);
 			listar(evt);
-			questao = new Questao();
+			questaoSelecionada = new Questao();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
@@ -71,8 +70,8 @@ public class QuestaoControl implements Serializable {
 
 	public void excluir() {
 		try {
-			questaoDao.excluirPorId(questao.getId());
-			questao = new Questao();
+			questaoDao.excluirPorId(questaoSelecionada.getId());
+			questaoSelecionada = new Questao();
 			questoes = questaoDao.listar();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
@@ -87,35 +86,41 @@ public class QuestaoControl implements Serializable {
 	public void adicionarItem() {
 		try {
 			if (item.getId() != null) {
+
 			} else {
-				if (questao.getItens().size() < 5) {
-					item.setOrdem(questao.getItens().size());
-					questao.addItem(item);
+				if (questaoSelecionada.getItens().size() < 5) {
+					item.setOrdem(questaoSelecionada.getItens().size());
+					questaoSelecionada.addItem(item);
 				} else {
 					UtilFaces
 							.addMensagemFaces("Atenção!\n Capacidade maxima de itens alcançada.");
 				}
 			}
-			item = new Item();
 		} catch (Exception e) {
 			UtilFaces
 					.addMensagemFaces("Ocorreu um erro inesperado ao adicionar a alternativa.\n"
 							+ e.getMessage());
+		} finally {
+			item = new Item();
 		}
 	}
 
-	public void removerItem(Item item) {
+	public void editarItem(Item item) {
 		try {
-			this.questao.removerItem(item);
+			this.item = item;
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
 
-	public void view(){
-		RequestContext.getCurrentInstance().openDialog("questao"); 
+	public void removerItem(Item item) {
+		try {
+			this.questaoSelecionada.removerItem(item);
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces(e);
+		}
 	}
-	
+
 	public List<SelectItem> getEstados() {
 		return UtilFaces.getListEnum(EnumEstado.values());
 	}
@@ -125,7 +130,7 @@ public class QuestaoControl implements Serializable {
 	}
 
 	public void limpar() {
-		questao = new Questao();
+		questaoSelecionada = new Questao();
 	}
 
 	public List<Questao> getQuestoes() {
@@ -169,16 +174,7 @@ public class QuestaoControl implements Serializable {
 	}
 
 	public void setQuestaoSelecionada(Questao questaoSelecionada) {
-		try {
-			if (questaoSelecionada != null) {
-				Questao q = questaoDao.consultar(questaoSelecionada.getId());
-				this.questaoSelecionada = q;
-			} else {
-				this.questaoSelecionada = null;
-			}
-		} catch (Exception e) {
-			UtilFaces.addMensagemFaces(e);
-		}
+		this.questaoSelecionada = questaoSelecionada;
 	}
 
 }
