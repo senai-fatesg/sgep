@@ -8,71 +8,71 @@
 	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="corpo">
 		<p:growl id="messages" life="6000" />
-		<p:panel>
-			<a:newLine/>
-			<p:dataTable widgetVar="sessoes" id="dtsessoes"
-				value="#{SessaoControl.sessoes}" var="ses" width="100%"	emptyMessage="Sem registros" rows="20" paginator="true"
-				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-				<f:facet name="header">
-					<h:outputText value="Lista de Sessões" />
-				</f:facet>
-				<p:column sortBy="#{ses.id}">
+		<h:form id="formLista">
+			<p:panel>
+				<a:newLine/>
+				<p:dataTable widgetVar="sessoes" id="dtsessoes"
+					value="#{SessaoControl.sessoes}" var="ses" width="100%"	emptyMessage="Sem registros" rows="20" paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 					<f:facet name="header">
-						<h:outputText value="Código" />
+						<h:outputText value="Lista de Sessões" />
 					</f:facet>
-					<h:outputText value="#{ses.id}" />
-				</p:column>
-				<p:column sortBy="#{ses.titulo}">
-					<f:facet name="header">
-						<h:outputText value="Título" />
-					</f:facet>
-					<h:outputText value="#{ses.titulo}" />
-				</p:column>
-				<p:column sortBy="#{ses.descricao}">
-					<f:facet name="header">
-						<h:outputText value="Descrição" />
-					</f:facet>
-					<h:outputText value="#{ses.descricao}" />
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<p:commandButton value="Novo" update=":formCorpo:dlgSessao"	oncomplete="PF('vCadSessao').show()" />
-					</f:facet>
-					<p:commandButton update=":formCorpo:dlgSessao" oncomplete="PF('vCadSessao').show()" icon="ui-icon-pencil" value="Editar" >
-						<f:setPropertyActionListener value="#{ses}" target="#{SessaoControl.sessaoSelecionada}"  />
-					</p:commandButton>
-					<p:commandButton icon="ui-icon-trash" value="Excluir" update=":formCorpo:cdlExcluir" oncomplete="PF('confirmacao').show()">
-						<f:setPropertyActionListener target="#{SessaoControl.sessaoSelecionada}" value="#{ses}" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
-		</p:panel>
-		<p:dialog id="dlgSessao" modal="true" widgetVar="vCadSessao" header="Cadastro de Sessões" resizable="false" onHide="#{SessaoControl.limpar()}">
-			<p:panel id="panel">
-				<a:field label="Código">
-					<h:outputText value="#{SessaoControl.sessaoSelecionada.id}" />
-				</a:field>
-				<a:newLine />
-				<a:field label="Título">
-					<p:inputText value="#{SessaoControl.sessaoSelecionada.titulo}" style="width:500px"/>
-				</a:field>
-				<a:newLine />
-				<a:field label="Descrição">
-					<p:inputTextarea value="#{SessaoControl.sessaoSelecionada.descricao}"
-						style="width:500px" />
-				</a:field>
-				<a:newLine />
-				<p:commandButton icon="ui-icon-disk" actionListener="#{SessaoControl.alterarSessaoSelecionada}" value="Confirmar"
-					update=":formCorpo:dtsessoes" ajax="false" oncomplete="dlgSessao.hide();"/>
-				<p:spacer width="45px" />
-				<p:spacer width="45px" />
-				<p:commandButton action="#{SessaoControl.limpar}" value="Limpar"
-					icon="ui-icon-refresh" update="panel" />
+					<p:column sortBy="#{ses.id}">
+						<f:facet name="header">
+							<h:outputText value="Código" />
+						</f:facet>
+						<h:outputText value="#{ses.id}" />
+					</p:column>
+					<p:column sortBy="#{ses.titulo}">
+						<f:facet name="header">
+							<h:outputText value="Título" />
+						</f:facet>
+						<h:outputText value="#{ses.titulo}" />
+					</p:column>
+					<p:column sortBy="#{ses.descricao}">
+						<f:facet name="header">
+							<h:outputText value="Descrição" />
+						</f:facet>
+						<h:outputText value="#{ses.descricao}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<p:commandButton value="Novo" update="@([id$=formCadastro])" action="#{SessaoControl.limpar}" oncomplete="PF('vCadSessao').show()" />
+						</f:facet>
+						<p:commandButton update="@([id$=formCadastro])" oncomplete="PF('vCadSessao').show()" icon="ui-icon-pencil" value="Editar" >
+							<f:setPropertyActionListener value="#{ses}" target="#{SessaoControl.sessaoSelecionada}"  />
+						</p:commandButton>
+						<p:commandButton icon="ui-icon-trash" value="Excluir" oncomplete="PF('confirmacao').show()">
+							<f:setPropertyActionListener target="#{SessaoControl.sessaoSelecionada}" value="#{ses}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
 			</p:panel>
-		</p:dialog>
+		</h:form>
+		<h:form id="formCadastro">
+			<p:dialog id="dlgSessao" modal="true" widgetVar="vCadSessao" header="Cadastro de Sessões" resizable="false" onHide="#{SessaoControl.limpar()}">
+				<p:panel id="panel">
+					<a:field label="Código">
+						<h:outputText value="#{SessaoControl.sessaoSelecionada.id}" />
+					</a:field>
+					<a:newLine />
+					<a:field label="Título">
+						<p:inputText value="#{SessaoControl.sessaoSelecionada.titulo}" style="width:500px"/>
+					</a:field>
+					<a:newLine />
+					<a:field label="Descrição">
+						<p:inputTextarea value="#{SessaoControl.sessaoSelecionada.descricao}"
+							style="width:500px" />
+					</a:field>
+					<a:newLine />
+					<p:commandButton icon="ui-icon-disk" actionListener="#{SessaoControl.alterarSessaoSelecionada}" value="Confirmar"
+						update="@([id$=formLista])" ajax="false" oncomplete="dlgSessao.hide();"/>
+					<p:spacer width="45px" />
+				</p:panel>
+			</p:dialog>
+		</h:form>
 		<p:confirmDialog id="cdlExcluir" widgetVar="confirmacao" message="Tem Certeza que deseja excluir?" severity="alert" closable="true">
-			<p:commandButton value="Sim" actionListener="#{SessaoControl.excluir}"
-				onclick="confirmacao.hide()" update=":formCorpo:dtsessoes" process="@this" />
+			<p:commandButton value="Sim" actionListener="#{SessaoControl.excluir}" onclick="confirmacao.hide()" update="@([id$=formLista])" process="@this" />
 			<p:commandButton value="Não" onclick="confirmacao.hide()" />
 		</p:confirmDialog>
 		<a:newLine />
