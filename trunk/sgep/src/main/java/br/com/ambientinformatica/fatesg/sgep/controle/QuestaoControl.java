@@ -85,15 +85,12 @@ public class QuestaoControl implements Serializable {
 
 	public void adicionarItem() {
 		try {
-			if (item.getId() != null) {
-
-			} else {
+			if (!item.getDescricao().isEmpty() || item.getDescricao() == "") {
 				if (questaoSelecionada.getItens().size() < 5) {
 					item.setOrdem(questaoSelecionada.getItens().size());
 					questaoSelecionada.addItem(item);
 				} else {
-					UtilFaces
-							.addMensagemFaces("Atenção!\n Capacidade maxima de itens alcançada.");
+					UtilFaces.addMensagemFaces("Atenção!\n Capacidade maxima de itens alcançada.");
 				}
 			}
 		} catch (Exception e) {

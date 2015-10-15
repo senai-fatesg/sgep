@@ -9,7 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -22,26 +24,27 @@ public class Template {
 
 	private String descricao;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "template_sessao", joinColumns = { @JoinColumn(name = "id_template", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "id_sessao", referencedColumnName = "id") })
 	private List<Sessao> sessoes = new ArrayList<Sessao>();
 
-	//Metodos
+	// Metodos
 	public void addSessao(Sessao sessao) throws Exception {
-		if(!sessoes.contains(sessao)){
+		if (!sessoes.contains(sessao)) {
 			this.sessoes.add(sessao);
 		} else {
 
 			throw new Exception("Sessão já adicionada.");
 		}
 	}
-	
+
 	public void removerSessao(Sessao sessao) {
-		if(sessoes.contains(sessao)){
+		if (sessoes.contains(sessao)) {
 			this.sessoes.remove(sessao);
 		}
 	}
-	
-	//Gets e Sets
+
+	// Gets e Sets
 	public Integer getId() {
 		return id;
 	}
@@ -97,7 +100,5 @@ public class Template {
 			return false;
 		return true;
 	}
-	
-	
 
 }
