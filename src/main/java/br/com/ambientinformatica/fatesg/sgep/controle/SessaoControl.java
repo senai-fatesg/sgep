@@ -2,7 +2,9 @@ package br.com.ambientinformatica.fatesg.sgep.controle;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
@@ -12,9 +14,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
+import br.com.ambientinformatica.ambientjsf.util.UtilFacesRelatorio;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Sessao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoDao;
 import br.com.ambientinformatica.jpa.exception.PersistenciaException;
+import br.com.ambientinformatica.util.UtilException;
 
 @Controller("SessaoControl")
 @Scope("conversation")
@@ -36,6 +40,21 @@ public class SessaoControl implements Serializable {
 		listar(null);
 	}
 
+	public void imprimir(ActionEvent evt){
+		Sessao sessaoImprimir = (Sessao) UtilFaces.getValorParametro(evt, "sesImprimir");
+		
+		Map<String, Object> parametros = new HashMap<String, Object>();
+		//		parametros.put("nomeInstituicao", EmpresaLogadaControl.getEmpresa().getNome());
+		//		parametros.put("valorTotal", 55.5);
+		List<Sessao> sessoesTeste = new ArrayList<Sessao>();
+		sessoesTeste.add(sessaoImprimir);
+			try {
+				UtilFacesRelatorio.gerarRelatorioFaces("jasper/sessao.jasper", sessoesTeste, parametros);
+			} catch (UtilException e) {
+			UtilFaces.addMensagemFaces("Houve um erro ao gerar o Relatório: "+ e);
+			}
+	}
+	
 	public void confirmar(ActionEvent evt) {
 		try {
 			sessaoDao.alterar(sessao);

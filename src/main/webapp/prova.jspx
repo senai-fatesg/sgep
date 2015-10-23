@@ -15,6 +15,14 @@
 			<a:field label="Data" spaceLeft="15px">
 				<p:calendar value="#{ProvaControl.prova.data }" />
 			</a:field>
+			<a:field label="Template">
+				<p:autoComplete id="completTemplate" minQueryLength="3" value="#{ProvaControl.template}" completeMethod="#{ProvaControl.completarTemplate}"
+					var="tem" itemLabel="#{tem.descricao}" itemValue="tem" converter="templateConverter" forceSelection="true" effect="fade" 
+					style="height:15px; margin-top: -10px; width:150px">
+				</p:autoComplete> 
+				<p:watermark value="Pesquise pelo Template" for="completTemplate"/>
+			</a:field>
+			
 			<a:field label="" spaceLeft="15px">			
 				<p:commandButton icon="ui-icon-plusthick"
 					actionListener="#{ProvaControl.confirmar }" value="Add Prova"
