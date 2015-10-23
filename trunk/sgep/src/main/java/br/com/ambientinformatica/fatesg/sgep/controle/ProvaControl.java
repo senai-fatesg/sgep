@@ -1,7 +1,9 @@
 package br.com.ambientinformatica.fatesg.sgep.controle;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
@@ -11,11 +13,15 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
+import br.com.ambientinformatica.ambientjsf.util.UtilFacesRelatorio;
 import br.com.ambientinformatica.fatesg.sgep.entidade.ItensProva;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Prova;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Questao;
+import br.com.ambientinformatica.fatesg.sgep.entidade.Template;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.ColaboradorDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.ProvaDao;
+import br.com.ambientinformatica.fatesg.sgep.persistencia.TemplateDao;
+import br.com.ambientinformatica.util.UtilException;
 
 @Controller("ProvaControl")
 @Scope("conversation")
@@ -23,6 +29,9 @@ public class ProvaControl {
 	
 	@Autowired
 	private ProvaDao provaDao;
+	
+	@Autowired
+	private TemplateDao templateDao;
 	
 	@Autowired
 	private ColaboradorDao colaboradorDao;
@@ -36,6 +45,8 @@ public class ProvaControl {
 	private Prova provaSelecionada = new Prova();
 	
 	private ItensProva itensProva = new ItensProva();
+	
+	private Template template = new Template();
 
 	
 	@PostConstruct
@@ -43,12 +54,23 @@ public class ProvaControl {
 		try {
 	      colaboradorDao.listarTodos();
       } catch (Exception e) {
-	      // TODO Auto-generated catch block
-	      e.printStackTrace();
+    	  UtilFaces.addMensagemFaces("Houve um erro ao listar Todos: "+ e);
       }
 		listar(null);
 	}
 
+	public void imprimirProva(ActionEvent evt){
+		Map<String, Object> parametros = new HashMap<String, Object>();
+//		parametros.put("nomeInstituicao", EmpresaLogadaControl.getEmpresa().getNome());
+//		parametros.put("valorTotal", 55.5);
+		
+		try {
+			UtilFacesRelatorio.gerarRelatorioFaces("jasper/prova.jasper", prova.getQuestoes(), parametros);
+		} catch (UtilException e) {
+			UtilFaces.addMensagemFaces("Houve um erro ao gerar o Relatório: "+ e);
+		}
+	}
+	
 	public void confirmar(ActionEvent evt) {
 		try {
 			provaDao.alterar(prova);
@@ -82,6 +104,22 @@ public class ProvaControl {
 		prova = new Prova();
 	}
 	
+	@SuppressWarnings("finally")
+	public List<Template> completarTemplate() {
+		List<Template> listaTemplates = new ArrayList<Template>();
+		try {
+			listaTemplates = templateDao.consultarPelaDescricao(template.getDescricao());
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces("Erro ao buscar o Template.");
+		} finally{
+			if (listaTemplates.size() == 0) {
+				UtilFaces.addMensagemFaces("Template não encontrado.");
+			}
+			return listaTemplates;
+		}
+	}
+	
+	//Gets e Sets
 	public Prova getProva() {
 		return prova;
 	}
@@ -125,6 +163,14 @@ public class ProvaControl {
 
 	public void setItensProva(ItensProva itensProva) {
 		this.itensProva = itensProva;
+	}
+
+	public Template getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(Template template) {
+		this.template = template;
 	}
 	
 }

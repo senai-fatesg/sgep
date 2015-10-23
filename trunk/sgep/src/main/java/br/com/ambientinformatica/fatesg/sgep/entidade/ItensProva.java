@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class ItensProva{
+public class ItensProva{//questao_prova
 
 	@Id
 	@GeneratedValue(generator = "itensProva_seq", strategy = GenerationType.SEQUENCE)
@@ -16,7 +16,7 @@ public class ItensProva{
 	private Integer id;
 
 	@ManyToOne
-	private Prova prova;
+	private Sessao sessao;
 	
 	@ManyToOne
 	private Questao questao;
@@ -26,37 +26,34 @@ public class ItensProva{
 	public ItensProva(){
 		
 	}
-	public ItensProva(Prova prova, Questao questao){
-		this.prova = prova;
+	public ItensProva(Sessao sessao, Questao questao){
+		this.sessao = sessao;
 		this.questao = questao;
 	}
-	
 	public Integer getId() {
 		return id;
 	}
-
-	public Prova getProva() {
-		return prova;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-
+	public Sessao getSessao() {
+		return sessao;
+	}
+	public void setSessao(Sessao sessao) {
+		this.sessao = sessao;
+	}
 	public Questao getQuestao() {
 		return questao;
 	}
-
-	public int getNumero() {
-		return numero;
-	}
-
-	public void setProva(Prova prova) {
-		this.prova = prova;
-	}
-
 	public void setQuestao(Questao questao) {
 		this.questao = questao;
 	}
-
+	public int getNumero() {
+		return numero;
+	}
 	public void setNumero(int numero) {
 		this.numero = numero;
-	}	
+	}
 	
+		
 }
