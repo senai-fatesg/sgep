@@ -23,7 +23,7 @@ import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
 @Entity
 public class Questao implements Serializable {
 
-	private static final Long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "questao_seq", strategy = GenerationType.SEQUENCE)

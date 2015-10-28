@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Item implements Serializable {
 
-	private static final Long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "itens_seq", strategy = GenerationType.SEQUENCE)

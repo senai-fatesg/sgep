@@ -57,9 +57,10 @@ public class Usuario extends Entidade{
    @Temporal(TemporalType.DATE)
    private Date dataUltimoAcesso = new Date();
    
-   @OneToMany(cascade=CascadeType.ALL)
+   @SuppressWarnings("deprecation")
+@OneToMany(cascade=CascadeType.ALL)
    @JoinColumn(name="usuario_id")
-   @Cascade(value=org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
+	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
    private Set<PapelUsuario> papeis = new HashSet<PapelUsuario>();
 
    public String getLogin() {
