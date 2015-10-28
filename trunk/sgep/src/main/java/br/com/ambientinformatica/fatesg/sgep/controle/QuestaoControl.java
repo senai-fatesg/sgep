@@ -78,11 +78,11 @@ public class QuestaoControl implements Serializable {
 		}
 	}
 
-	public Colaborador completarColaboradores(String nome) {
-		Colaborador colaborador = colaboradorDao.consultarPorCpf(nome);
+	public List<Colaborador> completarColaboradores(String nome) {
+		List<Colaborador> colaborador = colaboradorDao.listarPorNome(nome);
 		return colaborador;
 	}
-
+	
 	public void adicionarItem() {
 		try {
 			if (!item.getDescricao().isEmpty() || item.getDescricao() == "") {
