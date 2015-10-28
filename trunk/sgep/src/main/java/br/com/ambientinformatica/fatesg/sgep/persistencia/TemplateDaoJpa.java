@@ -17,6 +17,7 @@ public class TemplateDaoJpa extends PersistenciaJpa<Template> implements Templat
 	
 	private static final long serialVersionUID = 1L;
 	
+	@SuppressWarnings("unchecked")
 	public List<Template> consultarPelaDescricao(String descricao) {
 		Session session = this.em.unwrap(Session.class);
 		Criteria criteria = session.createCriteria(Template.class);

@@ -1,7 +1,6 @@
 package br.com.ambientinformatica.fatesg.sgep.persistencia;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -14,7 +13,7 @@ public class CursoDaoService implements CursoDao, Serializable {
 
 	private RestTemplate restTemplate = new RestTemplate();
 	
-	private static final long seralVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unchecked")
 	@Override
