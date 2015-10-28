@@ -17,6 +17,7 @@ public class SessaoDaoJpa extends PersistenciaJpa<Sessao> implements SessaoDao {
 
 	private static final long serialVersionUID = 1L;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Sessao> consultarPeloTitulo(String titulo){
 		Session session = this.em.unwrap(Session.class);
