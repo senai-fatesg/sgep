@@ -6,10 +6,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
@@ -29,14 +31,28 @@ public class Prova {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Template template;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Cabecalho cabecalho;
 
-	public List<Questao> getQuestoes() {
-		//TODO verificar
-		return new ArrayList<Questao>();
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "prova_id")
+	private List<ItensProva> itens = new ArrayList<ItensProva>();
+
+	// Metodos
+	public void addItem(ItensProva item) throws Exception {
+		if (!itens.contains(item)) {
+			this.itens.add(item);
+		} else {
+			throw new Exception("Questão já contém este item!");
+		}
 	}
-	
+
+	public void removerItem(ItensProva item) {
+		if (itens.contains(item)) {
+			this.itens.remove(item);
+		}
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -69,6 +85,14 @@ public class Prova {
 		this.cabecalho = cabecalho;
 	}
 
+	public List<ItensProva> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItensProva> itens) {
+		this.itens = itens;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -77,6 +101,7 @@ public class Prova {
 				+ ((cabecalho == null) ? 0 : cabecalho.hashCode());
 		result = prime * result + ((data == null) ? 0 : data.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((itens == null) ? 0 : itens.hashCode());
 		result = prime * result
 				+ ((template == null) ? 0 : template.hashCode());
 		return result;
@@ -106,6 +131,11 @@ public class Prova {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (itens == null) {
+			if (other.itens != null)
+				return false;
+		} else if (!itens.equals(other.itens))
+			return false;
 		if (template == null) {
 			if (other.template != null)
 				return false;
@@ -113,6 +143,5 @@ public class Prova {
 			return false;
 		return true;
 	}
-
 
 }
