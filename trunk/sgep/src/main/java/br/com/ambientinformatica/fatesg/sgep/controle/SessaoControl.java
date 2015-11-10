@@ -66,6 +66,7 @@ public class SessaoControl implements Serializable {
 	}
 
 	public void alterarSessaoSelecionada(ActionEvent evt) {
+		sessaoSelecionada = (Sessao) UtilFaces.getValorParametro(evt, "sessaoSelecionada");
 		try {
 			sessaoDao.alterar(sessaoSelecionada);
 			listar(evt);
@@ -107,6 +108,10 @@ public class SessaoControl implements Serializable {
 			}
 			return listaSessoes;
 		}
+	}
+	
+	public void editarSessao(ActionEvent evt) {
+		sessaoSelecionada = (Sessao) UtilFaces.getValorParametro(evt, "sesEditar");
 	}
 
 	public void limpar() {
