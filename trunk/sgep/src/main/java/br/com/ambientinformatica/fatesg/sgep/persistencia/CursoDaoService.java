@@ -7,9 +7,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.ambientinformatica.fatesg.api.entidade.Curso;
+import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
 
 @Repository("cursoDao")
-public class CursoDaoService implements CursoDao, Serializable {
+public class CursoDaoService extends PersistenciaJpa<Curso> implements CursoDao, Serializable {
 
 	private RestTemplate restTemplate = new RestTemplate();
 	
