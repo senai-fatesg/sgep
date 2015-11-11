@@ -10,7 +10,8 @@ import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
 import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
 
 @Repository("colaboradorDao")
-public class ColaboradorDaoService extends PersistenciaJpa<Colaborador> implements ColaboradorDao, Serializable {
+public class ColaboradorDaoService extends PersistenciaJpa<Colaborador>
+		implements ColaboradorDao, Serializable {
 
 	private RestTemplate restTemplate = new RestTemplate();
 
@@ -18,17 +19,16 @@ public class ColaboradorDaoService extends PersistenciaJpa<Colaborador> implemen
 
 	@Override
 	public Colaborador consultarPorCpf(String cpf) {
-		return restTemplate.getForObject("http://localhost:8180/corporatum/service/colaborador/consultarPorCpf/" + cpf, Colaborador.class);
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<Colaborador> listarTodos() throws Exception {
-		return restTemplate.getForObject("http://localhost:8180/corporatum/service/colaborador/listarTodos/", List.class);
+		return restTemplate.getForObject(
+				"http://localhost:8180/corporatum/service/colaborador/listarPorCPF/"
+						+ cpf, Colaborador.class);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Colaborador> listarPorNome(String nome) {
-		return restTemplate.getForObject("http://localhost:8180/corporatum/service/colaborador/consultarPorNome/" + nome, List.class);
+		return restTemplate.getForObject(
+				"http://localhost:8180/corporatum/service/colaborador/listarPorNome/"
+						+ nome, List.class);
 	}
 }

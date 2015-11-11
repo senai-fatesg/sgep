@@ -19,14 +19,9 @@ public class InstituicaoDaoService extends PersistenciaJpa<Instituicao> implemen
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Instituicao> listarPorNome(String nome) {
-		return restTemplate.getForObject("http://localhost:8180/corporatum/service/instituicao/consultarPorNome/" + nome, List.class);
+		return restTemplate.getForObject("http://localhost:8180/corporatum/service/instituicao/listarPorNome/" + nome, List.class);
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Instituicao> listarTodos() throws Exception {
-		return restTemplate.getForObject("http://localhost:8180/corporatum/service/instituicao/listarTodos/", List.class);
-	}
 	
 	
 }
