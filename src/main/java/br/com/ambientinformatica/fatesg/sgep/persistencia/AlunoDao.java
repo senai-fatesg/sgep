@@ -8,6 +8,5 @@ import br.com.ambientinformatica.jpa.persistencia.Persistencia;
 public interface AlunoDao extends Persistencia<Aluno> {
 
 	public List<Aluno> listarPorNome(String nome);
-	
-	public List<Aluno> listarTodos() throws Exception;
+
 }

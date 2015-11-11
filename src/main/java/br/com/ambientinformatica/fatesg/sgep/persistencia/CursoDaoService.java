@@ -19,14 +19,9 @@ public class CursoDaoService extends PersistenciaJpa<Curso> implements CursoDao,
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Curso> listarPorNome(String nome) {
-		return (List<Curso>) restTemplate.getForObject("http://localhost:8180/corporatum/service/curso/consultarPorNome/"+nome, List.class);
+		return (List<Curso>) restTemplate.getForObject("http://localhost:8180/corporatum/service/curso/listaPorNome/"+nome, List.class);
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Curso> listarTodos() throws Exception {
-		return (List<Curso>) restTemplate.getForObject("http://localhost:8180/corporatum/service/curso/listarTodos", List.class);
-	}
 	
 	
 }

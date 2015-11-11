@@ -10,7 +10,8 @@ import br.com.ambientinformatica.fatesg.api.entidade.Aluno;
 import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
 
 @Repository("alunoDao")
-public class AlunoDaoService extends PersistenciaJpa<Aluno> implements AlunoDao, Serializable {
+public class AlunoDaoService extends PersistenciaJpa<Aluno> implements
+		AlunoDao, Serializable {
 
 	private RestTemplate restTemplate = new RestTemplate();
 
@@ -22,14 +23,6 @@ public class AlunoDaoService extends PersistenciaJpa<Aluno> implements AlunoDao,
 		return restTemplate.getForObject(
 				"http://localhost:8180/corporatum/service/aluno/listarPorNome/"
 						+ nome, List.class);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Aluno> listarTodos() throws Exception {
-		return restTemplate.getForObject(
-				"http://localhost:8180/corporatum/service/aluno/listarTodos/",
-				List.class);
 	}
 
 }
