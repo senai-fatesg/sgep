@@ -7,28 +7,30 @@ import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
-import br.com.ambientinformatica.fatesg.sgep.entidade.Sessao;
+import br.com.ambientinformatica.fatesg.sgep.entidade.SessaoTemplate;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Template;
-import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoDao;
+import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoTemplateDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.TemplateDao;
 
 @Controller("TemplateControl")
+@Scope("conversation")
 public class TemplateControl {
 
 	@Autowired
 	private TemplateDao templateDao;
 
 	@Autowired
-	private SessaoDao sessaoDao;
+	private SessaoTemplateDao sessaoDao;
 
 	private List<Template> templates = new ArrayList<Template>();
 
 	private Template templateSelecionada = new Template();
 
-	private Sessao sessaoItem = new Sessao();
+	private SessaoTemplate sessaoItem = new SessaoTemplate();
 
 	@PostConstruct
 	public void init() {
@@ -66,12 +68,12 @@ public class TemplateControl {
 
 	public void limpar() {
 		templateSelecionada = new Template();
-		sessaoItem = new Sessao();
+		sessaoItem = new SessaoTemplate();
 	}
 
 	@SuppressWarnings("finally")
-	public List<Sessao> completarSessao(String titulo) {
-		List<Sessao> listaSessoes = new ArrayList<Sessao>();
+	public List<SessaoTemplate> completarSessao(String titulo) {
+		List<SessaoTemplate> listaSessoes = new ArrayList<SessaoTemplate>();
 		try {
 			listaSessoes = sessaoDao.consultarPeloTitulo(titulo);
 		} catch (Exception e) {
@@ -92,7 +94,7 @@ public class TemplateControl {
 					.addMensagemFaces("Ocorreu um erro inesperado ao adicionar a alternativa.\n"
 							+ e.getMessage());
 		} finally {
-			sessaoItem = new Sessao();
+			sessaoItem = new SessaoTemplate();
 		}
 	}
 
@@ -102,7 +104,7 @@ public class TemplateControl {
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Não foi possível remover a sessão.");
 		} finally {
-			sessaoItem = new Sessao();
+			sessaoItem = new SessaoTemplate();
 		}
 	}
 
@@ -115,11 +117,11 @@ public class TemplateControl {
 		this.templateDao = templateDao;
 	}
 
-	public SessaoDao getSessaoDao() {
+	public SessaoTemplateDao getSessaoDao() {
 		return sessaoDao;
 	}
 
-	public void setSessaoDao(SessaoDao sessaoDao) {
+	public void setSessaoDao(SessaoTemplateDao sessaoDao) {
 		this.sessaoDao = sessaoDao;
 	}
 
@@ -139,11 +141,11 @@ public class TemplateControl {
 		this.templateSelecionada = template;
 	}
 
-	public Sessao getSessaoItem() {
+	public SessaoTemplate getSessaoItem() {
 		return sessaoItem;
 	}
 
-	public void setSessaoItem(Sessao sessaoItem) {
+	public void setSessaoItem(SessaoTemplate sessaoItem) {
 		this.sessaoItem = sessaoItem;
 	}
 

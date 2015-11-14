@@ -14,12 +14,12 @@ import org.springframework.stereotype.Controller;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
+import br.com.ambientinformatica.fatesg.sgep.entidade.AlternativaQuestao;
 import br.com.ambientinformatica.fatesg.sgep.entidade.EnumDificuldade;
 import br.com.ambientinformatica.fatesg.sgep.entidade.EnumEstado;
-import br.com.ambientinformatica.fatesg.sgep.entidade.Item;
-import br.com.ambientinformatica.fatesg.sgep.entidade.Questao;
+import br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoTemplate;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.ColaboradorDao;
-import br.com.ambientinformatica.fatesg.sgep.persistencia.QuestaoDao;
+import br.com.ambientinformatica.fatesg.sgep.persistencia.QuestaoTemplateDao;
 
 @Controller("QuestaoControl")
 @Scope("conversation")
@@ -28,19 +28,17 @@ public class QuestaoControl implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private QuestaoDao questaoDao;
+	private QuestaoTemplateDao questaoDao;
 
-	private List<Questao> questoes = new ArrayList<Questao>();
-
-	private Questao questao = new Questao();
+	private List<QuestaoTemplate> questoes = new ArrayList<QuestaoTemplate>();
 
 	private Colaborador professor = new Colaborador();
 
 	private List<Colaborador> professores = new ArrayList<Colaborador>();
 
-	private Questao questaoSelecionada = new Questao();
+	private QuestaoTemplate questaoSelecionada = new QuestaoTemplate();
 
-	private Item item = new Item();
+	private AlternativaQuestao item = new AlternativaQuestao();
 
 	@Autowired
 	private ColaboradorDao colaboradorDao;
@@ -54,7 +52,7 @@ public class QuestaoControl implements Serializable {
 		try {
 			questaoDao.alterar(questaoSelecionada);
 			listar(evt);
-			questaoSelecionada = new Questao();
+			questaoSelecionada = new QuestaoTemplate();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
@@ -71,7 +69,7 @@ public class QuestaoControl implements Serializable {
 	public void excluir() {
 		try {
 			questaoDao.excluirPorId(questaoSelecionada.getId());
-			questaoSelecionada = new Questao();
+			questaoSelecionada = new QuestaoTemplate();
 			questoes = questaoDao.listar();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
@@ -82,15 +80,17 @@ public class QuestaoControl implements Serializable {
 		List<Colaborador> colaborador = colaboradorDao.listarPorNome(nome);
 		return colaborador;
 	}
-	
+
 	public void adicionarItem() {
 		try {
 			if (!item.getDescricao().isEmpty() || item.getDescricao() == "") {
-				if (questaoSelecionada.getItens().size() < 5) {
-					item.setOrdem(questaoSelecionada.getItens().size());
-					questaoSelecionada.addItem(item);
+				if (questaoSelecionada.getQuestao().getAlternativas().size() < 5) {
+					item.setOrdem(questaoSelecionada.getQuestao()
+							.getAlternativas().size());
+					questaoSelecionada.getQuestao().addItem(item);
 				} else {
-					UtilFaces.addMensagemFaces("Atenção!\n Capacidade maxima de itens alcançada.");
+					UtilFaces
+							.addMensagemFaces("Atenção!\n Capacidade maxima de itens alcançada.");
 				}
 			}
 		} catch (Exception e) {
@@ -98,21 +98,21 @@ public class QuestaoControl implements Serializable {
 					.addMensagemFaces("Ocorreu um erro inesperado ao adicionar a alternativa.\n"
 							+ e.getMessage());
 		} finally {
-			item = new Item();
+			item = new AlternativaQuestao();
 		}
 	}
 
-	public void editarItem(Item item) {
+	public void editarItem(AlternativaQuestao alternativa) {
 		try {
-			this.item = item;
+			this.item = alternativa;
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
 
-	public void removerItem(Item item) {
+	public void removerItem(AlternativaQuestao alternativa) {
 		try {
-			this.questaoSelecionada.removerItem(item);
+			this.questaoSelecionada.getQuestao().removerItem(alternativa);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
@@ -127,19 +127,16 @@ public class QuestaoControl implements Serializable {
 	}
 
 	public void limpar() {
-		questaoSelecionada = new Questao();
+		questaoSelecionada = new QuestaoTemplate();
+		item = new AlternativaQuestao();
 	}
 
-	public List<Questao> getQuestoes() {
+	public void limparItem() {
+		item = new AlternativaQuestao();
+	}
+
+	public List<QuestaoTemplate> getQuestoes() {
 		return questoes;
-	}
-
-	public Questao getQuestao() {
-		return questao;
-	}
-
-	public void setQuestao(Questao questao) {
-		this.questao = questao;
 	}
 
 	public Colaborador getProfessor() {
@@ -158,19 +155,19 @@ public class QuestaoControl implements Serializable {
 		this.professores = professores;
 	}
 
-	public Item getItem() {
+	public AlternativaQuestao getItem() {
 		return item;
 	}
 
-	public void setItem(Item item) {
+	public void setItem(AlternativaQuestao item) {
 		this.item = item;
 	}
 
-	public Questao getQuestaoSelecionada() {
+	public QuestaoTemplate getQuestaoSelecionada() {
 		return questaoSelecionada;
 	}
 
-	public void setQuestaoSelecionada(Questao questaoSelecionada) {
+	public void setQuestaoSelecionada(QuestaoTemplate questaoSelecionada) {
 		this.questaoSelecionada = questaoSelecionada;
 	}
 
