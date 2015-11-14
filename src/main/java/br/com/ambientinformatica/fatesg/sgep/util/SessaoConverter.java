@@ -5,14 +5,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import br.com.ambientinformatica.fatesg.sgep.entidade.Sessao;
-import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoDao;
+import br.com.ambientinformatica.fatesg.sgep.entidade.SessaoTemplate;
+import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoTemplateDao;
 import br.com.ambientinformatica.jpa.util.FabricaAbstrata;
 
 @FacesConverter("sessaoConverter")
 public class SessaoConverter implements Converter {
 
-	private SessaoDao sessaoDao = (SessaoDao) FabricaAbstrata
+	private SessaoTemplateDao sessaoDao = (SessaoTemplateDao) FabricaAbstrata
 			.criarObjeto("sessaoDao");
 
 	@Override
@@ -21,7 +21,7 @@ public class SessaoConverter implements Converter {
 		if (value == null || value.equals("")) {
 			return "";
 		} else {
-			return String.valueOf(((Sessao) value).getId());
+			return String.valueOf(((SessaoTemplate) value).getId());
 		}
 	}
 
@@ -29,7 +29,7 @@ public class SessaoConverter implements Converter {
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String value) {
 		if (value != null && !value.trim().equals("")) {
-			Sessao funcionario = new Sessao();
+			SessaoTemplate funcionario = new SessaoTemplate();
 			try {
 				int id = Integer.parseInt(value);
 				try {
