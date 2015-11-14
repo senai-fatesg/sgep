@@ -20,16 +20,16 @@ public class Template {
 	@Id
 	@GeneratedValue(generator = "template_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "template_seq", sequenceName = "template_seq", allocationSize = 1, initialValue = 1)
-	private Integer id;
+	private Integer id_template;
 
 	private String descricao;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "template_sessao", joinColumns = { @JoinColumn(name = "id_template", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "id_sessao", referencedColumnName = "id") })
-	private List<Sessao> sessoes = new ArrayList<Sessao>();
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "template_sessao", joinColumns = { @JoinColumn(name = "id_template") }, inverseJoinColumns = { @JoinColumn(name = "id_sessaoTemplate") })
+	private List<SessaoTemplate> sessoes = new ArrayList<SessaoTemplate>();
 
 	// Metodos
-	public void addSessao(Sessao sessao) throws Exception {
+	public void addSessao(SessaoTemplate sessao) throws Exception {
 		if (!sessoes.contains(sessao)) {
 			this.sessoes.add(sessao);
 		} else {
@@ -38,7 +38,7 @@ public class Template {
 		}
 	}
 
-	public void removerSessao(Sessao sessao) {
+	public void removerSessao(SessaoTemplate sessao) {
 		if (sessoes.contains(sessao)) {
 			this.sessoes.remove(sessao);
 		}
@@ -46,18 +46,18 @@ public class Template {
 
 	// Gets e Sets
 	public Integer getId() {
-		return id;
+		return id_template;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.id_template = id;
 	}
 
-	public List<Sessao> getSessoes() {
+	public List<SessaoTemplate> getSessoes() {
 		return sessoes;
 	}
 
-	public void setSessoes(List<Sessao> sessoes) {
+	public void setSessoes(List<SessaoTemplate> sessoes) {
 		this.sessoes = sessoes;
 	}
 
@@ -75,7 +75,7 @@ public class Template {
 		int result = 1;
 		result = prime * result
 				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((id_template == null) ? 0 : id_template.hashCode());
 		return result;
 	}
 
@@ -93,10 +93,10 @@ public class Template {
 				return false;
 		} else if (!descricao.equals(other.descricao))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if (id_template == null) {
+			if (other.id_template != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!id_template.equals(other.id_template))
 			return false;
 		return true;
 	}

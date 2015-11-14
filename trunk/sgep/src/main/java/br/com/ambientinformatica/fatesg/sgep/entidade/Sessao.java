@@ -1,5 +1,7 @@
 package br.com.ambientinformatica.fatesg.sgep.entidade;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,19 +9,21 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Sessao {
+public class Sessao implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "sessao_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "sessao_seq", sequenceName = "sessao_seq", allocationSize = 1, initialValue = 1)
-	private Integer id;
+	private Integer id_sessao;
 
 	private String titulo;
 
 	private String descricao;
 
 	public Integer getId() {
-		return id;
+		return id_sessao;
 	}
 
 	public String getTitulo() {
@@ -39,14 +43,16 @@ public class Sessao {
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.id_sessao = id;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result
+				+ ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + ((id_sessao == null) ? 0 : id_sessao.hashCode());
 		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
 		return result;
 	}
@@ -60,10 +66,15 @@ public class Sessao {
 		if (getClass() != obj.getClass())
 			return false;
 		Sessao other = (Sessao) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (descricao == null) {
+			if (other.descricao != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!descricao.equals(other.descricao))
+			return false;
+		if (id_sessao == null) {
+			if (other.id_sessao != null)
+				return false;
+		} else if (!id_sessao.equals(other.id_sessao))
 			return false;
 		if (titulo == null) {
 			if (other.titulo != null)

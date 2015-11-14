@@ -10,14 +10,14 @@ import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Item implements Serializable {
+public class AlternativaQuestao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(generator = "itens_seq", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "itens_seq", sequenceName = "itens_seq", allocationSize = 1, initialValue = 1)
-	private Integer id;
+	@GeneratedValue(generator = "alternativa_seq", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "alternativa_seq", sequenceName = "alternativa_seq", allocationSize = 1, initialValue = 1)
+	private Integer id_alternativa;
 
 	@NotNull
 	private String descricao;
@@ -27,11 +27,11 @@ public class Item implements Serializable {
 	private Boolean resposta;
 
 	public Integer getId() {
-		return id;
+		return id_alternativa;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.id_alternativa = id;
 	}
 
 	public String getDescricao() {
@@ -80,6 +80,10 @@ public class Item implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + ((id_alternativa == null) ? 0 : id_alternativa.hashCode());
+		result = prime * result + ((ordem == null) ? 0 : ordem.hashCode());
+		result = prime * result
+				+ ((resposta == null) ? 0 : resposta.hashCode());
 		return result;
 	}
 
@@ -91,11 +95,26 @@ public class Item implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Item other = (Item) obj;
+		AlternativaQuestao other = (AlternativaQuestao) obj;
 		if (descricao == null) {
 			if (other.descricao != null)
 				return false;
 		} else if (!descricao.equals(other.descricao))
+			return false;
+		if (id_alternativa == null) {
+			if (other.id_alternativa != null)
+				return false;
+		} else if (!id_alternativa.equals(other.id_alternativa))
+			return false;
+		if (ordem == null) {
+			if (other.ordem != null)
+				return false;
+		} else if (!ordem.equals(other.ordem))
+			return false;
+		if (resposta == null) {
+			if (other.resposta != null)
+				return false;
+		} else if (!resposta.equals(other.resposta))
 			return false;
 		return true;
 	}

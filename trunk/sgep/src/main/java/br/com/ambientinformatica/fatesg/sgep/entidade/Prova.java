@@ -11,11 +11,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import br.com.ambientinformatica.fatesg.api.entidade.Aluno;
+import br.com.ambientinformatica.fatesg.api.entidade.Curso;
+import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
+import br.com.ambientinformatica.fatesg.api.entidade.Instituicao;
 
 @Entity
 public class Prova {
@@ -23,38 +29,49 @@ public class Prova {
 	@Id
 	@GeneratedValue(generator = "prova_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "prova_seq", sequenceName = "prova_seq", allocationSize = 1, initialValue = 1)
-	private Integer id;
+	private Integer id_prova;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new Date();
 
-	@OneToOne(cascade = CascadeType.ALL)
-	private Template template;
+	@ManyToOne
+	private Curso curso;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	private Cabecalho cabecalho;
+	@ManyToOne
+	private Disciplina disciplina;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "prova_id")
-	private List<ItensProva> itens = new ArrayList<ItensProva>();
+	@ManyToOne
+	private Aluno aluno;
 
-	// Metodos
-	public void addItem(ItensProva item) throws Exception {
-		if (!itens.contains(item)) {
-			this.itens.add(item);
+	@ManyToOne
+	private Instituicao instituicao;
+
+	private Integer periodo;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "prova_sessao", joinColumns = { @JoinColumn(name = "id_prova") }, inverseJoinColumns = { @JoinColumn(name = "id_sessaoProva") })
+	private List<SessaoProva> sessoes = new ArrayList<SessaoProva>();
+
+	public void addSessao(SessaoProva sessao) throws Exception {
+		if (!sessoes.contains(sessao)) {
+			this.sessoes.add(sessao);
 		} else {
-			throw new Exception("Questão já contém este item!");
+			throw new Exception("Prova já contém esta Sessao!");
 		}
 	}
 
-	public void removerItem(ItensProva item) {
-		if (itens.contains(item)) {
-			this.itens.remove(item);
+	public void removerSessao(SessaoProva sessao) {
+		if (sessoes.contains(sessao)) {
+			this.sessoes.remove(sessao);
 		}
 	}
 
 	public Integer getId() {
-		return id;
+		return id_prova;
+	}
+
+	public void setId(Integer id) {
+		this.id_prova = id;
 	}
 
 	public Date getData() {
@@ -65,83 +82,54 @@ public class Prova {
 		this.data = data;
 	}
 
-	public Template getTemplate() {
-		return template;
+	public Curso getCurso() {
+		return curso;
 	}
 
-	public void setTemplate(Template template) {
-		this.template = template;
+	public void setCurso(Curso curso) {
+		this.curso = curso;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public Disciplina getDisciplina() {
+		return disciplina;
 	}
 
-	public Cabecalho getCabecalho() {
-		return cabecalho;
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
 	}
 
-	public void setCabecalho(Cabecalho cabecalho) {
-		this.cabecalho = cabecalho;
+	public Aluno getAluno() {
+		return aluno;
 	}
 
-	public List<ItensProva> getItens() {
-		return itens;
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
 
-	public void setItens(List<ItensProva> itens) {
-		this.itens = itens;
+	public Instituicao getInstituicao() {
+		return instituicao;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((cabecalho == null) ? 0 : cabecalho.hashCode());
-		result = prime * result + ((data == null) ? 0 : data.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((itens == null) ? 0 : itens.hashCode());
-		result = prime * result
-				+ ((template == null) ? 0 : template.hashCode());
-		return result;
+	public void setInstituicao(Instituicao instituicao) {
+		this.instituicao = instituicao;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Prova other = (Prova) obj;
-		if (cabecalho == null) {
-			if (other.cabecalho != null)
-				return false;
-		} else if (!cabecalho.equals(other.cabecalho))
-			return false;
-		if (data == null) {
-			if (other.data != null)
-				return false;
-		} else if (!data.equals(other.data))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (itens == null) {
-			if (other.itens != null)
-				return false;
-		} else if (!itens.equals(other.itens))
-			return false;
-		if (template == null) {
-			if (other.template != null)
-				return false;
-		} else if (!template.equals(other.template))
-			return false;
-		return true;
+	public Integer getPeriodo() {
+		return periodo;
 	}
+
+	public void setPeriodo(Integer periodo) {
+		this.periodo = periodo;
+	}
+
+	public List<SessaoProva> getSessoes() {
+		return sessoes;
+	}
+
+	public void setSessoes(List<SessaoProva> sessoes) {
+		this.sessoes = sessoes;
+	}
+
+	
 
 }
