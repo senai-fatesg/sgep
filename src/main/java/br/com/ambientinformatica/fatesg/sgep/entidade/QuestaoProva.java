@@ -4,10 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -18,21 +20,22 @@ public class QuestaoProva implements Serializable {
 	@Id
 	@GeneratedValue(generator = "questaoProva_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "questaoProva_seq", sequenceName = "questaoProva_seq", allocationSize = 1, initialValue = 1)
-	private Integer id_questaoProva;
+	private Integer idQuestaoProva;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
+    @PrimaryKeyJoinColumn
 	private Questao questao;
 
 	public QuestaoProva() {
 		questao = new Questao();
 	}
 
-	public Integer getId() {
-		return id_questaoProva;
+	public Integer getIdQuestaoProva() {
+		return idQuestaoProva;
 	}
 
-	public void setId(Integer id) {
-		this.id_questaoProva = id;
+	public void setIdQuestaoProva(Integer idQuestaoProva) {
+		this.idQuestaoProva = idQuestaoProva;
 	}
 
 	public Questao getQuestao() {
@@ -48,7 +51,7 @@ public class QuestaoProva implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((id_questaoProva == null) ? 0 : id_questaoProva.hashCode());
+				+ ((idQuestaoProva == null) ? 0 : idQuestaoProva.hashCode());
 		result = prime * result + ((questao == null) ? 0 : questao.hashCode());
 		return result;
 	}
@@ -62,10 +65,10 @@ public class QuestaoProva implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		QuestaoProva other = (QuestaoProva) obj;
-		if (id_questaoProva == null) {
-			if (other.id_questaoProva != null)
+		if (idQuestaoProva == null) {
+			if (other.idQuestaoProva != null)
 				return false;
-		} else if (!id_questaoProva.equals(other.id_questaoProva))
+		} else if (!idQuestaoProva.equals(other.idQuestaoProva))
 			return false;
 		if (questao == null) {
 			if (other.questao != null)
