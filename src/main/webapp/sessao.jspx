@@ -7,8 +7,8 @@
 	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
 	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="corpo">
-		<p:growl id="messages" life="6000" />
 		<h:form id="formLista">
+			<p:growl id="messages" life="6000" />
 			<p:panel>
 				<a:newLine/>
 				<p:dataTable widgetVar="sessoes" id="dtsessoes"
@@ -37,9 +37,9 @@
 					</p:column>
 					<p:column>
 						<f:facet name="header">
-							<p:commandButton value="Novo" update="@([id$=formCadastro])" action="#{SessaoControl.limpar}" oncomplete="PF('vCadSessao').show()" />
+							<p:commandButton value="Novo" update=":formCadastro:panel" action="#{SessaoControl.limpar}" oncomplete="PF('vCadSessao').show()" />
 						</f:facet>
-						<p:commandButton update="@([id$=formCadastro])" oncomplete="PF('vCadSessao').show()" actionListener="#{SessaoControl.editarSessao}" icon="ui-icon-pencil" value="Editar" >
+						<p:commandButton update=":formCadastro:panel" oncomplete="PF('vCadSessao').show()" actionListener="#{SessaoControl.editarSessao}" icon="ui-icon-pencil" value="Editar" >
 							<f:param value="#{ses}" id="sesEditar"/>
 						</p:commandButton>
 						<p:commandButton icon="ui-icon-print" value="Imprimir" ajax="false" actionListener="#{SessaoControl.imprimir}">
@@ -77,7 +77,7 @@
 			</p:dialog>
 		</h:form>
 		<p:confirmDialog id="cdlExcluir" widgetVar="confirmacao" message="Tem Certeza que deseja excluir?" severity="alert" closable="true">
-			<p:commandButton value="Sim" actionListener="#{SessaoControl.excluir}" onclick="confirmacao.hide()" update="@([id$=formLista])" process="@this" />
+			<p:commandButton value="Sim" actionListener="#{SessaoControl.excluir}" onclick="confirmacao.hide()" update=":formLista" process="@this" />
 			<p:commandButton value="Não" onclick="confirmacao.hide()" />
 		</p:confirmDialog>
 		<a:newLine />
