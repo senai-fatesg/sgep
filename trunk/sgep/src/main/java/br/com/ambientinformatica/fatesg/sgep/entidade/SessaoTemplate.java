@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -21,9 +22,10 @@ public class SessaoTemplate implements Serializable {
 	@Id
 	@GeneratedValue(generator = "sessaoTemplate_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "sessaoTemplate_seq", sequenceName = "sessaoTemplate_seq", allocationSize = 1, initialValue = 1)
-	private Integer id_sessaoTemplate;
+	private Integer idSessaoTemplate;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
+    @PrimaryKeyJoinColumn
 	private Sessao sessao;
 
 	@OneToMany(mappedBy = "sessao", fetch = FetchType.LAZY, orphanRemoval = true)
@@ -33,12 +35,12 @@ public class SessaoTemplate implements Serializable {
 		sessao = new Sessao();
 	}
 
-	public Integer getId() {
-		return id_sessaoTemplate;
+	public Integer getIdSessaoTemplate() {
+		return idSessaoTemplate;
 	}
 
-	public void setId(Integer id) {
-		this.id_sessaoTemplate = id;
+	public void setIdSessaoTemplate(Integer idSessaoTemplate) {
+		this.idSessaoTemplate = idSessaoTemplate;
 	}
 
 	public Sessao getSessao() {
@@ -49,14 +51,21 @@ public class SessaoTemplate implements Serializable {
 		this.sessao = sessao;
 	}
 
+	public List<ItemQuestaoTemplate> getItemQuestao() {
+		return itemQuestao;
+	}
+
+	public void setItemQuestao(List<ItemQuestaoTemplate> itemQuestao) {
+		this.itemQuestao = itemQuestao;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime
 				* result
-				+ ((id_sessaoTemplate == null) ? 0 : id_sessaoTemplate
-						.hashCode());
+				+ ((idSessaoTemplate == null) ? 0 : idSessaoTemplate.hashCode());
 		result = prime * result + ((sessao == null) ? 0 : sessao.hashCode());
 		return result;
 	}
@@ -70,10 +79,10 @@ public class SessaoTemplate implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		SessaoTemplate other = (SessaoTemplate) obj;
-		if (id_sessaoTemplate == null) {
-			if (other.id_sessaoTemplate != null)
+		if (idSessaoTemplate == null) {
+			if (other.idSessaoTemplate != null)
 				return false;
-		} else if (!id_sessaoTemplate.equals(other.id_sessaoTemplate))
+		} else if (!idSessaoTemplate.equals(other.idSessaoTemplate))
 			return false;
 		if (sessao == null) {
 			if (other.sessao != null)

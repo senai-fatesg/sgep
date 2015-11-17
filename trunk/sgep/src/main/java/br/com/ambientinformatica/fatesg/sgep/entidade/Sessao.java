@@ -16,34 +16,34 @@ public class Sessao implements Serializable {
 	@Id
 	@GeneratedValue(generator = "sessao_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "sessao_seq", sequenceName = "sessao_seq", allocationSize = 1, initialValue = 1)
-	private Integer id_sessao;
+	private Integer idSessao;
 
 	private String titulo;
 
 	private String descricao;
 
-	public Integer getId() {
-		return id_sessao;
+	public Integer getIdSessao() {
+		return idSessao;
+	}
+
+	public void setIdSessao(Integer idSessao) {
+		this.idSessao = idSessao;
 	}
 
 	public String getTitulo() {
 		return titulo;
 	}
 
-	public String getDescricao() {
-		return descricao;
-	}
-
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setId(Integer id) {
-		this.id_sessao = id;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	@Override
@@ -52,7 +52,8 @@ public class Sessao implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((id_sessao == null) ? 0 : id_sessao.hashCode());
+		result = prime * result
+				+ ((idSessao == null) ? 0 : idSessao.hashCode());
 		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
 		return result;
 	}
@@ -71,10 +72,10 @@ public class Sessao implements Serializable {
 				return false;
 		} else if (!descricao.equals(other.descricao))
 			return false;
-		if (id_sessao == null) {
-			if (other.id_sessao != null)
+		if (idSessao == null) {
+			if (other.idSessao != null)
 				return false;
-		} else if (!id_sessao.equals(other.id_sessao))
+		} else if (!idSessao.equals(other.idSessao))
 			return false;
 		if (titulo == null) {
 			if (other.titulo != null)

@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -21,9 +22,10 @@ public class SessaoProva implements Serializable {
 	@Id
 	@GeneratedValue(generator = "sessaoProva_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "sessaoProva_seq", sequenceName = "sessaoProva_seq", allocationSize = 1, initialValue = 1)
-	private Integer id_sessaoProva;
+	private Integer idSessaoProva;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
+    @PrimaryKeyJoinColumn
 	private Sessao sessao;
 
 	@OneToMany(mappedBy = "sessao", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
@@ -33,12 +35,12 @@ public class SessaoProva implements Serializable {
 		sessao = new Sessao();
 	}
 
-	public Integer getId() {
-		return id_sessaoProva;
+	public Integer getIdSessaoProva() {
+		return idSessaoProva;
 	}
 
-	public void setId(Integer id) {
-		this.id_sessaoProva = id;
+	public void setIdSessaoProva(Integer idSessaoProva) {
+		this.idSessaoProva = idSessaoProva;
 	}
 
 	public Sessao getSessao() {
@@ -47,6 +49,14 @@ public class SessaoProva implements Serializable {
 
 	public void setSessao(Sessao sessao) {
 		this.sessao = sessao;
+	}
+
+	public List<ItemQuestaoProva> getItemQuestao() {
+		return itemQuestao;
+	}
+
+	public void setItemQuestao(List<ItemQuestaoProva> itemQuestao) {
+		this.itemQuestao = itemQuestao;
 	}
 
 	@Override
