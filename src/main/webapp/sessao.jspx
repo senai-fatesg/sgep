@@ -17,23 +17,23 @@
 					<f:facet name="header">
 						<h:outputText value="Lista de Sessões" />
 					</f:facet>
-					<p:column sortBy="#{ses.id}">
+					<p:column sortBy="#{ses.sessao.idSessao}">
 						<f:facet name="header">
 							<h:outputText value="Código" />
 						</f:facet>
-						<h:outputText value="#{ses.id}" />
+						<h:outputText value="#{ses.sessao.idSessao}" />
 					</p:column>
-					<p:column sortBy="#{ses.titulo}">
+					<p:column sortBy="#{ses.sessao.titulo}">
 						<f:facet name="header">
 							<h:outputText value="Título" />
 						</f:facet>
-						<h:outputText value="#{ses.titulo}" />
+						<h:outputText value="#{ses.sessao.titulo}" />
 					</p:column>
-					<p:column sortBy="#{ses.descricao}">
+					<p:column sortBy="#{ses.sessao.descricao}">
 						<f:facet name="header">
 							<h:outputText value="Descrição" />
 						</f:facet>
-						<h:outputText value="#{ses.descricao}" />
+						<h:outputText value="#{ses.sessao.descricao}" />
 					</p:column>
 					<p:column>
 						<f:facet name="header">
@@ -56,20 +56,20 @@
 			<p:dialog id="dlgSessao" modal="true" widgetVar="vCadSessao" header="Cadastro de Sessões" resizable="false" onHide="#{SessaoControl.limpar()}">
 				<p:panel id="panel">
 					<a:field label="Código">
-						<h:outputText value="#{SessaoControl.sessaoSelecionada.id}" />
+						<h:outputText value="#{SessaoControl.sessaoSelecionada.sessao.idSessao}" />
 					</a:field>
 					<a:newLine />
 					<a:field label="Título">
-						<p:inputText value="#{SessaoControl.sessaoSelecionada.titulo}" style="width:500px"/>
+						<p:inputText value="#{SessaoControl.sessaoSelecionada.sessao.titulo}" style="width:500px"/>
 					</a:field>
 					<a:newLine />
 					<a:field label="Descrição">
-						<p:inputTextarea value="#{SessaoControl.sessaoSelecionada.descricao}"
+						<p:inputTextarea value="#{SessaoControl.sessaoSelecionada.sessao.descricao}"
 							style="width:500px" />
 					</a:field>
 					<a:newLine />
-					<p:commandButton icon="ui-icon-disk" actionListener="#{SessaoControl.alterarSessaoSelecionada}" value="Confirmar"
-						update="@([id$=formLista])" ajax="false" oncomplete="dlgSessao.hide();">
+					<p:commandButton icon="ui-icon-disk" actionListener="#{SessaoControl.confirmar}" value="Confirmar"
+						update=":formLista" ajax="false" oncomplete="dlgSessao.hide();">
 						<f:param value="#{SessaoControl.sessaoSelecionada}" id="sessaoSelecionada"/>
 					</p:commandButton>
 					<p:spacer width="45px" />

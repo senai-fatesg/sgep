@@ -8,71 +8,171 @@
 	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="corpo">
 		<p:growl id="messages" life="6000" />
-
-		<p:panel id="Cadastro">
+		<h:form id="formLista">
+			<p:dataTable widgetVar="questoes" id="dtQuestoes"
+				value="#{QuestaoControl.questoes}" var="cont" width="100%"
+				emptyMessage="Sem registros" rows="20" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<f:facet name="header">
+					<h:outputText value="Lista de Querstões"></h:outputText>
+				</f:facet>
+				<p:column sortBy="#{cont.questao.enunciado}">
+					<f:facet name="header">
+						<h:outputText value="Enunciado"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{cont.questao.enunciado}"></h:outputText>
+				</p:column>
+				<p:column sortBy="#{cont.questao.assunto}">
+					<f:facet name="header">
+						<h:outputText value="Assunto"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{cont.questao.assunto}"></h:outputText>
+				</p:column>
+				<p:column sortBy="#{cont.questao.resposta}">
+					<f:facet name="header">
+						<h:outputText value="Resposta"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{cont.questao.resposta}"></h:outputText>
+				</p:column>
+				<p:column sortBy="#{cont.questao.estado}">
+					<f:facet name="header">
+						<h:outputText value="Estado"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{cont.questao.estado}"></h:outputText>
+				</p:column>
+				<p:column sortBy="#{cont.questao.dificuldade}">
+					<f:facet name="header">
+						<h:outputText value="Dificuldade"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{cont.questao.dificuldade}"></h:outputText>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<p:commandButton value="Novo" update="@([id$=formCadastro])"
+							action="#{QuestaoControl.limpar}"
+							oncomplete="PF('wNewFile').show()" />
+					</f:facet>
+					<p:commandButton update=":formCadastro:sclPanel"
+						oncomplete="wNewFile.show()" icon="ui-icon-pencil" value="Editar">
+						<f:setPropertyActionListener value="#{cont}"
+							target="#{QuestaoControl.questaoSelecionada}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-trash" value="Excluir"
+						oncomplete="confirmacao.show()">
+						<f:setPropertyActionListener
+							target="#{QuestaoControl.questaoSelecionada}" value="#{cont}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		<h:form id="formCadastro">
+			<p:dialog id="dlgQuestao" modal="true" widgetVar="wNewFile"
+				header="Cadastro de Questões" resizable="false"
+				onHide="#{QuestaoControl.limpar()}">
+				<p:scrollPanel id="sclPanel" mode="native" style="height:500px;" rendered="true">
 					<a:field label="Professor" width="440px">
-						<p:autoComplete id="completUsuario" value="#{QuestaoControl.questaoSelecionada.professor}"
-							completeMethod="#{QuestaoControl.completarColaboradores}" minQueryLength="3" var="colaborador"
-							itemLabel="#{colaborador.nome}" itemValue="#{colaborador}" converter="colaboradorConverter">
+						<p:autoComplete id="completUsuario"
+							value="#{QuestaoControl.questaoSelecionada.questao.professor}"
+							completeMethod="#{QuestaoControl.completarColaboradores}"
+							minQueryLength="3" var="colaborador"
+							itemLabel="#{colaborador.nome}" itemValue="#{colaborador}"
+							converter="colaboradorConverter">
 						</p:autoComplete>
 						<p:watermark value="Pesquise pelo Nome" for="completUsuario" />
 					</a:field>
 					<a:newLine />
 					<a:field label="Enunciado">
-						<p:inputTextarea value="#{QuestaoControl.questaoSelecionada.enunciado}" scrollHeight="1" style="width:500px" />
+						<p:inputTextarea
+							value="#{QuestaoControl.questaoSelecionada.questao.enunciado}"
+							scrollHeight="1" style="width:500px" />
 					</a:field>
 					<a:field label="Assunto" spaceLeft="15px">
-						<p:inputTextarea value="#{QuestaoControl.questaoSelecionada.assunto}" scrollHeight="1" style="width:500px" />
+						<p:inputTextarea
+							value="#{QuestaoControl.questaoSelecionada.questao.assunto}"
+							scrollHeight="1" style="width:500px" />
 					</a:field>
 					<a:newLine />
 					<a:field label="Resposta">
-						<p:inputText value="#{QuestaoControl.questaoSelecionada.resposta}" style="width:50px" maxlength="1" />
+						<p:inputText value="#{QuestaoControl.questaoSelecionada.questao.resposta}"
+							style="width:50px" maxlength="1" />
 					</a:field>
 					<a:field label="Estado" spaceLeft="15px">
-						<p:selectOneMenu id="estado" value="#{QuestaoControl.questaoSelecionada.estado}" style="width:200px">
+						<p:selectOneMenu id="estado"
+							value="#{QuestaoControl.questaoSelecionada.questao.estado}"
+							style="width:200px">
 							<f:selectItem itemLabel="Selecione..." itemValue="" />
-							<f:selectItems value="#{ QuestaoControl.estados}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo}" />
+							<f:selectItems value="#{ QuestaoControl.estados}" var="tipo"
+								itemValue="#{tipo}" itemLabel="#{tipo}" />
 						</p:selectOneMenu>
 					</a:field>
 					<a:field label="Dificuldade" spaceLeft="15px">
-						<p:selectOneMenu id="dificuldade" value="#{QuestaoControl.questaoSelecionada.dificuldade}" style="width:202px">
+						<p:selectOneMenu id="dificuldade"
+							value="#{QuestaoControl.questaoSelecionada.questao.dificuldade}"
+							style="width:202px">
 							<f:selectItem itemLabel="Selecione..." itemValue="" />
-							<f:selectItems value="#{ QuestaoControl.dificuldades}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo}" />
+							<f:selectItems value="#{ QuestaoControl.dificuldades}" var="tipo"
+								itemValue="#{tipo}" itemLabel="#{tipo}" />
 						</p:selectOneMenu>
 					</a:field>
 					<a:newLine />
-					<a:field id="lItem" label="Item">
-						<p:inputTextarea value="#{QuestaoControl.item.descricao}" scrollHeight="1" style="width:500px" />
+					<a:field label="Item">
+						<p:inputTextarea id="lItem"
+							value="#{QuestaoControl.item.descricao}" scrollHeight="1"
+							style="width:500px" />
 					</a:field>
 					<a:field spaceLeft="15px">
-						<p:commandButton action="#{QuestaoControl.adicionarItem}" value="Adicionar"
-							update=":formCorpo:pnlItens" ajax="false" icon="ui-icon-plusthick">
-						</p:commandButton>
+						<p:commandButton action="#{QuestaoControl.adicionarItem}"
+							value="Adicionar" update=":formCadastro:pnlItens"
+							oncomplete="PF('wNewFile').show()" icon="ui-icon-plusthick" />
+						<br />
+						<p:commandButton action="#{QuestaoControl.limparItem}"
+							value="Limpar" update=":formCadastro:lItem"
+							oncomplete="PF('wNewFile').show()" icon="ui-icon-plusthick" />
 					</a:field>
 					<a:newLine />
 					<a:newLine />
 					<p:panel id="pnlItens">
-						<p:dataTable id="alternativas" style="width:60%" emptyMessage="Sem Registros"
-							value="#{QuestaoControl.questaoSelecionada.itens}" var="ite">
-							<p:column headerText="Ordem">
-								<h:outputText value="#{ite.ordem}" />
+						<p:growl id="messages" life="6000" />
+						<p:dataTable id="alternativas" style="width:60%;"
+							emptyMessage="Sem Registros" rowsPerPageTemplate="5"
+							value="#{QuestaoControl.questaoSelecionada.questao.alternativas}"
+							var="alt">
+							<p:column headerText="Ordem" width="34">
+								<h:outputText value="#{alt.ordem}" />
 							</p:column>
 							<p:column headerText="Descricao">
-								<h:outputText value="#{ite.descricao}" />
+								<h:outputText value="#{alt.descricao}" />
 							</p:column>
 							<p:column headerText="Ação" width="85">
-								<p:commandButton icon="ui-icon-pencil" action="#{QuestaoControl.editarItem(ite)}"
-									update=":formCorpo" />
-								<p:commandButton icon="ui-icon-closethick" action="#{QuestaoControl.removerItem(ite)}"
-									update=":formCorpo:pnlItens" style="float: right; margin: 0 0 7px 10px;" />
+								<p:commandButton icon="ui-icon-pencil"
+									action="#{QuestaoControl.editarItem(alt)}"
+									update="@([id$=lItem])" />
+								<p:commandButton icon="ui-icon-trash"
+									action="#{QuestaoControl.removerItem(alt)}"
+									update=":formCadastro:pnlItens"
+									style="float: right; margin: 0 0 7px 10px;" />
 							</p:column>
 						</p:dataTable>
 					</p:panel>
-					<a:newLine />
-					<p:commandButton icon="ui-icon-disk" actionListener="#{QuestaoControl.confirmar}" value="Confirmar"
-						update=":formCorpo" ajax="false" oncomplete="wNewFile.hide();"/>
-					<p:spacer width="45px" />
-					<p:commandButton action="#{QuestaoControl.limpar}" value="Limpar" icon="ui-icon-refresh" update="Cadastro" />
-				</p:panel>
+				</p:scrollPanel>
+				<a:newLine />
+				<p:commandButton icon="ui-icon-disk"
+					actionListener="#{QuestaoControl.confirmar}" value="Confirmar"
+					update="@([id$=formLista])" oncomplete="wNewFile.hide();" />
+				<p:spacer width="45px" />
+				<p:commandButton action="#{QuestaoControl.limpar}" value="Limpar"
+					icon="ui-icon-refresh" update="@([id$=formCadastro])" />
+			</p:dialog>
+		</h:form>
+		<p:confirmDialog widgetVar="confirmacao"
+			message="Tem Certeza que deseja excluir?" severity="alert"
+			closable="true">
+			<p:commandButton value="Sim"
+				actionListener="#{QuestaoControl.excluir}"
+				onclick="confirmacao.hide()" update=":formLista" process="@this" />
+			<p:commandButton value="Não" onclick="confirmacao.hide()" />
+		</p:confirmDialog>
+		<a:newLine />
+		<p:spacer width="25px" />
 	</ui:define>
 </ui:composition>
