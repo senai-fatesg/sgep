@@ -68,7 +68,7 @@ public class QuestaoControl implements Serializable {
 
 	public void excluir() {
 		try {
-			questaoDao.excluirPorId(questaoSelecionada.getId());
+			questaoDao.excluirPorId(questaoSelecionada.getIdQuestaoTemplate());
 			questaoSelecionada = new QuestaoTemplate();
 			questoes = questaoDao.listar();
 		} catch (Exception e) {
@@ -95,7 +95,7 @@ public class QuestaoControl implements Serializable {
 			}
 		} catch (Exception e) {
 			UtilFaces
-					.addMensagemFaces("Ocorreu um erro inesperado ao adicionar a alternativa.\n"
+					.addMensagemFaces("Não foi possivel adicionar a alternativa.\n"
 							+ e.getMessage());
 		} finally {
 			item = new AlternativaQuestao();
