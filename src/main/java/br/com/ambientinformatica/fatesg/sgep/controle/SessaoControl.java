@@ -40,33 +40,28 @@ public class SessaoControl implements Serializable {
 		listar(null);
 	}
 
-	public void imprimir(ActionEvent evt){
-		SessaoTemplate sessaoImprimir = (SessaoTemplate) UtilFaces.getValorParametro(evt, "sesImprimir");
-		
+	public void imprimir(ActionEvent evt) {
+		SessaoTemplate sessaoImprimir = (SessaoTemplate) UtilFaces
+				.getValorParametro(evt, "sesImprimir");
+
 		Map<String, Object> parametros = new HashMap<String, Object>();
-		//		parametros.put("nomeInstituicao", EmpresaLogadaControl.getEmpresa().getNome());
-		//		parametros.put("valorTotal", 55.5);
+		// parametros.put("nomeInstituicao",
+		// EmpresaLogadaControl.getEmpresa().getNome());
+		// parametros.put("valorTotal", 55.5);
 		List<SessaoTemplate> sessoesTeste = new ArrayList<SessaoTemplate>();
 		sessoesTeste.add(sessaoImprimir);
-			try {
-				UtilFacesRelatorio.gerarRelatorioFaces("jasper/sessao.jasper", sessoesTeste, parametros);
-			} catch (UtilException e) {
-			UtilFaces.addMensagemFaces("Houve um erro ao gerar o Relatório: "+ e);
-			}
-	}
-	
-	public void confirmar(ActionEvent evt) {
 		try {
-			sessaoDao.alterar(sessao);
-			listar(evt);
-			sessao = new SessaoTemplate();
-		} catch (Exception e) {
-			UtilFaces.addMensagemFaces(e);
+			UtilFacesRelatorio.gerarRelatorioFaces("jasper/sessao.jasper",
+					sessoesTeste, parametros);
+		} catch (UtilException e) {
+			UtilFaces.addMensagemFaces("Houve um erro ao gerar o Relatório: "
+					+ e);
 		}
 	}
 
-	public void alterarSessaoSelecionada(ActionEvent evt) {
-		sessaoSelecionada = (SessaoTemplate) UtilFaces.getValorParametro(evt, "sessaoSelecionada");
+	public void confirmar(ActionEvent evt) {
+		sessaoSelecionada = (SessaoTemplate) UtilFaces.getValorParametro(evt,
+				"sessaoSelecionada");
 		try {
 			sessaoDao.alterar(sessaoSelecionada);
 			listar(evt);
@@ -87,7 +82,7 @@ public class SessaoControl implements Serializable {
 
 	public void excluir() {
 		try {
-			sessaoDao.excluirPorId(sessaoSelecionada.getId());
+			sessaoDao.excluirPorId(sessaoSelecionada.getIdSessaoTemplate());
 			sessaoSelecionada = new SessaoTemplate();
 			sessoes = sessaoDao.listar();
 		} catch (Exception e) {
@@ -109,9 +104,10 @@ public class SessaoControl implements Serializable {
 			return listaSessoes;
 		}
 	}
-	
+
 	public void editarSessao(ActionEvent evt) {
-		sessaoSelecionada = (SessaoTemplate) UtilFaces.getValorParametro(evt, "sesEditar");
+		sessaoSelecionada = (SessaoTemplate) UtilFaces.getValorParametro(evt,
+				"sesEditar");
 	}
 
 	public void limpar() {
