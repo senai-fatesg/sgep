@@ -12,24 +12,23 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 
 import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
 import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
-import br.com.ambientinformatica.util.Entidade;
 
 @Entity
-public class Questao extends Entidade implements Serializable {
+public class Questao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "questao_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "questao_seq", sequenceName = "questao_seq", allocationSize = 1, initialValue = 1)
-	private Integer id_questao;
+	private Integer idQuestao;
 
 	private String enunciado;
 
@@ -51,8 +50,8 @@ public class Questao extends Entidade implements Serializable {
 
 	private Boolean objetiva = true;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "id_alternativa")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private List<AlternativaQuestao> alternativas = new ArrayList<AlternativaQuestao>();
 
 	// Metodos
@@ -71,12 +70,12 @@ public class Questao extends Entidade implements Serializable {
 		}
 	}
 
-	public Integer getId() {
-		return id_questao;
+	public Integer getIdQuestao() {
+		return idQuestao;
 	}
 
-	public void setId(Integer id) {
-		this.id_questao = id;
+	public void setIdQuestao(Integer idQuestao) {
+		this.idQuestao = idQuestao;
 	}
 
 	public String getEnunciado() {
@@ -150,4 +149,86 @@ public class Questao extends Entidade implements Serializable {
 	public void setAlternativas(List<AlternativaQuestao> alternativas) {
 		this.alternativas = alternativas;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ ((alternativas == null) ? 0 : alternativas.hashCode());
+		result = prime * result + ((assunto == null) ? 0 : assunto.hashCode());
+		result = prime * result
+				+ ((dificuldade == null) ? 0 : dificuldade.hashCode());
+		result = prime * result
+				+ ((disciplina == null) ? 0 : disciplina.hashCode());
+		result = prime * result
+				+ ((enunciado == null) ? 0 : enunciado.hashCode());
+		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
+		result = prime * result
+				+ ((idQuestao == null) ? 0 : idQuestao.hashCode());
+		result = prime * result
+				+ ((objetiva == null) ? 0 : objetiva.hashCode());
+		result = prime * result
+				+ ((professor == null) ? 0 : professor.hashCode());
+		result = prime * result
+				+ ((resposta == null) ? 0 : resposta.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Questao other = (Questao) obj;
+		if (alternativas == null) {
+			if (other.alternativas != null)
+				return false;
+		} else if (!alternativas.equals(other.alternativas))
+			return false;
+		if (assunto == null) {
+			if (other.assunto != null)
+				return false;
+		} else if (!assunto.equals(other.assunto))
+			return false;
+		if (dificuldade != other.dificuldade)
+			return false;
+		if (disciplina == null) {
+			if (other.disciplina != null)
+				return false;
+		} else if (!disciplina.equals(other.disciplina))
+			return false;
+		if (enunciado == null) {
+			if (other.enunciado != null)
+				return false;
+		} else if (!enunciado.equals(other.enunciado))
+			return false;
+		if (estado != other.estado)
+			return false;
+		if (idQuestao == null) {
+			if (other.idQuestao != null)
+				return false;
+		} else if (!idQuestao.equals(other.idQuestao))
+			return false;
+		if (objetiva == null) {
+			if (other.objetiva != null)
+				return false;
+		} else if (!objetiva.equals(other.objetiva))
+			return false;
+		if (professor == null) {
+			if (other.professor != null)
+				return false;
+		} else if (!professor.equals(other.professor))
+			return false;
+		if (resposta == null) {
+			if (other.resposta != null)
+				return false;
+		} else if (!resposta.equals(other.resposta))
+			return false;
+		return true;
+	}
+
 }

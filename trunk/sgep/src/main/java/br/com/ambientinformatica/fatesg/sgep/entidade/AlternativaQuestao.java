@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class AlternativaQuestao implements Serializable {
@@ -17,21 +16,20 @@ public class AlternativaQuestao implements Serializable {
 	@Id
 	@GeneratedValue(generator = "alternativa_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "alternativa_seq", sequenceName = "alternativa_seq", allocationSize = 1, initialValue = 1)
-	private Integer id_alternativa;
+	private Integer idAlternativa;
 
-	@NotNull
 	private String descricao;
 
 	private Character ordem;
 
 	private Boolean resposta;
 
-	public Integer getId() {
-		return id_alternativa;
+	public Integer getIdAlternativa() {
+		return idAlternativa;
 	}
 
-	public void setId(Integer id) {
-		this.id_alternativa = id;
+	public void setIdAlternativa(Integer idAlternativa) {
+		this.idAlternativa = idAlternativa;
 	}
 
 	public String getDescricao() {
@@ -80,8 +78,8 @@ public class AlternativaQuestao implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((id_alternativa == null) ? 0 : id_alternativa.hashCode());
-		result = prime * result + ((ordem == null) ? 0 : ordem.hashCode());
+		result = prime * result
+				+ ((idAlternativa == null) ? 0 : idAlternativa.hashCode());
 		result = prime * result
 				+ ((resposta == null) ? 0 : resposta.hashCode());
 		return result;
@@ -101,15 +99,10 @@ public class AlternativaQuestao implements Serializable {
 				return false;
 		} else if (!descricao.equals(other.descricao))
 			return false;
-		if (id_alternativa == null) {
-			if (other.id_alternativa != null)
+		if (idAlternativa == null) {
+			if (other.idAlternativa != null)
 				return false;
-		} else if (!id_alternativa.equals(other.id_alternativa))
-			return false;
-		if (ordem == null) {
-			if (other.ordem != null)
-				return false;
-		} else if (!ordem.equals(other.ordem))
+		} else if (!idAlternativa.equals(other.idAlternativa))
 			return false;
 		if (resposta == null) {
 			if (other.resposta != null)

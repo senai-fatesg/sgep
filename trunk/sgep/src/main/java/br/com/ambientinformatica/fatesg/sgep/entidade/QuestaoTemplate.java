@@ -4,11 +4,14 @@ import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
+
 
 @Entity
 public class QuestaoTemplate implements Serializable {
@@ -18,21 +21,23 @@ public class QuestaoTemplate implements Serializable {
 	@Id
 	@GeneratedValue(generator = "questaoTemplate_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "questaoTemplate_seq", sequenceName = "questaoTemplate_seq", allocationSize = 1, initialValue = 1)
-	private Integer id_questaoTemplate;
+	private Integer idQuestaoTemplate;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	
+	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
+    @PrimaryKeyJoinColumn
 	private Questao questao;
 
 	public QuestaoTemplate() {
 		questao = new Questao();
 	}
 
-	public Integer getId() {
-		return id_questaoTemplate;
+	public Integer getIdQuestaoTemplate() {
+		return idQuestaoTemplate;
 	}
 
-	public void setId(Integer id) {
-		this.id_questaoTemplate = id;
+	public void setIdQuestaoTemplate(Integer idQuestaoTemplate) {
+		this.idQuestaoTemplate = idQuestaoTemplate;
 	}
 
 	public Questao getQuestao() {
@@ -49,7 +54,7 @@ public class QuestaoTemplate implements Serializable {
 		int result = 1;
 		result = prime
 				* result
-				+ ((id_questaoTemplate == null) ? 0 : id_questaoTemplate
+				+ ((idQuestaoTemplate == null) ? 0 : idQuestaoTemplate
 						.hashCode());
 		result = prime * result + ((questao == null) ? 0 : questao.hashCode());
 		return result;
@@ -64,10 +69,10 @@ public class QuestaoTemplate implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		QuestaoTemplate other = (QuestaoTemplate) obj;
-		if (id_questaoTemplate == null) {
-			if (other.id_questaoTemplate != null)
+		if (idQuestaoTemplate == null) {
+			if (other.idQuestaoTemplate != null)
 				return false;
-		} else if (!id_questaoTemplate.equals(other.id_questaoTemplate))
+		} else if (!idQuestaoTemplate.equals(other.idQuestaoTemplate))
 			return false;
 		if (questao == null) {
 			if (other.questao != null)
