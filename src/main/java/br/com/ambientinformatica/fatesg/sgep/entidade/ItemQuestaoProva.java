@@ -24,18 +24,18 @@ public class ItemQuestaoProva implements Serializable {
 	@Id
 	@GeneratedValue(generator = "itensQuestaoProva_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "itensQuestaoProva_seq", sequenceName = "itensQuestaoProva_seq", allocationSize = 1, initialValue = 1)
-	private Integer id_itemQuestaoProva;
+	private Integer idItemQuestaoProva;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_sessaoProva")
+	@JoinColumn(name = "idSessaoProva")
 	@Fetch(FetchMode.JOIN)
-	@Cascade(CascadeType.SAVE_UPDATE)
+	@Cascade(CascadeType.ALL)
 	private SessaoProva sessao;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_questaoProva")
+	@JoinColumn(name = "idQuestaoProva")
 	@Fetch(FetchMode.JOIN)
-	@Cascade(CascadeType.SAVE_UPDATE)
+	@Cascade(CascadeType.ALL)
 	private QuestaoProva questao;
 
 	private int numero;
@@ -45,12 +45,12 @@ public class ItemQuestaoProva implements Serializable {
 		this.questao = questao;
 	}
 
-	public Integer getId() {
-		return id_itemQuestaoProva;
+	public Integer getIdItemQuestaoProva() {
+		return idItemQuestaoProva;
 	}
 
-	public void setId(Integer id) {
-		this.id_itemQuestaoProva = id;
+	public void setIdItemQuestaoProva(Integer idItemQuestaoProva) {
+		this.idItemQuestaoProva = idItemQuestaoProva;
 	}
 
 	public SessaoProva getSessao() {
@@ -81,7 +81,10 @@ public class ItemQuestaoProva implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id_itemQuestaoProva == null) ? 0 : id_itemQuestaoProva.hashCode());
+		result = prime
+				* result
+				+ ((idItemQuestaoProva == null) ? 0 : idItemQuestaoProva
+						.hashCode());
 		result = prime * result + numero;
 		result = prime * result + ((questao == null) ? 0 : questao.hashCode());
 		result = prime * result + ((sessao == null) ? 0 : sessao.hashCode());
@@ -97,10 +100,10 @@ public class ItemQuestaoProva implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ItemQuestaoProva other = (ItemQuestaoProva) obj;
-		if (id_itemQuestaoProva == null) {
-			if (other.id_itemQuestaoProva != null)
+		if (idItemQuestaoProva == null) {
+			if (other.idItemQuestaoProva != null)
 				return false;
-		} else if (!id_itemQuestaoProva.equals(other.id_itemQuestaoProva))
+		} else if (!idItemQuestaoProva.equals(other.idItemQuestaoProva))
 			return false;
 		if (numero != other.numero)
 			return false;

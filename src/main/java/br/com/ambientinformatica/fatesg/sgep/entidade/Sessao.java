@@ -52,8 +52,6 @@ public class Sessao implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result
-				+ ((idSessao == null) ? 0 : idSessao.hashCode());
 		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
 		return result;
 	}
@@ -71,11 +69,6 @@ public class Sessao implements Serializable {
 			if (other.descricao != null)
 				return false;
 		} else if (!descricao.equals(other.descricao))
-			return false;
-		if (idSessao == null) {
-			if (other.idSessao != null)
-				return false;
-		} else if (!idSessao.equals(other.idSessao))
 			return false;
 		if (titulo == null) {
 			if (other.titulo != null)

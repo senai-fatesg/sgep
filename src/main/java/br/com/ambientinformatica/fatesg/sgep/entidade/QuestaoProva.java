@@ -22,7 +22,7 @@ public class QuestaoProva implements Serializable {
 	@SequenceGenerator(name = "questaoProva_seq", sequenceName = "questaoProva_seq", allocationSize = 1, initialValue = 1)
 	private Integer idQuestaoProva;
 
-	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY, orphanRemoval = true)
     @PrimaryKeyJoinColumn
 	private Questao questao;
 
