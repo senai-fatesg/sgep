@@ -20,7 +20,7 @@ public class TemplateConverter implements Converter {
 		if (value == null || value.equals("")) {
 			return "";
 		} else {
-			return String.valueOf(((Template) value).getId());
+			return String.valueOf(((Template) value).getIdTemplate());
 		}
 	}
 	
