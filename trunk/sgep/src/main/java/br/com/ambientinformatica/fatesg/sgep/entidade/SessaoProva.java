@@ -1,6 +1,7 @@
 package br.com.ambientinformatica.fatesg.sgep.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -24,15 +25,32 @@ public class SessaoProva implements Serializable {
 	@SequenceGenerator(name = "sessaoProva_seq", sequenceName = "sessaoProva_seq", allocationSize = 1, initialValue = 1)
 	private Integer idSessaoProva;
 
-	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
-    @PrimaryKeyJoinColumn
+	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY, orphanRemoval = true)
+	@PrimaryKeyJoinColumn
 	private Sessao sessao;
 
 	@OneToMany(mappedBy = "sessao", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-	private List<ItemQuestaoProva> itemQuestao;
+	private List<ItemQuestaoProva> itemQuestao = new ArrayList<ItemQuestaoProva>();
 
 	public SessaoProva() {
 		sessao = new Sessao();
+	}
+
+	public void addQuestao(QuestaoProva questao) {
+		try {
+			ItemQuestaoProva item = new ItemQuestaoProva(this, questao);
+			if (itemQuestao.contains(item)) {
+				throw new Exception("Já contem questão");
+			} else {
+				itemQuestao.add(item);
+			}
+		} catch (Exception e) {
+
+		}
+	}
+
+	public void removeQuestao(ItemQuestaoProva item) {
+		itemQuestao.remove(item);
 	}
 
 	public Integer getIdSessaoProva() {

@@ -14,18 +14,21 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
+import org.hibernate.annotations.IndexColumn;
+
 @Entity
 public class Template {
 
 	@Id
 	@GeneratedValue(generator = "template_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "template_seq", sequenceName = "template_seq", allocationSize = 1, initialValue = 1)
-	private Integer id_template;
+	private Integer idTemplate;
 
 	private String descricao;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "template_sessao", joinColumns = { @JoinColumn(name = "id_template") }, inverseJoinColumns = { @JoinColumn(name = "id_sessaoTemplate") })
+	@JoinTable(name = "template_sessao", joinColumns = { @JoinColumn(name = "idTemplate") }, inverseJoinColumns = { @JoinColumn(name = "idSessaoTemplate") })
+	@IndexColumn(name = "index_sessao")
 	private List<SessaoTemplate> sessoes = new ArrayList<SessaoTemplate>();
 
 	// Metodos
@@ -45,20 +48,12 @@ public class Template {
 	}
 
 	// Gets e Sets
-	public Integer getId() {
-		return id_template;
+	public Integer getIdTemplate() {
+		return idTemplate;
 	}
 
-	public void setId(Integer id) {
-		this.id_template = id;
-	}
-
-	public List<SessaoTemplate> getSessoes() {
-		return sessoes;
-	}
-
-	public void setSessoes(List<SessaoTemplate> sessoes) {
-		this.sessoes = sessoes;
+	public void setIdTemplate(Integer idTemplate) {
+		this.idTemplate = idTemplate;
 	}
 
 	public String getDescricao() {
@@ -69,13 +64,23 @@ public class Template {
 		this.descricao = descricao;
 	}
 
+	public List<SessaoTemplate> getSessoes() {
+		return sessoes;
+	}
+
+	public void setSessoes(List<SessaoTemplate> sessoes) {
+		this.sessoes = sessoes;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
 				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((id_template == null) ? 0 : id_template.hashCode());
+		result = prime * result
+				+ ((idTemplate == null) ? 0 : idTemplate.hashCode());
+		result = prime * result + ((sessoes == null) ? 0 : sessoes.hashCode());
 		return result;
 	}
 
@@ -93,10 +98,15 @@ public class Template {
 				return false;
 		} else if (!descricao.equals(other.descricao))
 			return false;
-		if (id_template == null) {
-			if (other.id_template != null)
+		if (idTemplate == null) {
+			if (other.idTemplate != null)
 				return false;
-		} else if (!id_template.equals(other.id_template))
+		} else if (!idTemplate.equals(other.idTemplate))
+			return false;
+		if (sessoes == null) {
+			if (other.sessoes != null)
+				return false;
+		} else if (!sessoes.equals(other.sessoes))
 			return false;
 		return true;
 	}

@@ -24,7 +24,7 @@ public class QuestaoTemplate implements Serializable {
 	private Integer idQuestaoTemplate;
 
 	
-	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY, orphanRemoval = true)
     @PrimaryKeyJoinColumn
 	private Questao questao;
 

@@ -24,18 +24,18 @@ public class ItemQuestaoTemplate implements Serializable {
 	@Id
 	@GeneratedValue(generator = "itemQuestaoTemplate_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "itemQuestaoTemplate_seq", sequenceName = "itemQuestaoTemplate_seq", allocationSize = 1, initialValue = 1)
-	private Integer id_itemQuestaoTemplate;
+	private Integer idItemQuestaoTemplate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_sessaoTemplate")
+	@JoinColumn(name = "idSessaoTemplate")
 	@Fetch(FetchMode.JOIN)
-	@Cascade(CascadeType.SAVE_UPDATE)
+	@Cascade(CascadeType.ALL)
 	private SessaoTemplate sessao;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_questaoTemplate")
+	@JoinColumn(name = "idQuestaoTemplate")
 	@Fetch(FetchMode.JOIN)
-	@Cascade(CascadeType.SAVE_UPDATE)
+	@Cascade(CascadeType.ALL)
 	private QuestaoTemplate questao;
 
 	private int numero;
@@ -48,12 +48,12 @@ public class ItemQuestaoTemplate implements Serializable {
 	public ItemQuestaoTemplate() {
 	}
 
-	public Integer getId() {
-		return id_itemQuestaoTemplate;
+	public Integer getIdItemQuestaoTemplate() {
+		return idItemQuestaoTemplate;
 	}
 
-	public void setId(Integer id) {
-		this.id_itemQuestaoTemplate = id;
+	public void setIdItemQuestaoTemplate(Integer idItemQuestaoTemplate) {
+		this.idItemQuestaoTemplate = idItemQuestaoTemplate;
 	}
 
 	public SessaoTemplate getSessao() {
@@ -84,7 +84,10 @@ public class ItemQuestaoTemplate implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id_itemQuestaoTemplate == null) ? 0 : id_itemQuestaoTemplate.hashCode());
+		result = prime
+				* result
+				+ ((idItemQuestaoTemplate == null) ? 0 : idItemQuestaoTemplate
+						.hashCode());
 		result = prime * result + numero;
 		result = prime * result + ((questao == null) ? 0 : questao.hashCode());
 		result = prime * result + ((sessao == null) ? 0 : sessao.hashCode());
@@ -100,10 +103,10 @@ public class ItemQuestaoTemplate implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ItemQuestaoTemplate other = (ItemQuestaoTemplate) obj;
-		if (id_itemQuestaoTemplate == null) {
-			if (other.id_itemQuestaoTemplate != null)
+		if (idItemQuestaoTemplate == null) {
+			if (other.idItemQuestaoTemplate != null)
 				return false;
-		} else if (!id_itemQuestaoTemplate.equals(other.id_itemQuestaoTemplate))
+		} else if (!idItemQuestaoTemplate.equals(other.idItemQuestaoTemplate))
 			return false;
 		if (numero != other.numero)
 			return false;
