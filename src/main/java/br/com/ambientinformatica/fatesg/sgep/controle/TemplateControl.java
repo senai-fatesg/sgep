@@ -58,7 +58,7 @@ public class TemplateControl {
 
 	public void excluir() {
 		try {
-			templateDao.excluirPorId(templateSelecionada.getId());
+			templateDao.excluirPorId(templateSelecionada.getIdTemplate());
 			templateSelecionada = new Template();
 			templates = templateDao.listar();
 		} catch (Exception e) {
