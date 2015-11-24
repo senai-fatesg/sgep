@@ -9,61 +9,63 @@
 	<ui:define name="corpo">
 		<p:growl id="messages" life="6000" />
 		<h:form id="formLista">
-			<p:dataTable widgetVar="questoes" id="dtQuestoes"
-				value="#{QuestaoControl.questoes}" var="cont" width="100%"
-				emptyMessage="Sem registros" rows="20" paginator="true"
-				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-				<f:facet name="header">
-					<h:outputText value="Lista de Querstões"></h:outputText>
-				</f:facet>
-				<p:column sortBy="#{cont.questao.enunciado}">
+			<p:panel>
+				<p:dataTable widgetVar="questoes" id="dtQuestoes"
+					value="#{QuestaoControl.questoes}" var="cont" width="100%"
+					emptyMessage="Sem registros" rows="20" paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 					<f:facet name="header">
-						<h:outputText value="Enunciado"></h:outputText>
+						<h:outputText value="Lista de Querstões"></h:outputText>
 					</f:facet>
-					<h:outputText value="#{cont.questao.enunciado}"></h:outputText>
-				</p:column>
-				<p:column sortBy="#{cont.questao.assunto}">
-					<f:facet name="header">
-						<h:outputText value="Assunto"></h:outputText>
-					</f:facet>
-					<h:outputText value="#{cont.questao.assunto}"></h:outputText>
-				</p:column>
-				<p:column sortBy="#{cont.questao.resposta}">
-					<f:facet name="header">
-						<h:outputText value="Resposta"></h:outputText>
-					</f:facet>
-					<h:outputText value="#{cont.questao.resposta}"></h:outputText>
-				</p:column>
-				<p:column sortBy="#{cont.questao.estado}">
-					<f:facet name="header">
-						<h:outputText value="Estado"></h:outputText>
-					</f:facet>
-					<h:outputText value="#{cont.questao.estado}"></h:outputText>
-				</p:column>
-				<p:column sortBy="#{cont.questao.dificuldade}">
-					<f:facet name="header">
-						<h:outputText value="Dificuldade"></h:outputText>
-					</f:facet>
-					<h:outputText value="#{cont.questao.dificuldade}"></h:outputText>
-				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<p:commandButton value="Novo" update="@([id$=formCadastro])"
-							action="#{QuestaoControl.limpar}"
-							oncomplete="PF('wNewFile').show()" />
-					</f:facet>
-					<p:commandButton update=":formCadastro:sclPanel"
-						oncomplete="wNewFile.show()" icon="ui-icon-pencil" value="Editar">
-						<f:setPropertyActionListener value="#{cont}"
-							target="#{QuestaoControl.questaoSelecionada}" />
-					</p:commandButton>
-					<p:commandButton icon="ui-icon-trash" value="Excluir"
-						oncomplete="confirmacao.show()">
-						<f:setPropertyActionListener
-							target="#{QuestaoControl.questaoSelecionada}" value="#{cont}" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
+					<p:column sortBy="#{cont.questao.enunciado}">
+						<f:facet name="header">
+							<h:outputText value="Enunciado"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{cont.questao.enunciado}"></h:outputText>
+					</p:column>
+					<p:column sortBy="#{cont.questao.assunto}">
+						<f:facet name="header">
+							<h:outputText value="Assunto"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{cont.questao.assunto}"></h:outputText>
+					</p:column>
+					<p:column sortBy="#{cont.questao.resposta}">
+						<f:facet name="header">
+							<h:outputText value="Resposta"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{cont.questao.resposta}"></h:outputText>
+					</p:column>
+					<p:column sortBy="#{cont.questao.estado}">
+						<f:facet name="header">
+							<h:outputText value="Estado"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{cont.questao.estado}"></h:outputText>
+					</p:column>
+					<p:column sortBy="#{cont.questao.dificuldade}">
+						<f:facet name="header">
+							<h:outputText value="Dificuldade"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{cont.questao.dificuldade}"></h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<p:commandButton value="Novo" update="@([id$=formCadastro])"
+								action="#{QuestaoControl.limpar}"
+								oncomplete="PF('wNewFile').show()" />
+						</f:facet>
+						<p:commandButton update=":formCadastro:sclPanel"
+							oncomplete="wNewFile.show()" icon="ui-icon-pencil" value="Editar">
+							<f:setPropertyActionListener value="#{cont}"
+								target="#{QuestaoControl.questaoSelecionada}" />
+						</p:commandButton>
+						<p:commandButton icon="ui-icon-trash" value="Excluir"
+							oncomplete="confirmacao.show()">
+							<f:setPropertyActionListener
+								target="#{QuestaoControl.questaoSelecionada}" value="#{cont}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
 		</h:form>
 		<h:form id="formCadastro">
 			<p:dialog id="dlgQuestao" modal="true" widgetVar="wNewFile"
@@ -122,11 +124,7 @@
 					</a:field>
 					<a:field spaceLeft="15px">
 						<p:commandButton action="#{QuestaoControl.adicionarItem}"
-							value="Adicionar" update=":formCadastro:pnlItens"
-							oncomplete="PF('wNewFile').show()" icon="ui-icon-plusthick" />
-						<br />
-						<p:commandButton action="#{QuestaoControl.limparItem}"
-							value="Limpar" update=":formCadastro:lItem"
+							value="Adicionar" update=":formCadastro:pnlItens :formCadastro:lItem"
 							oncomplete="PF('wNewFile').show()" icon="ui-icon-plusthick" />
 					</a:field>
 					<a:newLine />
