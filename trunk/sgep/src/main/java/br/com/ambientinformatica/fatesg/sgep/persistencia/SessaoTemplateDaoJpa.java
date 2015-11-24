@@ -24,7 +24,7 @@ public class SessaoTemplateDaoJpa extends PersistenciaJpa<SessaoTemplate> implem
 		Criteria criteria = session.createCriteria(SessaoTemplate.class);
 		
 		if (StringUtils.isNotBlank(titulo)) {
-			criteria.add(Restrictions.ilike("titulo", titulo.toUpperCase(), MatchMode.START));
+			criteria.add(Restrictions.ilike("sessao.titulo", titulo.toUpperCase(), MatchMode.START));
 		}
 		return criteria.list();
 	}

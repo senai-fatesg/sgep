@@ -7,5 +7,7 @@ import br.com.ambientinformatica.jpa.persistencia.Persistencia;
 
 public interface TemplateDao extends Persistencia<Template>{
 
-	List<Template> consultarPelaDescricao(String descricao);
+	public List<Template> consultarPelaDescricao(String descricao);
+	
+	public Template carregarTemplate(Template template);
 }

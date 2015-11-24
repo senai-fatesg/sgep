@@ -2,6 +2,9 @@ package br.com.ambientinformatica.fatesg.sgep.persistencia;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -26,6 +29,24 @@ public class TemplateDaoJpa extends PersistenciaJpa<Template> implements Templat
 			criteria.add(Restrictions.ilike("descricao",descricao.toUpperCase(),MatchMode.START));
 		}
 		return criteria.list();
+	}
+
+	@Override
+	public Template carregarTemplate(Template template) {
+		try {
+			Query query = em.createQuery("select t from Template t "
+					+ " left join fetch t.sessoes sest "
+					+ " left join fetch sest.sessao ses "
+					+ " left join fetch sest.itemQuestao ite"
+					+ " left join fetch ite.sessao ses1 "
+					+ " left join fetch ite.questao quet "
+					+ " left join fetch quet.questao que "
+					+ " where t = :template");
+			query.setParameter("template", template);
+			return (Template) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 
 }
