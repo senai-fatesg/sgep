@@ -39,6 +39,10 @@ public class ItemQuestaoProva implements Serializable {
 	private QuestaoProva questao;
 
 	private int numero;
+	
+	public ItemQuestaoProva() {
+
+	}
 
 	public ItemQuestaoProva(SessaoProva sessao, QuestaoProva questao) {
 		this.sessao = sessao;
