@@ -35,6 +35,7 @@ public class TemplateControl {
 	@PostConstruct
 	public void init() {
 		listar(null);
+
 	}
 
 	public void confirmar(ActionEvent evt) {
@@ -83,6 +84,15 @@ public class TemplateControl {
 				UtilFaces.addMensagemFaces("Sessão não encontrada");
 			}
 			return listaSessoes;
+		}
+	}
+
+	public void carregarTemplate() {
+		try {
+			templateSelecionada = templateDao
+					.carregarTemplate(templateSelecionada);
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces("Não foi possivel carregar o template.");
 		}
 	}
 
