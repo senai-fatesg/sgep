@@ -36,7 +36,7 @@
 								oncomplete="PF('dlgTemplate').show()" />
 						</f:facet>
 						<p:commandButton icon="ui-icon-pencil" value="Editar"
-							update=":formCadastro:panel"
+							update=":formCadastro:panel" action="#{TemplateControl.carregarTemplate}"
 							oncomplete="PF('dlgTemplate').show()">
 							<f:setPropertyActionListener
 								target="#{TemplateControl.templateSelecionada}" value="#{tem}" />
