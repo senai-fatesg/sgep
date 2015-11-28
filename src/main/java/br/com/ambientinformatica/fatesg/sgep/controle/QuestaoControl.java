@@ -40,6 +40,8 @@ public class QuestaoControl implements Serializable {
 
 	private AlternativaQuestao item = new AlternativaQuestao();
 
+	private String nomeProfessor;
+	
 	@Autowired
 	private ColaboradorDao colaboradorDao;
 
@@ -76,6 +78,10 @@ public class QuestaoControl implements Serializable {
 		}
 	}
 
+	public void consultarProfessorNome(ActionEvent evt){
+		completarColaboradores(nomeProfessor);
+	}
+	
 	public List<Colaborador> completarColaboradores(String nome) {
 		List<Colaborador> colaborador = colaboradorDao.listarPorNome(nome);
 		return colaborador;
@@ -169,6 +175,14 @@ public class QuestaoControl implements Serializable {
 
 	public void setQuestaoSelecionada(QuestaoTemplate questaoSelecionada) {
 		this.questaoSelecionada = questaoSelecionada;
+	}
+
+	public String getNomeProfessor() {
+		return nomeProfessor;
+	}
+
+	public void setNomeProfessor(String nomeProfessor) {
+		this.nomeProfessor = nomeProfessor;
 	}
 
 }
