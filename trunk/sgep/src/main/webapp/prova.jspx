@@ -10,7 +10,7 @@
 		<p:growl id="messages" life="6000" />
 		<h:form id="formLista">
 			<p:dataTable widgetVar="provas" id="dtprovas"
-				value="#{ProvaControl.provas }" var="prova" width="100%"
+				value="#{ProvaControl.provas}" var="prova" width="100%"
 				emptyMessage="Sem registros" rows="20" paginator="true"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 				<f:facet name="header">
@@ -31,25 +31,14 @@
 					</h:outputText>
 				</p:column>
 				<p:column>
-					<f:facet name="header">
-						<p:commandButton value="Novo" update="@([id$=formCadastro])" action="#{ProvaControl.limpar}" oncomplete="PF('vCadProva').show()"/>
-					</f:facet>
-					<p:commandButton icon="ui-icon-pencil" value="Editar" action="/prova.jspx?faces-redirect=true">
-						<f:setPropertyActionListener target="#{ProvaControl.prova}" value="#{prova}" />
-					</p:commandButton>
-					<p:commandButton icon="ui-icon-trash" value="Excluir" oncomplete="confirmacao.show()">
-						<f:setPropertyActionListener target="#{ProvaControl.prova}" value="#{prova}" />
+					
+					<p:commandButton icon="ui-icon-print" value="Imprimir" ajax="false" actionListener="#{ProvaControl.imprimirProva}">
+						<f:param value="#{prova}" id="sesImprimir"  />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</h:form>
 		
-
-		<p:confirmDialog widgetVar="confirmacao" message="Tem Certeza que deseja excluir?" severity="alert" closable="true">
-			<p:commandButton value="Sim" actionListener="#{ProvaControl.excluir}"
-				onclick="confirmacao.hide()" update=":formLista" process="@this" />
-			<p:commandButton value="Não" onclick="confirmacao.hide()" />
-		</p:confirmDialog>
 		<a:newLine />
 	</ui:define>
 </ui:composition>
