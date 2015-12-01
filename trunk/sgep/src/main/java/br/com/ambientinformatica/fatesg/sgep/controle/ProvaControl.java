@@ -1,6 +1,7 @@
 package br.com.ambientinformatica.fatesg.sgep.controle;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,12 +9,14 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
 
+import org.apache.commons.lang.StringUtils;
 import org.primefaces.event.DragDropEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
+import br.com.ambientinformatica.ambientjsf.util.UtilFacesRelatorio;
 import br.com.ambientinformatica.fatesg.api.entidade.Aluno;
 import br.com.ambientinformatica.fatesg.api.entidade.Curso;
 import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
@@ -87,21 +90,26 @@ public class ProvaControl {
 	public void init() {
 		try {
 			// colaboradorDao.listarTodos();
+			listar(null);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Houve um erro ao listar Todos: " + e);
 		}
-		// listar(null);
 	}
 
 	public void imprimirProva(ActionEvent evt) {
+		Prova provaImprimir = (Prova) UtilFaces
+				.getValorParametro(evt, "sesImprimir");
+		
 		Map<String, Object> parametros = new HashMap<String, Object>();
-		// parametros.put("nomeInstituicao",
-		// EmpresaLogadaControl.getEmpresa().getNome());
-		// parametros.put("valorTotal", 55.5);
+		 parametros.put("nomeInstituicao", "Senai");
+		 parametros.put("nomeCurso", "ADS");
+		 parametros.put("nomeAluno", "Raphael");
+		 parametros.put("nomeDisciplina","Teste");
+		 parametros.put("data", new Date());
+		 parametros.put("periodo", 2);
 
 		try {
-			// UtilFacesRelatorio.gerarRelatorioFaces("jasper/prova.jasper",
-			// prova.getItens(), parametros);
+			 UtilFacesRelatorio.gerarRelatorioFaces("jasper/prova.jasper", provaImprimir.getSessoes(), parametros);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Houve um erro ao gerar o Relatório: "
 					+ e);
