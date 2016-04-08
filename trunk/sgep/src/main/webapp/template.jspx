@@ -47,7 +47,7 @@
 								target="#{TemplateControl.templateSelecionada}" value="#{tem}" />
 						</p:commandButton>
 						<p:commandButton icon="ui-icon-bookmark" value="Gerar Prova"
-							action="/gerarprova.jspx?faces-redirect=true">
+							action="/gerarprova.jspx?faces-redirect=true" >
 							<f:setPropertyActionListener target="#{ProvaControl.template}"
 								value="#{tem}" />
 						</p:commandButton>
@@ -65,7 +65,7 @@
 							style="width:200px" />
 					</a:field>
 					<a:newLine />
-					<a:field label="Sesão">
+					<a:field label="Sessão">
 						<p:autoComplete id="dd" dropdown="true"
 							value="#{TemplateControl.sessaoItem}"
 							completeMethod="#{TemplateControl.completarSessao}"

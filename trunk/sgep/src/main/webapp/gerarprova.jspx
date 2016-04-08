@@ -64,7 +64,7 @@
 						pattern="dd-MM-yyyy" mask="true" />
 				</a:field>
 				<a:newLine />
-				<a:field label="Sessoes">
+				<a:field label="Sessões">
 					<p:selectOneMenu id="sessoesProva"
 						value="#{ProvaControl.sessaoSelecionada.sessao.titulo}"
 						style="width:125px;">
@@ -107,13 +107,13 @@
 							<h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
 							<p:draggable for="dragIcon" revert="true" helper="clone" />
 						</p:column>
-						<p:column headerText="enunciado" style="width:260px">
+						<p:column headerText="Enunciado" style="width:260px">
 							<h:outputText value="#{que.questao.enunciado}" />
 						</p:column>
 						<p:column headerText="Disciplina" style="width:260px">
 							<h:outputText value="#{que.questao.disciplina}" />
 						</p:column>
-						<p:column headerText="Dificuladede" style="width:160px">
+						<p:column headerText="Dificuldade" style="width:160px">
 							<h:outputText value="#{que.questao.dificuldade}" />
 						</p:column>
 						<p:column style="width:32px">
