@@ -42,9 +42,6 @@
 						<p:commandButton update=":formCadastro:panel" oncomplete="PF('vCadSessao').show()" actionListener="#{SessaoControl.editarSessao}" icon="ui-icon-pencil" value="Editar" >
 							<f:param value="#{ses}" id="sesEditar"/>
 						</p:commandButton>
-						<p:commandButton icon="ui-icon-print" value="Imprimir" ajax="false" actionListener="#{SessaoControl.imprimir}">
-							<f:param value="#{ses}" id="sesImprimir"  />
-						</p:commandButton>
 						<p:commandButton icon="ui-icon-trash" value="Excluir" oncomplete="PF('confirmacao').show()">
 							<f:setPropertyActionListener target="#{SessaoControl.sessaoSelecionada}" value="#{ses}" />
 						</p:commandButton>
