@@ -59,4 +59,16 @@ public class QuestaoTemplateDaoJpa extends PersistenciaJpa<QuestaoTemplate>
 		}
 	}
 
+	@Override
+	public QuestaoTemplate carregarQuestao(QuestaoTemplate questao) throws Exception {
+		Query q = em.createQuery("from QuestaoTemplate as qt "
+				+ " left join fetch qt.questao que "
+				+ " left join fetch que.professor pro"
+				+ " where qt = :questao");
+		q.setParameter("questao", questao);
+		return (QuestaoTemplate) q.getSingleResult();
+	}
+	
+	
+
 }

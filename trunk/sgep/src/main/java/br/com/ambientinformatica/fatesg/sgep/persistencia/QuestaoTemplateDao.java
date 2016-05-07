@@ -8,4 +8,6 @@ import br.com.ambientinformatica.jpa.persistencia.Persistencia;
 public interface QuestaoTemplateDao extends Persistencia<QuestaoTemplate> {
 
 	public List<QuestaoTemplate> consultarPor(String paralvra, String tipo) throws Exception;
+
+	public QuestaoTemplate carregarQuestao(QuestaoTemplate questao) throws Exception;
 }
