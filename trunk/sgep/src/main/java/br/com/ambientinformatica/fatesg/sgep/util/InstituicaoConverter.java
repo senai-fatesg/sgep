@@ -21,7 +21,7 @@ public class InstituicaoConverter implements Converter {
 		if (value == null || value.equals("")) {
 			return "";
 		} else {
-			return String.valueOf(((Disciplina) value).getId());
+			return String.valueOf(((Instituicao) value).getId());
 		}
 	}
 

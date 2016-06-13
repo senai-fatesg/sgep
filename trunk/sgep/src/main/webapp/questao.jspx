@@ -53,7 +53,7 @@
 								action="#{QuestaoControl.limpar}"
 								oncomplete="PF('wNewFile').show()" />
 						</f:facet>
-						<p:commandButton update=":formCadastro:sclPanel"
+						<p:commandButton update=":formCadastro:sclPanel" action="#{QuestaoControl.carregarQuestao}"
 							oncomplete="wNewFile.show()" icon="ui-icon-pencil" value="Editar">
 							<f:setPropertyActionListener value="#{cont}"
 								target="#{QuestaoControl.questaoSelecionada}" />
@@ -71,7 +71,7 @@
 			<p:dialog id="dlgQuestao" modal="true" widgetVar="wNewFile"
 				header="Cadastro de Questões" resizable="false"
 				onHide="#{QuestaoControl.limpar()}">
-				<p:scrollPanel id="sclPanel" mode="native" style="height:500px;" rendered="true">
+				<p:scrollPanel id="sclPanel" mode="native" style="height:500px;padding: 5px 10px;" rendered="true">
 					<a:field label="Professor" width="440px">
 						<p:autoComplete id="completUsuario"
 							value="#{QuestaoControl.questaoSelecionada.questao.professor}"
@@ -123,7 +123,7 @@
 							style="width:500px" />
 					</a:field>
 					<a:field spaceLeft="15px">
-						<p:commandButton action="#{QuestaoControl.adicionarItem}"
+						<p:commandButton action="#{QuestaoControl.adicionarItem}" styleClass="primary"
 							value="Adicionar" update=":formCadastro:pnlItens :formCadastro:lItem"
 							oncomplete="PF('wNewFile').show()" icon="ui-icon-plusthick" />
 					</a:field>
@@ -142,13 +142,13 @@
 								<h:outputText value="#{alt.descricao}" />
 							</p:column>
 							<p:column headerText="Ação" width="85">
-								<p:commandButton icon="ui-icon-pencil"
+								<p:commandButton icon="ui-icon-pencil" styleClass="flat"
 									action="#{QuestaoControl.editarItem(alt)}"
 									update="@([id$=lItem])" />
-								<p:commandButton icon="ui-icon-trash"
+								<p:commandButton icon="ui-icon-trash" styleClass="flat"
 									action="#{QuestaoControl.removerItem(alt)}"
 									update=":formCadastro:pnlItens"
-									style="float: right; margin: 0 0 7px 10px;" />
+									style="float: right; " />
 							</p:column>
 						</p:dataTable>
 					</p:panel>

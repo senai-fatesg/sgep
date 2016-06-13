@@ -36,10 +36,10 @@ public class Prova {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new Date();
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Curso curso;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Disciplina disciplina;
 
 	@ManyToOne

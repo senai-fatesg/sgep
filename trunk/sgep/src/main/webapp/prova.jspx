@@ -16,12 +16,7 @@
 				<f:facet name="header">
 					<h:outputText value="Lista de Provas"></h:outputText>
 				</f:facet>
-				<p:column sortBy="#{prova.periodo}">
-					<f:facet name="header">
-						<h:outputText value="Período"/>
-					</f:facet>
-					<h:outputText value="#{prova.periodo}"/>
-				</p:column>
+				
 				<p:column sortBy="#{prova.data}">
 					<f:facet name="header">
 						<h:outputText value="Data"/>

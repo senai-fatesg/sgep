@@ -78,9 +78,15 @@ public class QuestaoControl implements Serializable {
 		}
 	}
 
-	public void consultarProfessorNome(ActionEvent evt){
-		completarColaboradores(nomeProfessor);
+	public void carregarQuestao() {
+		try {
+			this.questaoSelecionada = questaoDao.carregarQuestao(questaoSelecionada);
+		} catch (Exception e) {
+			
+			UtilFaces.addMensagemFaces("Falha ao carregar objetos");
+		}
 	}
+	
 	
 	public List<Colaborador> completarColaboradores(String nome) {
 		List<Colaborador> colaborador = colaboradorDao.listarPorNome(nome);
