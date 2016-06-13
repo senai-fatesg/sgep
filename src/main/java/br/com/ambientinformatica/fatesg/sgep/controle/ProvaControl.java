@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import org.apache.commons.lang.StringUtils;
 import org.primefaces.event.DragDropEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -65,17 +65,25 @@ public class ProvaControl {
 
 	@Autowired
 	private QuestaoTemplateDao questaoTemplateDao;
-
-	private List<Prova> provas = new ArrayList<Prova>();// listagem de provas
-	// Questoes da pesquisa.
+	/**
+	 * Lista todas as provaas cadastradas
+	 */
+	private List<Prova> provas = new ArrayList<Prova>();
+	/**
+	 * Lista as questões disponíves para adicionar na prova
+	 */
 	private List<QuestaoTemplate> questoes = new ArrayList<QuestaoTemplate>();
-	// Sessao para apresentação das questoes
+	/**
+	 * Sessao para apresentação das questoes
+	 */
 	private SessaoProva sessaoSelecionada = new SessaoProva();
-	// Vizualização da questão no dialog
+	/**
+	 * Vizualização da questão no dialog
+	 */
 	private QuestaoTemplate questaoSelecionada = new QuestaoTemplate();
 
 	private Prova prova = new Prova();
-	// preenche toda a tela|
+
 	private Prova provaSelecionada = new Prova();
 
 	private ItemQuestaoTemplate itensProva = new ItemQuestaoTemplate();
@@ -89,7 +97,7 @@ public class ProvaControl {
 	@PostConstruct
 	public void init() {
 		try {
-			// colaboradorDao.listarTodos();
+			 provaDao.listar();
 			listar(null);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Houve um erro ao listar Todos: " + e);
@@ -97,19 +105,20 @@ public class ProvaControl {
 	}
 
 	public void imprimirProva(ActionEvent evt) {
-		Prova provaImprimir = (Prova) UtilFaces
-				.getValorParametro(evt, "sesImprimir");
-		
+		Prova provaImprimir = (Prova) UtilFaces.getValorParametro(evt,
+				"sesImprimir");
+
 		Map<String, Object> parametros = new HashMap<String, Object>();
-		 parametros.put("nomeInstituicao", "Senai");
-		 parametros.put("nomeCurso", "ADS");
-		 parametros.put("nomeAluno", "Raphael");
-		 parametros.put("nomeDisciplina","Teste");
-		 parametros.put("data", new Date());
-		 parametros.put("periodo", 2);
+		parametros.put("nomeInstituicao", "Senai");
+		parametros.put("nomeCurso", "ADS");
+		parametros.put("nomeAluno", "Lucas");
+		parametros.put("nomeDisciplina", "Teste");
+		parametros.put("data", new Date());
+		parametros.put("periodo", 2);
 
 		try {
-			 UtilFacesRelatorio.gerarRelatorioFaces("jasper/prova.jasper", provaImprimir.getSessoes(), parametros);
+			UtilFacesRelatorio.gerarRelatorioFaces("jasper/prova.jasper",
+					provaImprimir.getSessoes(), parametros);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Houve um erro ao gerar o Relatório: "
 					+ e);
@@ -147,6 +156,8 @@ public class ProvaControl {
 
 	public void limpar() {
 		prova = new Prova();
+		questaoSelecionada = new QuestaoTemplate();
+		provaSelecionada = new Prova();
 	}
 
 	public void onQuestaoDrop(DragDropEvent ddEvent) {
@@ -157,7 +168,8 @@ public class ProvaControl {
 			if (sessao
 					.getSessao()
 					.getTitulo()
-					.equalsIgnoreCase(getSessaoSelecionada().getSessao().getTitulo())) {
+					.equalsIgnoreCase(
+							getSessaoSelecionada().getSessao().getTitulo())) {
 				int indice = provaSelecionada.getSessoes().indexOf(sessao);
 				provaSelecionada.getSessoes().get(indice)
 						.addQuestao(converterQuestao(questao));
@@ -170,11 +182,10 @@ public class ProvaControl {
 	}
 
 	@SuppressWarnings("finally")
-	public List<Instituicao> completarInstituicao() {
+	public List<Instituicao> completarInstituicao(String nome) {
 		List<Instituicao> listaInstituicao = new ArrayList<Instituicao>();
 		try {
-			listaInstituicao = instituicaoDao.listarPorNome(provaSelecionada
-					.getInstituicao().getNomeFantasia());
+			listaInstituicao = instituicaoDao.listarPorNome(nome);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Erro ao buscar a Instituição.");
 		} finally {
@@ -186,11 +197,10 @@ public class ProvaControl {
 	}
 
 	@SuppressWarnings("finally")
-	public List<Curso> completarCurso() {
+	public List<Curso> completarCurso(String nome) {
 		List<Curso> listaCurso = new ArrayList<Curso>();
 		try {
-			listaCurso = cursoDao.listarPorNome(provaSelecionada.getCurso()
-					.getNome());
+			listaCurso = cursoDao.listarPorNome(nome);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Erro ao buscar o Curso");
 		} finally {
@@ -202,11 +212,10 @@ public class ProvaControl {
 	}
 
 	@SuppressWarnings("finally")
-	public List<Disciplina> completarDisciplina() {
+	public List<Disciplina> completarDisciplina(String nome) {
 		List<Disciplina> listaDisciplina = new ArrayList<Disciplina>();
 		try {
-			listaDisciplina = disciplinaDao.listarPorNome(provaSelecionada
-					.getDisciplina().getNome());
+			listaDisciplina = disciplinaDao.listarPorNome(nome);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Erro ao buscar Disciplina.");
 		} finally {
@@ -218,11 +227,10 @@ public class ProvaControl {
 	}
 
 	@SuppressWarnings("finally")
-	public List<Aluno> completarAluno() {
+	public List<Aluno> completarAluno(String nome) {
 		List<Aluno> listaAluno = new ArrayList<Aluno>();
 		try {
-			listaAluno = alunoDao.listarPorNome(provaSelecionada.getAluno()
-					.getNome());
+			listaAluno = alunoDao.listarPorNome(nome);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Erro ao buscar Aluno");
 		} finally {
@@ -233,6 +241,10 @@ public class ProvaControl {
 		}
 	}
 
+	/**
+	 * Preenche todo o objeto do tipo Template e o converte em um objeto do tipo
+	 * Prova.
+	 */
 	public void preencherProva() {
 		try {
 			template = templateDao.carregarTemplate(template);
@@ -256,6 +268,9 @@ public class ProvaControl {
 		}
 	}
 
+	/**
+	 * Converte uma Quesão Template para Questão Prova.
+	 */
 	@SuppressWarnings("finally")
 	public QuestaoProva converterQuestao(QuestaoTemplate item) {
 		QuestaoProva questaoProva = new QuestaoProva();
@@ -292,6 +307,8 @@ public class ProvaControl {
 
 	public void pesquisarQuestao() {
 		try {
+			
+			String p = (String) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("pesQuestao");
 			questoes = questaoTemplateDao.consultarPor(pesquisa, tipoPesquisa);
 			System.out.println(questoes);
 		} catch (Exception e) {

@@ -46,8 +46,9 @@
 							<f:setPropertyActionListener
 								target="#{TemplateControl.templateSelecionada}" value="#{tem}" />
 						</p:commandButton>
+						<p:remoteCommand name="preencherProva"  action="#{ProvaControl.preencherProva}"/>
 						<p:commandButton icon="ui-icon-bookmark" value="Gerar Prova"
-							action="/gerarprova.jspx?faces-redirect=true" >
+							 action="/gerarprova.jspx?faces-redirect=true" onsuccess="preencherProva()">
 							<f:setPropertyActionListener target="#{ProvaControl.template}"
 								value="#{tem}" />
 						</p:commandButton>
