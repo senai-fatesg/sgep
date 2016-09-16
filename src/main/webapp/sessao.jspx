@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ui:composition template="template.xhtml"
+<ui:composition template="template2.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -7,74 +7,71 @@
 	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
 	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="corpo">
-		<h:form id="formLista">
-			<p:growl id="messages" life="6000" />
-			<p:panel>
-				<a:newLine/>
-				<p:dataTable widgetVar="sessoes" id="dtsessoes"
-					value="#{SessaoControl.sessoes}" var="ses" width="100%"	emptyMessage="Sem registros" rows="20" paginator="true"
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+		<p:growl id="messages" life="6000" />
+		<a:newLine/>
+		<p:panel header="Lista de Sessões">
+			<a:field spaceLeft="10px">
+				<p:commandButton value="Novo" action="#{SessaoControl.limpar}" oncomplete="PF('vCadSessao').show()" />
+			</a:field>
+			<a:newLine/>
+			<a:newLine/>
+			<p:dataTable widgetVar="sessoes" id="dtsessoes" value="#{SessaoControl.sessoes}" var="ses" width="100%"	emptyMessage="Sem registros" rows="20" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<p:column sortBy="#{ses.sessao.idSessao}">
 					<f:facet name="header">
-						<h:outputText value="Lista de Sessões" />
+						<h:outputText value="Código" />
 					</f:facet>
-					<p:column sortBy="#{ses.sessao.idSessao}">
-						<f:facet name="header">
-							<h:outputText value="Código" />
-						</f:facet>
-						<h:outputText value="#{ses.sessao.idSessao}" />
-					</p:column>
-					<p:column sortBy="#{ses.sessao.titulo}">
-						<f:facet name="header">
-							<h:outputText value="Título" />
-						</f:facet>
-						<h:outputText value="#{ses.sessao.titulo}" />
-					</p:column>
-					<p:column sortBy="#{ses.sessao.descricao}">
-						<f:facet name="header">
-							<h:outputText value="Descrição" />
-						</f:facet>
-						<h:outputText value="#{ses.sessao.descricao}" />
-					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<p:commandButton value="Novo" update=":formCadastro:panel" action="#{SessaoControl.limpar}" oncomplete="PF('vCadSessao').show()" />
-						</f:facet>
-						<p:commandButton update=":formCadastro:panel" oncomplete="PF('vCadSessao').show()" actionListener="#{SessaoControl.editarSessao}" icon="ui-icon-pencil" value="Editar" >
-							<f:param value="#{ses}" id="sesEditar"/>
-						</p:commandButton>
-						<p:commandButton icon="ui-icon-trash" value="Excluir" oncomplete="PF('confirmacao').show()">
-							<f:setPropertyActionListener target="#{SessaoControl.sessaoSelecionada}" value="#{ses}" />
-						</p:commandButton>
-					</p:column>
-				</p:dataTable>
-			</p:panel>
-		</h:form>
-		<h:form id="formCadastro">
-			<p:dialog id="dlgSessao" modal="true" widgetVar="vCadSessao" header="Cadastro de Sessões" resizable="false" onHide="#{SessaoControl.limpar()}">
-				<p:panel id="panel">
-					<a:field label="Código">
-						<h:outputText value="#{SessaoControl.sessaoSelecionada.sessao.idSessao}" />
-					</a:field>
-					<a:newLine />
-					<a:field label="Título">
-						<p:inputText value="#{SessaoControl.sessaoSelecionada.sessao.titulo}" style="width:500px"/>
-					</a:field>
-					<a:newLine />
-					<a:field label="Descrição">
-						<p:inputTextarea value="#{SessaoControl.sessaoSelecionada.sessao.descricao}"
-							style="width:500px" />
-					</a:field>
-					<a:newLine />
-					<p:commandButton icon="ui-icon-disk" actionListener="#{SessaoControl.confirmar}" value="Confirmar"
-						update=":formLista" ajax="false" oncomplete="dlgSessao.hide();">
-						<f:param value="#{SessaoControl.sessaoSelecionada}" id="sessaoSelecionada"/>
+					<h:outputText value="#{ses.sessao.idSessao}" />
+				</p:column>
+				<p:column sortBy="#{ses.sessao.titulo}">
+					<f:facet name="header">
+						<h:outputText value="Título" />
+					</f:facet>
+					<h:outputText value="#{ses.sessao.titulo}" />
+				</p:column>
+				<p:column sortBy="#{ses.sessao.descricao}">
+					<f:facet name="header">
+						<h:outputText value="Descrição" />
+					</f:facet>
+					<h:outputText value="#{ses.sessao.descricao}" />
+				</p:column>
+				<p:column headerText="Editar" style="width: 60px">
+					<p:commandButton oncomplete="PF('vCadSessao').show()" update=":formCorpo:dlgSessao" actionListener="#{SessaoControl.editarSessao}" icon="ui-icon-pencil" style="margin-left: 10px">
+						<f:param value="#{ses}" id="sesEditar"/>
 					</p:commandButton>
-					<p:spacer width="45px" />
-				</p:panel>
-			</p:dialog>
-		</h:form>
+				</p:column>
+				<p:column headerText="Excluir" style="width: 60px">
+					<p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacao').show()" style="margin-left: 10px">
+						<f:setPropertyActionListener target="#{SessaoControl.sessaoSelecionada}" value="#{ses}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+		<p:dialog id="dlgSessao" modal="true" widgetVar="vCadSessao" header="Cadastro de Sessões" resizable="false" onHide="#{SessaoControl.limpar()}">
+			<p:panel id="panel">
+			<a:newLine/>
+				<a:field label="Código">
+					<h:outputText value="#{SessaoControl.sessaoSelecionada.sessao.idSessao}" />
+				</a:field>
+				<a:newLine />
+				<a:field label="Título">
+					<p:inputText value="#{SessaoControl.sessaoSelecionada.sessao.titulo}" style="width:500px"/>
+				</a:field>
+				<a:newLine />
+				<a:field label="Descrição">
+					<p:inputTextarea value="#{SessaoControl.sessaoSelecionada.sessao.descricao}"
+						style="width:500px" />
+				</a:field>
+				<a:newLine />
+				<p:commandButton icon="ui-icon-disk" actionListener="#{SessaoControl.confirmar}" value="Confirmar"
+					update="@form" ajax="false" oncomplete="dlgSessao.hide();">
+					<f:param value="#{SessaoControl.sessaoSelecionada}" id="sessaoSelecionada"/>
+				</p:commandButton>
+				<p:spacer width="45px" />
+			</p:panel>
+		</p:dialog>
 		<p:confirmDialog id="cdlExcluir" widgetVar="confirmacao" message="Tem Certeza que deseja excluir?" severity="alert" closable="true">
-			<p:commandButton value="Sim" actionListener="#{SessaoControl.excluir}" onclick="confirmacao.hide()" update=":formLista" process="@this" />
+			<p:commandButton value="Sim" actionListener="#{SessaoControl.excluir}" onclick="confirmacao.hide()" update="@form" process="@this" />
 			<p:commandButton value="Não" onclick="confirmacao.hide()" />
 		</p:confirmDialog>
 		<a:newLine />

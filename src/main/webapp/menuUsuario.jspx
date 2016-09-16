@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+		
+	<p:growl autoUpdate="true" id="growl" showDetail="true" sticky="true" />
+	<h:form id="formMenuPrincipal" prependId="false"  style="position: absolute; z-index: 1; width: 900px">
+		<p:menubar id="menubar" autoDisplay="true"  > 
+			<p:menuitem icon="ui-icon-home" value="Início" action="/inicio?faces-redirect=true" ajax="false" />
+			<p:submenu label="Prova" icon="ui-icon-document">
+				<p:menuitem icon="ui-icon-search" value="Listar provas" actionListener="#{MenuControl.gerenciarSessao}" action="/prova?faces-redirect=true" ajax="false" />
+				<p:menuitem icon="ui-icon-document" value="Gerar prova" actionListener="#{MenuControl.gerenciarSessao}" action="gerarprova?faces-redirect=true" ajax="false" />
+			</p:submenu>
+			<p:submenu label="Questões" icon="ui-icon-pencil">
+				<p:menuitem icon="ui-icon-search" value="Listar questões" actionListener="#{MenuControl.gerenciarSessao}" action="questao?faces-redirect=true" ajax="false"/>
+			</p:submenu>
+			<p:menuitem icon="ui-icon-search" value="Sessão" actionListener="#{MenuControl.gerenciarSessao}" action="sessao?faces-redirect=true" ajax="false" />
+			<p:menuitem icon="ui-icon-search" value="Template" actionListener="#{MenuControl.gerenciarSessao}" action="template?faces-redirect=true" ajax="false" />
+			<p:submenu label="Usuário" icon="ui-icon-person">
+				<p:menuitem icon="ui-icon-search" value="Listar usuários" actionListener="#{MenuControl.gerenciarSessao}" action="usuario?faces-redirect=true" ajax="false"/>
+			</p:submenu>
+			<p:menuitem value="Sair" icon="ui-icon-power" onclick="document.location.href='/sgep/sair.jsp'" immediate="true" />
+		</p:menubar>
+		<p:sticky target="menubar" /> 
+	</h:form>	 
+	
+</ui:composition>
