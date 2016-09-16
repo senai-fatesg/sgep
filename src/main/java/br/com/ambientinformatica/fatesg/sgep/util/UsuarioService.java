@@ -12,11 +12,11 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.GrantedAuthorityImpl;
-import org.springframework.security.userdetails.UserDetails;
-import org.springframework.security.userdetails.UserDetailsService;
-import org.springframework.security.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import br.com.ambientinformatica.util.UtilLog;
 
@@ -58,14 +58,9 @@ public class UsuarioService implements UserDetailsService{
 						UserDetails user;
 						try {
 							while (rsPapeis.next()) {
-								papeis.add(new GrantedAuthorityImpl(rsPapeis.getString("authority")));
+								papeis.add(new SimpleGrantedAuthority(rsPapeis.getString("authority")));
 							}
-
-							user = new UsuarioImpl(username,
-									rs.getString("password"),
-									rs.getBoolean("enabled"), true, true, true,
-									papeis.toArray(new GrantedAuthority[0]));
-
+							user = new UsuarioImpl(username, rs.getString("password"), rs.getBoolean("enabled"), true, true, true, papeis);
 							registrarHistoricoLogin(con, username);
 						} finally {
 							rsPapeis.close();

@@ -47,20 +47,20 @@ public class QuestaoControl implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		listar(null);
+		listar();
 	}
 
 	public void confirmar(ActionEvent evt) {
 		try {
 			questaoDao.alterar(questaoSelecionada);
-			listar(evt);
+			listar();
 			questaoSelecionada = new QuestaoTemplate();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
 
-	public void listar(ActionEvent evt) {
+	public void listar() {
 		try {
 			questoes = questaoDao.listar();
 		} catch (Exception e) {
