@@ -63,15 +63,6 @@
 				</div>
 			</div>
 		<div class="header-topo">
-			<!-- 
-			<div class="header-topo-nav-links">
-				<ul>
-					<li><a href="http://www.goias.gov.br/" target="_blank">GOIÁS</a> <span>&#187;</span></li>
-					<li><a href="http://www.secima.go.gov.br/" target="_blank">SECIMA</a> <span>&#187;</span></li>
-					<li><a href="http://www.secima.go.gov.br/post/ver/198329/meio-ambiente-servicos" target="_blank">SERVIÇOS</a></li>
-				</ul>
-			</div>
-		 -->
 		</div>
 		<h:form>
 			<p:dialog header="Alterar senha" widgetVar="dialogAlterarSenha" modal="true"  maximizable="true" dynamic="true">
