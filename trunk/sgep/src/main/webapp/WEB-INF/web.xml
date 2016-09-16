@@ -97,7 +97,7 @@
 
 	<servlet>
     	<servlet-name>Fabrica Servlet</servlet-name>
-      	<servlet-class>br.com.ambientinformatica.jpa.util.FabricaLoadServlet</servlet-class>
+      	<servlet-class>br.com.ambientinformatica.fatesg.sgep.util.FabricaLoadServlet</servlet-class>
       	<load-on-startup>1</load-on-startup>
    	</servlet>
 
@@ -132,6 +132,18 @@
 			<encoding>utf-8</encoding>
 		</locale-encoding-mapping>
 	</locale-encoding-mapping-list>
-
+	
+	<mime-mapping>
+		<extension>jspx</extension>
+		<mime-type>application/xml</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>jpeg</extension>
+		<mime-type>image/jpeg</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>jpg</extension>
+		<mime-type>image/jpeg</mime-type>
+	</mime-mapping>
 
 </web-app>
