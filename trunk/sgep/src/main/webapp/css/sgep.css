@@ -1,0 +1,9 @@
+.obrigatorioAutoComplete input {
+ 	border-left-color:red !important;
+ 	border-left-width: 2px !important;
+}
+
+.obrigatorio {
+ 	border-left-color:red !important;
+ 	border-left-width: 2px !important;
+}

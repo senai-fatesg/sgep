@@ -1,128 +1,105 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ui:composition template="template.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+<ui:composition template="template2.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a="http://www.ambientinformatica.com.br/jsf2"
 	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="corpo">
 		<p:growl id="messages" life="6000" />
-		<h:form id="formLista">
-			<p:panel id="pnLista">
-				<p:dataTable widgetVar="provas" id="dtTemplates"
-					value="#{TemplateControl.templates}" var="tem"
-					emptyMessage="Sem registros" rows="20" paginator="true"
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+		<p:panel>
+		<a:newLine/>
+		<a:field>
+			<p:commandButton value="Novo" update="@form" action="#{TemplateControl.limpar}" oncomplete="PF('dlgTemplate').show()" />
+		</a:field>
+		</p:panel>
+		<a:newLine/>
+		<p:panel id="pnLista">
+			<a:newLine/>
+			<p:dataTable widgetVar="provas" id="dtTemplates" value="#{TemplateControl.templates}" var="tem"
+				emptyMessage="Sem registros" rows="20" >
+				<f:facet name="header">
+					<h:outputText value="Lista de modelos de prova" />
+				</f:facet>
+				<p:column width="15px">
 					<f:facet name="header">
-						<h:outputText value="Lista de Templates" />
+						<h:outputText value="Código" />
 					</f:facet>
-					<p:column width="15px">
-						<f:facet name="header">
-							<h:outputText value="Código" />
-						</f:facet>
-						<h:outputText value="#{tem.idTemplate}" />
-					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Período" />
-						</f:facet>
-						<h:outputText value="#{tem.descricao}" />
-					</p:column>
-					<p:column width="30px">
-						<f:facet name="header">
-							<p:commandButton value="Novo" update=":formCadastro:panel"
-								action="#{TemplateControl.limpar}"
-								oncomplete="PF('dlgTemplate').show()" />
-						</f:facet>
-						<p:commandButton icon="ui-icon-pencil" value="Editar"
-							update=":formCadastro:panel" action="#{TemplateControl.carregarTemplate}"
-							oncomplete="PF('dlgTemplate').show()">
-							<f:setPropertyActionListener
-								target="#{TemplateControl.templateSelecionada}" value="#{tem}" />
-						</p:commandButton>
-						<p:commandButton icon="ui-icon-trash" value="Excluir"
-							oncomplete="PF('confirmacao').show()">
-							<f:setPropertyActionListener
-								target="#{TemplateControl.templateSelecionada}" value="#{tem}" />
-						</p:commandButton>
-						<p:remoteCommand name="preencherProva"  action="#{ProvaControl.preencherProva}"/>
-						<p:commandButton icon="ui-icon-bookmark" value="Gerar Prova"
-							 action="/gerarprova.jspx?faces-redirect=true" onsuccess="preencherProva()">
-							<f:setPropertyActionListener target="#{ProvaControl.template}"
-								value="#{tem}" />
-						</p:commandButton>
-					</p:column>
-				</p:dataTable>
-			</p:panel>
-		</h:form>
-		<h:form id="formCadastro">
-			<p:dialog id="dlgTemplate" modal="true" widgetVar="dlgTemplate"
-				header="Cadastro de Template" resizable="false" width="500">
-				<p:panel id="panel">
-					<a:field label="Descrição">
-						<p:inputText
-							value="#{TemplateControl.templateSelecionada.descricao}"
-							style="width:200px" />
-					</a:field>
-					<a:newLine />
-					<a:field label="Sessão">
-						<p:autoComplete id="dd" dropdown="true"
-							value="#{TemplateControl.sessaoItem}"
-							completeMethod="#{TemplateControl.completarSessao}"
-							forceSelection="true" var="item"
-							itemLabel="#{item.sessao.titulo}" itemValue="#{item}"
-							converter="sessaoConverter">
-							<p:column>
-								<h:outputText
-									styleClass="ui-theme ui-theme-#{item.sessao.idSessao}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{item.sessao.titulo}" />
-							</p:column>
-
-						</p:autoComplete>
-					</a:field>
-					<a:field spaceLeft="15px">
-						<p:commandButton action="#{TemplateControl.adicionarSessao}"
-							value="Adicionar" update=":formCadastro:panel"
-							oncomplete="PF('dlgTemplate').show()" icon="ui-icon-plusthick" />
-					</a:field>
-					<a:newLine />
-					<p:panel id="pnlSessoes">
-						<p:dataTable id="dtsessoes"
-							value="#{TemplateControl.templateSelecionada.sessoes}" var="sess"
-							emptyMessage="Sem registros" rows="10" paginator="true">
-							<p:column headerText="Titulo">
-								<h:outputText value="#{sess.sessao.titulo}" />
-							</p:column>
-							<p:column headerText="Ação">
-								<p:commandButton icon="ui-icon-trash"
-									action="#{TemplateControl.removerSessao}"
-									update=":formCadastro:pnlSessoes">
-									<f:setPropertyActionListener
-										target="#{TemplateControl.sessaoItem}" value="#{sess}" />
-								</p:commandButton>
-							</p:column>
-						</p:dataTable>
-					</p:panel>
-					<a:field>
-						<p:commandButton icon="ui-icon-plusthick"
-							actionListener="#{TemplateControl.confirmar}" value="Confirmar"
-							update=":formLista" oncomplete="dlgTemplate.hide();" />
-					</a:field>
-					<p:spacer width="45px" />
-					<a:newLine />
-					<a:newLine />
+					<h:outputText value="#{tem.idTemplate}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Período" />
+					</f:facet>
+					<h:outputText value="#{tem.descricao}" />
+				</p:column>
+				<p:column headerText="Editar" style="width: 60px">
+					<p:commandButton icon="ui-icon-pencil" update="@form" action="#{TemplateControl.carregarTemplate}" oncomplete="PF('dlgTemplate').show()" style="margin-left: 20%">
+						<f:setPropertyActionListener target="#{TemplateControl.templateSelecionada}" value="#{tem}" />
+					</p:commandButton>
+				</p:column>
+				<p:column headerText="Excluir" style="width: 60px">
+					<p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacao').show()" style="margin-left: 20%">
+						<f:setPropertyActionListener target="#{TemplateControl.templateSelecionada}" value="#{tem}" />
+					</p:commandButton>
+				</p:column>
+				<p:column headerText="Gerar prova" style="width: 105px">
+					<p:remoteCommand name="preencherProva"  action="#{ProvaControl.preencherProva}"/>
+					<p:commandButton icon="ui-icon-bookmark" action="/gerarprova.jspx?faces-redirect=true" onsuccess="preencherProva()" style="margin-left: 10%; width: 80px">
+						<f:setPropertyActionListener target="#{ProvaControl.template}" value="#{tem}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+		<p:dialog id="dlgTemplate" modal="true" widgetVar="dlgTemplate" header="Cadastro de modelos de prova" resizable="false" width="600">
+			<p:panel id="panel">
+				<a:newLine/>
+				<a:field label="Descrição">
+					<p:inputText value="#{TemplateControl.templateSelecionada.descricao}" style="width:200px" />
+				</a:field>
+				<a:field label="Sessão" spaceLeft="10px">
+					<p:autoComplete id="dd" dropdown="true" value="#{TemplateControl.sessaoItem}" completeMethod="#{TemplateControl.completarSessao}"
+						forceSelection="true" var="item" itemLabel="#{item.sessao.titulo}" itemValue="#{item}" converter="sessaoConverter">
+						<p:column>
+							<h:outputText styleClass="ui-theme ui-theme-#{item.sessao.idSessao}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{item.sessao.titulo}" />
+						</p:column>
+					</p:autoComplete>
+				</a:field>
+				<a:field spaceLeft="15px">
+					<p:commandButton action="#{TemplateControl.adicionarSessao}"
+						value="Adicionar" update="@form"
+						oncomplete="PF('dlgTemplate').show()" icon="ui-icon-plusthick" />
+				</a:field>
+				<a:newLine />
+				<p:panel id="pnlSessoes">
+					<a:newLine/>
+					<p:dataTable id="dtsessoes" value="#{TemplateControl.templateSelecionada.sessoes}" var="sess" emptyMessage="Sem registros" rows="10" paginator="true">
+						<p:column headerText="Titulo">
+							<h:outputText value="#{sess.sessao.titulo}" />
+						</p:column>
+						<p:column headerText="Ação">
+							<p:commandButton icon="ui-icon-trash" action="#{TemplateControl.removerSessao}" update="pnlSessoes">
+								<f:setPropertyActionListener target="#{TemplateControl.sessaoItem}" value="#{sess}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
 				</p:panel>
-			</p:dialog>
-		</h:form>
+				<a:field>
+					<p:commandButton icon="ui-icon-plusthick"
+						actionListener="#{TemplateControl.confirmar}" value="Confirmar"
+						update="@form" oncomplete="dlgTemplate.hide();" />
+				</a:field>
+				<p:spacer width="45px" />
+				<a:newLine />
+				<a:newLine />
+			</p:panel>
+		</p:dialog>
 		<p:confirmDialog widgetVar="confirmacao"
 			message="Tem Certeza que deseja excluir?" severity="alert"
 			closable="true">
 			<p:commandButton value="Sim"
 				actionListener="#{TemplateControl.excluir}"
-				onclick="confirmacao.hide()" update=":formLista:pnLista"
+				onclick="confirmacao.hide()" update="pnLista"
 				process="@this" />
 			<p:commandButton value="Não" onclick="confirmacao.hide()" />
 		</p:confirmDialog>
