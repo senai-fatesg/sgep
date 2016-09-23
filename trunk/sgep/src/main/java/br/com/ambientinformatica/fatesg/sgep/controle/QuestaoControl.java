@@ -27,8 +27,6 @@ public class QuestaoControl implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	private QuestaoTemplateDao questaoDao;
 
 	private List<QuestaoTemplate> questoes = new ArrayList<QuestaoTemplate>();
 
@@ -43,11 +41,14 @@ public class QuestaoControl implements Serializable {
 	private String nomeProfessor;
 	
 	@Autowired
+	private QuestaoTemplateDao questaoDao;
+	
+	@Autowired
 	private ColaboradorDao colaboradorDao;
 
 	@PostConstruct
 	public void init() {
-		listar();
+		//listar();
 	}
 
 	public void confirmar(ActionEvent evt) {

@@ -56,7 +56,7 @@
 				</a:field>
 				<a:field label="Sessão" spaceLeft="10px">
 					<p:autoComplete id="dd" dropdown="true" value="#{TemplateControl.sessaoItem}" completeMethod="#{TemplateControl.completarSessao}"
-						forceSelection="true" var="item" itemLabel="#{item.sessao.titulo}" itemValue="#{item}" converter="sessaoConverter">
+						forceSelection="true" var="item" itemLabel="#{item.sessao.titulo}" itemValue="#{item}" converter="objectConverter">
 						<p:column>
 							<h:outputText styleClass="ui-theme ui-theme-#{item.sessao.idSessao}" />
 						</p:column>
