@@ -23,7 +23,7 @@ public class QuestaoProva implements Serializable {
 	private Integer idQuestaoProva;
 
 	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY, orphanRemoval = true)
-    @PrimaryKeyJoinColumn
+	@PrimaryKeyJoinColumn
 	private Questao questao;
 
 	public QuestaoProva() {
