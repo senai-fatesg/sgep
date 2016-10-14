@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
 import br.com.ambientinformatica.fatesg.sgep.entidade.AlternativaQuestao;
+import br.com.ambientinformatica.fatesg.sgep.entidade.EnumAlternativa;
 import br.com.ambientinformatica.fatesg.sgep.entidade.EnumDificuldade;
 import br.com.ambientinformatica.fatesg.sgep.entidade.EnumEstado;
 import br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoTemplate;
@@ -38,6 +39,8 @@ public class QuestaoControl implements Serializable {
 
 	private AlternativaQuestao item = new AlternativaQuestao();
 
+	private boolean rdbAutoComplete;
+	
 	private String nomeProfessor;
 	
 	@Autowired
@@ -90,8 +93,8 @@ public class QuestaoControl implements Serializable {
 	
 	
 	public List<Colaborador> completarColaboradores(String nome) {
-		List<Colaborador> colaborador = colaboradorDao.listarPorNome(nome);
-		return colaborador;
+		List<Colaborador> colaboradores = colaboradorDao.listarPorNome(nome); 
+		return colaboradores;
 	}
 
 	public void adicionarItem() {
@@ -191,5 +194,19 @@ public class QuestaoControl implements Serializable {
 	public void setNomeProfessor(String nomeProfessor) {
 		this.nomeProfessor = nomeProfessor;
 	}
+
+	public boolean isRdbAutoComplete() {
+		return rdbAutoComplete;
+	}
+
+	public void setRdbAutoComplete(boolean rdbAutoComplete) {
+		this.rdbAutoComplete = rdbAutoComplete;
+	}
+
+	public List<SelectItem> getAlternativas() {
+		return UtilFaces.getListEnum(EnumAlternativa.values());
+	}
+	
+	
 
 }
