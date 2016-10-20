@@ -54,7 +54,7 @@ public class QuestaoControl implements Serializable {
 		//listar();
 	}
 
-	public void confirmar(ActionEvent evt) {
+	public void confirmar() {
 		try {
 			questaoDao.alterar(questaoSelecionada);
 			listar();
