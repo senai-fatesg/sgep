@@ -11,7 +11,6 @@ public enum EnumAlternativa implements IEnum{
 		this.descricao = descricao;
 	}
 
-	@Override
 	public String getDescricao() {
 		return this.descricao;
 	}

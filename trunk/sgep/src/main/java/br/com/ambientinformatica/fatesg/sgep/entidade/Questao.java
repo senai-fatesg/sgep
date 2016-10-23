@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -36,8 +37,6 @@ public class Questao implements Serializable {
 
 	private String assunto;
 
-	private Character resposta;
-
 	@ManyToOne
 	private Colaborador professor;
 
@@ -49,6 +48,9 @@ public class Questao implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	private EnumDificuldade dificuldade;
+	
+	@Enumerated(EnumType.STRING)
+	private EnumAlternativa resposta;
 
 	private Boolean objetiva = true;
 
@@ -97,14 +99,6 @@ public class Questao implements Serializable {
 		this.assunto = assunto;
 	}
 
-	public Character getResposta() {
-		return resposta;
-	}
-
-	public void setResposta(Character resposta) {
-		this.resposta = resposta;
-	}
-
 	public Colaborador getProfessor() {
 		return professor;
 	}
@@ -151,6 +145,14 @@ public class Questao implements Serializable {
 
 	public void setAlternativas(List<AlternativaQuestao> alternativas) {
 		this.alternativas = alternativas;
+	}
+	
+	public EnumAlternativa getResposta() {
+		return resposta;
+	}
+
+	public void setResposta(EnumAlternativa resposta) {
+		this.resposta = resposta;
 	}
 
 	@Override

@@ -39,9 +39,11 @@ public class QuestaoControl implements Serializable {
 
 	private AlternativaQuestao item = new AlternativaQuestao();
 
-	private boolean rdbAutoComplete;
+	private boolean rdbUsrLogadoSelecionado;
 	
 	private String nomeProfessor;
+	
+	private static final int CAPACIDADE_MAXIMA_ALTERNATIVAS = 5;
 	
 	@Autowired
 	private QuestaoTemplateDao questaoDao;
@@ -51,17 +53,25 @@ public class QuestaoControl implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		//listar();
+		this.listar();
 	}
 
 	public void confirmar() {
 		try {
+			//verifica se professor já está cadastrado na base do SGEP
+			if(!isProfessorJaCadastrado(questaoSelecionada.getQuestao().getProfessor())){
+				colaboradorDao.alterar(questaoSelecionada.getQuestao().getProfessor());
+			}
 			questaoDao.alterar(questaoSelecionada);
 			listar();
 			questaoSelecionada = new QuestaoTemplate();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
+	}
+
+	private boolean isProfessorJaCadastrado(Colaborador colaborador) {
+		return colaboradorDao.consultar(colaborador.getId()) != null;
 	}
 
 	public void listar() {
@@ -99,15 +109,10 @@ public class QuestaoControl implements Serializable {
 
 	public void adicionarItem() {
 		try {
-			if (!item.getDescricao().isEmpty() || item.getDescricao() == "") {
-				if (questaoSelecionada.getQuestao().getAlternativas().size() < 5) {
-					item.setOrdem(questaoSelecionada.getQuestao()
-							.getAlternativas().size());
-					questaoSelecionada.getQuestao().addItem(item);
-				} else {
-					UtilFaces
-							.addMensagemFaces("Atenção!\n Capacidade maxima de itens alcançada.");
-				}
+			if (isAlternativaValida()) {
+				item.setOrdem(questaoSelecionada.getQuestao()
+						.getAlternativas().size());
+				questaoSelecionada.getQuestao().addItem(item);
 			}
 		} catch (Exception e) {
 			UtilFaces
@@ -118,6 +123,19 @@ public class QuestaoControl implements Serializable {
 		}
 	}
 
+	private boolean isAlternativaValida() {
+		if(this.isCapacidadeMaximaPreenchida(questaoSelecionada.getQuestao().getAlternativas().size())){
+			UtilFaces
+			.addMensagemFaces("Atenção!\n Capacidade maxima de itens alcançada.");
+			return false;
+		};
+		return true;
+	}
+	
+	public boolean isCapacidadeMaximaPreenchida(int quantidadeQuestao){
+		return quantidadeQuestao == this.CAPACIDADE_MAXIMA_ALTERNATIVAS;
+	}
+	
 	public void editarItem(AlternativaQuestao alternativa) {
 		try {
 			this.item = alternativa;
@@ -195,12 +213,12 @@ public class QuestaoControl implements Serializable {
 		this.nomeProfessor = nomeProfessor;
 	}
 
-	public boolean isRdbAutoComplete() {
-		return rdbAutoComplete;
+	public boolean isRdbUsrLogadoSelecionado() {
+		return rdbUsrLogadoSelecionado;
 	}
 
-	public void setRdbAutoComplete(boolean rdbAutoComplete) {
-		this.rdbAutoComplete = rdbAutoComplete;
+	public void setRdbUsrLogadoSelecionado(boolean rdbUsrLogadoSelecionado) {
+		this.rdbUsrLogadoSelecionado = rdbUsrLogadoSelecionado;
 	}
 
 	public List<SelectItem> getAlternativas() {
