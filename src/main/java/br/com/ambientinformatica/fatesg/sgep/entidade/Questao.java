@@ -60,10 +60,10 @@ public class Questao implements Serializable {
 	private List<AlternativaQuestao> alternativas = new ArrayList<AlternativaQuestao>();
 
 	// Metodos
-	public void addItem(AlternativaQuestao alternativa) throws Exception {
+	public void addItem(AlternativaQuestao alternativa, boolean isAlternativaEdicao) throws Exception {
 		if (!alternativas.contains(alternativa)) {
 			this.alternativas.add(alternativa);
-		} else {
+		} else if(!isAlternativaEdicao){
 			throw new Exception("Questão já contem este item!");
 		}
 
