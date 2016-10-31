@@ -1,100 +1,262 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ui:composition template="template.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+<ui:composition template="template2.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a="http://www.ambientinformatica.com.br/jsf2"
 	xmlns:p="http://primefaces.org/ui">
 	<ui:define name="corpo">
-		<p:dataTable widgetVar="colaboradores" id="dtColaboradores"
-			value="#{ColaboradorControl.colaboradores }" var="cont" width="100%"
-			emptyMessage="Sem registros" rows="20" paginator="true"
-			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-			<f:facet name="header">
-				<h:outputText value="Buscar por Nome:" />
-				<p:inputText id="inputFiltroGlobal"
-					value="#{ColaboradorControl.filtroGlobal}" />
-				<p:commandButton id="cmdFiltroGlobal" icon="ui-icon-search"
-					actionListener="#{ColaboradorControl.filtrarPorNome}"
-					update="dtColaboradores" />
-					<p:commandButton action="#{ColaboradorControl.limparConsulta}"
-					value="Limpar" icon="ui-icon-cancel" update="dtColaboradores" />
+		<p:panel widgetVar="panel" id="horizontal" header="Pesquisar usuários cadastradas" toggleable="true" toggleOrientation="horizontal">
+			<a:newLine/>
+			<h:panelGrid columns="4">
+				<a:field label="Nome">
+					<p:inputText id="pNome" value="#{ColaboradorControl.nome}" style="width:500px;" placeholder="Digite aqui o nome ou parte do nome do usuário" />
+				</a:field>
+	
+				<a:field spaceLeft="10px">
+					<p:commandButton id="Pesquisa" actionListener="#{ColaboradorControl.listar}" value="Pesquisar" ajax="false" icon="ui-icon ui-icon-search" update="tblColaboradores" />
+				</a:field>
+	
+				<a:field spaceLeft="10px">
+					<p:commandButton id="limpar" value="Limpar" actionListener="#{MenuControl.gerenciarSessao}" ajax="false" action="colaboradorlist?faces-redirect=true"
+						icon="ui-icon ui-icon-trash" />
+				</a:field>
+				
+				<a:field spaceLeft="10px">
+					<p:commandButton id="novo" value="Cadastrar" icon="ui-icon-disk" actionListener="#{ColaboradorControl.cadastrarNovoUsuario}" update=":formCorpo:usuario" /> 
+				</a:field>
+	
 				<a:newLine />
-				<h:outputText value="Lista de Colaboradores" />
-			</f:facet>
-			<p:column sortBy="#{cont.id }">
-				<f:facet name="header">
-					<h:outputText value="Código" />
-				</f:facet>
+				<a:newLine />
+			</h:panelGrid>
+		</p:panel>
+
+		<p:panel>
+			<p:dataTable widgetVar="colaboradores" id="dtColaboradores" value="#{ColaboradorControl.colaboradores }" var="cont" width="100%"
+			emptyMessage="Sem registros" rows="20" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} 
+			{PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+			<p:column headerText="Código" style="width: 60px">
 				<h:outputText value="#{cont.id }"></h:outputText>
 			</p:column>
-			<p:column sortBy="#{cont.nome }">
-				<f:facet name="header">
-					<h:outputText value="Nome" />
-				</f:facet>
+			<p:column headerText="Nome" style="text-align: center">
 				<h:outputText value="#{cont.nome }"></h:outputText>
 			</p:column>
-			<p:column sortBy="#{cont.tipoSexo }">
-				<f:facet name="header">
-					<h:outputText value="Sexo" />
-				</f:facet>
-				<h:outputText value="#{cont.tipoSexo }"></h:outputText>
-			</p:column>
-			<p:column sortBy="#{cont.tipo }">
-				<f:facet name="header">
-					<h:outputText value="Tipo" />
-				</f:facet>
-				<h:outputText value="#{cont.tipo }"></h:outputText>
-			</p:column>
-			<p:column sortBy="#{cont.cpfCnpj }">
-				<f:facet name="header">
-					<h:outputText value="CPF" />
-				</f:facet>
+			<p:column headerText="CPF" style="with: 80px; text-align: center">
 				<h:outputText value="#{cont.cpfCnpj }"></h:outputText>
 			</p:column>
-			<p:column sortBy="#{cont.telefone }">
-				<f:facet name="header">
-					<h:outputText value="Telefone" />
-				</f:facet>
+			<p:column headerText="RG" style="with: 80px; text-align: center">
+				<h:outputText value="#{cont.rg }"></h:outputText>
+			</p:column>
+			<p:column headerText="Sexo" style="width: 120px; text-align: center">
+				<h:outputText value="#{cont.tipoSexo }"></h:outputText>
+			</p:column>
+			<p:column headerText="tipo" style="width: 150px; text-align: center">
+				<h:outputText value="#{cont.tipo }"></h:outputText>
+			</p:column>
+			<p:column headerText="Telefone" style="width: 120px; text-align: center">
 				<h:outputText value="#{cont.telefone }"></h:outputText>
 			</p:column>
-			<p:column sortBy="#{cont.celular }">
-				<f:facet name="header">
-					<h:outputText value="Celular" />
-				</f:facet>
+			<p:column headerText="Celular" style="width: 120px; text-align: center">
 				<h:outputText value="#{cont.celular }"></h:outputText>
 			</p:column>
-			<p:column sortBy="#{cont.email }">
-				<f:facet name="header">
-					<h:outputText value="E-mail" />
-				</f:facet>
+			<p:column headerText="E-mail" style="text-align: center">
 				<h:outputText value="#{cont.email }"></h:outputText>
 			</p:column>
-			<p:column headerText="Ação">
-				<p:commandButton icon="ui-icon-trash" value="Excluir"
-					oncomplete="confirmacao.show()">
-					<f:setPropertyActionListener
-						target="#{ColaboradorControl.colaborador}" value="#{cont}" />
-				</p:commandButton>
-				<p:commandButton icon="ui-icon-pencil" value="Editar"
-					action="/colaborador.jspx?faces-redirect=true">
-					<f:setPropertyActionListener
-						target="#{ColaboradorControl.colaborador}" value="#{cont}" />
-				</p:commandButton>
+			<p:column headerText="Editar" style="width: 60px; text-align: center">
+				<p:commandButton id="alterColaborador" oncomplete="PF('usuarioEditar').show();" icon="ui-icon-pencil">
+		           	<f:setPropertyActionListener value="#{cont}" target="#{ColaboradorControl.colaboradorAlterar }" />
+		        </p:commandButton>
 			</p:column>
 		</p:dataTable>
-		<p:confirmDialog widgetVar="confirmacao"
-			message="Tem Certeza que deseja excluir?" severity="alert"
-			closable="true">
-			<p:commandButton value="Sim"
-				actionListener="#{ColaboradorControl.excluir}"
-				onclick="confirmacao.hide()" update="dtColaboradores" process="@this" />
-			<p:commandButton value="Não" onclick="confirmacao.hide()" />
-		</p:confirmDialog>
-		<a:newLine />
-		<p:spacer width="25px" />
-		<p:commandButton action="/colaborador.jspx?faces-redirect=true"
-			value="Voltar" />
-	</ui:define>
-</ui:composition>
+		</p:panel>
+		<p:dialog id="usuario" header="Cadastro de usuário" widgetVar="usuario" dynamic="true" modal="true">
+			<a:field label="Nome">
+				<p:inputText value="#{ColaboradorControl.colaborador.nome }" />
+			</a:field>
+			<a:field label="RG" spaceLeft="15px">
+				<p:inputText value="#{ColaboradorControl.colaborador.rg }" />
+			</a:field>
+			<a:field label="CPF" spaceLeft="15px">
+				<p:inputMask value="#{ColaboradorControl.colaborador.cpfCnpj }" mask="999.999.999-99" />
+			</a:field>
+			<a:field label="Sexo" spaceLeft="15px">
+				<h:selectOneMenu id="tiposexo" value="#{ColaboradorControl.colaborador.tipoSexo}" style="width:219px">
+					<f:selectItem itemLabel="Selecione" itemValue="" />
+					<f:selectItems value="#{ColaboradorControl.tiposSexo}" var="tipoSexo" itemValue="#{tipoSexo}" itemLabel="#{tipoSexo.descricao}" />
+				</h:selectOneMenu>
+			</a:field>
+			<a:newLine />
+			<a:field label="Titulo de Eleitor">
+				<p:inputText value="#{ColaboradorControl.colaborador.tituloEleitor }" />
+			</a:field>
+			<a:field label="Nº Reservista" spaceLeft="15px">
+				<p:inputText value="#{ColaboradorControl.colaborador.reservista }" />
+			</a:field>
+			<a:field label="Tipo Colaborador" spaceLeft="15px">
+				<h:selectOneMenu id="tipocolaborador" value="#{ColaboradorControl.colaborador.tipo}" style="width:219px">
+					<f:selectItem itemLabel="Selecione" itemValue="" />
+					<f:selectItems value="#{ColaboradorControl.tiposColaboradores}" var="tipocolaborador" itemValue="#{tipo}" itemLabel="#{tipo}" />
+				</h:selectOneMenu>
+			</a:field>
+			<a:field label="Histórico" spaceLeft="15px">
+				<p:inputText value="#{ColaboradorControl.colaborador.historico }" />
+			</a:field>
+			<a:newLine />
+			<a:field label="Telefone">
+				<p:inputMask value="#{ColaboradorControl.colaborador.telefone }" mask="(99)9999-9999" />
+			</a:field>
+			<a:field label="Celular" spaceLeft="15px">
+				<p:inputMask value="#{ColaboradorControl.colaborador.celular }" mask="(99)9999-9999" />
+			</a:field>
+			<a:field label="E-mail" spaceLeft="15px">
+				<p:inputText value="#{ColaboradorControl.colaborador.email }" />
+			</a:field>
+			<a:field label="CEP" spaceLeft="15px">
+				<p:inputMask mask="99999-999" value="#{ColaboradorControl.colaborador.cep }" />
+			</a:field>
+			<a:newLine />
+			<a:field label="Endereço">
+				<p:inputText value="#{ColaboradorControl.colaborador.endereco }" style="width:444px" />
+			</a:field>
+			<a:field label="UF" spaceLeft="10px;">
+				<p:selectOneMenu id="uf" value="#{ColaboradorControl.uf }" style="width:190px;">
+					<f:selectItems value="#{ColaboradorControl.ufs }" var="estado" itemLabel="#{estado.descricao}" itemValue="#{estado}"></f:selectItems>
+					<p:ajax event="change" listener="#{ColaboradorControl.atualizarMunicipios}" update="uf municipio"/>
+				</p:selectOneMenu>
+			</a:field>
+            <a:field label="Município" spaceLeft="10px;">
+               <p:selectOneMenu id="municipio" value="#{ColaboradorControl.colaborador.municipio }" style="width:190px;" converter="objectConverter" filterMatchMode="contains" filter="true">
+                  <f:selectItem itemLabel="Selecione"/>
+                  <f:selectItems value="#{ColaboradorControl.municipios }" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.descricao}"/>
+               </p:selectOneMenu>
+		    </a:field>
+			<a:newLine />
+			<a:newLine />
+			<a:field>
+				<p:commandButton icon="ui-icon-disk" ajax="false" actionListener="#{ColaboradorControl.confirmar}" value="Confirmar"
+					update="colaboradores" />
+			</a:field>
+			<a:field spaceLeft="10px">
+				<p:commandButton icon="ui-icon-refresh" ajax="true" action="#{ColaboradorControl.limpar}" value="Limpar" update="@all" />
+			</a:field>
+			<p:ajax event="close" listener="#{ColaboradorControl.limpar}" />
+		</p:dialog>
+
+		<p:dialog id="usuarioEditar" header="Editar Usuário" widgetVar="usuarioEditar" dynamic="true" modal="true">
+			<a:field label="Nome">
+				<p:inputText value="#{ColaboradorControl.colaboradorAlterar.nome }" />
+			</a:field>
+			<a:field label="RG" spaceLeft="15px">
+				<p:inputText value="#{ColaboradorControl.colaboradorAlterar.rg }" />
+			</a:field>
+			<a:field label="CPF" spaceLeft="15px">
+				<p:inputMask value="#{ColaboradorControl.colaboradorAlterar.cpfCnpj }" mask="999.999.999-99" />
+			</a:field>
+			<a:field label="Sexo" spaceLeft="15px">
+				<h:selectOneMenu id="tiposexoEditar" value="#{ColaboradorControl.colaboradorAlterar.tipoSexo}" style="width:219px">
+					<f:selectItem itemLabel="Selecione" itemValue="" />
+					<f:selectItems value="#{ColaboradorControl.tiposSexo}" var="tipoSexo" itemValue="#{tipoSexo}" itemLabel="#{tipoSexo.descricao}" />
+				</h:selectOneMenu>
+			</a:field>
+			<a:newLine />
+			<a:field label="Titulo de Eleitor">
+				<p:inputText value="#{ColaboradorControl.colaboradorAlterar.tituloEleitor }" />
+			</a:field>
+			<a:field label="Nº Reservista" spaceLeft="15px">
+				<p:inputText value="#{ColaboradorControl.colaboradorAlterar.reservista }" />
+			</a:field>
+			<a:field label="Tipo Colaborador" spaceLeft="15px">
+				<h:selectOneMenu id="tipocolaboradorEditar" value="#{ColaboradorControl.colaboradorAlterar.tipo}" style="width:219px">
+					<f:selectItem itemLabel="Selecione" itemValue="" />
+					<f:selectItems value="#{ColaboradorControl.tiposColaboradores}" var="tipocolaborador" itemValue="#{tipo}" itemLabel="#{tipo}" />
+				</h:selectOneMenu>
+			</a:field>
+			<a:field label="Histórico" spaceLeft="15px">
+				<p:inputText value="#{ColaboradorControl.colaboradorAlterar.historico }" />
+			</a:field>
+			<a:newLine />
+			<a:field label="Telefone">
+				<p:inputMask value="#{ColaboradorControl.colaboradorAlterar.telefone }" mask="(99)9999-9999" />
+			</a:field>
+			<a:field label="Celular" spaceLeft="15px">
+				<p:inputMask value="#{ColaboradorControl.colaboradorAlterar.celular }" mask="(99)9999-9999" />
+			</a:field>
+			<a:field label="E-mail" spaceLeft="15px">
+				<p:inputText value="#{ColaboradorControl.colaboradorAlterar.email }" />
+			</a:field>
+			<a:field label="CEP" spaceLeft="15px">
+				<p:inputMask mask="99999-999" value="#{ColaboradorControl.colaboradorAlterar.cep }" />
+			</a:field>
+			<a:newLine />
+			<a:field label="Endereço">
+				<p:inputText value="#{ColaboradorControl.colaboradorAlterar.endereco }" style="width:444px" />
+			</a:field>
+			<a:field label="UF" spaceLeft="10px;">
+				<p:selectOneMenu id="ufEditar" value="#{ColaboradorControl.uf }" style="width:190px;">
+					<f:selectItems value="#{ColaboradorControl.ufs }" var="estado" itemLabel="#{estado.descricao}" itemValue="#{estado}"></f:selectItems>
+					<p:ajax event="change" listener="#{ColaboradorControl.atualizarMunicipios}" update="ufEditar municipioEditar"/>
+				</p:selectOneMenu>
+			</a:field>
+            <a:field label="Município" spaceLeft="10px;">
+               <p:selectOneMenu id="municipioEditar" value="#{ColaboradorControl.colaboradorAlterar.municipio }" style="width:190px;" converter="objectConverter" filterMatchMode="contains" filter="true">
+                  <f:selectItem itemLabel="Selecione"/>
+                  <f:selectItems value="#{ColaboradorControl.municipios }" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.descricao}"/>
+               </p:selectOneMenu>
+		    </a:field>
+			<a:newLine />
+			<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="20">
+				<a:field>
+					<h:outputLabel value="Cadastro Confirmado?" />
+				</a:field>
+				<a:field spaceLeft="10PX">
+					<p:selectBooleanButton id="confirmado" value="#{ColaboradorControl.colaboradorAlterar.confirmado}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" />
+				</a:field>
+
+				<a:field spaceLeft="10px">
+					<h:outputLabel value="Senha alterada?" />
+				</a:field>
+				<a:field spaceLeft="10px">
+					<p:selectBooleanButton id="alterado" value="#{ColaboradorControl.colaboradorAlterar.alterarSenha}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close"/>
+				</a:field>
+				
+			</h:panelGrid>
+			<p:separator/>
+
+			<h4>Papeis do usuário</h4>
+			<a:field label="Adicionar papel:">
+				<p:selectOneMenu styleClass="obrigatorio" value="#{ColaboradorControl.papel}" style="width:350px;">
+					<f:selectItem itemLabel="Selecione" />
+					<f:selectItems value="#{ColaboradorControl.papeis }" />
+				</p:selectOneMenu>
+			</a:field>
+
+			<a:field spaceLeft="10px">
+				<p:commandButton actionListener="#{ColaboradorControl.adicionarPapel}" value="Adicionar" icon="ui-icon-plus" update="formCorpo:tblPapeis" />
+			</a:field>
+
+			<a:newLine />
+			<a:newLine />
+
+			<p:dataTable id="tblPapeis" value="#{ColaboradorControl.colaboradorAlterar.papeisList}" var="papel" style="width: 600px">
+				<f:facet name="header">
+	               Atribuições
+	            </f:facet>
+				<p:column headerText="Papel">
+	               #{papel.descricao}
+	            </p:column>
+				<p:column headerText="Excluir" style="width: 100px">
+					<p:commandButton icon="ui-icon-trash" actionListener="#{ColaboradorControl.removerPapel}" update=":formCorpo:tblPapeis" style="width: 80px">
+						<f:param value="#{papel}" id="papel" name="papel" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<a:field>
+				<p:commandButton actionListener="#{ColaboradorControl.alterar}" value="Salvar" ajax="false" icon="ui-icon-disk" update="tblColaboradores"
+					oncomplete="PF('usuarioEditar').close();" />
+			</a:field>
+
+			<a:field spaceLeft="10px">
+				<p:commandButton id="btnCancelarTransf" icon="ui-icon-circle-close" actionListener="#{MenuControl.gerenciarSessao }" onclick="PF('usuarioEditar').close();" value="Cancelar" />
+			</a:field>
+			<a:newLine />
+		</p:dialog>
+		</ui:define>
+	</ui:composition>

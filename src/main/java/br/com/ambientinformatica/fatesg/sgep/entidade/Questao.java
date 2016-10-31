@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -60,10 +59,10 @@ public class Questao implements Serializable {
 	private List<AlternativaQuestao> alternativas = new ArrayList<AlternativaQuestao>();
 
 	// Metodos
-	public void addItem(AlternativaQuestao alternativa, boolean isAlternativaEdicao) throws Exception {
+	public void addItem(AlternativaQuestao alternativa) throws Exception {
 		if (!alternativas.contains(alternativa)) {
 			this.alternativas.add(alternativa);
-		} else if(!isAlternativaEdicao){
+		} else {
 			throw new Exception("Questão já contem este item!");
 		}
 

@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import org.primefaces.context.RequestContext;
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
 import br.com.ambientinformatica.fatesg.sgep.entidade.AlternativaQuestao;
@@ -41,8 +40,6 @@ public class QuestaoControl implements Serializable {
 
 	private boolean rdbUsrLogadoSelecionado;
 	
-	private boolean isAlternativaEdicao = false;
-	
 	private String nomeProfessor;
 	
 	private static final int CAPACIDADE_MAXIMA_ALTERNATIVAS = 5;
@@ -60,33 +57,18 @@ public class QuestaoControl implements Serializable {
 
 	public void confirmar() {
 		try {
-			
-			if(this.isQuestaoValida(questaoSelecionada.getQuestao().getAlternativas().size())){	
-				//if(rdbUsrLogadoSelecionado){
-					
-				//}
-				
-				//verifica se professor já está cadastrado na base do SGEP
-				if(!isProfessorJaCadastrado(questaoSelecionada.getQuestao().getProfessor())){
-					colaboradorDao.alterar(questaoSelecionada.getQuestao().getProfessor());
-				}
-				
-				questaoDao.alterar(questaoSelecionada);
-				this.listar();
-				questaoSelecionada = new QuestaoTemplate();
-				RequestContext.getCurrentInstance().execute("fecharDlgQuestao();");
+			//verifica se professor já está cadastrado na base do SGEP
+			if(!isProfessorJaCadastrado(questaoSelecionada.getQuestao().getProfessor())){
+				colaboradorDao.alterar(questaoSelecionada.getQuestao().getProfessor());
 			}
+			questaoDao.alterar(questaoSelecionada);
+			listar();
+			questaoSelecionada = new QuestaoTemplate();
 		} catch (Exception e) {
-			colaboradorDao.getEntityManager().getTransaction().rollback();
-			questaoDao.getEntityManager().getTransaction().rollback();
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
-	
-	public boolean verificarSalvarDadosPreenchidosPerdidos(){
-		return isAlternativaEdicao() || this.item.getDescricao() != null;
-	}
-	
+
 	private boolean isProfessorJaCadastrado(Colaborador colaborador) {
 		return colaboradorDao.consultar(colaborador.getId()) != null;
 	}
@@ -123,13 +105,13 @@ public class QuestaoControl implements Serializable {
 		List<Colaborador> colaboradores = colaboradorDao.listarPorNome(nome); 
 		return colaboradores;
 	}
-	
+
 	public void adicionarItem() {
 		try {
 			if (isAlternativaValida()) {
 				item.setOrdem(questaoSelecionada.getQuestao()
-						.getAlternativas(), this.isAlternativaEdicao);
-				questaoSelecionada.getQuestao().addItem(item, isAlternativaEdicao);
+						.getAlternativas().size());
+				questaoSelecionada.getQuestao().addItem(item);
 			}
 		} catch (Exception e) {
 			UtilFaces
@@ -144,41 +126,18 @@ public class QuestaoControl implements Serializable {
 		if(this.isCapacidadeMaximaPreenchida(questaoSelecionada.getQuestao().getAlternativas().size())){
 			UtilFaces
 			.addMensagemFaces("Atenção!\n Capacidade maxima de itens alcançada.");
-			
 			return false;
 		};
 		return true;
 	}
 	
 	public boolean isCapacidadeMaximaPreenchida(int quantidadeQuestao){
-		return quantidadeQuestao == CAPACIDADE_MAXIMA_ALTERNATIVAS && !isAlternativaEdicao;
-	}
-	
-	private boolean isQuestaoValida(int quantidadeQuestao){
-		if(!this.isCamposObrigatoriosPreenchidos()){
-			UtilFaces.addMensagemFaces("Campo(s) obrigatório(s) não informado(s)!");
-			return false;
-		}
-		
-		if(!this.isCapacidadeMaximaPreenchida(quantidadeQuestao)){
-			UtilFaces.addMensagemFaces("É necessário adicionar "+ CAPACIDADE_MAXIMA_ALTERNATIVAS +" para a questão!");
-			return false;
-		}
-		return true;
-	}
-	
-	private boolean isCamposObrigatoriosPreenchidos(){
-		return questaoSelecionada.getQuestao().getEnunciado() != ""
-				&& questaoSelecionada.getQuestao().getAssunto() != ""
-				&& questaoSelecionada.getQuestao().getEstado().hashCode() > 0 
-				&& questaoSelecionada.getQuestao().getDificuldade().hashCode() > 0
-				&& questaoSelecionada.getQuestao().getResposta().hashCode() > 0;
+		return quantidadeQuestao == this.CAPACIDADE_MAXIMA_ALTERNATIVAS;
 	}
 	
 	public void editarItem(AlternativaQuestao alternativa) {
 		try {
 			this.item = alternativa;
-			this.isAlternativaEdicao = true;
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
@@ -264,16 +223,7 @@ public class QuestaoControl implements Serializable {
 	public List<SelectItem> getAlternativas() {
 		return UtilFaces.getListEnum(EnumAlternativa.values());
 	}
-
-	public boolean isAlternativaEdicao() {
-		return isAlternativaEdicao;
-	}
-
-	public void setAlternativaEdicao(boolean isAlternativaEdicao) {
-		this.isAlternativaEdicao = isAlternativaEdicao;
-	}
-
-
+	
 	
 
 }

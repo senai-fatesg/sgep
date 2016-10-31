@@ -11,6 +11,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
+
 @Entity
 public class HistoricoLogin {
 
@@ -20,17 +22,17 @@ public class HistoricoLogin {
    private Integer id;
    
    @ManyToOne
-   private Usuario usuario;
+   private Colaborador colaborador;
    
    @Temporal(TemporalType.TIMESTAMP)
    private Date data;
 
-   public Usuario getUsuario() {
-      return usuario;
+   public Colaborador getColaborador() {
+      return colaborador;
    }
 
-   public void setUsuario(Usuario usuario) {
-      this.usuario = usuario;
+   public void setColaborador(Colaborador colaborador) {
+      this.colaborador = colaborador;
    }
 
    public Date getData() {
