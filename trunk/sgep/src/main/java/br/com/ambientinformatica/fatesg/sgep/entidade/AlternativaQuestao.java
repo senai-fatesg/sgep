@@ -1,8 +1,6 @@
 package br.com.ambientinformatica.fatesg.sgep.entidade;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +20,7 @@ public class AlternativaQuestao implements Serializable {
 
 	private String descricao;
 
-	private String ordem;
+	private Character ordem;
 
 	private Boolean resposta;
 
@@ -42,57 +40,30 @@ public class AlternativaQuestao implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public String getOrdem() {
+	public Character getOrdem() {
 		return ordem;
 	}
 
-	public void setOrdem(List<AlternativaQuestao> alternativas, boolean isAlternativaEdicao) {
-		//if(alternativas.size() > 0){
-			this.verificarOrdemAlternativas(alternativas, isAlternativaEdicao);
-			return;
-		//}
-		
-		//this.ordem = EnumAlternativa.A.getDescricao();
-		
+	public void setOrdem(int ordem) {
+		switch (ordem) {
+		case 0:
+			this.ordem = "a".charAt(0);
+			break;
+		case 1:
+			this.ordem = "b".charAt(0);
+			break;
+		case 2:
+			this.ordem = "c".charAt(0);
+			break;
+		case 3:
+			this.ordem = "d".charAt(0);
+			break;
+		case 4:
+			this.ordem = "e".charAt(0);
+			break;
+		}
 	}
-	
-	private void verificarOrdemAlternativas(List<AlternativaQuestao> alternativas, boolean isAlternativaEdicao){
-		 if(isAlternativaEdicao)
-			 return;
-		
-		 List<String> listaDescricaoAlternativas = new ArrayList<>();
-		 
-		 for(AlternativaQuestao descricaoAlternativa : alternativas)
-			 listaDescricaoAlternativas.add(descricaoAlternativa.ordem.toUpperCase());
-		 
-		 for (EnumAlternativa item : EnumAlternativa.values()) {
-			 if(!listaDescricaoAlternativas.contains(item.getDescricao())){
-				 this.ordem = item.getDescricao();
-				 break;
-			 }
-		 }	
-		
-		 
-		 
-		 
-	}
-	/*switch (ordem) {
-	case 0:
-		this.ordem = "a".charAt(0);
-		break;
-	case 1:
-		this.ordem = "b".charAt(0);
-		break;
-	case 2:
-		this.ordem = "c".charAt(0);
-		break;
-	case 3:
-		this.ordem = "d".charAt(0);
-		break;
-	case 4:
-		this.ordem = "e".charAt(0);
-		break;
-	}*/
+
 	public Boolean getResposta() {
 		return resposta;
 	}

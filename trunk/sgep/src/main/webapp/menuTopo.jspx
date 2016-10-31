@@ -23,7 +23,7 @@
 						<div>
 							<div class="row">
 								<div class="col-md-10">
-									<p:outputLabel value="Usuário: #{UsuarioLogadoControl.usuario.nome}" style="color: #fff; margin-top: 10px"/>
+									<p:outputLabel value="Usuário: #{UsuarioLogadoControl.colaborador.nome}" style="color: #fff; margin-top: 10px"/>
 									<br />
 								</div>
 								<div class="col-md-2">
@@ -38,10 +38,10 @@
 											<td rowspan="2" style="padding: 5px;">
 											<p:graphicImage width="100px;height:70px" value="/imagens/user2.png" style="margin-top: 20px;"/></td>
 											<td>
-												<h:outputText value="#{UsuarioLogadoControl.usuario.nome}" style="font-size:12px" /> 
+												<h:outputText value="#{UsuarioLogadoControl.colaborador.nome}" style="font-size:12px" /> 
 												<a:newLine /> 
 												<a:newLine />
-												<h:outputText value="#{UsuarioLogadoControl.usuario.dataUltimoAcesso}" style="font-size:10px;font-style:italic">
+												<h:outputText value="#{UsuarioLogadoControl.colaborador.dataUltimoAcesso}" style="font-size:10px;font-style:italic">
 													<f:convertDateTime pattern="'Último Acesso: ' dd/MM/yyyy 'às'  HH:mm" />
 												</h:outputText>
 											</td>
@@ -67,26 +67,26 @@
 		<h:form>
 			<p:dialog header="Alterar senha" widgetVar="dialogAlterarSenha" modal="true"  maximizable="true" dynamic="true">
 	    		 <a:field label="Informe a senha atual">
-	                <p:password styleClass="obrigatorio" value="#{PessoaControl.confirmarSenha}" id="snh" style="width:200px" />
+	                <p:password styleClass="obrigatorio" value="#{ColaboradorControl.confirmarSenha}" id="snh" style="width:200px" />
 	            </a:field>
 	
 	            <a:newLine />
 	
 	            <a:field label="Informe uma nova senha">
-	                <p:password styleClass="obrigatorio" minLength="6" value="#{PessoaControl.senha1}" promptLabel="Digite a senha"
+	                <p:password styleClass="obrigatorio" minLength="6" value="#{ColaboradorControl.senha1}" promptLabel="Digite a senha"
 	                    goodLabel="Senha boa" strongLabel="Senha forte" weakLabel="Senha Fraca" style="width:200px" />
 	            </a:field>
 	
 	            <a:newLine />
 	
 	            <a:field label="Reinforme a nova senha">
-	                <p:password styleClass="obrigatorio" minLength="6" value="#{PessoaControl.senha2}" style="width:200px" />
+	                <p:password styleClass="obrigatorio" minLength="6" value="#{ColaboradorControl.senha2}" style="width:200px" />
 	            </a:field>
 	
 	            <a:newLine />
 	            
 	            <a:field>
-	                <p:commandButton id="alterarSenha" value="Alterar" action="#{PessoaControl.alterarSenha}" ajax="false" icon="ui-icon-refresh" oncomplete="PF('dialogAlterarSenha').close();" />
+	                <p:commandButton id="alterarSenha" value="Alterar" action="#{ColaboradorControl.alterarSenha}" ajax="false" icon="ui-icon-refresh" oncomplete="PF('dialogAlterarSenha').close();" />
 	            </a:field>
 	            
 	            <a:field spaceLeft="10px">

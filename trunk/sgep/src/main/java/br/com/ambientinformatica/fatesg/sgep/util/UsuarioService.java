@@ -24,50 +24,50 @@ public class UsuarioService implements UserDetailsService{
 
 	private DataSource dataSource;
 
-	private void registrarHistoricoLogin(Connection con, String login) throws SQLException{
+	private void registrarHistoricoLogin(Connection con, String cpfcnpj) throws SQLException{
 		Date agora = new Date();
-		PreparedStatement pstmtUsuario = con.prepareStatement("update usuario set dataultimoacesso = ? where login = ?");
+		PreparedStatement pstmtUsuario = con.prepareStatement("update colaborador set dataultimoacesso = ? where cpfcnpj = ?");
 		pstmtUsuario.setTimestamp(1, new Timestamp(agora.getTime()));
-		pstmtUsuario.setString(2, login);
+		pstmtUsuario.setString(2, cpfcnpj);
 		pstmtUsuario.execute();
 
-		PreparedStatement pstmtHistorico = con.prepareStatement("insert into historicologin (id, data, usuario_login) values ((select nextval('historico_login_seq')), ?, ?)");
+		PreparedStatement pstmtHistorico = con.prepareStatement("insert into historicologin (id, data, colaborador_id) values ((select nextval('historico_login_seq')), ?, (select id from colaborador where cpfcnpj = ?))");
 		pstmtHistorico.setTimestamp(1, new Timestamp(agora.getTime()));
-		pstmtHistorico.setString(2, login);
+		pstmtHistorico.setString(2, cpfcnpj);
 		pstmtHistorico.execute();
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws DataAccessException {
+	public UserDetails loadUserByUsername(String cpfcnpj) throws DataAccessException {
 		try {
 			Connection con = dataSource.getConnection();
-			String sqlUsuario = "SELECT login AS username, senha as password, 'true' AS enabled FROM usuario WHERE login = ?";
+			String sqlColaborador = "SELECT cpfcnpj AS username, senha as password, 'true' AS enabled FROM colaborador WHERE cpfcnpj = ?";
 
-			String sqlPapeis = "select papel as authority from papelusuario where usuario_id = ?";
+			String sqlPapeis = "select papeis as authority from colaborador_papeis where colaborador_id = (select id from colaborador where cpfcnpj = ?)";
 			try{
-				PreparedStatement pstmt = con.prepareStatement(sqlUsuario);
-				pstmt.setString(1, username);
+				PreparedStatement pstmt = con.prepareStatement(sqlColaborador);
+				pstmt.setString(1, cpfcnpj);
 				ResultSet rs = pstmt.executeQuery();
 
 				try {
 					if (rs.next()) {
 						List<GrantedAuthority> papeis = new ArrayList<GrantedAuthority>();
 						PreparedStatement pstmtPapeis = con.prepareStatement(sqlPapeis);
-						pstmtPapeis.setString(1, username);
+						pstmtPapeis.setString(1, cpfcnpj);
 						ResultSet rsPapeis = pstmtPapeis.executeQuery();
 						UserDetails user;
 						try {
 							while (rsPapeis.next()) {
 								papeis.add(new SimpleGrantedAuthority(rsPapeis.getString("authority")));
 							}
-							user = new UsuarioImpl(username, rs.getString("password"), rs.getBoolean("enabled"), true, true, true, papeis);
-							registrarHistoricoLogin(con, username);
+							user = new UsuarioImpl(cpfcnpj, rs.getString("password"), rs.getBoolean("enabled"), true, true, true, papeis);
+							registrarHistoricoLogin(con, cpfcnpj);
 						} finally {
 							rsPapeis.close();
 						}
 						return user;
 					} else {
-						throw new UsernameNotFoundException("Usuário " + username + " não encontrado");
+						throw new UsernameNotFoundException("Usuário " + cpfcnpj + " não encontrado");
 					}
 				} finally {
 					rs.close();
