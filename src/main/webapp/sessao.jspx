@@ -6,7 +6,7 @@
 		<a:newLine/>
 		<p:panel header="Lista de Sessões">
 			<a:field spaceLeft="10px">
-				<p:commandButton value="Novo" action="#{SessaoControl.limpar}" oncomplete="PF('vCadSessao').show()" />
+				<p:commandButton value="Novo" actionListener="#{SessaoControl.novaSessao}" process="@this"/>
 			</a:field>
 			<a:newLine/>
 			<a:newLine/>
@@ -16,7 +16,7 @@
 					<f:facet name="header">
 						<h:outputText value="Código" />
 					</f:facet>
-					<h:outputText value="#{ses.sessao.idSessao}" />
+					<h:outputText value="#{ses.sessao.id}" />
 				</p:column>
 				<p:column sortBy="#{ses.sessao.titulo}">
 					<f:facet name="header">
@@ -31,8 +31,8 @@
 					<h:outputText value="#{ses.sessao.descricao}" />
 				</p:column>
 				<p:column headerText="Editar" style="width: 60px">
-					<p:commandButton oncomplete="PF('vCadSessao').show()" update=":formCorpo:dlgSessao" actionListener="#{SessaoControl.editarSessao}" icon="ui-icon-pencil" style="margin-left: 10px">
-						<f:param value="#{ses}" id="sesEditar"/>
+					<p:commandButton oncomplete="PF('vCadSessao').show()" icon="ui-icon-pencil" style="margin-left: 10px">
+						
 					</p:commandButton>
 				</p:column>
 				<p:column headerText="Excluir" style="width: 60px">
@@ -42,11 +42,11 @@
 				</p:column>
 			</p:dataTable>
 		</p:panel>
-		<p:dialog id="dlgSessao" modal="true" widgetVar="vCadSessao" header="Cadastro de Sessões" resizable="false" onHide="#{SessaoControl.limpar()}">
+		<p:dialog id="dlgSessao" modal="true" widgetVar="vCadSessao" header="Cadastro de Sessões" resizable="false">
 			<p:panel id="panel">
 			<a:newLine/>
 				<a:field label="Código">
-					<h:outputText value="#{SessaoControl.sessaoSelecionada.sessao.idSessao}" />
+					<h:outputText value="#{SessaoControl.sessaoSelecionada.sessao.id}" />
 				</a:field>
 				<a:newLine />
 				<a:field label="Título">
@@ -59,11 +59,12 @@
 				</a:field>
 				<a:newLine />
 				<p:commandButton icon="ui-icon-disk" actionListener="#{SessaoControl.confirmar}" value="Confirmar"
-					update="@form" ajax="false" oncomplete="dlgSessao.hide();">
+					update="@form" ajax="false" oncomplete="vCadSessao.hide();">
 					<f:param value="#{SessaoControl.sessaoSelecionada}" id="sessaoSelecionada"/>
 				</p:commandButton>
 				<p:spacer width="45px" />
 			</p:panel>
+			<p:ajax event="close" listener="#{SessaoControl.listar}" />
 		</p:dialog>
 		<p:confirmDialog id="cdlExcluir" widgetVar="confirmacao" message="Tem Certeza que deseja excluir?" severity="alert" closable="true">
 			<p:commandButton value="Sim" actionListener="#{SessaoControl.excluir}" onclick="confirmacao.hide()" update="@form" process="@this" />

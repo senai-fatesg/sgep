@@ -21,7 +21,7 @@ public class SessaoConverter implements Converter {
 		if (value == null || value.equals("")) {
 			return "";
 		} else {
-			return String.valueOf(((SessaoTemplate) value).getIdSessaoTemplate());
+			return String.valueOf(((SessaoTemplate) value).getId());
 		}
 	}
 

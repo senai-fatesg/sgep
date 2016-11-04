@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -37,7 +38,7 @@ public class SessaoControl implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		listar(null);
+		listar();
 	}
 
 	public void imprimir(ActionEvent evt) {
@@ -64,7 +65,7 @@ public class SessaoControl implements Serializable {
 				"sessaoSelecionada");
 		try {
 			sessaoDao.alterar(sessaoSelecionada);
-			listar(evt);
+			limpar();
 			sessaoSelecionada = new SessaoTemplate();
 		} catch (PersistenciaException e) {
 			UtilFaces
@@ -72,7 +73,7 @@ public class SessaoControl implements Serializable {
 		}
 	}
 
-	public void listar(ActionEvent evt) {
+	public void listar() {
 		try {
 			sessoes = sessaoDao.listar();
 		} catch (Exception e) {
@@ -82,7 +83,7 @@ public class SessaoControl implements Serializable {
 
 	public void excluir() {
 		try {
-			sessaoDao.excluirPorId(sessaoSelecionada.getIdSessaoTemplate());
+			sessaoDao.excluirPorId(sessaoSelecionada.getId());
 			sessaoSelecionada = new SessaoTemplate();
 			sessoes = sessaoDao.listar();
 		} catch (Exception e) {
@@ -103,6 +104,12 @@ public class SessaoControl implements Serializable {
 			}
 			return listaSessoes;
 		}
+	}
+	
+	public void novaSessao(){
+		sessaoSelecionada = new SessaoTemplate();
+		RequestContext context = RequestContext.getCurrentInstance(); 
+		context.execute("PF('vCadSessao').show();");	
 	}
 
 	public void editarSessao(ActionEvent evt) {
