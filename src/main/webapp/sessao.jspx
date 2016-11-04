@@ -6,7 +6,10 @@
 		<a:newLine/>
 		<p:panel header="Lista de Sessões">
 			<a:field spaceLeft="10px">
-				<p:commandButton value="Novo" actionListener="#{SessaoControl.novaSessao}" process="@this"/>
+				<p:commandButton value="Novo" icon="ui-icon-document" actionListener="#{SessaoControl.novaSessao}" process="@this"/>
+			</a:field>
+			<a:field spaceLeft="10px">
+				<p:commandButton value="Listar" icon="ui-icon-search" actionListener="#{SessaoControl.listar}" update="@all"/>
 			</a:field>
 			<a:newLine/>
 			<a:newLine/>
