@@ -6,68 +6,92 @@
 			.ui-radiobutton{
 				margin-left: 20px;
 			}
+			
 			td{
 				text-align: center;
 			}
-			.ui-dialog .ui-dialog-content {
-				width: 600px;
-			}
 		</style>
+		<script>
+			var fecharDlgQuestao = function(){
+				$(PrimeFaces.escapeClientId('formCorpo:dlgQuestao_modal')).hide();
+				$(PrimeFaces.escapeClientId('formCorpo:dlgQuestao')).hide()
+			}
+		</script>
 		<p:growl id="messages" life="6000" />
 			<a:newLine />
-
-			<p:panel header="Lista de questões">
-				<a:field>
-					<p:commandButton value="Novo" update=":formCorpo:dlgQuestao" action="#{QuestaoControl.limpar}" oncomplete="PF('wNewFile').show()" />
-				</a:field>
-				<a:newLine/>
-				<a:newLine/>
-				<p:dataTable widgetVar="questoes" id="dtQuestoes" value="#{QuestaoControl.questoes}" var="cont" width="100%" emptyMessage="Sem registros" rows="20" paginator="true"
+			<p:panel id="pnlListarQuestoes">
+				<p:dataTable widgetVar="questoes" id="dtQuestoes"
+					value="#{QuestaoControl.questoes}" var="cont" width="100%"
+					emptyMessage="Sem registros" rows="10" paginator="true"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-					<p:column headerText="Enunciado">
+					<f:facet name="header">
+						<h:outputText value="Lista de Questões" style="margin-left: 10px"></h:outputText>
+					</f:facet>
+					<p:column sortBy="#{cont.questao.enunciado}">
+						<f:facet name="header">
+							<h:outputText value="Enunciado"></h:outputText>
+						</f:facet>
 						<h:outputText value="#{cont.questao.enunciado}"></h:outputText>
 					</p:column>
-					<p:column headerText="Assunto">
+					<p:column sortBy="#{cont.questao.assunto}">
+						<f:facet name="header">
+							<h:outputText value="Assunto"></h:outputText>
+						</f:facet>
 						<h:outputText value="#{cont.questao.assunto}"></h:outputText>
 					</p:column>
-					<p:column headerText="Resposta">
+					<p:column sortBy="#{cont.questao.resposta}">
+						<f:facet name="header">
+							<h:outputText value="Resposta"></h:outputText>
+						</f:facet>
 						<h:outputText value="#{cont.questao.resposta}"></h:outputText>
 					</p:column>
-					<p:column headerText="Estado">
+					<p:column sortBy="#{cont.questao.estado}">
+						<f:facet name="header">
+							<h:outputText value="Estado"></h:outputText>
+						</f:facet>
 						<h:outputText value="#{cont.questao.estado}"></h:outputText>
 					</p:column>
-					<p:column headerText="Dificuldade">
+					<p:column sortBy="#{cont.questao.dificuldade}">
+						<f:facet name="header">
+							<h:outputText value="Dificuldade"></h:outputText>
+						</f:facet>
 						<h:outputText value="#{cont.questao.dificuldade}"></h:outputText>
 					</p:column>
-					<p:column headerText="Editar" style="width: 55px">
-						<p:commandButton update="@form" action="#{QuestaoControl.carregarQuestao}" oncomplete="PF('wNewFile').show()" icon="ui-icon-pencil">
+					<p:column>
+						<f:facet name="header">
+							<p:commandButton value="Novo" update=":formCorpo:dlgQuestao" action="#{QuestaoControl.limpar}" oncomplete="PF('wNewFile').show()" />
+						</f:facet>
+						<p:commandButton update=":formCorpo:sclPanel" action="#{QuestaoControl.carregarQuestao}" oncomplete="PF('wNewFile').show()" icon="ui-icon-pencil" value="Editar">
 							<f:setPropertyActionListener value="#{cont}" target="#{QuestaoControl.questaoSelecionada}" />
 						</p:commandButton>
-					</p:column>
-					<p:column headerText="Excluir" style="width: 55px">
-						<p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacao').show()">
+						<p:commandButton icon="ui-icon-trash" value="Excluir" oncomplete="PF('confirmacao').show()">
 							<f:setPropertyActionListener target="#{QuestaoControl.questaoSelecionada}" value="#{cont}" />
 						</p:commandButton>
 					</p:column>
 				</p:dataTable>
 			</p:panel>
 			<p:dialog id="dlgQuestao" modal="true" widgetVar="wNewFile" header="Cadastro de Questões" resizable="false" onHide="#{QuestaoControl.limpar()}">
+				<p:scrollPanel id="sclPanel" mode="native" style="height:500px;padding: 5px 10px;" rendered="true">
 					<a:field label="Deseja criar questões utilizando o usuário do professor logado?">
-						<div id="divRdbProf" style="margin-left: 15%">
-							<p:selectOneRadio id="rdbUsrSelecionado" value="#{QuestaoControl.rdbUsrLogadoSelecionado}" immediate="true">
-								<f:selectItem itemLabel="Sim" itemValue="true"/>
-								<f:selectItem itemLabel="Não" itemValue="false"/>
-								<f:ajax event="change" render="formCorpo:outputPanelProfessor"/>
-							</p:selectOneRadio>
-							<p:outputPanel id="outputPanelProfessor" style="margin-left:12%">
-								<p:inputText id="txtProfessor" disabled="true" rendered="#{QuestaoControl.rdbUsrLogadoSelecionado}" immediate="true" readonly="true" value="#{UsuarioLogadoControl.usuario.nome }"/>
-								<p:autoComplete id="completUsuario" rendered="#{!QuestaoControl.rdbUsrLogadoSelecionado}" immediate="true" value="#{QuestaoControl.questaoSelecionada.questao.professor}" completeMethod="#{QuestaoControl.completarColaboradores}"
-								minQueryLength="3" var="colaborador" itemLabel="#{colaborador.nome}" itemValue="#{colaborador}" converter="objectConverter">
-								</p:autoComplete>
-								<p:watermark value="Pesquise pelo Nome" for="completUsuario" />
-							</p:outputPanel>
-						</div>
+							<div id="divRdbProf" style="margin-left: 15%">
+								<p:selectOneRadio id="rdbUsrSelecionado" value="#{QuestaoControl.rdbUsrLogadoSelecionado}" immediate="true">
+									<f:selectItem itemLabel="Sim" itemValue="true"/>
+									<f:selectItem itemLabel="Não" itemValue="false"/>
+									<f:ajax event="change" render="formCorpo:outputPanelProfessor"/>
+								</p:selectOneRadio>
+								<p:outputPanel id="outputPanelProfessor" style="margin-left:12%">
+									<p:inputText id="txtProfessor" disabled="true" rendered="#{QuestaoControl.rdbUsrLogadoSelecionado}" immediate="true" readonly="true" value="#{UsuarioLogadoControl.usuario.nome }">
+									</p:inputText>
+									<p:autoComplete id="completUsuario" rendered="#{!QuestaoControl.rdbUsrLogadoSelecionado}" immediate="true" value="#{QuestaoControl.questaoSelecionada.questao.professor}" completeMethod="#{QuestaoControl.completarColaboradores}"
+									minQueryLength="3" var="colaborador" itemLabel="#{colaborador.nome}" itemValue="#{colaborador}" converter="objectConverter">
+									</p:autoComplete>
+									<p:watermark value="Pesquise pelo Nome" for="completUsuario" />
+								</p:outputPanel>
+							</div>
 					</a:field>
+					<a:newLine/>
+					<a:newLine/>
+					
 					<a:newLine/>
 					<a:newLine />
 					<a:field label="Enunciado">
@@ -78,7 +102,7 @@
 						<p:inputTextarea value="#{QuestaoControl.questaoSelecionada.questao.assunto}" scrollHeight="1" style="width:500px" />
 					</a:field>
 					<a:newLine />
-					<a:field label="Estado">
+					<a:field label="Estado" spaceLeft="15px">
 						<p:selectOneMenu id="estado" value="#{QuestaoControl.questaoSelecionada.questao.estado}" style="width:200px">
 							<f:selectItem itemLabel="Selecione..." itemValue="" />
 							<f:selectItems value="#{ QuestaoControl.estados}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo}" />
@@ -95,6 +119,7 @@
 						<p:watermark for="lItem" value="Descreva aqui a alternativa a ser adicionada para a questão em elaboração."/>
 					</a:field>
 					<a:newLine />
+					<a:newLine />
 					<h:panelGrid columns="2" style="margin-left:1%" cellpadding="5">
 						<a:field label="Selecione a alternativa correta para a questão em edição:">
 							<p:selectOneRadio value="#{QuestaoControl.questaoSelecionada.questao.resposta }" style="margin-left:10%">
@@ -105,6 +130,8 @@
 					<a:field spaceLeft="15px">
 						<p:commandButton action="#{QuestaoControl.adicionarItem}" styleClass="primary" value="Adicionar" update="alternativas,lItem" oncomplete="PF('wNewFile').show()" icon="ui-icon-plusthick" />
 					</a:field>
+					<a:newLine />
+					<a:newLine />
 					<a:newLine />
 					<p:growl id="messages2" life="6000" />
 					<p:dataTable id="alternativas" style="width:100%;" emptyMessage="Sem Registros" rowsPerPageTemplate="5" value="#{QuestaoControl.questaoSelecionada.questao.alternativas}" var="alt">
@@ -119,11 +146,19 @@
 							<p:commandButton icon="ui-icon-trash" styleClass="flat" action="#{QuestaoControl.removerItem(alt)}" update="alternativas" style="float: right;" />
 						</p:column>
 					</p:dataTable>
+				</p:scrollPanel>
 				<a:newLine />
-				<p:commandButton icon="ui-icon-disk" actionListener="#{QuestaoControl.confirmar}" value="Confirmar" update="@all" oncomplete="wNewFile.hide();"/>
+				<p:commandButton icon="ui-icon-disk" value="Confirmar" onclick="PF('confirmacaoAlternativas').show()"/>
 				<p:spacer width="45px" />
-				<p:commandButton action="#{QuestaoControl.limpar}" value="Limpar" icon="ui-icon-refresh" update="@form" />
+				<p:commandButton action="#{QuestaoControl.limpar}" value="Limpar" icon="ui-icon-refresh" update="sclPanel" />
 			</p:dialog>
+			<p:confirmDialog				
+					widgetVar="confirmacaoAlternativas" header="Confirmar" severity="alert" closable="true"
+					message="As informações da questão serão salvas. Deseja Continuar?">
+					<p:commandButton actionListener="#{QuestaoControl.confirmar}" 
+					update="formCorpo:pnlListarQuestoes" value="Sim" oncomplete="PF('confirmacaoAlternativas').hide()"/>
+					<p:commandButton value="Não" onclick="PF('confirmacaoAlternativas').hide()"/>
+			</p:confirmDialog>
 			<p:confirmDialog widgetVar="confirmacao" message="Tem Certeza que deseja excluir?" severity="alert" closable="true">
 				<p:commandButton value="Sim" actionListener="#{QuestaoControl.excluir}" onclick="confirmacao.hide()" update="@form" process="@this" />
 				<p:commandButton value="Não" action="#{QuestaoControl.listar}" onclick="confirmacao.hide()" />
