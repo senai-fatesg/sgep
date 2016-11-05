@@ -312,9 +312,9 @@ public class ProvaControl {
 					.getAlternativas()) {
 				AlternativaQuestao alternativa = new AlternativaQuestao();
 				alternativa.setDescricao(alternativaQuestao.getDescricao());
-				alternativa.setOrdem(alternativaQuestao.getIdAlternativa());
+				alternativa.setOrdem(alternativaQuestao.getOrdem());
 				alternativa.setResposta(alternativaQuestao.getResposta());
-				questaoProva.getQuestao().addItem(alternativa);
+				questaoProva.getQuestao().addItem(alternativa, false);
 			}
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Falha ao converter Questão.");
