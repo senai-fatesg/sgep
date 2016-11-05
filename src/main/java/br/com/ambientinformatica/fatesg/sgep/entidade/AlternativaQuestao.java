@@ -45,10 +45,14 @@ public class AlternativaQuestao implements Serializable {
 	public String getOrdem() {
 		return ordem;
 	}
-
+	//comportamento definido para edição das alternativas da questão
 	public void setOrdem(List<AlternativaQuestao> alternativas, boolean isAlternativaEdicao) {
 			this.verificarOrdemAlternativas(alternativas, isAlternativaEdicao);
 			return;
+	}
+	//comportamento definido para setar alternativas na geração da prova 
+	public void setOrdem(String ordem){
+		this.ordem = ordem;
 	}
 	
 	private void verificarOrdemAlternativas(List<AlternativaQuestao> alternativas, boolean isAlternativaEdicao){
