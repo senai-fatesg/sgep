@@ -80,7 +80,7 @@
 									<f:ajax event="change" render="formCorpo:outputPanelProfessor"/>
 								</p:selectOneRadio>
 								<p:outputPanel id="outputPanelProfessor" style="margin-left:12%">
-									<p:inputText id="txtProfessor" disabled="true" rendered="#{QuestaoControl.rdbUsrLogadoSelecionado}" immediate="true" readonly="true" value="#{UsuarioLogadoControl.usuario.nome }">
+									<p:inputText id="txtProfessor" disabled="true" rendered="#{QuestaoControl.rdbUsrLogadoSelecionado}" immediate="true" readonly="true" value="#{UsuarioLogadoControl.colaborador.nome }">
 									</p:inputText>
 									<p:autoComplete id="completUsuario" rendered="#{!QuestaoControl.rdbUsrLogadoSelecionado}" immediate="true" value="#{QuestaoControl.questaoSelecionada.questao.professor}" completeMethod="#{QuestaoControl.completarColaboradores}"
 									minQueryLength="3" var="colaborador" itemLabel="#{colaborador.nome}" itemValue="#{colaborador}" converter="objectConverter">
