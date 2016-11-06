@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
 
 import org.primefaces.context.RequestContext;
@@ -28,7 +29,6 @@ public class QuestaoControl implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-
 	private List<QuestaoTemplate> questoes = new ArrayList<QuestaoTemplate>();
 
 	private Colaborador professor = new Colaborador();
@@ -40,16 +40,16 @@ public class QuestaoControl implements Serializable {
 	private AlternativaQuestao item = new AlternativaQuestao();
 
 	private boolean rdbUsrLogadoSelecionado;
-	
+
 	private boolean isAlternativaEdicao = false;
-	
+
 	private String nomeProfessor;
-	
+
 	private static final int CAPACIDADE_MAXIMA_ALTERNATIVAS = 5;
-	
+
 	@Autowired
 	private QuestaoTemplateDao questaoDao;
-	
+
 	@Autowired
 	private ColaboradorDao colaboradorDao;
 
@@ -60,20 +60,23 @@ public class QuestaoControl implements Serializable {
 
 	public void confirmar() {
 		try {
-			
-			if(this.isQuestaoValida(questaoSelecionada.getQuestao().getAlternativas().size())){	
-				//if(rdbUsrLogadoSelecionado){
-					
-				//}
-				
-				//verifica se professor já está cadastrado na base do SGEP
-				if(!isProfessorJaCadastrado(questaoSelecionada.getQuestao().getProfessor())){
+			if (this.isQuestaoValida(questaoSelecionada.getQuestao().getAlternativas().size())) {
+				if (isRdbUsrLogadoSelecionado()) {
+					Colaborador colaboradorLogado = this.getColaboradorLogado();
+					questaoSelecionada.getQuestao().setProfessor(colaboradorLogado);
+				}
+				// verifica se professor consultado a partir do corporatum já
+				// está
+				// cadastrado na base do SGEP
+				if (!isRdbUsrLogadoSelecionado()
+						&& !isProfessorJaCadastrado(questaoSelecionada.getQuestao().getProfessor())) {
 					colaboradorDao.alterar(questaoSelecionada.getQuestao().getProfessor());
 				}
-				
 				questaoDao.alterar(questaoSelecionada);
 				this.listar();
 				questaoSelecionada = new QuestaoTemplate();
+				RequestContext.getCurrentInstance()
+						.showMessageInDialog(new FacesMessage("SGEP", "Questão gravada com sucesso!"));
 				RequestContext.getCurrentInstance().execute("fecharDlgQuestao();");
 			}
 		} catch (Exception e) {
@@ -82,11 +85,17 @@ public class QuestaoControl implements Serializable {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
-	
-	public boolean verificarSalvarDadosPreenchidosPerdidos(){
+
+	private Colaborador getColaboradorLogado() {
+		Colaborador colaboradorLogado = colaboradorDao
+				.consultarPorCpf(UsuarioLogadoControl.getUsuarioConfigurado().getCpfCnpj());
+		return colaboradorLogado;
+	}
+
+	public boolean verificarSalvarDadosPreenchidosPerdidos() {
 		return isAlternativaEdicao() || this.item.getDescricao() != null;
 	}
-	
+
 	private boolean isProfessorJaCadastrado(Colaborador colaborador) {
 		return colaboradorDao.consultar(colaborador.getId()) != null;
 	}
@@ -113,69 +122,63 @@ public class QuestaoControl implements Serializable {
 		try {
 			this.questaoSelecionada = questaoDao.carregarQuestao(questaoSelecionada);
 		} catch (Exception e) {
-			
 			UtilFaces.addMensagemFaces("Falha ao carregar objetos");
 		}
 	}
-	
-	
+
 	public List<Colaborador> completarColaboradores(String nome) {
-		List<Colaborador> colaboradores = colaboradorDao.listarPorNome(nome); 
+		List<Colaborador> colaboradores = colaboradorDao.listarPorNome(nome);
 		return colaboradores;
 	}
-	
+
 	public void adicionarItem() {
 		try {
 			if (isAlternativaValida()) {
-				item.setOrdem(questaoSelecionada.getQuestao()
-						.getAlternativas(), this.isAlternativaEdicao);
+				item.setOrdem(questaoSelecionada.getQuestao().getAlternativas(), this.isAlternativaEdicao);
 				questaoSelecionada.getQuestao().addItem(item, isAlternativaEdicao);
 				this.setAlternativaEdicao(false);
 			}
 		} catch (Exception e) {
-			UtilFaces
-					.addMensagemFaces("Não foi possivel adicionar a alternativa.\n"
-							+ e.getMessage());
+			UtilFaces.addMensagemFaces("Não foi possivel adicionar a alternativa.\n" + e.getMessage());
 		} finally {
 			item = new AlternativaQuestao();
 		}
 	}
 
 	private boolean isAlternativaValida() {
-		if(this.isCapacidadeMaximaPreenchida(questaoSelecionada.getQuestao().getAlternativas().size())){
-			UtilFaces
-			.addMensagemFaces("Atenção!\n Capacidade maxima de itens alcançada.");
-			
+		if (this.isCapacidadeMaximaPreenchida(questaoSelecionada.getQuestao().getAlternativas().size())) {
+			UtilFaces.addMensagemFaces("Atenção!\n Capacidade maxima de itens alcançada.");
+
 			return false;
-		};
+		}
 		return true;
 	}
-	
-	public boolean isCapacidadeMaximaPreenchida(int quantidadeQuestao){
+
+	public boolean isCapacidadeMaximaPreenchida(int quantidadeQuestao) {
 		return quantidadeQuestao == CAPACIDADE_MAXIMA_ALTERNATIVAS && !isAlternativaEdicao;
 	}
-	
-	private boolean isQuestaoValida(int quantidadeQuestao){
-		if(!this.isCamposObrigatoriosPreenchidos()){
+
+	private boolean isQuestaoValida(int quantidadeQuestao) {
+		if (!this.isCamposObrigatoriosPreenchidos()) {
 			UtilFaces.addMensagemFaces("Campo(s) obrigatório(s) não informado(s)!");
 			return false;
 		}
-		
-		if(!this.isCapacidadeMaximaPreenchida(quantidadeQuestao)){
-			UtilFaces.addMensagemFaces("É necessário adicionar "+ CAPACIDADE_MAXIMA_ALTERNATIVAS +" para a questão!");
+
+		if (!this.isCapacidadeMaximaPreenchida(quantidadeQuestao)) {
+			UtilFaces.addMensagemFaces("É necessário adicionar " + CAPACIDADE_MAXIMA_ALTERNATIVAS + "alternativas para a questão!");
 			return false;
 		}
 		return true;
 	}
-	
-	private boolean isCamposObrigatoriosPreenchidos(){
+
+	private boolean isCamposObrigatoriosPreenchidos() {
 		return questaoSelecionada.getQuestao().getEnunciado() != ""
 				&& questaoSelecionada.getQuestao().getAssunto() != ""
-				&& questaoSelecionada.getQuestao().getEstado().hashCode() > 0 
+				&& questaoSelecionada.getQuestao().getEstado().hashCode() > 0
 				&& questaoSelecionada.getQuestao().getDificuldade().hashCode() > 0
 				&& questaoSelecionada.getQuestao().getResposta().hashCode() > 0;
 	}
-	
+
 	public void editarItem(AlternativaQuestao alternativa) {
 		try {
 			this.item = alternativa;
@@ -273,8 +276,5 @@ public class QuestaoControl implements Serializable {
 	public void setAlternativaEdicao(boolean isAlternativaEdicao) {
 		this.isAlternativaEdicao = isAlternativaEdicao;
 	}
-
-
-	
 
 }
