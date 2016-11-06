@@ -164,7 +164,7 @@ public class ProvaControl {
 
 	public void excluir() {
 		try {
-			provaDao.excluirPorId(prova.getIdProva());
+			provaDao.excluirPorId(prova.getId());
 			prova = new Prova();
 			provas = provaDao.listar();
 		} catch (Exception e) {
@@ -370,7 +370,7 @@ public class ProvaControl {
 	public void setProvaSelecionada(Prova provaSelecionada) {
 		try {
 			if (provaSelecionada != null) {
-				Prova p = provaDao.consultar(provaSelecionada.getIdProva());
+				Prova p = provaDao.consultar(provaSelecionada.getId());
 				this.provaSelecionada = p;
 			} else {
 				this.provaSelecionada = null;
