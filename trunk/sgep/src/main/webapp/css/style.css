@@ -178,8 +178,7 @@ a:hover {
 	webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    
-	 
+     
 }
 
  
@@ -226,6 +225,13 @@ a:hover {
 
 .ui-panel .ui-panel-content {
 	margin-top: -30px;
+}
+
+/**
+* SelectOneMeno dropdown
+*/
+.ui-selectonemenu .ui-selectonemenu-trigger{
+	width: 30px;
 }
 
 /**
