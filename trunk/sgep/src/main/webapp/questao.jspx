@@ -10,6 +10,9 @@
 			td{
 				text-align: center;
 			}
+			.ui-dialog .ui-dialog-content {
+				width: 600px;
+			}
 		</style>
 		<script>
 			var fecharDlgQuestao = function(){
@@ -20,9 +23,14 @@
 		<p:growl id="messages" life="6000" />
 			<a:newLine />
 			<p:panel id="pnlListarQuestoes">
+				<a:field>
+					<p:commandButton value="Nova Questão" update=":formCorpo:dlgQuestao" action="#{QuestaoControl.limpar}" oncomplete="PF('wNewFile').show()" />
+				</a:field>
+				<a:newLine/>
+				<a:newLine/>
 				<p:dataTable widgetVar="questoes" id="dtQuestoes"
 					value="#{QuestaoControl.questoes}" var="cont" width="100%"
-					emptyMessage="Sem registros" rows="10" paginator="true"
+					emptyMessage="Sem registros" rows="10" paginator="true" currentPageReportTemplate="(Questões nesta página: {endRecord} - Total: {totalRecords} registro(s) - Página: {currentPage}/{totalPages})"
 					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 					<f:facet name="header">
 						<h:outputText value="Lista de Questões" style="margin-left: 10px"></h:outputText>
@@ -49,18 +57,15 @@
 						<f:facet name="header">
 							<h:outputText value="Estado"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{cont.questao.estado}"></h:outputText>
+						<h:outputText value="#{cont.questao.estado.descricao}"></h:outputText>
 					</p:column>
 					<p:column sortBy="#{cont.questao.dificuldade}">
 						<f:facet name="header">
 							<h:outputText value="Dificuldade"></h:outputText>
 						</f:facet>
-						<h:outputText value="#{cont.questao.dificuldade}"></h:outputText>
+						<h:outputText value="#{cont.questao.dificuldade.descricao}"></h:outputText>
 					</p:column>
 					<p:column>
-						<f:facet name="header">
-							<p:commandButton value="Novo" update=":formCorpo:dlgQuestao" action="#{QuestaoControl.limpar}" oncomplete="PF('wNewFile').show()" />
-						</f:facet>
 						<p:commandButton update=":formCorpo:sclPanel" action="#{QuestaoControl.carregarQuestao}" oncomplete="PF('wNewFile').show()" icon="ui-icon-pencil" value="Editar">
 							<f:setPropertyActionListener value="#{cont}" target="#{QuestaoControl.questaoSelecionada}" />
 						</p:commandButton>
@@ -105,13 +110,13 @@
 					<a:field label="Estado" spaceLeft="15px">
 						<p:selectOneMenu id="estado" value="#{QuestaoControl.questaoSelecionada.questao.estado}" style="width:200px">
 							<f:selectItem itemLabel="Selecione..." itemValue="" />
-							<f:selectItems value="#{ QuestaoControl.estados}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo}" />
+							<f:selectItems value="#{ QuestaoControl.estados}" var="tipo" itemValue="#{tipo.descricao}" itemLabel="#{tipo.descricao}" />
 						</p:selectOneMenu>
 					</a:field>
 					<a:field label="Dificuldade" spaceLeft="15px">
 						<p:selectOneMenu id="dificuldade" value="#{QuestaoControl.questaoSelecionada.questao.dificuldade}" style="width:202px">
 							<f:selectItem itemLabel="Selecione..." itemValue="" />
-							<f:selectItems value="#{ QuestaoControl.dificuldades}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo}" />
+							<f:selectItems value="#{ QuestaoControl.dificuldades}" var="tipo" itemValue="#{tipo.descricao}" itemLabel="#{tipo.descricao}" />
 						</p:selectOneMenu>
 					</a:field>
 					<a:field label="Item" spaceLeft="15px">
@@ -153,7 +158,7 @@
 				<p:commandButton action="#{QuestaoControl.limpar}" value="Limpar" icon="ui-icon-refresh" update="sclPanel" />
 			</p:dialog>
 			<p:confirmDialog				
-					widgetVar="confirmacaoAlternativas" header="Confirmar" severity="alert" closable="true"
+					widgetVar="confirmacaoAlternativas" header="Confirmar" severity="alert" closable="true" width="550px" 
 					message="As informações da questão serão salvas. Deseja Continuar?">
 					<p:commandButton actionListener="#{QuestaoControl.confirmar}" 
 					update="formCorpo:pnlListarQuestoes" value="Sim" oncomplete="PF('confirmacaoAlternativas').hide()"/>
@@ -161,7 +166,7 @@
 			</p:confirmDialog>
 			<p:confirmDialog widgetVar="confirmacao" message="Tem Certeza que deseja excluir?" severity="alert" closable="true">
 				<p:commandButton value="Sim" actionListener="#{QuestaoControl.excluir}" onclick="confirmacao.hide()" update="@form" process="@this" />
-				<p:commandButton value="Não" action="#{QuestaoControl.listar}" onclick="confirmacao.hide()" />
+				<p:commandButton value="Não" onclick="PF('confirmacao').hide()" />
 			</p:confirmDialog>
 		<a:newLine />
 		<p:spacer width="25px" />

@@ -2,6 +2,7 @@ package br.com.ambientinformatica.fatesg.sgep.controle;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -66,8 +67,7 @@ public class QuestaoControl implements Serializable {
 					questaoSelecionada.getQuestao().setProfessor(colaboradorLogado);
 				}
 				// verifica se professor consultado a partir do corporatum já
-				// está
-				// cadastrado na base do SGEP
+				// está cadastrado na base do SGEP
 				if (!isRdbUsrLogadoSelecionado()
 						&& !isProfessorJaCadastrado(questaoSelecionada.getQuestao().getProfessor())) {
 					colaboradorDao.alterar(questaoSelecionada.getQuestao().getProfessor());
@@ -137,12 +137,21 @@ public class QuestaoControl implements Serializable {
 				item.setOrdem(questaoSelecionada.getQuestao().getAlternativas(), this.isAlternativaEdicao);
 				questaoSelecionada.getQuestao().addItem(item, isAlternativaEdicao);
 				this.setAlternativaEdicao(false);
+				this.compareToAlternativas();
 			}
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Não foi possivel adicionar a alternativa.\n" + e.getMessage());
 		} finally {
 			item = new AlternativaQuestao();
 		}
+	}
+
+	private void compareToAlternativas() {
+		questaoSelecionada.getQuestao().getAlternativas().sort(new Comparator<AlternativaQuestao>() {
+			public int compare(AlternativaQuestao o1, AlternativaQuestao o2) {
+				return o1.getOrdem().compareTo(o2.getOrdem());
+			};
+		});
 	}
 
 	private boolean isAlternativaValida() {
