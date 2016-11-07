@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import org.primefaces.event.DragDropEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import br.com.ambientinformatica.fatesg.api.entidade.Curso;
 import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
 import br.com.ambientinformatica.fatesg.api.entidade.Instituicao;
 import br.com.ambientinformatica.fatesg.sgep.entidade.AlternativaQuestao;
+import br.com.ambientinformatica.fatesg.sgep.entidade.EnumPeriodo;
 import br.com.ambientinformatica.fatesg.sgep.entidade.ItemQuestaoTemplate;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Prova;
 import br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoProva;
@@ -43,6 +45,44 @@ import br.com.ambientinformatica.fatesg.sgep.persistencia.TemplateDao;
 @Controller("ProvaControl")
 @Scope("conversation")
 public class ProvaControl {
+	
+	private Prova prova = new Prova();
+
+	private Prova provaSelecionada = new Prova();
+	
+	private Prova provaAlterar = new Prova();
+
+	private ItemQuestaoTemplate itensProva = new ItemQuestaoTemplate();
+
+	private Template template = new Template();
+
+	private String pesquisa = new String();
+
+	private String tipoPesquisa = new String();
+	
+	/**
+	 * Lista todas as provaas cadastradas
+	 */
+	private List<Prova> provas = new ArrayList<Prova>();
+	/**
+	 * Lista as questões disponíveis para adicionar na prova
+	 */
+	private List<QuestaoTemplate> questoes = new ArrayList<QuestaoTemplate>();
+	/**
+	 * Lista as sessões disponíveis para adicionar na prova
+	 */
+	private List<SessaoTemplate> sessoes = new ArrayList<>();
+	/**
+	 * Sessao para apresentaçãoo das questoes
+	 */
+	private SessaoProva sessaoSelecionada = new SessaoProva();
+	/**
+	 * Vizualização da questão no dialog
+	 */
+	private QuestaoTemplate questaoSelecionada = new QuestaoTemplate();
+
+	@Autowired
+	private QuestaoTemplateDao questaoTemplateDao;
 
 	@Autowired
 	private ProvaDao provaDao;
@@ -71,47 +111,13 @@ public class ProvaControl {
 	@Autowired
 	private AlunoDao alunoDao;
 
-	@Autowired
-	private QuestaoTemplateDao questaoTemplateDao;
-	/**
-	 * Lista todas as provaas cadastradas
-	 */
-	private List<Prova> provas = new ArrayList<Prova>();
-	/**
-	 * Lista as questões disponíveis para adicionar na prova
-	 */
-	private List<QuestaoTemplate> questoes = new ArrayList<QuestaoTemplate>();
-	/**
-	 * Lista as sessões disponíveis para adicionar na prova
-	 */
-	private List<SessaoTemplate> sessoes = new ArrayList<>();
-	/**
-	 * Sessao para apresentaçãoo das questoes
-	 */
-	private SessaoProva sessaoSelecionada = new SessaoProva();
-	/**
-	 * Vizualização da questão no dialog
-	 */
-	private QuestaoTemplate questaoSelecionada = new QuestaoTemplate();
-
-	private Prova prova = new Prova();
-
-	private Prova provaSelecionada = new Prova();
-
-	private ItemQuestaoTemplate itensProva = new ItemQuestaoTemplate();
-
-	private Template template = new Template();
-
-	private String pesquisa = new String();
-
-	private String tipoPesquisa = new String();
-
+	
 	@PostConstruct
 	public void init() {
 		listarSessoes();
 		try {
 			 provaDao.listar();
-			listar(null);
+			listar();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Houve um erro ao listar Todos: " + e);
 		}
@@ -138,18 +144,46 @@ public class ProvaControl {
 		}
 	}
 
-	public void confirmar(ActionEvent evt) {
+	public void confirmar() {
 		try {
 			provaDao.alterar(provaSelecionada);
-			listar(evt);
+			listar();
 			UtilFaces.addMensagemFaces("Operação realizada com sucesso");
 			provaSelecionada = new Prova();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
+	
+	public void confirmarNovaProva(){
+		try {
+			if(!isInstituicaoJaCadastrado(prova.getInstituicao())){
+				instituicaoDao.alterar(prova.getInstituicao());
+			}
+			if(!isCursoJaCadastrado(prova.getCurso())){
+				cursoDao.alterar(prova.getCurso());
+			}
+			if(!isDisciplinaJaCadastrado(prova.getDisciplina())){
+				disciplinaDao.alterar(prova.getDisciplina());
+			}
+			provaDao.alterar(prova);
+			listar();
+			UtilFaces.addMensagemFaces("Operação realizada com sucesso");
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces(e);
+		}
+	}
+	private boolean isInstituicaoJaCadastrado(Instituicao instituicao) {
+		return instituicaoDao.consultar(instituicao.getId()) != null;
+	}
+	private boolean isCursoJaCadastrado(Curso curso) {
+		return cursoDao.consultar(curso.getId()) != null;
+	}
+	private boolean isDisciplinaJaCadastrado(Disciplina disciplina) {
+		return disciplinaDao.consultar(disciplina.getId()) != null;
+	}
 
-	public void listar(ActionEvent evt) {
+	public void listar() {
 		try {
 			provas = provaDao.listar();
 		} catch (Exception e) {
@@ -231,7 +265,7 @@ public class ProvaControl {
 
 	@SuppressWarnings("finally")
 	public List<Disciplina> completarDisciplina(String nome) {
-		List<Disciplina> listaDisciplina = new ArrayList<Disciplina>();
+		List<Disciplina> listaDisciplina = new ArrayList<>();
 		try {
 			listaDisciplina = disciplinaDao.listarPorNome(nome);
 		} catch (Exception e) {
@@ -336,6 +370,14 @@ public class ProvaControl {
 			pesquisa = new String();
 			tipoPesquisa = new String();
 		}
+	}
+	
+	public List<SelectItem> getPeriodos() {
+		return UtilFaces.getListEnum(EnumPeriodo.values());
+	}
+	
+	public void editarProva(Prova provaAlterar){
+		this.prova = provaAlterar;
 	}
 
 	// Gets e Sets
@@ -442,6 +484,14 @@ public class ProvaControl {
 
 	public void setSessoes(List<SessaoTemplate> sessoes) {
 		this.sessoes = sessoes;
+	}
+
+	public Prova getProvaAlterar() {
+		return provaAlterar;
+	}
+
+	public void setProvaAlterar(Prova provaAlterar) {
+		this.provaAlterar = provaAlterar;
 	}
 	
 }

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,13 +33,16 @@ public class Prova {
 	@Id
 	@GeneratedValue(generator = "prova_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "prova_seq", sequenceName = "prova_seq", allocationSize = 1, initialValue = 1)
-	private Integer idProva;
+	private Integer id;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date data = new Date();
+	private Date data;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Curso curso;
+	
+	@Enumerated(EnumType.STRING)
+	private EnumPeriodo periodo;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Disciplina disciplina;
@@ -47,8 +52,6 @@ public class Prova {
 
 	@ManyToOne
 	private Instituicao instituicao;
-
-	private Integer periodo;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "prova_sessao", joinColumns = { @JoinColumn(name = "idProva") }, inverseJoinColumns = { @JoinColumn(name = "idSessaoProva") })
@@ -69,12 +72,12 @@ public class Prova {
 		}
 	}
 
-	public Integer getIdProva() {
-		return idProva;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setIdProva(Integer idProva) {
-		this.idProva = idProva;
+	public void setIdProva(Integer id) {
+		this.id = id;
 	}
 
 	public Date getData() {
@@ -117,12 +120,12 @@ public class Prova {
 		this.instituicao = instituicao;
 	}
 
-	public Integer getPeriodo() {
-		return periodo;
+	public void setPeriodo(EnumPeriodo periodo) {
+		this.periodo = periodo;
 	}
 
-	public void setPeriodo(Integer periodo) {
-		this.periodo = periodo;
+	public EnumPeriodo getPeriodo() {
+		return periodo;
 	}
 
 	public List<SessaoProva> getSessoes() {
@@ -131,75 +134,6 @@ public class Prova {
 
 	public void setSessoes(List<SessaoProva> sessoes) {
 		this.sessoes = sessoes;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((aluno == null) ? 0 : aluno.hashCode());
-		result = prime * result + ((curso == null) ? 0 : curso.hashCode());
-		result = prime * result + ((data == null) ? 0 : data.hashCode());
-		result = prime * result
-				+ ((disciplina == null) ? 0 : disciplina.hashCode());
-		result = prime * result + ((idProva == null) ? 0 : idProva.hashCode());
-		result = prime * result
-				+ ((instituicao == null) ? 0 : instituicao.hashCode());
-		result = prime * result + ((periodo == null) ? 0 : periodo.hashCode());
-		result = prime * result + ((sessoes == null) ? 0 : sessoes.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Prova other = (Prova) obj;
-		if (aluno == null) {
-			if (other.aluno != null)
-				return false;
-		} else if (!aluno.equals(other.aluno))
-			return false;
-		if (curso == null) {
-			if (other.curso != null)
-				return false;
-		} else if (!curso.equals(other.curso))
-			return false;
-		if (data == null) {
-			if (other.data != null)
-				return false;
-		} else if (!data.equals(other.data))
-			return false;
-		if (disciplina == null) {
-			if (other.disciplina != null)
-				return false;
-		} else if (!disciplina.equals(other.disciplina))
-			return false;
-		if (idProva == null) {
-			if (other.idProva != null)
-				return false;
-		} else if (!idProva.equals(other.idProva))
-			return false;
-		if (instituicao == null) {
-			if (other.instituicao != null)
-				return false;
-		} else if (!instituicao.equals(other.instituicao))
-			return false;
-		if (periodo == null) {
-			if (other.periodo != null)
-				return false;
-		} else if (!periodo.equals(other.periodo))
-			return false;
-		if (sessoes == null) {
-			if (other.sessoes != null)
-				return false;
-		} else if (!sessoes.equals(other.sessoes))
-			return false;
-		return true;
 	}
 
 }

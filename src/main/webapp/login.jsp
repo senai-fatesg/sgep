@@ -7,23 +7,18 @@
 	    <link href="css/bootstrap.css" rel="stylesheet" />
 	    <link href="css/bootstrap-responsive.css" rel="stylesheet" />
 	    <link href="css/styles.css" rel="stylesheet" />
-	
+	    
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 		<meta http-equiv="Pragma" content="no-cache" />
 		<meta http-equiv="Expires" content="0" />
 		<script>
-			$("#j_username").keydown(function(){
-			    try {
-			    	$("#j_username").unmask();
-			    } catch (e) {}
-			    
-			    var tamanho = $("#j_username").val().length;
-				
-			    if(tamanho < 11){
-			        $("#j_username").mask("999.999.999-99");
-			    }              
-			});
+			function MascaraCPF(j_username){
+		        if(mascaraInteiro(j_username)==false){
+		                event.returnValue = false;
+		        }       
+		        return formataCampo(j_username, '000.000.000-00', event);
+			}
 			
 			function focar() {
 				document.getElementById("j_username").focus();
@@ -49,7 +44,7 @@
 			    <div class="span4 sidebar" style="text-align: center">
 					<div class="well quickSignupForm">
 		                <img src="imagens/sgep.png" alt="logo" style="width: 160px"/>
-		                <form class="form-signin" action="j_spring_security_check" method="post">
+		                <form class="form-signin" action="j_spring_security_check" method="post" id="form1">
 		                <%
 							if (request.getParameter("msg") != null) {
 							    out.print("<div class=\"col-md-12\"><span style='color: red;font-weight: bold;'>Usuário ou senha incorretos</span></div>");
@@ -57,7 +52,7 @@
 						%>
 		                <div class="col-md-12" style="margin-bottom: 5px; margin-top: 10px; text-align: left">
 					 		<label for="j_username">CPF:</label> 
-							<input type="text" id=j_username name="j_username" class="form-control" placeholder="Informe o CPF" required="true" autofocus="true" />
+							<input type="text" onkeypress="MascaraCPF(form1.j_username);" maxlength="14" id=j_username name="j_username" class="form-control" placeholder="Informe o CPF" required="true" autofocus="true" />
 						</div>
 		                </br>
 		                <div class="col-md-12" style="margin-bottom: 5px; text-align: left"">	  	
