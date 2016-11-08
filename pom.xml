@@ -197,8 +197,6 @@
 			<version>2.22.2</version>
 		</dependency>
 	</dependencies>
-
-
 	<repositories>
 		<repository>
 			<id>ambient</id>
