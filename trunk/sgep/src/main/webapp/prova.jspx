@@ -43,27 +43,27 @@
 			<a:newLine />
 			<p:dataTable widgetVar="provas" id="dtprovas" value="#{ProvaControl.provas}" var="prova" width="100%" emptyMessage="Sem registros" rows="20" paginator="true"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-				<p:column headerText="Código">
+				<p:column headerText="Código" style="width: 80px; text-align: center">
 					<h:outputText value="#{prova.id}"/>
 				</p:column>
-				<p:column headerText="Data">
+				<p:column headerText="Data" style="width: 80px; text-align: center">
 					<h:outputText value="#{prova.data}">
 						<f:convertDateTime pattern="dd/MM/yyyy"/>
 					</h:outputText>
 				</p:column>
-				<p:column headerText="Instituição">
+				<p:column headerText="Instituição" style="width: 420px; text-align: center">
 					<h:outputText value="#{prova.instituicao.nomeFantasia}"/>
 				</p:column>
-				<p:column headerText="Curso">
+				<p:column headerText="Curso" style="width: 420px; text-align: center">
 					<h:outputText value="#{prova.curso.nome}"/>
 				</p:column>
-				<p:column headerText="Período">
+				<p:column headerText="Período" style="width: 120px; text-align: center">
 					<h:outputText value="#{prova.periodo.descricao}"/>
 				</p:column>
-				<p:column headerText="Editar">
+				<p:column headerText="Editar" style="width: 60px; text-align: center">
 					<p:commandButton icon="ui-icon-pencil" actionListener="#{ProvaControl.editarProva(prova)}" process="@this"/> 
 				</p:column>
-				<p:column headerText="Excluir">
+				<p:column headerText="Excluir" style="width: 60px; text-align: center">
 					<p:commandButton icon="ui-icon-trash" actionListener="#{ProvaControl.excluir}" update="@form">
         				<p:confirm header="Excluir prova" message="Deseja excluir esta prova?" icon="ui-icon-alert" />
     				</p:commandButton>

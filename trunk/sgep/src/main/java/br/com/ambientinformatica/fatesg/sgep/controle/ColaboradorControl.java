@@ -24,6 +24,7 @@ import br.com.ambientinformatica.fatesg.api.entidade.EnumUf;
 import br.com.ambientinformatica.fatesg.api.entidade.Municipio;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.ColaboradorDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.MunicipioDao;
+import br.com.ambientinformatica.util.UtilCpf;
 import br.com.ambientinformatica.util.UtilHash;
 import br.com.ambientinformatica.util.UtilHash.Algoritimo;
 
@@ -157,6 +158,23 @@ public class ColaboradorControl implements Serializable {
 			UtilFaces.addMensagemFaces(e);
 		}
 		return "inicio.jsf";
+	}
+	
+	public void confirmar() {
+		try {
+			String cpf = colaborador.getCpfCnpj();
+			if (UtilCpf.validarCpf(cpf)) {
+				colaborador.addPapel(EnumPapelUsuario.USUARIO);
+				colaborador.setSenhaNaoCriptografada("123456");
+				colaboradorDao.alterar(colaborador);
+				limpar();
+				UtilFaces.addMensagemFaces("Operação realizada com sucesso");
+			} else {
+				UtilFaces.addMensagemFaces("CPF Inválido");
+			}
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces(e);
+		}
 	}
 	
 	public void adicionarPapel(){
