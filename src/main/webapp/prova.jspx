@@ -60,6 +60,9 @@
 				<p:column headerText="Período" style="width: 120px; text-align: center">
 					<h:outputText value="#{prova.periodo.descricao}"/>
 				</p:column>
+				<p:column headerText="Disciplina" style="width: 240px; text-align: center">
+					<h:outputText value="#{prova.disciplina.nome}"/>
+				</p:column>
 				<p:column headerText="Editar" style="width: 60px; text-align: center">
 					<p:commandButton icon="ui-icon-pencil" actionListener="#{ProvaControl.editarProva(prova)}" process="@this"/> 
 				</p:column>

@@ -9,7 +9,7 @@
 			<p:menuitem icon="ui-icon-home" value="Início" action="/inicio?faces-redirect=true" ajax="false" />
 			<p:submenu label="Prova" icon="ui-icon-document">
 				<p:menuitem icon="ui-icon-search" value="Listar provas" actionListener="#{MenuControl.gerenciarSessao}" action="/prova?faces-redirect=true" ajax="false" />
-				<p:menuitem icon="ui-icon-document" value="Gerar prova" actionListener="#{MenuControl.gerenciarSessao}" action="gerarprova?faces-redirect=true" ajax="false" />
+				<p:menuitem icon="ui-icon-document" value="Gerar prova" actionListener="#{MenuControl.gerenciarSessao}" action="gerarProva?faces-redirect=true" ajax="false" />
 			</p:submenu>
 			<p:submenu label="Questões" icon="ui-icon-pencil">
 				<p:menuitem icon="ui-icon-search" value="Listar questões" actionListener="#{MenuControl.gerenciarSessao}" action="questao?faces-redirect=true" ajax="false"/>
