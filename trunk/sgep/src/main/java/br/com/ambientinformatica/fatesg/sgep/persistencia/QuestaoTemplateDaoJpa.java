@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoTemplate;
 import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
 
@@ -67,6 +68,18 @@ public class QuestaoTemplateDaoJpa extends PersistenciaJpa<QuestaoTemplate>
 				+ " where qt = :questao");
 		q.setParameter("questao", questao);
 		return (QuestaoTemplate) q.getSingleResult();
+	}
+
+	@Override
+	public List<QuestaoTemplate> listarQuestoes() throws Exception {
+		try {
+			Query query = em.createQuery("select qt from QuestaoTemplate qt left join fetch qt.questao q left join fetch q.professor p left join fetch q.alternativas a");
+			return query.getResultList();
+		} catch (Exception e) {
+			System.out.println(e);
+			UtilFaces.addMensagemFaces(e.getMessage());
+		}
+		return null;
 	}
 	
 	

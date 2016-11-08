@@ -22,7 +22,6 @@ import br.com.ambientinformatica.fatesg.api.entidade.Aluno;
 import br.com.ambientinformatica.fatesg.api.entidade.Curso;
 import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
 import br.com.ambientinformatica.fatesg.api.entidade.Instituicao;
-import br.com.ambientinformatica.fatesg.api.entidade.UnidadeEnsino;
 import br.com.ambientinformatica.fatesg.sgep.entidade.AlternativaQuestao;
 import br.com.ambientinformatica.fatesg.sgep.entidade.EnumPeriodo;
 import br.com.ambientinformatica.fatesg.sgep.entidade.ItemQuestaoTemplate;
@@ -47,11 +46,11 @@ import br.com.ambientinformatica.fatesg.sgep.persistencia.UnidadeEnsinoDao;
 @Controller("ProvaControl")
 @Scope("conversation")
 public class ProvaControl {
-	
+
 	private Prova prova = new Prova();
 
 	private Prova provaSelecionada = new Prova();
-	
+
 	private Prova provaAlterar = new Prova();
 
 	private ItemQuestaoTemplate itensProva = new ItemQuestaoTemplate();
@@ -61,7 +60,7 @@ public class ProvaControl {
 	private String pesquisa = new String();
 
 	private String tipoPesquisa = new String();
-	
+
 	/**
 	 * Lista todas as provaas cadastradas
 	 */
@@ -100,10 +99,10 @@ public class ProvaControl {
 
 	@Autowired
 	private CursoDao cursoDao;
-	
+
 	@Autowired
 	private SessaoProvaDao sessaoProvaDao;
-	
+
 	@Autowired
 	private SessaoTemplateDao sessaoTemplateDao;
 
@@ -112,16 +111,16 @@ public class ProvaControl {
 
 	@Autowired
 	private AlunoDao alunoDao;
-	
+
 	@Autowired
 	private UnidadeEnsinoDao unidadeEnsinoDao;
 
-	
+
 	@PostConstruct
 	public void init() {
 		listarSessoes();
 		try {
-			 provaDao.listar();
+			provaDao.listar();
 			listar();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Houve um erro ao listar Todos: " + e);
@@ -159,7 +158,7 @@ public class ProvaControl {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
-	
+
 	public void confirmarNovaProva(){
 		Instituicao novaInstituicao = new Instituicao();
 		Curso novoCurso = new Curso();
@@ -186,7 +185,7 @@ public class ProvaControl {
 				novoCurso.setNome(prova.getCurso().getNome());
 				novoCurso.setSigla(prova.getCurso().getSigla());
 				novoCurso.setTurno(prova.getCurso().getTurno());
-				
+
 				//UnidadeEnsino unidadeEnsido = unidadeEnsinoDao.consultar(prova.getCurso().getUnidadeEnsino().getId());
 				//novoCurso.setUnidadeEnsino(prova.getCurso().getUnidadeEnsino());
 				cursoDao.alterar(novoCurso);
@@ -195,6 +194,7 @@ public class ProvaControl {
 			if(!isDisciplinaJaCadastrado(prova.getDisciplina())){
 				novaDisciplina.setChaveDisciplinaCorporatum(prova.getDisciplina().getId());
 				novaDisciplina.setCargaHoraria(prova.getDisciplina().getCargaHoraria());
+				novaDisciplina.setNome(prova.getDisciplina().getNome());
 				novaDisciplina.setCodigo(prova.getDisciplina().getCodigo());
 				disciplinaDao.alterar(novaDisciplina);
 				prova.setDisciplina(novaDisciplina);
@@ -207,28 +207,31 @@ public class ProvaControl {
 		}
 	}
 	private boolean isInstituicaoJaCadastrado(Instituicao instituicao) {
-		Instituicao instituicaoTemp =  instituicaoDao.consultar(instituicao.getId());
-		if (instituicaoTemp != null && instituicaoTemp.getChaveInstituicaoCorporatum() != instituicao.getId()) {
-			return true;
-		}else {
-			return false;
-		}
+		//Instituicao instituicaoTemp =  instituicaoDao.consultar(instituicao.getId());
+		return instituicaoDao.consultar(instituicao.getId()) != null;
+		//		if (instituicaoTemp != null && instituicaoTemp.getChaveInstituicaoCorporatum() != instituicao.getId()) {
+		//			return true;
+		//		}else {
+		//			return false;
+		//		}
 	}
 	private boolean isCursoJaCadastrado(Curso curso) {
-		Curso cursoTemp = cursoDao.consultar(curso.getId());
-		if (cursoTemp != null && cursoTemp.getChaveCursoCorporatum() != curso.getId()) {
-			return true;
-		}else {
-			return false;
-		}
+		//Curso cursoTemp = cursoDao.consultar(curso.getId());
+		return cursoDao.consultar(curso.getId()) != null;
+		//		if (cursoTemp != null && cursoTemp.getChaveCursoCorporatum() != curso.getId()) {
+		//			return true;
+		//		}else {
+		//			return false;
+		//		}
 	}
 	private boolean isDisciplinaJaCadastrado(Disciplina disciplina) {
-		Disciplina disciplinaTemp = disciplinaDao.consultar(disciplina.getId());
-		if (disciplinaTemp != null && disciplinaTemp.getChaveDisciplinaCorporatum() != disciplina.getId()) {
-			return true;
-		}else {
-			return false;
-		}
+		//Disciplina disciplinaTemp = disciplinaDao.consultar(disciplina.getId());
+		return disciplinaDao.consultar(disciplina.getId()) != null;
+		//		if (disciplinaTemp != null && disciplinaTemp.getChaveDisciplinaCorporatum() != disciplina.getId()) {
+		//			return true;
+		//		}else {
+		//			return false;
+		//		}
 	}
 
 	public void listar() {
@@ -238,7 +241,7 @@ public class ProvaControl {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
-	
+
 	public void listarSessoes(){
 		sessoes = sessaoTemplateDao.listar();
 		System.out.println(sessoes.toString());
@@ -272,7 +275,7 @@ public class ProvaControl {
 							getSessaoSelecionada().getSessao().getTitulo())) {
 				int indice = provaSelecionada.getSessoes().indexOf(sessao);
 				provaSelecionada.getSessoes().get(indice)
-						.addQuestao(converterQuestao(questao));
+				.addQuestao(converterQuestao(questao));
 			}
 		}
 	}
@@ -363,8 +366,8 @@ public class ProvaControl {
 			}
 		} catch (Exception e) {
 			UtilFaces
-					.addMensagemFaces("Não foi possivel comverter template em prova."
-							+ e.getMessage());
+			.addMensagemFaces("Não foi possivel comverter template em prova."
+					+ e.getMessage());
 		}
 	}
 
@@ -376,7 +379,7 @@ public class ProvaControl {
 		QuestaoProva questaoProva = new QuestaoProva();
 		try {
 			questaoProva.getQuestao()
-					.setAssunto(item.getQuestao().getAssunto());
+			.setAssunto(item.getQuestao().getAssunto());
 			questaoProva.getQuestao().setEnunciado(
 					item.getQuestao().getEnunciado());
 			questaoProva.getQuestao().setResposta(
@@ -407,23 +410,23 @@ public class ProvaControl {
 
 	public void pesquisarQuestao() {
 		try {
-			
+
 			String p = (String) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("pesQuestao");
 			questoes = questaoTemplateDao.consultarPor(pesquisa, tipoPesquisa);
 			System.out.println(questoes);
 		} catch (Exception e) {
 			UtilFaces
-					.addMensagemFaces("Não foi possivel consultar as questões.");
+			.addMensagemFaces("Não foi possivel consultar as questões.");
 		} finally {
 			pesquisa = new String();
 			tipoPesquisa = new String();
 		}
 	}
-	
+
 	public List<SelectItem> getPeriodos() {
 		return UtilFaces.getListEnum(EnumPeriodo.values());
 	}
-	
+
 	public void editarProva(Prova provaAlterar){
 		this.prova = provaAlterar;
 	}
@@ -541,5 +544,5 @@ public class ProvaControl {
 	public void setProvaAlterar(Prova provaAlterar) {
 		this.provaAlterar = provaAlterar;
 	}
-	
+
 }
