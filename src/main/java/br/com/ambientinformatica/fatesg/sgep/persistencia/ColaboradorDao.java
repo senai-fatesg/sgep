@@ -10,5 +10,6 @@ public interface ColaboradorDao extends Persistencia<Colaborador> {
 	public List<Colaborador> listarPorNome(String nome);
 
 	public Colaborador consultarPorCpf(String cpf);
+	
 
 }

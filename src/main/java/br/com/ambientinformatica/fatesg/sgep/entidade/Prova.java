@@ -38,19 +38,19 @@ public class Prova {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private Curso curso;
 	
 	@Enumerated(EnumType.STRING)
 	private EnumPeriodo periodo;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private Disciplina disciplina;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private Aluno aluno;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private Instituicao instituicao;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

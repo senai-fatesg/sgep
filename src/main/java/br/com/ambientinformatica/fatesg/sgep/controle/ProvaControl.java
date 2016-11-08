@@ -22,6 +22,7 @@ import br.com.ambientinformatica.fatesg.api.entidade.Aluno;
 import br.com.ambientinformatica.fatesg.api.entidade.Curso;
 import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
 import br.com.ambientinformatica.fatesg.api.entidade.Instituicao;
+import br.com.ambientinformatica.fatesg.api.entidade.UnidadeEnsino;
 import br.com.ambientinformatica.fatesg.sgep.entidade.AlternativaQuestao;
 import br.com.ambientinformatica.fatesg.sgep.entidade.EnumPeriodo;
 import br.com.ambientinformatica.fatesg.sgep.entidade.ItemQuestaoTemplate;
@@ -41,6 +42,7 @@ import br.com.ambientinformatica.fatesg.sgep.persistencia.QuestaoTemplateDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoProvaDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoTemplateDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.TemplateDao;
+import br.com.ambientinformatica.fatesg.sgep.persistencia.UnidadeEnsinoDao;
 
 @Controller("ProvaControl")
 @Scope("conversation")
@@ -110,6 +112,9 @@ public class ProvaControl {
 
 	@Autowired
 	private AlunoDao alunoDao;
+	
+	@Autowired
+	private UnidadeEnsinoDao unidadeEnsinoDao;
 
 	
 	@PostConstruct
@@ -156,15 +161,43 @@ public class ProvaControl {
 	}
 	
 	public void confirmarNovaProva(){
+		Instituicao novaInstituicao = new Instituicao();
+		Curso novoCurso = new Curso();
+		Disciplina novaDisciplina = new Disciplina();
 		try {
 			if(!isInstituicaoJaCadastrado(prova.getInstituicao())){
-				instituicaoDao.alterar(prova.getInstituicao());
+				novaInstituicao.setChaveInstituicaoCorporatum(prova.getInstituicao().getId());
+				novaInstituicao.setCnpj(prova.getInstituicao().getCnpj());
+				novaInstituicao.setDescricao(prova.getInstituicao().getDescricao());
+				novaInstituicao.setInscricaoEstadual(prova.getInstituicao().getInscricaoEstadual());
+				novaInstituicao.setNomeFantasia(prova.getInstituicao().getNomeFantasia());
+				novaInstituicao.setRazaoSocial(prova.getInstituicao().getRazaoSocial());
+				instituicaoDao.alterar(novaInstituicao);
+				prova.setInstituicao(novaInstituicao);
 			}
 			if(!isCursoJaCadastrado(prova.getCurso())){
-				cursoDao.alterar(prova.getCurso());
+				novoCurso.setChaveCursoCorporatum(prova.getCurso().getId());
+				novoCurso.setCodigo(prova.getCurso().getCodigo());
+				novoCurso.setDescricao(prova.getCurso().getDescricao());
+				novoCurso.setCargaHoraria(prova.getCurso().getCargaHoraria());
+				novoCurso.setDtInicio(prova.getCurso().getDtInicio());
+				novoCurso.setDtTermino(prova.getCurso().getDtTermino());
+				novoCurso.setModalidade(prova.getCurso().getModalidade());
+				novoCurso.setNome(prova.getCurso().getNome());
+				novoCurso.setSigla(prova.getCurso().getSigla());
+				novoCurso.setTurno(prova.getCurso().getTurno());
+				
+				//UnidadeEnsino unidadeEnsido = unidadeEnsinoDao.consultar(prova.getCurso().getUnidadeEnsino().getId());
+				//novoCurso.setUnidadeEnsino(prova.getCurso().getUnidadeEnsino());
+				cursoDao.alterar(novoCurso);
+				prova.setCurso(novoCurso);
 			}
 			if(!isDisciplinaJaCadastrado(prova.getDisciplina())){
-				disciplinaDao.alterar(prova.getDisciplina());
+				novaDisciplina.setChaveDisciplinaCorporatum(prova.getDisciplina().getId());
+				novaDisciplina.setCargaHoraria(prova.getDisciplina().getCargaHoraria());
+				novaDisciplina.setCodigo(prova.getDisciplina().getCodigo());
+				disciplinaDao.alterar(novaDisciplina);
+				prova.setDisciplina(novaDisciplina);
 			}
 			provaDao.alterar(prova);
 			listar();
@@ -174,13 +207,28 @@ public class ProvaControl {
 		}
 	}
 	private boolean isInstituicaoJaCadastrado(Instituicao instituicao) {
-		return instituicaoDao.consultar(instituicao.getId()) != null;
+		Instituicao instituicaoTemp =  instituicaoDao.consultar(instituicao.getId());
+		if (instituicaoTemp != null && instituicaoTemp.getChaveInstituicaoCorporatum() != instituicao.getId()) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	private boolean isCursoJaCadastrado(Curso curso) {
-		return cursoDao.consultar(curso.getId()) != null;
+		Curso cursoTemp = cursoDao.consultar(curso.getId());
+		if (cursoTemp != null && cursoTemp.getChaveCursoCorporatum() != curso.getId()) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	private boolean isDisciplinaJaCadastrado(Disciplina disciplina) {
-		return disciplinaDao.consultar(disciplina.getId()) != null;
+		Disciplina disciplinaTemp = disciplinaDao.consultar(disciplina.getId());
+		if (disciplinaTemp != null && disciplinaTemp.getChaveDisciplinaCorporatum() != disciplina.getId()) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	public void listar() {
