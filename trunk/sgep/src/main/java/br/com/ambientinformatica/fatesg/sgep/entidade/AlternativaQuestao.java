@@ -10,15 +10,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
+import br.com.ambientinformatica.util.Entidade;
+
 @Entity
-public class AlternativaQuestao implements Serializable {
+public class AlternativaQuestao extends Entidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(generator = "alternativa_seq", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "alternativa_seq", sequenceName = "alternativa_seq", allocationSize = 1, initialValue = 1)
-	private Integer idAlternativa;
+	@GeneratedValue(generator = "alternativaquestao_seq", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "alternativaquestao_seq", sequenceName = "alternativaquestao_seq", allocationSize = 1, initialValue = 1)
+	private Integer id;
 
 	private String descricao;
 
@@ -26,12 +28,12 @@ public class AlternativaQuestao implements Serializable {
 
 	private Boolean resposta;
 
-	public Integer getIdAlternativa() {
-		return idAlternativa;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setIdAlternativa(Integer idAlternativa) {
-		this.idAlternativa = idAlternativa;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getDescricao() {
@@ -78,46 +80,6 @@ public class AlternativaQuestao implements Serializable {
 
 	public void setResposta(Boolean resposta) {
 		this.resposta = resposta;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result
-				+ ((idAlternativa == null) ? 0 : idAlternativa.hashCode());
-		result = prime * result
-				+ ((resposta == null) ? 0 : resposta.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AlternativaQuestao other = (AlternativaQuestao) obj;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
-			return false;
-		if (idAlternativa == null) {
-			if (other.idAlternativa != null)
-				return false;
-		} else if (!idAlternativa.equals(other.idAlternativa))
-			return false;
-		if (resposta == null) {
-			if (other.resposta != null)
-				return false;
-		} else if (!resposta.equals(other.resposta))
-			return false;
-		return true;
 	}
 
 }

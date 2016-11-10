@@ -9,10 +9,10 @@ import javax.ws.rs.client.WebTarget;
 
 import org.springframework.stereotype.Repository;
 
+import com.thoughtworks.xstream.XStream;
+
 import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
 import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
-
-import com.thoughtworks.xstream.XStream;
 
 @Repository("disciplinaDao")
 public class DisciplinaDaoService extends PersistenciaJpa<Disciplina> implements
