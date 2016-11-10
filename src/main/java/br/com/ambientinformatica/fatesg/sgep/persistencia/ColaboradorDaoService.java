@@ -10,10 +10,10 @@ import javax.ws.rs.client.WebTarget;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.thoughtworks.xstream.XStream;
+
 import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
 import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
-
-import com.thoughtworks.xstream.XStream;
 
 @Repository("colaboradorDao")
 public class ColaboradorDaoService extends PersistenciaJpa<Colaborador> implements ColaboradorDao, Serializable {

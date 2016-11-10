@@ -81,27 +81,12 @@
 				<a:newLine />
 				<p:dataTable id="tblQuestoes" widgetVar="tblQuestoes" var="questaoTemplate" style="width: 900px" value="#{GerarProvaControl.questoes }" emptyMessage="Sem registros">
 					<p:column headerText="Código" style="width: 120px">
-						<h:outputText value="#{questaoTemplate.idQuestaoTemplate}"/>
+						<h:outputText value="#{questaoTemplate.questao.id}"/>
 					</p:column>
-				
 					<p:column headerText="Disciplina">
 						<h:outputText value="#{questaoTemplate.questao.disciplina.nome}"/>
 					</p:column>
-					<p:column headerText="Dificuldade">
-						<h:outputText value="#{questaoTemplate.questao.dificuldade}"/>
-					</p:column>
-					<p:column headerText="Enunciado" style="width: 120px">
-						<h:outputLink value="Visualizar" onclick="PF('dlgEnunciado').show();"/>
-					</p:column>
-					<p:column headerText="Alternativa" style="width: 120px">
-						<h:outputLink value="Visualizar" onclick="PF('dlgAlternativa').show();"/>
-					</p:column>
-					<p:column headerText="Estado" style="width: 120px">
-						<h:outputText value="#{questaoTemplate.questao.estado}"/>
-					</p:column>
-					<p:column headerText="Selecionar" style="width: 120px">
-						<h:outputLink value="Selecionar"/>
-					</p:column>
+					
 					
 				</p:dataTable>
 			</p:panel>

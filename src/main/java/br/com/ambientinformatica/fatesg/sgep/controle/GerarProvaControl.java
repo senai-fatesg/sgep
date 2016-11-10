@@ -1,7 +1,6 @@
 package br.com.ambientinformatica.fatesg.sgep.controle;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.fatesg.sgep.entidade.ItemQuestaoTemplate;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Prova;
-import br.com.ambientinformatica.fatesg.sgep.entidade.Questao;
 import br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoTemplate;
 import br.com.ambientinformatica.fatesg.sgep.entidade.SessaoProva;
 import br.com.ambientinformatica.fatesg.sgep.entidade.SessaoTemplate;
@@ -116,7 +114,7 @@ public class GerarProvaControl {
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e.getMessage());
 		}
-		return Collections.emptyList();
+		return null;
 	}
 	
 	public List<QuestaoTemplate> listarQuestoes(){
@@ -125,7 +123,7 @@ public class GerarProvaControl {
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e.getMessage());
 		}
-		return Collections.emptyList();
+		return null;
 	}
 
 	public Prova getProva() {

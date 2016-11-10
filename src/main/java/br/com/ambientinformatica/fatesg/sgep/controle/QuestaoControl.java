@@ -110,7 +110,7 @@ public class QuestaoControl implements Serializable {
 
 	public void excluir() {
 		try {
-			questaoDao.excluirPorId(questaoSelecionada.getIdQuestaoTemplate());
+			questaoDao.excluirPorId(questaoSelecionada.getId());
 			questaoSelecionada = new QuestaoTemplate();
 			questoes = questaoDao.listar();
 		} catch (Exception e) {
