@@ -8,4 +8,6 @@ import br.com.ambientinformatica.jpa.persistencia.Persistencia;
 public interface DisciplinaDao extends Persistencia<Disciplina> {
 
 	public List<Disciplina> listarPorNome(String nome);
+
+	public Disciplina consultarPorChaveDisciplinaCorporatum(Integer id);
 }
