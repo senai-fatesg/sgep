@@ -3,6 +3,7 @@ package br.com.ambientinformatica.fatesg.sgep.persistencia;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -10,10 +11,11 @@ import javax.ws.rs.client.WebTarget;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.thoughtworks.xstream.XStream;
-
 import br.com.ambientinformatica.fatesg.api.entidade.Curso;
+import br.com.ambientinformatica.jpa.exception.PersistenciaException;
 import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
+
+import com.thoughtworks.xstream.XStream;
 
 @Repository("cursoDao")
 public class CursoDaoService extends PersistenciaJpa<Curso> implements CursoDao, Serializable {
@@ -30,6 +32,18 @@ public class CursoDaoService extends PersistenciaJpa<Curso> implements CursoDao,
 	public List<Curso> listarPorNome(String nome) {
 		String conteudo = target.path("/listaPorNome/" + nome).request().get(String.class);
 		return (List<Curso>) new XStream().fromXML(conteudo);
+	}
+
+	@Override
+	public Curso consultarPorChaveCursoCorporatum(Integer id) throws PersistenciaException{
+		try {
+			String sql ="select c from Curso c where c.chaveCursoCorporatum = :id";
+			Query query = em.createQuery(sql);
+			query.setParameter("id", id);
+			return (Curso) query.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 }

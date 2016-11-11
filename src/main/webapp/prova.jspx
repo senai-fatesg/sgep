@@ -9,7 +9,7 @@
 			}
 		</style>
 		<p:growl id="messages" life="6000" />
-		<p:panel header="Provas">
+		<p:panel header="Provas" id="pnlProva">
 			<a:newLine />
 			<a:field label="Data da Prova">
 				<p:inputMask value="#{ProvaControl.prova.data}" mask="99/99/9999">
@@ -17,16 +17,16 @@
 				</p:inputMask>
 			</a:field>
 			<a:field label="Instituição" spaceLeft="10px">
-				<p:autoComplete id="completInstituicao" minQueryLength="3" value="#{ProvaControl.prova.instituicao}"
+				<p:autoComplete id="completInstituicao" minQueryLength="3" value="#{ProvaControl.prova.instituicao}" dropdown="tre"
 					completeMethod="#{ProvaControl.completarInstituicao}" var="ins" itemLabel="#{ins.nomeFantasia}" itemValue="#{ins}" converter="objectConverter" forceSelection="true"
 					effect="fade" />
 			</a:field>
 			<a:field label="Curso" spaceLeft="10px">
-				<p:autoComplete id="completCurso" minQueryLength="3" value="#{ProvaControl.prova.curso}" completeMethod="#{ProvaControl.completarCurso}" var="cur"
+				<p:autoComplete id="completCurso" minQueryLength="3" value="#{ProvaControl.prova.curso}" completeMethod="#{ProvaControl.completarCurso}" var="cur" dropdown="tre"
 					itemLabel="#{cur.nome}" itemValue="#{cur}" converter="objectConverter" forceSelection="true" effect="fade"/>
 			</a:field>
 			<a:field label="Disciplina1512" spaceLeft="10px">
-				<p:autoComplete id="completDisciplina" minQueryLength="3" value="#{ProvaControl.prova.disciplina}" completeMethod="#{ProvaControl.completarDisciplina}" var="disc"
+				<p:autoComplete id="completDisciplina" minQueryLength="3" value="#{ProvaControl.prova.disciplina}" completeMethod="#{ProvaControl.completarDisciplina}" var="disc" dropdown="tre"
 					itemLabel="#{disc.nome}" itemValue="#{disc}" converter="objectConverter" forceSelection="true" effect="fade"/>
 			</a:field>
 			<a:field label="Período" spaceLeft="10px">
@@ -37,7 +37,7 @@
 			</a:field>
 			<p:spacer width="20px"/>
 			<div class="controllers">
-				<p:commandButton id="btnConfirm" value="Confirmar" icon="ui-icon-disk" actionListener="#{ProvaControl.confirmarNovaProva}" ajax="false" style="margin-left: 10px"/>
+				<p:commandButton id="btnConfirm" value="Confirmar" icon="ui-icon-disk" actionListener="#{ProvaControl.confirmarNovaProva}" ajax="false" style="margin-left: 10px" update="@form"/>
 				<p:commandButton id="btnLimpar" value="Limpar" icon="ui-icon-arrowrefresh-1-n" style="margin-left: 10px"/>
 			</div>
 			<a:newLine />
@@ -64,19 +64,14 @@
 					<h:outputText value="#{prova.disciplina.nome}"/>
 				</p:column>
 				<p:column headerText="Editar" style="width: 60px; text-align: center">
-					<p:commandButton icon="ui-icon-pencil" actionListener="#{ProvaControl.editarProva(prova)}" process="@this"/> 
-				</p:column>
-				<p:column headerText="Excluir" style="width: 60px; text-align: center">
-					<p:commandButton icon="ui-icon-trash" actionListener="#{ProvaControl.excluir}" update="@form">
-        				<p:confirm header="Excluir prova" message="Deseja excluir esta prova?" icon="ui-icon-alert" />
-    				</p:commandButton>
+					<p:commandButton icon="ui-icon-pencil" actionListener="#{ProvaControl.editarProva(prova)}" process="@this" update="@form"/> 
 				</p:column>
 			</p:dataTable>
 		</p:panel>
-		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-	        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-	        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-    	</p:confirmDialog>	
+		<p:confirmDialog message="Confirma a exclusão deste registro?" header="Confirmação de exclusão" severity="alert" widgetVar="confirmacaoExclusao">
+			<p:commandButton id="btnSim" value="Sim" oncomplete="PF('confirmacaoExclusao').hide();" actionListener="#{ProvaControl.excluir }" update="dtprovas" />
+			<p:commandButton id="btnNao" value="Não" onclick="PF('confirmacaoExclusao').hide();" type="button" />
+		</p:confirmDialog>
 		<a:newLine />
 	</ui:define>
 </ui:composition>

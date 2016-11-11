@@ -9,4 +9,6 @@ public interface CursoDao extends Persistencia<Curso> {
 
 	public List<Curso> listarPorNome(String nome);
 
+	public Curso consultarPorChaveCursoCorporatum(Integer id);
+
 }

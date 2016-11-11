@@ -52,6 +52,8 @@ public class ProvaControl {
 	private Prova provaSelecionada = new Prova();
 
 	private Prova provaAlterar = new Prova();
+	
+	private Prova provaExcluir;
 
 	private ItemQuestaoTemplate itensProva = new ItemQuestaoTemplate();
 
@@ -164,17 +166,18 @@ public class ProvaControl {
 		Curso novoCurso = new Curso();
 		Disciplina novaDisciplina = new Disciplina();
 		try {
-			if(isInstituicaoJaCadastrado(prova.getInstituicao())){
+			if(!isInstituicaoJaCadastrado(prova.getInstituicao())){
 				novaInstituicao.setChaveInstituicaoCorporatum(prova.getInstituicao().getId());
 				novaInstituicao.setCnpj(prova.getInstituicao().getCnpj());
 				novaInstituicao.setDescricao(prova.getInstituicao().getDescricao());
 				novaInstituicao.setInscricaoEstadual(prova.getInstituicao().getInscricaoEstadual());
 				novaInstituicao.setNomeFantasia(prova.getInstituicao().getNomeFantasia());
 				novaInstituicao.setRazaoSocial(prova.getInstituicao().getRazaoSocial());
-				instituicaoDao.alterar(novaInstituicao);
 				prova.setInstituicao(novaInstituicao);
+			}else {
+				prova.setInstituicao(instituicaoDao.consultarPorChaveInstituicaoCorporatum(prova.getInstituicao().getId()));
 			}
-			if(isCursoJaCadastrado(prova.getCurso())){
+			if(!isCursoJaCadastrado(prova.getCurso())){
 				novoCurso.setChaveCursoCorporatum(prova.getCurso().getId());
 				novoCurso.setCodigo(prova.getCurso().getCodigo());
 				novoCurso.setDescricao(prova.getCurso().getDescricao());
@@ -188,32 +191,35 @@ public class ProvaControl {
 
 				//UnidadeEnsino unidadeEnsido = unidadeEnsinoDao.consultar(prova.getCurso().getUnidadeEnsino().getId());
 				//novoCurso.setUnidadeEnsino(prova.getCurso().getUnidadeEnsino());
-				cursoDao.alterar(novoCurso);
 				prova.setCurso(novoCurso);
+			}else {
+				prova.setCurso(cursoDao.consultarPorChaveCursoCorporatum(prova.getCurso().getId()));
 			}
-			if(isDisciplinaJaCadastrado(prova.getDisciplina())){
+			if(!isDisciplinaJaCadastrado(prova.getDisciplina())){
 				novaDisciplina.setChaveDisciplinaCorporatum(prova.getDisciplina().getId());
 				novaDisciplina.setCargaHoraria(prova.getDisciplina().getCargaHoraria());
 				novaDisciplina.setNome(prova.getDisciplina().getNome());
 				novaDisciplina.setCodigo(prova.getDisciplina().getCodigo());
-				disciplinaDao.alterar(novaDisciplina);
 				prova.setDisciplina(novaDisciplina);
+			}else {
+				prova.setDisciplina(disciplinaDao.consultarPorChaveDisciplinaCorporatum(prova.getDisciplina().getId()));
 			}
 			provaDao.alterar(prova);
 			listar();
+			limpar();
 			UtilFaces.addMensagemFaces("Operação realizada com sucesso");
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
 	private boolean isInstituicaoJaCadastrado(Instituicao instituicao) {
-		return instituicaoDao.consultar(instituicao.getId()) != null;
+		return instituicaoDao.consultarPorChaveInstituicaoCorporatum(instituicao.getId()) != null;
 	}
 	private boolean isCursoJaCadastrado(Curso curso) {
-		return cursoDao.consultar(curso.getId()) != null;
+		return cursoDao.consultarPorChaveCursoCorporatum(curso.getId()) != null;
 	}
 	private boolean isDisciplinaJaCadastrado(Disciplina disciplina) {
-		return disciplinaDao.consultar(disciplina.getId()) != null;
+		return disciplinaDao.consultarPorChaveDisciplinaCorporatum(disciplina.getId()) != null;
 	}
 
 	public void listar() {
@@ -229,7 +235,7 @@ public class ProvaControl {
 		sessoes = sessaoTemplateDao.listar();
 		System.out.println(sessoes.toString());
 	}
-	
+
 	public List<QuestaoTemplate> listarQuestoes(){
 		try {
 			return questoes = questaoTemplateDao.listar();
@@ -241,9 +247,10 @@ public class ProvaControl {
 
 	public void excluir() {
 		try {
-			provaDao.excluirPorId(prova.getId());
+			provaDao.excluirPorId(provaExcluir.getId());
 			prova = new Prova();
 			provas = provaDao.listar();
+			UtilFaces.addMensagemFaces("Atividade excluída!");
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
@@ -271,7 +278,7 @@ public class ProvaControl {
 			}
 		}
 	}
-	
+
 	public void carregaSelecao() {
 		System.out.println("Valeu falou " + getSessaoSelecionada());
 	}
@@ -535,6 +542,14 @@ public class ProvaControl {
 
 	public void setProvaAlterar(Prova provaAlterar) {
 		this.provaAlterar = provaAlterar;
+	}
+
+	public Prova getProvaExcluir() {
+		return provaExcluir;
+	}
+
+	public void setProvaExcluir(Prova provaExcluir) {
+		this.provaExcluir = provaExcluir;
 	}
 
 }
