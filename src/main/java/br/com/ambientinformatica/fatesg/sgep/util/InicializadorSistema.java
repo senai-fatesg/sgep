@@ -34,6 +34,7 @@ public class InicializadorSistema {
 			List<Colaborador> colaboradores = colaboradorDao.listar();
 			if(colaboradores.isEmpty()){
 				Colaborador colaborador = new Colaborador();
+				colaborador.setIdColaboradorPai(1);
 				colaborador.setNome("admin");
 				colaborador.setCpfCnpj("111.111.111-11");
 				colaborador.setRg("222222222");

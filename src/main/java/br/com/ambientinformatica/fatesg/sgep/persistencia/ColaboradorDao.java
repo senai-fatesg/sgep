@@ -11,5 +11,7 @@ public interface ColaboradorDao extends Persistencia<Colaborador> {
 
 	public Colaborador consultarPorCpf(String cpf);
 	
-
+	public Colaborador consultarPorCpfSgep(String cpf);
+	
+	public Colaborador consultarPorIdPaiSgep(int idPai);
 }

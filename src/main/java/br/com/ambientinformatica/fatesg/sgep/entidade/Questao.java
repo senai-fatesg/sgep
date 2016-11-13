@@ -61,11 +61,20 @@ public class Questao extends Entidade implements Serializable {
 
 	// Metodos
 	public void addItem(AlternativaQuestao alternativa, boolean isAlternativaEdicao) throws Exception {
-		if (!alternativas.contains(alternativa)) {
+		if (!isAlternativaJaCadastrada(alternativa)) {
 			this.alternativas.add(alternativa);
 		} else if(!isAlternativaEdicao){
 			throw new Exception("Questão já contem este item!");
 		}
+	}
+
+	private boolean isAlternativaJaCadastrada(AlternativaQuestao alternativa) {
+		for (AlternativaQuestao alternativaQuestao : alternativas) {
+			if(alternativaQuestao.getDescricao().equalsIgnoreCase(alternativa.getDescricao())){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void removerItem(AlternativaQuestao alternativa) {

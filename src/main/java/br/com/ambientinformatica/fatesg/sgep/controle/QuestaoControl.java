@@ -62,49 +62,53 @@ public class QuestaoControl implements Serializable {
 	public void confirmar() {
 		try {
 			if (this.isQuestaoValida(questaoSelecionada.getQuestao().getAlternativas().size())) {
-				if (isRdbUsrLogadoSelecionado()) {
-					Colaborador colaboradorLogado = this.getColaboradorLogado();
-					questaoSelecionada.getQuestao().setProfessor(colaboradorLogado);
-				}
 				// verifica se professor consultado a partir do corporatum já
 				// está cadastrado na base do SGEP
 				if (!isRdbUsrLogadoSelecionado()
 						&& !isProfessorJaCadastrado(questaoSelecionada.getQuestao().getProfessor())) {
-					colaboradorDao.alterar(questaoSelecionada.getQuestao().getProfessor());
+					colaboradorDao.incluir(questaoSelecionada.getQuestao().getProfessor());
+				}else if(isRdbUsrLogadoSelecionado()){
+					Colaborador colaboradorLogado = this.getColaboradorLogado();
+					questaoSelecionada.getQuestao().setProfessor(colaboradorLogado);
 				}
+				
 				questaoDao.alterar(questaoSelecionada);
 				this.listar();
 				questaoSelecionada = new QuestaoTemplate();
 				RequestContext.getCurrentInstance()
-						.showMessageInDialog(new FacesMessage("SGEP", "Questão gravada com sucesso!"));
+					.showMessageInDialog(new FacesMessage("SGEP", "Questão gravada com sucesso!"));
 				RequestContext.getCurrentInstance().execute("fecharDlgQuestao();");
 			}
 		} catch (Exception e) {
-			colaboradorDao.getEntityManager().getTransaction().rollback();
-			questaoDao.getEntityManager().getTransaction().rollback();
-			UtilFaces.addMensagemFaces(e);
+			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", e.getMessage()));
 		}
 	}
 
+	private boolean isColaboradorValidoPreenchido() {
+			return questaoSelecionada.getQuestao().getProfessor() != null;
+	}
+
 	private Colaborador getColaboradorLogado() {
-		Colaborador colaboradorLogado = colaboradorDao
-				.consultarPorCpf(UsuarioLogadoControl.getUsuarioConfigurado().getCpfCnpj());
+		Colaborador colaboradorLogado = colaboradorDao //consultar na base do sgep
+				.consultarPorCpfSgep(UsuarioLogadoControl.getUsuarioConfigurado().getCpfCnpj());
 		return colaboradorLogado;
 	}
 
 	public boolean verificarSalvarDadosPreenchidosPerdidos() {
 		return isAlternativaEdicao() || this.item.getDescricao() != null;
 	}
-
+	//consultar idpai base sgep
 	private boolean isProfessorJaCadastrado(Colaborador colaborador) {
-		return colaboradorDao.consultar(colaborador.getId()) != null;
+		Colaborador colab = colaboradorDao.consultarPorIdPaiSgep(colaborador.getId());
+		questaoSelecionada.getQuestao().setProfessor(colab != null ? colab : new Colaborador());
+		return colab != null;
 	}
 
 	public void listar() {
 		try {
 			questoes = questaoDao.listar();
 		} catch (Exception e) {
-			UtilFaces.addMensagemFaces(e);
+			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", e.getMessage()));
 		}
 	}
 
@@ -114,7 +118,7 @@ public class QuestaoControl implements Serializable {
 			questaoSelecionada = new QuestaoTemplate();
 			questoes = questaoDao.listar();
 		} catch (Exception e) {
-			UtilFaces.addMensagemFaces(e);
+			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", e.getMessage()));
 		}
 	}
 
@@ -122,7 +126,7 @@ public class QuestaoControl implements Serializable {
 		try {
 			this.questaoSelecionada = questaoDao.carregarQuestao(questaoSelecionada);
 		} catch (Exception e) {
-			UtilFaces.addMensagemFaces("Falha ao carregar objetos");
+			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", "Falha ao carregar objetos"));
 		}
 	}
 
@@ -140,7 +144,7 @@ public class QuestaoControl implements Serializable {
 				this.compareToAlternativas();
 			}
 		} catch (Exception e) {
-			UtilFaces.addMensagemFaces("Não foi possivel adicionar a alternativa.\n" + e.getMessage());
+			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", "Não foi possivel adicionar a alternativa.\n" + e.getMessage()));
 		} finally {
 			item = new AlternativaQuestao();
 		}
@@ -155,9 +159,12 @@ public class QuestaoControl implements Serializable {
 	}
 
 	private boolean isAlternativaValida() {
+		if(this.getItem().getDescricao().isEmpty()){
+			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", "O campo descrição da alternativa é de preenchimento obrigatório!"));
+			return false;
+		}
 		if (this.isCapacidadeMaximaPreenchida(questaoSelecionada.getQuestao().getAlternativas().size())) {
-			UtilFaces.addMensagemFaces("Atenção!\n Capacidade maxima de itens alcançada.");
-
+			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", "Atenção!\n Capacidade maxima de itens alcançada."));
 			return false;
 		}
 		return true;
@@ -168,13 +175,19 @@ public class QuestaoControl implements Serializable {
 	}
 
 	private boolean isQuestaoValida(int quantidadeQuestao) {
+		if(!this.isColaboradorValidoPreenchido() && !isRdbUsrLogadoSelecionado()){
+			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", "É necessário preencher um colaborador válido!"));
+			UtilFaces.setFocusComponente("completUsuario");
+			return false;
+		}
+		
 		if (!this.isCamposObrigatoriosPreenchidos()) {
-			UtilFaces.addMensagemFaces("Campo(s) obrigatório(s) não informado(s)!");
+			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", "Campo(s) obrigatório(s) não informado(s)!"));
 			return false;
 		}
 
 		if (!this.isCapacidadeMaximaPreenchida(quantidadeQuestao)) {
-			UtilFaces.addMensagemFaces("É necessário adicionar " + CAPACIDADE_MAXIMA_ALTERNATIVAS + "alternativas para a questão!");
+			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", "É necessário adicionar " + CAPACIDADE_MAXIMA_ALTERNATIVAS + " alternativas para a questão!"));
 			return false;
 		}
 		return true;
@@ -183,9 +196,9 @@ public class QuestaoControl implements Serializable {
 	private boolean isCamposObrigatoriosPreenchidos() {
 		return questaoSelecionada.getQuestao().getEnunciado() != ""
 				&& questaoSelecionada.getQuestao().getAssunto() != ""
-				&& questaoSelecionada.getQuestao().getEstado().hashCode() > 0
-				&& questaoSelecionada.getQuestao().getDificuldade().hashCode() > 0
-				&& questaoSelecionada.getQuestao().getResposta().hashCode() > 0;
+				&& questaoSelecionada.getQuestao().getEstado() != null && questaoSelecionada.getQuestao().getEstado().hashCode() > 0
+				&& questaoSelecionada.getQuestao().getDificuldade()!= null && questaoSelecionada.getQuestao().getDificuldade().hashCode() > 0
+				&& questaoSelecionada.getQuestao().getResposta() != null && questaoSelecionada.getQuestao().getResposta().hashCode() > 0;
 	}
 
 	public void editarItem(AlternativaQuestao alternativa) {
@@ -193,7 +206,7 @@ public class QuestaoControl implements Serializable {
 			this.item = alternativa;
 			this.isAlternativaEdicao = true;
 		} catch (Exception e) {
-			UtilFaces.addMensagemFaces(e);
+			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", e.getMessage()));
 		}
 	}
 
@@ -201,7 +214,7 @@ public class QuestaoControl implements Serializable {
 		try {
 			this.questaoSelecionada.getQuestao().removerItem(alternativa);
 		} catch (Exception e) {
-			UtilFaces.addMensagemFaces(e);
+			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", e.getMessage()));
 		}
 	}
 
