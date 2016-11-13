@@ -87,7 +87,7 @@
 								<p:outputPanel id="outputPanelProfessor" style="margin-left:12%">
 									<p:inputText id="txtProfessor" disabled="true" rendered="#{QuestaoControl.rdbUsrLogadoSelecionado}" immediate="true" readonly="true" value="#{UsuarioLogadoControl.colaborador.nome }">
 									</p:inputText>
-									<p:autoComplete id="completUsuario" rendered="#{!QuestaoControl.rdbUsrLogadoSelecionado}" immediate="true" value="#{QuestaoControl.questaoSelecionada.questao.professor}" completeMethod="#{QuestaoControl.completarColaboradores}"
+									<p:autoComplete id="completUsuario" name="completUsuario" rendered="#{!QuestaoControl.rdbUsrLogadoSelecionado}" immediate="true" value="#{QuestaoControl.questaoSelecionada.questao.professor}" completeMethod="#{QuestaoControl.completarColaboradores}"
 									minQueryLength="3" var="colaborador" itemLabel="#{colaborador.nome}" itemValue="#{colaborador}" converter="objectConverter">
 									</p:autoComplete>
 									<p:watermark value="Pesquise pelo Nome" for="completUsuario" />
@@ -104,7 +104,8 @@
 						<p:watermark for="txtEnunciado" value="Descreva aqui o enunciado principal da questão."/>
 					</a:field>
 					<a:field label="Assunto" spaceLeft="15px">
-						<p:inputTextarea value="#{QuestaoControl.questaoSelecionada.questao.assunto}" scrollHeight="1" style="width:500px" />
+						<p:inputTextarea id="txtAreaAssunto" value="#{QuestaoControl.questaoSelecionada.questao.assunto}" scrollHeight="1" style="width:500px" />
+						<p:watermark for="txtAreaAssunto" value="Descreva aqui o assunto referente à questão."/>
 					</a:field>
 					<a:newLine />
 					<a:field label="Estado" spaceLeft="15px">
@@ -119,9 +120,10 @@
 							<f:selectItems value="#{ QuestaoControl.dificuldades}" var="tipo" itemValue="#{tipo.descricao}" itemLabel="#{tipo.descricao}" />
 						</p:selectOneMenu>
 					</a:field>
-					<a:field label="Item" spaceLeft="15px">
-						<p:inputTextarea id="lItem" value="#{QuestaoControl.item.descricao}" scrollHeight="1" style="width:500px" />
-						<p:watermark for="lItem" value="Descreva aqui a alternativa a ser adicionada para a questão em elaboração."/>
+					<a:field label="Descrição da Alternativa" spaceLeft="15px">
+						<p:inputTextarea id="lItem" value="#{QuestaoControl.item.descricao}" 
+						placeholder="Descreva aqui a alternativa a ser adicionada para a questão em elaboração." 
+						scrollHeight="1" style="width:500px" />
 					</a:field>
 					<a:newLine />
 					<a:newLine />
