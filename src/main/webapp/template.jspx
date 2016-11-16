@@ -15,7 +15,7 @@
 			<a:newLine/>
 			<p:dataTable widgetVar="provas" id="dtTemplates" value="#{TemplateControl.templates}" var="tem" emptyMessage="Sem registros" rows="20">
 				<p:column headerText="Código" style="width: 100px">
-					<h:outputText value="#{tem.idTemplate}" />
+					<h:outputText value="#{tem.id}" />
 				</p:column>
 				<p:column headerText="Descrição">
 					<h:outputText value="#{tem.descricao}" />
