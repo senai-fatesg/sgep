@@ -16,7 +16,11 @@ import org.springframework.stereotype.Controller;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.ambientjsf.util.UtilFacesRelatorio;
+import br.com.ambientinformatica.fatesg.sgep.entidade.AlternativaQuestao;
+import br.com.ambientinformatica.fatesg.sgep.entidade.ItemQuestaoTemplate;
+import br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoTemplate;
 import br.com.ambientinformatica.fatesg.sgep.entidade.SessaoTemplate;
+import br.com.ambientinformatica.fatesg.sgep.persistencia.QuestaoTemplateDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoTemplateDao;
 import br.com.ambientinformatica.jpa.exception.PersistenciaException;
 import br.com.ambientinformatica.util.UtilException;
@@ -26,19 +30,35 @@ import br.com.ambientinformatica.util.UtilException;
 public class SessaoControl implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	@Autowired
-	private SessaoTemplateDao sessaoDao;
+	
+	private String enunciado;
 
 	private List<SessaoTemplate> sessoes = new ArrayList<SessaoTemplate>();
+	
+	private List<AlternativaQuestao> alternativas = new ArrayList<>();
 
 	private SessaoTemplate sessao = new SessaoTemplate();
 
 	private SessaoTemplate sessaoSelecionada = new SessaoTemplate();
+	
+	private List<ItemQuestaoTemplate> itensQuestao = new ArrayList<>();
+	
+	private List<QuestaoTemplate> questoesTemplate = new ArrayList<>();
+	
+	private List<QuestaoTemplate> questoes = new ArrayList<>();
+	
+	private QuestaoTemplate questaoTemplate = new QuestaoTemplate();
+	
+	@Autowired
+	private SessaoTemplateDao sessaoDao;
+	
+	@Autowired
+	private QuestaoTemplateDao questaoTemplateDao;
 
 	@PostConstruct
 	public void init() {
 		listar();
+		listarQuestoes();
 	}
 
 	public void imprimir(ActionEvent evt) {
@@ -61,15 +81,14 @@ public class SessaoControl implements Serializable {
 	}
 
 	public void confirmar(ActionEvent evt) {
-		sessaoSelecionada = (SessaoTemplate) UtilFaces.getValorParametro(evt,
-				"sessaoSelecionada");
+		sessaoSelecionada = (SessaoTemplate) UtilFaces.getValorParametro(evt, "sessaoSelecionada");
 		try {
 			sessaoDao.alterar(sessaoSelecionada);
 			limpar();
-			sessaoSelecionada = new SessaoTemplate();
+			listar();
+			UtilFaces.addMensagemFaces("Sessão incluída com sucesso.");
 		} catch (PersistenciaException e) {
-			UtilFaces
-					.addMensagemFaces("Houve um erro ao alterar a Sessão Selecionada.");
+			UtilFaces.addMensagemFaces(e.getMessage());
 		}
 	}
 
@@ -79,6 +98,15 @@ public class SessaoControl implements Serializable {
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
+	}
+	
+	public List<QuestaoTemplate> listarQuestoes(){
+		try {
+			return questoes = questaoTemplateDao.listarQuestoes();
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces(e.getMessage());
+		}
+		return null;
 	}
 
 	public void excluir() {
@@ -106,6 +134,31 @@ public class SessaoControl implements Serializable {
 		}
 	}
 	
+	public QuestaoTemplate consultarAlternativasQuestao(QuestaoTemplate questao){
+		try {
+			if (questao != null) {
+				QuestaoTemplate questaoTemp = questaoTemplateDao.consultarAlternativasQuestao(questao);
+				alternativas = new ArrayList<>();
+				for (AlternativaQuestao alternativaQuestao : questaoTemp.getQuestao().getAlternativas()) {
+					alternativas.add(alternativaQuestao);
+				}
+				RequestContext.getCurrentInstance().execute("PF('dlgAlternativa').show();");
+			}
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces(e.getMessage());
+		}
+		return null;
+	}
+	
+	public void adicionarItemQuestao(){
+		sessao.addItemQuestao(questaoTemplate);
+		questaoTemplate = new QuestaoTemplate();
+	}
+	
+	public void removerItemQuestao(ItemQuestaoTemplate item){
+		sessao.removeQuestao(item);
+	}
+	
 	public void novaSessao(){
 		sessaoSelecionada = new SessaoTemplate();
 		RequestContext context = RequestContext.getCurrentInstance(); 
@@ -115,6 +168,10 @@ public class SessaoControl implements Serializable {
 	public void editarSessao(ActionEvent evt) {
 		sessaoSelecionada = (SessaoTemplate) UtilFaces.getValorParametro(evt,
 				"sesEditar");
+	}
+	
+	public void selecionarQuestao(QuestaoTemplate questaoTemplate){
+		this.questaoTemplate = questaoTemplate;
 	}
 
 	public void limpar() {
@@ -152,5 +209,54 @@ public class SessaoControl implements Serializable {
 	public void setSessaoSelecionada(SessaoTemplate sessaoSelecionada) {
 		this.sessaoSelecionada = sessaoSelecionada;
 	}
+
+	public String getEnunciado() {
+		return enunciado;
+	}
+
+	public void setEnunciado(String enunciado) {
+		this.enunciado = enunciado;
+	}
+
+	public List<AlternativaQuestao> getAlternativas() {
+		return alternativas;
+	}
+
+	public void setAlternativas(List<AlternativaQuestao> alternativas) {
+		this.alternativas = alternativas;
+	}
+
+	public List<ItemQuestaoTemplate> getItensQuestao() {
+		return itensQuestao;
+	}
+
+	public void setItensQuestao(List<ItemQuestaoTemplate> itensQuestao) {
+		this.itensQuestao = itensQuestao;
+	}
+
+	public List<QuestaoTemplate> getQuestoesTemplate() {
+		return questoesTemplate;
+	}
+
+	public void setQuestoesTemplate(List<QuestaoTemplate> questoesTemplate) {
+		this.questoesTemplate = questoesTemplate;
+	}
+
+	public QuestaoTemplate getQuestaoTemplate() {
+		return questaoTemplate;
+	}
+
+	public void setQuestaoTemplate(QuestaoTemplate questaoTemplate) {
+		this.questaoTemplate = questaoTemplate;
+	}
+
+	public List<QuestaoTemplate> getQuestoes() {
+		return questoes;
+	}
+
+	public void setQuestoes(List<QuestaoTemplate> questoes) {
+		this.questoes = questoes;
+	}
+	
 
 }

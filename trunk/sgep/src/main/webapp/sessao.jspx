@@ -15,32 +15,22 @@
 			<a:newLine/>
 			<p:dataTable widgetVar="sessoes" id="dtsessoes" value="#{SessaoControl.sessoes}" var="ses" width="100%"	emptyMessage="Sem registros" rows="20" paginator="true"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-				<p:column sortBy="#{ses.sessao.idSessao}">
-					<f:facet name="header">
-						<h:outputText value="Código" />
-					</f:facet>
-					<h:outputText value="#{ses.sessao.id}" />
+				<p:column headerText="Código">
+					<h:outputText value="#{ses.id}" />
 				</p:column>
-				<p:column sortBy="#{ses.sessao.titulo}">
-					<f:facet name="header">
-						<h:outputText value="Título" />
-					</f:facet>
+				<p:column headerText="Título">
 					<h:outputText value="#{ses.sessao.titulo}" />
 				</p:column>
-				<p:column sortBy="#{ses.sessao.descricao}">
-					<f:facet name="header">
-						<h:outputText value="Descrição" />
-					</f:facet>
+				<p:column headerText="Descrição">
 					<h:outputText value="#{ses.sessao.descricao}" />
 				</p:column>
 				<p:column headerText="Editar" style="width: 60px">
 					<p:commandButton oncomplete="PF('vCadSessao').show()" icon="ui-icon-pencil" style="margin-left: 10px">
-						
 					</p:commandButton>
 				</p:column>
 				<p:column headerText="Excluir" style="width: 60px">
 					<p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacao').show()" style="margin-left: 10px">
-						<f:setPropertyActionListener target="#{SessaoControl.sessaoSelecionada}" value="#{ses}" />
+						<f:setPropertyActionListener target="#{SessaoControl.sessao}" value="#{ses}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
@@ -49,25 +39,97 @@
 			<p:panel id="panel">
 			<a:newLine/>
 				<a:field label="Código">
-					<h:outputText value="#{SessaoControl.sessaoSelecionada.sessao.id}" />
+					<h:outputText value="#{SessaoControl.sessao.sessao.id}" />
 				</a:field>
 				<a:newLine />
 				<a:field label="Título">
-					<p:inputText value="#{SessaoControl.sessaoSelecionada.sessao.titulo}" style="width:500px"/>
+					<p:inputText value="#{SessaoControl.sessao.sessao.titulo}" style="width: 600px"/>
 				</a:field>
 				<a:newLine />
 				<a:field label="Descrição">
-					<p:inputTextarea value="#{SessaoControl.sessaoSelecionada.sessao.descricao}"
-						style="width:500px" />
+					<p:inputTextarea value="#{SessaoControl.sessao.sessao.descricao}"
+						 style="width: 600px" />
 				</a:field>
-				<a:newLine />
-				<p:commandButton icon="ui-icon-disk" actionListener="#{SessaoControl.confirmar}" value="Confirmar"
-					update="@form" ajax="false" oncomplete="vCadSessao.hide();">
-					<f:param value="#{SessaoControl.sessaoSelecionada}" id="sessaoSelecionada"/>
+				<a:newLine/>
+				<p:panel id="pnlQuestao" header="Adicionar questões">
+					<a:newLine/>
+					<a:field label="Questão" spaceLeft="10px">
+						<p:outputLabel id="oupQuestao" value="#{SessaoControl.questaoTemplate.questao.id} - #{SessaoControl.questaoTemplate.questao.enunciado}"/>
+						<p:spacer width="10px"/>
+						<p:commandButton value="Selecionar questão" update="tblQuestoes" oncomplete="PF('dlgQuestao').show();"/>
+						<p:spacer width="10px"/>
+						<p:commandButton value="Adicionar" actionListener="#{SessaoControl.adicionarItemQuestao}" update=":formCorpo:tblItemSess"/>
+					</a:field>
+					<a:newLine/>
+					<a:newLine/>
+					<p:dataTable id="tblItemSess" widgetVar="tblItemSess" var="item" style="width: 600px" value="#{SessaoControl.sessao.itensQuestao}" emptyMessage="Sem registros">
+						<p:column headerText="Código" style="width: 60px">
+							<h:outputText value="#{item.questaoTemplate.questao.id }"/>
+						</p:column>
+						<p:column headerText="Enunciado">
+							<h:outputText value="#{item.questaoTemplate.questao.enunciado }"/>
+						</p:column>
+						<p:column headerText="Remover" style="width: 70px; text-align: center">
+							<p:commandButton icon="ui-icon-trash" action="#{SessaoControl.removerQuestao(item)}" update=":formCorpo:tblItemSess">
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+				<a:newLine/>
+				<p:commandButton icon="ui-icon-disk" actionListener="#{SessaoControl.confirmar}" value="Confirmar" update="dtsessoes" ajax="false" oncomplete="vCadSessao.hide();">
+					<f:param value="#{SessaoControl.sessao}" id="sessaoSelecionada"/>
 				</p:commandButton>
 				<p:spacer width="45px" />
 			</p:panel>
 			<p:ajax event="close" listener="#{SessaoControl.listar}" />
+		</p:dialog>
+		<p:dialog header="Questões" widgetVar="dlgQuestao" resizable="true" showEffect="fade" hideEffect="fade" modal="true">
+			<p:panel header="Questões">
+				<a:newLine />
+				<a:newLine />
+				<p:dataTable id="tblQuestoes" widgetVar="tblQuestoes" var="questaoTemplate" style="width: 900px" value="#{SessaoControl.questoes}" emptyMessage="Sem registros">
+					<p:column headerText="Código" style="width: 60px; text-align: center">
+						<h:outputText value="#{questaoTemplate.questao.id}"/>
+					</p:column>
+					<p:column headerText="Assunto" style="width: 280px; text-align: center">
+						<h:outputText value="#{questaoTemplate.questao.assunto}"/>
+					</p:column>
+					<p:column headerText="Dificuldade" style="text-align: center">
+						<h:outputText value="#{questaoTemplate.questao.dificuldade}"/>
+					</p:column>
+					<p:column headerText="Enunciado" style="text-align: center">
+						<p:commandLink value="Visualizar" action="#{SessaoControl.consultrEnunciadoQuestao(questao)}" update=":formCorpo:dlgEnunciado">
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Alternativa" style="text-align: center">
+						<p:commandLink value="Visualizar" action="#{SessaoControl.consultarAlternativasQuestao(questao)}" update=":formCorpo:dlQuestao"/>
+					</p:column>
+					<p:column headerText="Resposta" style="width: 80px; text-align: center">
+						<h:outputText value="#{questaoTemplate.questao.resposta}"/>
+					</p:column>
+					<p:column headerText="Estado" style="text-align: center">
+						<h:outputText value="#{questaoTemplate.questao.estado}"/>
+					</p:column>
+					<p:column headerText="Selecionar" style="text-align: center">
+						<h:commandLink value="Selecionar" actionListener="#{SessaoControl.selecionarQuestao(questaoTemplate)}">
+							<p:ajax update=":formCorpo:oupQuestao" oncomplete="PF('dlgQuestao').hide();"/>
+						</h:commandLink>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</p:dialog>
+		<p:dialog header="Alternativas da questão" widgetVar="dlgAlternativa" minHeight="40" modal="true">
+    		<p:dataList id="dlQuestao" value="#{SessaoControl.alternativas}" var="alt" type="unordered" itemType="none" rows="10" styleClass="paginated">
+		        <p:panelGrid columns="2" style="margin-bottom: 1px">
+		        	<p:outputLabel value="#{alt.ordem}"/>
+		        	<p:outputLabel value="#{alt.descricao}"/>
+		        </p:panelGrid>
+    		</p:dataList>
+		</p:dialog>
+		<p:dialog id="dlgEnunciado" header="Enunciado da questão" widgetVar="dlgEnunciado" minHeight="40">
+	        <p:panelGrid columns="2" style="margin-bottom: 1px">
+	        	<p:outputLabel value="#{SessaoControl.enunciado}"/>
+	        </p:panelGrid>
 		</p:dialog>
 		<p:confirmDialog id="cdlExcluir" widgetVar="confirmacao" message="Tem Certeza que deseja excluir?" severity="alert" closable="true">
 			<p:commandButton value="Sim" actionListener="#{SessaoControl.excluir}" onclick="confirmacao.hide()" update="@form" process="@this" />

@@ -32,23 +32,21 @@ public class SessaoTemplate extends Entidade implements Serializable {
 	private Sessao sessao;
 
 	@OneToMany(mappedBy = "sessao", fetch = FetchType.LAZY, orphanRemoval = true)
-	private List<ItemQuestaoTemplate> itemQuestao = new ArrayList<ItemQuestaoTemplate>();
+	private List<ItemQuestaoTemplate> itensQuestao = new ArrayList<ItemQuestaoTemplate>();
 
 	public SessaoTemplate() {
 		sessao = new Sessao();
 	}
 
-	public void addQuestao(QuestaoTemplate questao) {
+	public void addItemQuestao(QuestaoTemplate questao) {
 		ItemQuestaoTemplate item = new ItemQuestaoTemplate(this, questao);
-		if (itemQuestao.contains(item)) {
-
-		} else {
-			itemQuestao.add(item);
+		if (!itensQuestao.contains(item)) {
+			itensQuestao.add(item);
 		}
 	}
 
 	public void removeQuestao(ItemQuestaoTemplate item) {
-		itemQuestao.remove(item);
+		itensQuestao.remove(item);
 	}
 
 	public Integer getId() {
@@ -67,12 +65,12 @@ public class SessaoTemplate extends Entidade implements Serializable {
 		this.sessao = sessao;
 	}
 
-	public List<ItemQuestaoTemplate> getItemQuestao() {
-		return itemQuestao;
+	public List<ItemQuestaoTemplate> getItensQuestao() {
+		return itensQuestao;
 	}
 
-	public void setItemQuestao(List<ItemQuestaoTemplate> itemQuestao) {
-		this.itemQuestao = itemQuestao;
+	public void setItensQuestao(List<ItemQuestaoTemplate> itensQuestao) {
+		this.itensQuestao = itensQuestao;
 	}
 
 }

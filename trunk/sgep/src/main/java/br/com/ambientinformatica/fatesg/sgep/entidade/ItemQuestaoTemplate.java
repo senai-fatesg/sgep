@@ -25,16 +25,16 @@ public class ItemQuestaoTemplate extends Entidade implements Serializable {
 	private SessaoTemplate sessao;
 
 	@ManyToOne
-	private QuestaoTemplate questao;
+	private QuestaoTemplate questaoTemplate;
 
 	private int numero;
 	
 	
 	public ItemQuestaoTemplate(){}
 
-	public ItemQuestaoTemplate(SessaoTemplate sessao, QuestaoTemplate questao) {
+	public ItemQuestaoTemplate(SessaoTemplate sessao, QuestaoTemplate questaoTemplate) {
 		this.sessao = sessao;
-		this.questao = questao;
+		this.questaoTemplate = questaoTemplate;
 	}
 
 
@@ -54,12 +54,12 @@ public class ItemQuestaoTemplate extends Entidade implements Serializable {
 		this.sessao = sessao;
 	}
 
-	public QuestaoTemplate getQuestao() {
-		return questao;
+	public QuestaoTemplate getQuestaoTemplate() {
+		return questaoTemplate;
 	}
 
-	public void setQuestao(QuestaoTemplate questao) {
-		this.questao = questao;
+	public void setQuestaoTemplate(QuestaoTemplate questaoTemplate) {
+		this.questaoTemplate = questaoTemplate;
 	}
 
 	public int getNumero() {

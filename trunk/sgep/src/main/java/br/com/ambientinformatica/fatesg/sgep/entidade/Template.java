@@ -1,5 +1,6 @@
 package br.com.ambientinformatica.fatesg.sgep.entidade;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +17,17 @@ import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.IndexColumn;
 
+import br.com.ambientinformatica.util.Entidade;
+
 @Entity
-public class Template {
+public class Template extends Entidade implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "template_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "template_seq", sequenceName = "template_seq", allocationSize = 1, initialValue = 1)
-	private Integer idTemplate;
+	private Integer id;
 
 	private String descricao;
 
@@ -31,7 +36,6 @@ public class Template {
 	@IndexColumn(name = "index_sessao")
 	private List<SessaoTemplate> sessoes = new ArrayList<SessaoTemplate>();
 
-	// Metodos
 	public void addSessao(SessaoTemplate sessao) throws Exception {
 		if (!sessoes.contains(sessao)) {
 			this.sessoes.add(sessao);
@@ -47,13 +51,12 @@ public class Template {
 		}
 	}
 
-	// Gets e Sets
-	public Integer getIdTemplate() {
-		return idTemplate;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setIdTemplate(Integer idTemplate) {
-		this.idTemplate = idTemplate;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getDescricao() {
@@ -70,45 +73,6 @@ public class Template {
 
 	public void setSessoes(List<SessaoTemplate> sessoes) {
 		this.sessoes = sessoes;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result
-				+ ((idTemplate == null) ? 0 : idTemplate.hashCode());
-		result = prime * result + ((sessoes == null) ? 0 : sessoes.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Template other = (Template) obj;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
-			return false;
-		if (idTemplate == null) {
-			if (other.idTemplate != null)
-				return false;
-		} else if (!idTemplate.equals(other.idTemplate))
-			return false;
-		if (sessoes == null) {
-			if (other.sessoes != null)
-				return false;
-		} else if (!sessoes.equals(other.sessoes))
-			return false;
-		return true;
 	}
 
 }

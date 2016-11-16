@@ -11,31 +11,21 @@
 		</a:field>
 		</p:panel>
 		<a:newLine/>
-		<p:panel id="pnLista">
+		<p:panel id="pnLista" header="Lista de modelos de prova">
 			<a:newLine/>
-			<p:dataTable widgetVar="provas" id="dtTemplates" value="#{TemplateControl.templates}" var="tem"
-				emptyMessage="Sem registros" rows="20" >
-				<f:facet name="header">
-					<h:outputText value="Lista de modelos de prova" />
-				</f:facet>
-				<p:column width="15px">
-					<f:facet name="header">
-						<h:outputText value="Código" />
-					</f:facet>
+			<p:dataTable widgetVar="provas" id="dtTemplates" value="#{TemplateControl.templates}" var="tem" emptyMessage="Sem registros" rows="20">
+				<p:column headerText="Código" style="width: 100px">
 					<h:outputText value="#{tem.idTemplate}" />
 				</p:column>
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="Período" />
-					</f:facet>
+				<p:column headerText="Descrição">
 					<h:outputText value="#{tem.descricao}" />
 				</p:column>
-				<p:column headerText="Editar" style="width: 60px">
-					<p:commandButton icon="ui-icon-pencil" update="@form" action="#{TemplateControl.carregarTemplate}" oncomplete="PF('dlgTemplate').show()" style="margin-left: 20%">
+				<p:column headerText="Editar" style="width: 100px">
+					<p:commandButton icon="ui-icon-pencil" update=":formCorpo:dlgTemplate" action="#{TemplateControl.carregarTemplate}" oncomplete="PF('dlgTemplate').show()" style="margin-left: 20%">
 						<f:setPropertyActionListener target="#{TemplateControl.templateSelecionada}" value="#{tem}" />
 					</p:commandButton>
 				</p:column>
-				<p:column headerText="Excluir" style="width: 60px">
+				<p:column headerText="Excluir" style="width: 100px">
 					<p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacao').show()" style="margin-left: 20%">
 						<f:setPropertyActionListener target="#{TemplateControl.templateSelecionada}" value="#{tem}" />
 					</p:commandButton>
@@ -48,46 +38,41 @@
 				</p:column>
 			</p:dataTable>
 		</p:panel>
-		<p:dialog id="dlgTemplate" modal="true" widgetVar="dlgTemplate" header="Cadastro de modelos de prova" resizable="false" width="600">
-			<p:panel id="panel">
+		<p:dialog id="dlgTemplate" modal="true" widgetVar="dlgTemplate" header="Cadastro de modelos de prova" resizable="false" width="700">
+			<a:newLine/>
+			<a:field label="Descrição">
+				<p:inputText value="#{TemplateControl.templateSelecionada.descricao}" style="width:400px" />
+			</a:field>
+			<a:newLine/>
+			<p:panel id="panel" header="Sessões">
 				<a:newLine/>
-				<a:field label="Descrição">
-					<p:inputText value="#{TemplateControl.templateSelecionada.descricao}" style="width:200px" />
-				</a:field>
-				<a:field label="Sessão" spaceLeft="10px">
+				<a:newLine/>
+				<p:panel id="pnlSessoes">
+				<a:field label="Sessão">
 					<p:autoComplete id="dd" dropdown="true" value="#{TemplateControl.sessaoItem}" completeMethod="#{TemplateControl.completarSessao}"
 						forceSelection="true" var="item" itemLabel="#{item.sessao.titulo}" itemValue="#{item}" converter="objectConverter">
-						<p:column>
-							<h:outputText styleClass="ui-theme ui-theme-#{item.sessao.idSessao}" />
-						</p:column>
-						<p:column>
-							<h:outputText value="#{item.sessao.titulo}" />
-						</p:column>
 					</p:autoComplete>
 				</a:field>
-				<a:field spaceLeft="15px">
-					<p:commandButton action="#{TemplateControl.adicionarSessao}"
-						value="Adicionar" update="@form"
-						oncomplete="PF('dlgTemplate').show()" icon="ui-icon-plusthick" />
-				</a:field>
+				<p:spacer width="45px"/>
+				<p:commandButton action="#{TemplateControl.adicionarSessao}" value="Adicionar" update=":formCorpo:dtsessoes" oncomplete="PF('dlgTemplate').show()" icon="ui-icon-plusthick" style="margin-top: 30px" />
 				<a:newLine />
-				<p:panel id="pnlSessoes">
 					<a:newLine/>
-					<p:dataTable id="dtsessoes" value="#{TemplateControl.templateSelecionada.sessoes}" var="sess" emptyMessage="Sem registros" rows="10" paginator="true">
+					<p:dataTable id="dtsessoes" value="#{TemplateControl.templateSelecionada.sessoes}" var="sess" emptyMessage="Sem registros" rows="10">
 						<p:column headerText="Titulo">
 							<h:outputText value="#{sess.sessao.titulo}" />
 						</p:column>
-						<p:column headerText="Ação">
-							<p:commandButton icon="ui-icon-trash" action="#{TemplateControl.removerSessao}" update="pnlSessoes">
+						<p:column headerText="Descrição">
+							<h:outputText value="#{sess.sessao.descricao}" />
+						</p:column>
+						<p:column headerText="Remover" style="width: 70px">
+							<p:commandButton icon="ui-icon-trash" action="#{TemplateControl.removerSessao}" update=":formCorpo:pnlSessoes">
 								<f:setPropertyActionListener target="#{TemplateControl.sessaoItem}" value="#{sess}" />
 							</p:commandButton>
 						</p:column>
 					</p:dataTable>
 				</p:panel>
 				<a:field>
-					<p:commandButton icon="ui-icon-plusthick"
-						actionListener="#{TemplateControl.confirmar}" value="Confirmar"
-						update="@form" oncomplete="dlgTemplate.hide();" />
+					<p:commandButton icon="ui-icon-plusthick" actionListener="#{TemplateControl.confirmar}" value="Confirmar" update="@form" oncomplete="dlgTemplate.hide();" />
 				</a:field>
 				<p:spacer width="45px" />
 				<a:newLine />
