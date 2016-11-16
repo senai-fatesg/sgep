@@ -358,8 +358,8 @@ public class ProvaControl {
 				sessaoPro.getSessao().setTitulo(
 						sessaoTem.getSessao().getTitulo());
 
-				for (ItemQuestaoTemplate item : sessaoTem.getItemQuestao()) {
-					sessaoPro.addQuestao(converterQuestao(item.getQuestao()));
+				for (ItemQuestaoTemplate item : sessaoTem.getItensQuestao()) {
+					sessaoPro.addQuestao(converterQuestao(item.getQuestaoTemplate()));
 				}
 				provaSelecionada.addSessao(sessaoPro);
 			}

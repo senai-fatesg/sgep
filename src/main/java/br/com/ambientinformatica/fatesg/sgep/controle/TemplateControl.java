@@ -59,7 +59,7 @@ public class TemplateControl {
 
 	public void excluir() {
 		try {
-			templateDao.excluirPorId(templateSelecionada.getIdTemplate());
+			templateDao.excluirPorId(templateSelecionada.getId());
 			templateSelecionada = new Template();
 			templates = templateDao.listar();
 		} catch (Exception e) {
@@ -89,8 +89,7 @@ public class TemplateControl {
 
 	public void carregarTemplate() {
 		try {
-			templateSelecionada = templateDao
-					.carregarTemplate(templateSelecionada);
+			templateSelecionada = templateDao.carregarTemplate(templateSelecionada);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Não foi possivel carregar o template.");
 		}
