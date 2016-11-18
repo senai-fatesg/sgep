@@ -70,4 +70,16 @@ public class ItemQuestaoTemplate extends Entidade implements Serializable {
 		this.numero = numero;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		ItemQuestaoTemplate other = (ItemQuestaoTemplate) obj;
+		if (questaoTemplate == null) {
+			if (other.questaoTemplate != null)
+				return false;
+		} else if (!questaoTemplate.equals(other.questaoTemplate))
+			return false;
+		return true;
+	}
+	
+
 }
