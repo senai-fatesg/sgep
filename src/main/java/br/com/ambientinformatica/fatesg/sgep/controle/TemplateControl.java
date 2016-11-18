@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.event.ActionEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +35,14 @@ public class TemplateControl {
 
 	@PostConstruct
 	public void init() {
-		listar(null);
+		listar();
 
 	}
 
 	public void confirmar(ActionEvent evt) {
 		try {
 			templateDao.alterar(templateSelecionada);
-			listar(evt);
+			listar();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		} finally {
@@ -49,7 +50,7 @@ public class TemplateControl {
 		}
 	}
 
-	public void listar(ActionEvent evt) {
+	public void listar() {
 		try {
 			templates = templateDao.listar();
 		} catch (Exception e) {
@@ -96,20 +97,21 @@ public class TemplateControl {
 	}
 
 	public void adicionarSessao() {
-		try {
-			templateSelecionada.addSessao(sessaoItem);
-		} catch (Exception e) {
-			UtilFaces
-					.addMensagemFaces("Ocorreu um erro inesperado ao adicionar a alternativa.\n"
-							+ e.getMessage());
-		} finally {
+		if (sessaoItem.getId() != null) {
+			try {
+				templateSelecionada.addSessao(sessaoItem);
+			} catch (Exception e) {
+				UtilFaces.addMensagemFaces(e.getMessage(), FacesMessage.SEVERITY_WARN);
+			}
 			sessaoItem = new SessaoTemplate();
+		}else {
+			UtilFaces.addMensagemFaces("Selecione uma sessão para adicionar!", FacesMessage.SEVERITY_ERROR);
 		}
 	}
 
-	public void removerSessao() {
+	public void removerSessao(SessaoTemplate sessaoItem) {
 		try {
-			this.templateSelecionada.removerSessao(sessaoItem);
+			templateSelecionada.removerSessao(sessaoItem);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Não foi possível remover a sessão.");
 		} finally {
@@ -117,7 +119,6 @@ public class TemplateControl {
 		}
 	}
 
-	// Gets e Sets
 	public TemplateDao getTemplateDao() {
 		return templateDao;
 	}
