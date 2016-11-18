@@ -36,6 +36,7 @@
 			</p:dataTable>
 		</p:panel>
 		<p:dialog id="dlgSessao" modal="true" widgetVar="vCadSessao" header="Cadastro de Sessões" resizable="false">
+			<p:messages autoUpdate="true" closable="true" />
 			<p:panel id="panel">
 			<a:newLine/>
 				<a:field label="Código">
@@ -60,7 +61,7 @@
 						<p:commandButton icon="ui-icon-search" update="tblQuestoes" oncomplete="PF('dlgQuestao').show();"/>
 					</a:field>
 					<a:newLine/>
-					<p:commandButton value="Adicionar" actionListener="#{SessaoControl.adicionarItemQuestao}" update=":formCorpo:tblItemSess"/>
+					<p:commandButton value="Adicionar" actionListener="#{SessaoControl.adicionarItemQuestao}" update=":formCorpo:tblItemSess oupQuestao"/>
 					<a:newLine/>
 					<p:dataTable id="tblItemSess" widgetVar="tblItemSess" var="item" style="width: 600px" value="#{SessaoControl.sessao.itensQuestao}" emptyMessage="Sem registros">
 						<p:column headerText="Código" style="width: 60px">
@@ -76,7 +77,7 @@
 					</p:dataTable>
 				</p:panel>
 				<a:newLine/>
-				<p:commandButton icon="ui-icon-disk" actionListener="#{SessaoControl.confirmar}" value="Confirmar" update="dtsessoes" ajax="false" oncomplete="vCadSessao.hide();">
+				<p:commandButton icon="ui-icon-disk" actionListener="#{SessaoControl.confirmar}"  value="Confirmar" update="@form :formCorpo:dlgSessao" ajax="false" oncomplete="vCadSessao.hide();">
 					<f:param value="#{SessaoControl.sessao}" id="sessaoSelecionada"/>
 				</p:commandButton>
 				<p:spacer width="45px" />
@@ -87,7 +88,7 @@
 			<p:panel header="Questões">
 				<a:newLine />
 				<a:newLine />
-				<p:dataTable id="tblQuestoes" widgetVar="tblQuestoes" var="questaoTemplate" style="width: 900px" value="#{SessaoControl.questoes}" emptyMessage="Sem registros">
+				<p:dataTable id="tblQuestoes" widgetVar="tblQuestoes" var="questaoTemplate" style="width: 900px" value="#{SessaoControl.questoes}" emptyMessage="Sem registros" rows="10" paginator="true">
 					<p:column headerText="Código" style="width: 60px; text-align: center">
 						<h:outputText value="#{questaoTemplate.questao.id}"/>
 					</p:column>
