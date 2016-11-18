@@ -32,7 +32,7 @@ public class Template extends Entidade implements Serializable{
 	private String descricao;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "template_sessao", joinColumns = { @JoinColumn(name = "idTemplate") }, inverseJoinColumns = { @JoinColumn(name = "idSessaoTemplate") })
+	@JoinTable(name = "template_sessao", joinColumns = { @JoinColumn(name = "template_id") }, inverseJoinColumns = { @JoinColumn(name = "sessaotemplate_id") })
 	@IndexColumn(name = "index_sessao")
 	private List<SessaoTemplate> sessoes = new ArrayList<SessaoTemplate>();
 
@@ -40,7 +40,6 @@ public class Template extends Entidade implements Serializable{
 		if (!sessoes.contains(sessao)) {
 			this.sessoes.add(sessao);
 		} else {
-
 			throw new Exception("Sessão já adicionada.");
 		}
 	}

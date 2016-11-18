@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,7 +15,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 
-import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.util.Entidade;
 
 @Entity
@@ -76,5 +74,16 @@ public class SessaoTemplate extends Entidade implements Serializable {
 	public void setItensQuestao(List<ItemQuestaoTemplate> itensQuestao) {
 		this.itensQuestao = itensQuestao;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		SessaoTemplate other = (SessaoTemplate) obj;
+		if (sessao == null) {
+			if (other.sessao != null)
+				return false;
+		} else if (!sessao.equals(other.sessao))
+			return false;
+		return true;
+	}
+	
 
 }

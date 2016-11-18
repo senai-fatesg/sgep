@@ -32,13 +32,14 @@
 				</p:column>
 				<p:column headerText="Gerar prova" style="width: 105px">
 					<p:remoteCommand name="preencherProva"  action="#{ProvaControl.preencherProva}"/>
-					<p:commandButton icon="ui-icon-bookmark" action="/gerarprova.jspx?faces-redirect=true" onsuccess="preencherProva()" style="margin-left: 10%; width: 80px">
+					<p:commandButton icon="ui-icon-bookmark" action="/gerarProva.jspx?faces-redirect=true" onsuccess="preencherProva()" style="margin-left: 10%; width: 80px">
 						<f:setPropertyActionListener target="#{ProvaControl.template}" value="#{tem}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
 		<p:dialog id="dlgTemplate" modal="true" widgetVar="dlgTemplate" header="Cadastro de modelos de prova" resizable="false" width="700">
+			<p:messages autoUpdate="true" closable="true" />
 			<a:newLine/>
 			<a:field label="Descrição">
 				<p:inputText value="#{TemplateControl.templateSelecionada.descricao}" style="width:400px" />
@@ -49,12 +50,12 @@
 				<a:newLine/>
 				<p:panel id="pnlSessoes">
 				<a:field label="Sessão">
-					<p:autoComplete id="dd" dropdown="true" value="#{TemplateControl.sessaoItem}" completeMethod="#{TemplateControl.completarSessao}"
+					<p:autoComplete id="autCompSessao" dropdown="true" value="#{TemplateControl.sessaoItem}" completeMethod="#{TemplateControl.completarSessao}"
 						forceSelection="true" var="item" itemLabel="#{item.sessao.titulo}" itemValue="#{item}" converter="objectConverter">
 					</p:autoComplete>
 				</a:field>
 				<p:spacer width="45px"/>
-				<p:commandButton action="#{TemplateControl.adicionarSessao}" value="Adicionar" update=":formCorpo:dtsessoes" oncomplete="PF('dlgTemplate').show()" icon="ui-icon-plusthick" style="margin-top: 30px" />
+				<p:commandButton action="#{TemplateControl.adicionarSessao}" value="Adicionar" update=":formCorpo:dtsessoes :formCorpo:autCompSessao" oncomplete="PF('dlgTemplate').show()" icon="ui-icon-plusthick" style="margin-top: 30px" />
 				<a:newLine />
 					<a:newLine/>
 					<p:dataTable id="dtsessoes" value="#{TemplateControl.templateSelecionada.sessoes}" var="sess" emptyMessage="Sem registros" rows="10">
@@ -64,10 +65,8 @@
 						<p:column headerText="Descrição">
 							<h:outputText value="#{sess.sessao.descricao}" />
 						</p:column>
-						<p:column headerText="Remover" style="width: 70px">
-							<p:commandButton icon="ui-icon-trash" action="#{TemplateControl.removerSessao}" update=":formCorpo:pnlSessoes">
-								<f:setPropertyActionListener target="#{TemplateControl.sessaoItem}" value="#{sess}" />
-							</p:commandButton>
+						<p:column headerText="Remover" style="width: 70px; text-align: center">
+							<p:commandButton icon="ui-icon-trash" action="#{TemplateControl.removerSessao(sess)}" update=":formCorpo:pnlSessoes"/>
 						</p:column>
 					</p:dataTable>
 				</p:panel>
