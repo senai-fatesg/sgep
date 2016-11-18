@@ -150,6 +150,19 @@ public class SessaoControl implements Serializable {
 		return null;
 	}
 	
+	public QuestaoTemplate consultarEnunciadoQuestao(QuestaoTemplate questao){
+		try {
+			if (questao != null) {
+				QuestaoTemplate questaoTemp = questaoTemplateDao.consultarEnunciadoQuestao(questao);
+				enunciado = questaoTemp.getQuestao().getEnunciado();
+				RequestContext.getCurrentInstance().execute("PF('dlgEnunciado').show();");
+			}
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces(e.getMessage());
+		}
+		return null;
+	}
+	
 	public void adicionarItemQuestao(){
 		sessao.addItemQuestao(questaoTemplate);
 		questaoTemplate = new QuestaoTemplate();

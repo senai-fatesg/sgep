@@ -14,7 +14,7 @@ import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
 
 @Repository("questaoTemplateDao")
 public class QuestaoTemplateDaoJpa extends PersistenciaJpa<QuestaoTemplate>
-		implements QuestaoTemplateDao {
+implements QuestaoTemplateDao {
 
 	private static final long serialVersionUID = 1L;
 
@@ -81,7 +81,7 @@ public class QuestaoTemplateDaoJpa extends PersistenciaJpa<QuestaoTemplate>
 		}
 		return null;
 	}
-	
+
 	@Override
 	public QuestaoTemplate consultarAlternativasQuestao(QuestaoTemplate questaoTemplate) {
 		try {
@@ -92,10 +92,23 @@ public class QuestaoTemplateDaoJpa extends PersistenciaJpa<QuestaoTemplate>
 			}
 			return (QuestaoTemplate) query.getSingleResult();
 		} catch (Exception e) {
-			System.out.println(e);
 			UtilFaces.addMensagemFaces(e.getMessage());
 		}
 		return null;
 	}
-	
+
+	@Override
+	public QuestaoTemplate consultarEnunciadoQuestao(QuestaoTemplate questaoTemplate){
+		try {
+			String sql = "select qt from QuestaoTemplate qt left join fetch qt.questao q left join fetch q.professor p where q.id = :id";
+			Query query = em.createQuery(sql);
+			if (questaoTemplate != null) {
+				query.setParameter("id", questaoTemplate.getId());
+			}
+			return (QuestaoTemplate) query.getSingleResult();
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces(e.getMessage());
+		}
+		return null;
+}
 }

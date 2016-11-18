@@ -14,4 +14,6 @@ public interface QuestaoTemplateDao extends Persistencia<QuestaoTemplate> {
 	public List<QuestaoTemplate> listarQuestoes() throws Exception;
 	
 	QuestaoTemplate consultarAlternativasQuestao(QuestaoTemplate questaoTemplate) throws Exception;
+
+	QuestaoTemplate consultarEnunciadoQuestao(QuestaoTemplate questao) throws Exception;
 }
