@@ -54,13 +54,13 @@
 				<p:panel id="pnlQuestao" header="Adicionar questões">
 					<a:newLine/>
 					<a:field label="Questão" spaceLeft="10px">
-						<p:outputLabel id="oupQuestao" value="#{SessaoControl.questaoTemplate.questao.id} - #{SessaoControl.questaoTemplate.questao.enunciado}"/>
-						<p:spacer width="10px"/>
-						<p:commandButton value="Selecionar questão" update="tblQuestoes" oncomplete="PF('dlgQuestao').show();"/>
-						<p:spacer width="10px"/>
-						<p:commandButton value="Adicionar" actionListener="#{SessaoControl.adicionarItemQuestao}" update=":formCorpo:tblItemSess"/>
+						<p:outputLabel id="oupQuestao" value="#{SessaoControl.questaoTemplate.questao.id} - #{SessaoControl.questaoTemplate.questao.enunciado}" style="width: 500px"/>
+					</a:field>
+					<a:field label="Pesquisar" spaceLeft="10px">
+						<p:commandButton icon="ui-icon-search" update="tblQuestoes" oncomplete="PF('dlgQuestao').show();"/>
 					</a:field>
 					<a:newLine/>
+					<p:commandButton value="Adicionar" actionListener="#{SessaoControl.adicionarItemQuestao}" update=":formCorpo:tblItemSess"/>
 					<a:newLine/>
 					<p:dataTable id="tblItemSess" widgetVar="tblItemSess" var="item" style="width: 600px" value="#{SessaoControl.sessao.itensQuestao}" emptyMessage="Sem registros">
 						<p:column headerText="Código" style="width: 60px">
@@ -98,11 +98,11 @@
 						<h:outputText value="#{questaoTemplate.questao.dificuldade}"/>
 					</p:column>
 					<p:column headerText="Enunciado" style="text-align: center">
-						<p:commandLink value="Visualizar" action="#{SessaoControl.consultrEnunciadoQuestao(questao)}" update=":formCorpo:dlgEnunciado">
+						<p:commandLink value="Visualizar" action="#{SessaoControl.consultarEnunciadoQuestao(questaoTemplate)}" update=":formCorpo:dlgEnunciado">
 						</p:commandLink>
 					</p:column>
 					<p:column headerText="Alternativa" style="text-align: center">
-						<p:commandLink value="Visualizar" action="#{SessaoControl.consultarAlternativasQuestao(questao)}" update=":formCorpo:dlQuestao"/>
+						<p:commandLink value="Visualizar" action="#{SessaoControl.consultarAlternativasQuestao(questaoTemplate)}" update=":formCorpo:dlQuestao"/>
 					</p:column>
 					<p:column headerText="Resposta" style="width: 80px; text-align: center">
 						<h:outputText value="#{questaoTemplate.questao.resposta}"/>
