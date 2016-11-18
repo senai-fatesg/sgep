@@ -11,9 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
+import br.com.ambientinformatica.util.Entidade;
+
 
 @Entity
-public class QuestaoTemplate implements Serializable {
+public class QuestaoTemplate extends Entidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

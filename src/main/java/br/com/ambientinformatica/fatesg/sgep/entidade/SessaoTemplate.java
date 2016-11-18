@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 
+import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.util.Entidade;
 
 @Entity
@@ -38,10 +40,12 @@ public class SessaoTemplate extends Entidade implements Serializable {
 		sessao = new Sessao();
 	}
 
-	public void addItemQuestao(QuestaoTemplate questao) {
+	public void addItemQuestao(QuestaoTemplate questao) throws Exception{
 		ItemQuestaoTemplate item = new ItemQuestaoTemplate(this, questao);
 		if (!itensQuestao.contains(item)) {
 			itensQuestao.add(item);
+		}else {
+			throw new Exception("Esta questão já foi adicionada");
 		}
 	}
 

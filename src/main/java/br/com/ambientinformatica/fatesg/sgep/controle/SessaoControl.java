@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.event.ActionEvent;
 
 import org.primefaces.context.RequestContext;
@@ -84,7 +85,6 @@ public class SessaoControl implements Serializable {
 		sessaoSelecionada = (SessaoTemplate) UtilFaces.getValorParametro(evt, "sessaoSelecionada");
 		try {
 			sessaoDao.alterar(sessaoSelecionada);
-			limpar();
 			listar();
 			UtilFaces.addMensagemFaces("Sessão incluída com sucesso.");
 		} catch (PersistenciaException e) {
@@ -94,6 +94,7 @@ public class SessaoControl implements Serializable {
 
 	public void listar() {
 		try {
+			limpar();
 			sessoes = sessaoDao.listar();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
@@ -164,8 +165,16 @@ public class SessaoControl implements Serializable {
 	}
 	
 	public void adicionarItemQuestao(){
-		sessao.addItemQuestao(questaoTemplate);
-		questaoTemplate = new QuestaoTemplate();
+		if (questaoTemplate.getQuestao().getId() != null) {
+			try {
+				sessao.addItemQuestao(questaoTemplate);
+			} catch (Exception e) {
+				UtilFaces.addMensagemFaces(e.getMessage(), FacesMessage.SEVERITY_WARN);
+			}
+			questaoTemplate = new QuestaoTemplate();
+		}else{
+			UtilFaces.addMensagemFaces("Selecione uma questão para adicionar!", FacesMessage.SEVERITY_ERROR);
+		}
 	}
 	
 	public void removerItemQuestao(ItemQuestaoTemplate item){
@@ -189,6 +198,8 @@ public class SessaoControl implements Serializable {
 
 	public void limpar() {
 		sessaoSelecionada = new SessaoTemplate();
+		sessao = new SessaoTemplate();
+		questaoTemplate =  new QuestaoTemplate();
 	}
 
 	public SessaoTemplateDao getSessaoDao() {
