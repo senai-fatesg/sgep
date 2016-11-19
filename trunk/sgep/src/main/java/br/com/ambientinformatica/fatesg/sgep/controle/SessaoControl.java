@@ -8,8 +8,10 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.hibernate.Hibernate;
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -96,6 +98,9 @@ public class SessaoControl implements Serializable {
 		try {
 			limpar();
 			sessoes = sessaoDao.listar();
+			for (int i = 0; i < sessoes.size(); i++) {
+				Hibernate.initialize(sessoes.get(i).getItensQuestao());
+			}
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
@@ -112,9 +117,11 @@ public class SessaoControl implements Serializable {
 
 	public void excluir() {
 		try {
-			sessaoDao.excluirPorId(sessaoSelecionada.getId());
+			sessaoDao.excluirPorId(sessao.getId());
 			sessaoSelecionada = new SessaoTemplate();
 			sessoes = sessaoDao.listar();
+			FacesContext.getCurrentInstance().getExternalContext()
+			.redirect("/sgep/sessao.jsf");
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
@@ -187,8 +194,9 @@ public class SessaoControl implements Serializable {
 		context.execute("PF('vCadSessao').show();");	
 	}
 
+	@Deprecated
 	public void editarSessao(ActionEvent evt) {
-		sessaoSelecionada = (SessaoTemplate) UtilFaces.getValorParametro(evt,
+		sessao = (SessaoTemplate) UtilFaces.getValorParametro(evt,
 				"sesEditar");
 	}
 	
