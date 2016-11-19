@@ -54,9 +54,10 @@ public class Questao extends Entidade implements Serializable {
 
 	private Boolean objetiva = true;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "questao_id")
 	@IndexColumn(name = "index_alternativa")
+	//definido como eager pelo fato de a quantidade de alternativas relacionadas à questão ser pequena
 	private List<AlternativaQuestao> alternativas = new ArrayList<AlternativaQuestao>();
 
 	// Metodos

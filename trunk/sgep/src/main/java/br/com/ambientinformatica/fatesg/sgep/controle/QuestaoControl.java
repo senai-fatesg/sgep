@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.primefaces.context.RequestContext;
@@ -117,6 +118,8 @@ public class QuestaoControl implements Serializable {
 			questaoDao.excluirPorId(questaoSelecionada.getId());
 			questaoSelecionada = new QuestaoTemplate();
 			questoes = questaoDao.listar();
+			FacesContext.getCurrentInstance().getExternalContext().
+			redirect("/sgep/questao.jsf");
 		} catch (Exception e) {
 			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", e.getMessage()));
 		}
