@@ -18,7 +18,7 @@ public class ProvaDaoJpa extends PersistenciaJpa<Prova> implements ProvaDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Prova> listarProvas() throws PersistenciaException {
-		String sql = ("select p from Prova p left join fetch p.curso c left join fetch p.disciplina d left join fetch p.instituicao i left join fetch p.sessoes s");
+		String sql = ("select distinct p from Prova p left join fetch p.curso c left join fetch p.disciplina d left join fetch p.instituicao i left join fetch p.sessoes s");
 		Query query = em.createQuery(sql);
 		return query.getResultList();
 	}
