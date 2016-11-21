@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -24,8 +25,10 @@ public class SessaoTemplateDaoJpa extends PersistenciaJpa<SessaoTemplate> implem
 		Criteria criteria = session.createCriteria(SessaoTemplate.class);
 		
 		if (StringUtils.isNotBlank(titulo)) {
+			criteria.setProjection(Projections.distinct(Projections.property("titulo")));
 			criteria.add(Restrictions.ilike("sessao.titulo", titulo.toUpperCase(), MatchMode.START));
 		}
 		return criteria.list();
 	}
+	
 }

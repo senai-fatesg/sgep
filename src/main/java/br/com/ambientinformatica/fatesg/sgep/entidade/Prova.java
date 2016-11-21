@@ -12,15 +12,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.IndexColumn;
 
 import br.com.ambientinformatica.fatesg.api.entidade.Aluno;
 import br.com.ambientinformatica.fatesg.api.entidade.Curso;
@@ -54,8 +50,8 @@ public class Prova {
 	private Instituicao instituicao;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "prova_sessao", joinColumns = { @JoinColumn(name = "idProva") }, inverseJoinColumns = { @JoinColumn(name = "idSessaoProva") })
-	@IndexColumn(name = "sessao")
+	//@JoinTable(name = "prova_sessao", joinColumns = { @JoinColumn(name = "idProva") }, inverseJoinColumns = { @JoinColumn(name = "idSessaoProva") })
+	//@IndexColumn(name = "sessao")
 	private List<SessaoProva> sessoes = new ArrayList<SessaoProva>();
 
 	public void addSessao(SessaoProva sessao) throws Exception {

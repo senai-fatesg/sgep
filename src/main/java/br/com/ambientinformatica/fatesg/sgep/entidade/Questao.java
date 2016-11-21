@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -33,8 +34,10 @@ public class Questao extends Entidade implements Serializable {
 	@SequenceGenerator(name = "questao_seq", sequenceName = "questao_seq", allocationSize = 1, initialValue = 1)
 	private Integer id;
 
+	@Column(length=2000)
 	private String enunciado;
-
+	
+	@Column(length=500)
 	private String assunto;
 
 	@ManyToOne

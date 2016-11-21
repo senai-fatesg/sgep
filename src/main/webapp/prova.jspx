@@ -11,35 +11,6 @@
 		<p:growl id="messages" life="6000" />
 		<p:panel header="Provas" id="pnlProva">
 			<a:newLine />
-			<a:field label="Data da Prova">
-				<p:inputMask value="#{ProvaControl.prova.data}" mask="99/99/9999">
-					<f:convertDateTime pattern="dd/MM/yyyy"/>
-				</p:inputMask>
-			</a:field>
-			<a:field label="Instituição" spaceLeft="10px">
-				<p:autoComplete id="completInstituicao" minQueryLength="3" value="#{ProvaControl.prova.instituicao}" dropdown="tre"
-					completeMethod="#{ProvaControl.completarInstituicao}" var="ins" itemLabel="#{ins.nomeFantasia}" itemValue="#{ins}" converter="objectConverter" forceSelection="true"
-					effect="fade" />
-			</a:field>
-			<a:field label="Curso" spaceLeft="10px">
-				<p:autoComplete id="completCurso" minQueryLength="3" value="#{ProvaControl.prova.curso}" completeMethod="#{ProvaControl.completarCurso}" var="cur" dropdown="tre"
-					itemLabel="#{cur.nome}" itemValue="#{cur}" converter="objectConverter" forceSelection="true" effect="fade"/>
-			</a:field>
-			<a:field label="Disciplina1512" spaceLeft="10px">
-				<p:autoComplete id="completDisciplina" minQueryLength="3" value="#{ProvaControl.prova.disciplina}" completeMethod="#{ProvaControl.completarDisciplina}" var="disc" dropdown="tre"
-					itemLabel="#{disc.nome}" itemValue="#{disc}" converter="objectConverter" forceSelection="true" effect="fade"/>
-			</a:field>
-			<a:field label="Período" spaceLeft="10px">
-				<p:selectOneMenu id="periodo" value="#{ProvaControl.prova.periodo}" converter="objectConverter" style="width:180px;">
-					<f:selectItem id="sltPeriodo" itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
-					<f:selectItems value="#{ProvaControl.periodos}" itemLabel="#{sys}" itemValue="#{sys}" />
-				</p:selectOneMenu>
-			</a:field>
-			<p:spacer width="20px"/>
-			<div class="controllers">
-				<p:commandButton id="btnConfirm" value="Confirmar" icon="ui-icon-disk" actionListener="#{ProvaControl.confirmarNovaProva}" ajax="false" style="margin-left: 10px" update="@form"/>
-				<p:commandButton id="btnLimpar" value="Limpar" icon="ui-icon-arrowrefresh-1-n" style="margin-left: 10px"/>
-			</div>
 			<a:newLine />
 			<p:dataTable widgetVar="provas" id="dtprovas" value="#{ProvaControl.provas}" var="prova" emptyMessage="Sem registros" rows="20" paginator="true"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
@@ -63,8 +34,13 @@
 				<p:column headerText="Disciplina" style="width: 240px; text-align: center">
 					<h:outputText value="#{prova.disciplina.nome}"/>
 				</p:column>
-				<p:column headerText="Editar" style="width: 60px; text-align: center">
-					<p:commandButton icon="ui-icon-pencil" actionListener="#{ProvaControl.editarProva(prova)}" process="@this" update="@form"/> 
+				<p:column headerText="Editar" style="width: 80px; text-align: center">
+					<p:commandButton icon="ui-icon-pencil" actionListener="#{ProvaControl.editarProva(prova)}" process="@this" update="@form" style="width: 60px"/> 
+				</p:column>
+				<p:column headerText="Imprimir" style="width: 80px; text-align: center">
+					<p:commandButton icon="ui-icon-print" ajax="false" actionListener="#{ProvaControl.imprimirProva}" style="width: 60px">
+						<f:param value="#{prova}" id="sesImprimir"  />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</p:panel>

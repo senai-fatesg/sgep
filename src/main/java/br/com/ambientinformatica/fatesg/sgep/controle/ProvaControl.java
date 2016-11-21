@@ -11,7 +11,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
-import org.primefaces.event.DragDropEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -132,8 +131,7 @@ public class ProvaControl {
 	}
 
 	public void imprimirProva(ActionEvent evt) {
-		Prova provaImprimir = (Prova) UtilFaces.getValorParametro(evt,
-				"sesImprimir");
+		Prova provaImprimir = (Prova) UtilFaces.getValorParametro(evt, "sesImprimir");
 
 		Map<String, Object> parametros = new HashMap<String, Object>();
 		parametros.put("nomeInstituicao", "Senai");
@@ -144,11 +142,9 @@ public class ProvaControl {
 		parametros.put("periodo", 2);
 
 		try {
-			UtilFacesRelatorio.gerarRelatorioFaces("jasper/prova.jasper",
-					provaImprimir.getSessoes(), parametros);
+			UtilFacesRelatorio.gerarRelatorioFaces("jasper/prova2.jasper", provaImprimir.getSessoes(), parametros);
 		} catch (Exception e) {
-			UtilFaces.addMensagemFaces("Houve um erro ao gerar o Relatório: "
-					+ e);
+			UtilFaces.addMensagemFaces("Houve um erro ao gerar o Relatório: " + e);
 		}
 	}
 
@@ -226,7 +222,7 @@ public class ProvaControl {
 
 	public void listar() {
 		try {
-			provas = provaDao.listar();
+			provas = provaDao.listarProvas();
 			limpar();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
@@ -271,22 +267,18 @@ public class ProvaControl {
 		provaSelecionada = new Prova();
 	}
 
-	public void onQuestaoDrop(DragDropEvent ddEvent) {
-		QuestaoTemplate questao = ((QuestaoTemplate) ddEvent.getData());
-		questoes.remove(questao);
-
-		for (SessaoProva sessao : provaSelecionada.getSessoes()) {
-			if (sessao
-					.getSessao()
-					.getTitulo()
-					.equalsIgnoreCase(
-							getSessaoSelecionada().getSessao().getTitulo())) {
-				int indice = provaSelecionada.getSessoes().indexOf(sessao);
-				provaSelecionada.getSessoes().get(indice)
-				.addQuestao(converterQuestao(questao));
-			}
-		}
-	}
+//	public void onQuestaoDrop(DragDropEvent ddEvent) {
+//		QuestaoTemplate questao = ((QuestaoTemplate) ddEvent.getData());
+//		questoes.remove(questao);
+//
+//		for (SessaoProva sessao : provaSelecionada.getSessoes()) {
+//			if (sessao.getSessao().getTitulo().equalsIgnoreCase(getSessaoSelecionada().getSessao().getTitulo())) {
+//				int indice = provaSelecionada.getSessoes().indexOf(sessao);
+//				provaSelecionada.getSessoes().get(indice)
+//				.addQuestao(converterQuestao(questao));
+//			}
+//		}
+//	}
 
 	public void carregaSelecao() {
 		System.out.println("Valeu falou " + getSessaoSelecionada());
@@ -435,10 +427,8 @@ public class ProvaControl {
 
 	public void pesquisarQuestao() {
 		try {
-
 			String p = (String) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("pesQuestao");
 			questoes = questaoTemplateDao.consultarPor(pesquisa, tipoPesquisa);
-			System.out.println(questoes);
 		} catch (Exception e) {
 			UtilFaces
 			.addMensagemFaces("Não foi possivel consultar as questões.");

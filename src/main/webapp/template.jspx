@@ -20,13 +20,13 @@
 				<p:column headerText="Descrição">
 					<h:outputText value="#{tem.descricao}" />
 				</p:column>
-				<p:column headerText="Editar" style="width: 100px">
-					<p:commandButton icon="ui-icon-pencil" update=":formCorpo:dlgTemplate" action="#{TemplateControl.carregarTemplate}" oncomplete="PF('dlgTemplate').show()" style="margin-left: 20%">
+				<p:column headerText="Editar" style="width: 105px">
+					<p:commandButton icon="ui-icon-pencil" update=":formCorpo:dlgTemplate" oncomplete="PF('dlgTemplate').show()" style="margin-left: 10%; width: 80px">
 						<f:setPropertyActionListener target="#{TemplateControl.templateSelecionada}" value="#{tem}" />
 					</p:commandButton>
 				</p:column>
-				<p:column headerText="Excluir" style="width: 100px">
-					<p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacao').show()" style="margin-left: 20%">
+				<p:column headerText="Excluir" style="width: 105px">
+					<p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacao').show()" style="margin-left: 10%; width: 80px">
 						<f:setPropertyActionListener target="#{TemplateControl.templateSelecionada}" value="#{tem}" />
 					</p:commandButton>
 				</p:column>
