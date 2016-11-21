@@ -31,7 +31,7 @@ public class SessaoTemplate extends Entidade implements Serializable {
 	@PrimaryKeyJoinColumn
 	private Sessao sessao;
 
-	@OneToMany(mappedBy = "sessao", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "sessao", fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<ItemQuestaoTemplate> itensQuestao = new ArrayList<ItemQuestaoTemplate>();
 
 	public SessaoTemplate() {
@@ -47,7 +47,7 @@ public class SessaoTemplate extends Entidade implements Serializable {
 		}
 	}
 
-	public void removeQuestao(ItemQuestaoTemplate item) {
+	public void removeQuestao(ItemQuestaoTemplate item){
 		itensQuestao.remove(item);
 	}
 
@@ -84,6 +84,6 @@ public class SessaoTemplate extends Entidade implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 
 }

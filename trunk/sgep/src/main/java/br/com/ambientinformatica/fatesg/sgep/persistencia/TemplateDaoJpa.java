@@ -37,9 +37,9 @@ public class TemplateDaoJpa extends PersistenciaJpa<Template> implements Templat
 			Query query = em.createQuery("select t from Template t "
 					+ " left join fetch t.sessoes sest "
 					+ " left join fetch sest.sessao ses "
-					+ " left join fetch sest.itemQuestao ite"
+					+ " left join fetch sest.itensQuestao ite"
 					+ " left join fetch ite.sessao ses1 "
-					+ " left join fetch ite.questao quet "
+					+ " left join fetch ite.questaoTemplate quet "
 					+ " left join fetch quet.questao que "
 					+ " where t = :template");
 			query.setParameter("template", template);
