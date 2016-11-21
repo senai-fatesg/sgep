@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 
 import br.com.ambientinformatica.util.Entidade;
@@ -27,12 +26,13 @@ public class SessaoProva extends Entidade implements Serializable {
 	@SequenceGenerator(name = "sessaoProva_seq", sequenceName = "sessaoProva_seq", allocationSize = 1, initialValue = 1)
 	private Integer id;
 
-	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY, orphanRemoval = true)
-	@PrimaryKeyJoinColumn
-	private Sessao sessao;
+	//@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY, orphanRemoval = true)
+	//@PrimaryKeyJoinColumn
+	@OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+	private Sessao sessao = new Sessao();
 
 	@OneToMany(mappedBy = "sessao", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-	private List<ItemQuestaoProva> itemQuestao = new ArrayList<ItemQuestaoProva>();
+	private List<ItemQuestaoProva> itensQuestao = new ArrayList<ItemQuestaoProva>();
 
 	public SessaoProva() {
 		sessao = new Sessao();
@@ -41,10 +41,10 @@ public class SessaoProva extends Entidade implements Serializable {
 	public void addQuestao(QuestaoProva questao) {
 		try {
 			ItemQuestaoProva item = new ItemQuestaoProva(this, questao);
-			if (itemQuestao.contains(item)) {
+			if (itensQuestao.contains(item)) {
 				throw new Exception("Já contem questão");
 			} else {
-				itemQuestao.add(item);
+				itensQuestao.add(item);
 			}
 		} catch (Exception e) {
 
@@ -52,7 +52,7 @@ public class SessaoProva extends Entidade implements Serializable {
 	}
 
 	public void removeQuestao(ItemQuestaoProva item) {
-		itemQuestao.remove(item);
+		itensQuestao.remove(item);
 	}
 
 	public Integer getId() {
@@ -67,12 +67,12 @@ public class SessaoProva extends Entidade implements Serializable {
 		this.sessao = sessao;
 	}
 
-	public List<ItemQuestaoProva> getItemQuestao() {
-		return itemQuestao;
+	public List<ItemQuestaoProva> getItensQuestao() {
+		return itensQuestao;
 	}
 
-	public void setItemQuestao(List<ItemQuestaoProva> itemQuestao) {
-		this.itemQuestao = itemQuestao;
+	public void setItensQuestao(List<ItemQuestaoProva> itensQuestao) {
+		this.itensQuestao = itensQuestao;
 	}
 
 }

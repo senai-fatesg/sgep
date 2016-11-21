@@ -2,6 +2,7 @@ package br.com.ambientinformatica.fatesg.sgep.entidade;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,10 +22,10 @@ public class ItemQuestaoProva extends Entidade	 implements Serializable {
 	@SequenceGenerator(name = "itensquestaoprova_seq", sequenceName = "itensquestaoprova_seq", allocationSize = 1, initialValue = 1)
 	private Integer id;
 
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	private SessaoProva sessao;
 
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	private QuestaoProva questao;
 
 	private int numero;
