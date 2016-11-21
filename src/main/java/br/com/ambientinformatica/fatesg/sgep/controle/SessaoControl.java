@@ -33,28 +33,28 @@ import br.com.ambientinformatica.util.UtilException;
 public class SessaoControl implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private String enunciado;
 
 	private List<SessaoTemplate> sessoes = new ArrayList<SessaoTemplate>();
-	
+
 	private List<AlternativaQuestao> alternativas = new ArrayList<>();
 
 	private SessaoTemplate sessao = new SessaoTemplate();
 
 	private SessaoTemplate sessaoSelecionada = new SessaoTemplate();
-	
+
 	private List<ItemQuestaoTemplate> itensQuestao = new ArrayList<>();
-	
+
 	private List<QuestaoTemplate> questoesTemplate = new ArrayList<>();
-	
+
 	private List<QuestaoTemplate> questoes = new ArrayList<>();
-	
+
 	private QuestaoTemplate questaoTemplate = new QuestaoTemplate();
-	
+
 	@Autowired
 	private SessaoTemplateDao sessaoDao;
-	
+
 	@Autowired
 	private QuestaoTemplateDao questaoTemplateDao;
 
@@ -105,7 +105,7 @@ public class SessaoControl implements Serializable {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
-	
+
 	public List<QuestaoTemplate> listarQuestoes(){
 		try {
 			return questoes = questaoTemplateDao.listarQuestoes();
@@ -141,7 +141,7 @@ public class SessaoControl implements Serializable {
 			return listaSessoes;
 		}
 	}
-	
+
 	public QuestaoTemplate consultarAlternativasQuestao(QuestaoTemplate questao){
 		try {
 			if (questao != null) {
@@ -157,7 +157,7 @@ public class SessaoControl implements Serializable {
 		}
 		return null;
 	}
-	
+
 	public QuestaoTemplate consultarEnunciadoQuestao(QuestaoTemplate questao){
 		try {
 			if (questao != null) {
@@ -170,7 +170,7 @@ public class SessaoControl implements Serializable {
 		}
 		return null;
 	}
-	
+
 	public void adicionarItemQuestao(){
 		if (questaoTemplate.getQuestao().getId() != null) {
 			try {
@@ -183,11 +183,11 @@ public class SessaoControl implements Serializable {
 			UtilFaces.addMensagemFaces("Selecione uma questão para adicionar!", FacesMessage.SEVERITY_ERROR);
 		}
 	}
-	
+
 	public void removerItemQuestao(ItemQuestaoTemplate item){
 		sessao.removeQuestao(item);
 	}
-	
+
 	public void novaSessao(){
 		sessaoSelecionada = new SessaoTemplate();
 		RequestContext context = RequestContext.getCurrentInstance(); 
@@ -199,7 +199,7 @@ public class SessaoControl implements Serializable {
 		sessao = (SessaoTemplate) UtilFaces.getValorParametro(evt,
 				"sesEditar");
 	}
-	
+
 	public void selecionarQuestao(QuestaoTemplate questaoTemplate){
 		this.questaoTemplate = questaoTemplate;
 	}
@@ -289,6 +289,6 @@ public class SessaoControl implements Serializable {
 	public void setQuestoes(List<QuestaoTemplate> questoes) {
 		this.questoes = questoes;
 	}
-	
+
 
 }

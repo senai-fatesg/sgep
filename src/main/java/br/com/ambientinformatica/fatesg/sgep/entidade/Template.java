@@ -31,8 +31,8 @@ public class Template extends Entidade implements Serializable{
 
 	private String descricao;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "template_sessao", joinColumns = { @JoinColumn(name = "template_id") }, inverseJoinColumns = { @JoinColumn(name = "sessaotemplate_id") })
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "template_sessao", joinColumns = { @JoinColumn(name = "idTemplate") }, inverseJoinColumns = { @JoinColumn(name = "idSessaoTemplate") })
 	@IndexColumn(name = "index_sessao")
 	private List<SessaoTemplate> sessoes = new ArrayList<SessaoTemplate>();
 

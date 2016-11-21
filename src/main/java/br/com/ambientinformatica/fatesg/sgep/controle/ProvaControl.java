@@ -52,7 +52,7 @@ public class ProvaControl {
 	private Prova provaSelecionada = new Prova();
 
 	private Prova provaAlterar = new Prova();
-	
+
 	private Prova provaExcluir;
 
 	private ItemQuestaoTemplate itensProva = new ItemQuestaoTemplate();
@@ -75,6 +75,8 @@ public class ProvaControl {
 	 * Lista as sessões disponíveis para adicionar na prova
 	 */
 	private List<SessaoTemplate> sessoes = new ArrayList<>();
+
+	private List<Template> templates = new ArrayList<>(); 
 	/**
 	 * Sessao para apresentaçãoo das questoes
 	 */
@@ -152,7 +154,7 @@ public class ProvaControl {
 
 	public void confirmar() {
 		try {
-			provaDao.alterar(provaSelecionada);
+			provaDao.alterar(prova);
 			listar();
 			UtilFaces.addMensagemFaces("Operação realizada com sucesso");
 			provaSelecionada = new Prova();
@@ -233,7 +235,6 @@ public class ProvaControl {
 
 	public void listarSessoes(){
 		sessoes = sessaoTemplateDao.listar();
-		System.out.println(sessoes.toString());
 	}
 
 	public List<QuestaoTemplate> listarQuestoes(){
@@ -241,6 +242,14 @@ public class ProvaControl {
 			return questoes = questaoTemplateDao.listar();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
+		}
+		return null;
+	}
+
+	public List<Template> listarTemplates(){
+		try {
+			return templates = templateDao.listar();
+		} catch (Exception e) {
 		}
 		return null;
 	}
@@ -353,20 +362,37 @@ public class ProvaControl {
 
 			for (SessaoTemplate sessaoTem : template.getSessoes()) {
 				SessaoProva sessaoPro = new SessaoProva();
-				sessaoPro.getSessao().setDescricao(
-						sessaoTem.getSessao().getDescricao());
-				sessaoPro.getSessao().setTitulo(
-						sessaoTem.getSessao().getTitulo());
+				sessaoPro.getSessao().setDescricao(sessaoTem.getSessao().getDescricao());
+				sessaoPro.getSessao().setTitulo(sessaoTem.getSessao().getTitulo());
 
 				for (ItemQuestaoTemplate item : sessaoTem.getItensQuestao()) {
 					sessaoPro.addQuestao(converterQuestao(item.getQuestaoTemplate()));
 				}
-				provaSelecionada.addSessao(sessaoPro);
+				prova.addSessao(sessaoPro);
 			}
 		} catch (Exception e) {
-			UtilFaces
-			.addMensagemFaces("Não foi possivel comverter template em prova."
+			UtilFaces.addMensagemFaces("Não foi possivel comverter template em prova."
 					+ e.getMessage());
+		}
+	}
+
+	public void preencherProva2() {
+		template = templateDao.consultar(template.getId());
+		for (SessaoTemplate sessaoTem : template.getSessoes()) {
+			SessaoProva sessaoPro = new SessaoProva();
+			sessaoPro.getSessao().setDescricao(
+					sessaoTem.getSessao().getDescricao());
+			sessaoPro.getSessao().setTitulo(
+					sessaoTem.getSessao().getTitulo());
+			try {
+
+				for (ItemQuestaoTemplate item : sessaoTem.getItensQuestao()) {
+					sessaoPro.addQuestao(converterQuestao(item.getQuestaoTemplate()));
+				}
+				prova.addSessao(sessaoPro);
+			} catch (Exception e) {
+				UtilFaces.addMensagemFaces("Não foi possivel comverter template em prova." + e.getMessage());
+			}
 		}
 	}
 
@@ -550,6 +576,14 @@ public class ProvaControl {
 
 	public void setProvaExcluir(Prova provaExcluir) {
 		this.provaExcluir = provaExcluir;
+	}
+
+	public List<Template> getTemplates() {
+		return templates;
+	}
+
+	public void setTemplates(List<Template> templates) {
+		this.templates = templates;
 	}
 
 }

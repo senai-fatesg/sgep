@@ -8,147 +8,146 @@
 				droppedCar.fadeOut('fast');
 			}
 		</script>
-		<p:panel id="panel" header="Prova">
-			<a:newLine/>
-			<a:newLine/>
-			<p:panelGrid columns="2">
-				<p:commandButton value="Selecionar prova" update=":formCorpo:tblProva" oncomplete="PF('dlgProva').show();"/>
-				<p:outputLabel value="#{GerarProvaControl.provaSelecionada.curso.codigo} - #{GerarProvaControl.provaSelecionada.periodo.descricao}" />
-				<h:outputText style="width: 180px"/>
-			</p:panelGrid>
-			<p:panelGrid columns="2">
-				<a:field label="Sessões">
-					<p:selectOneMenu id="sessoesProva" value="#{GerarProvaControl.sessaoSelecionada}" converter="objectConverter" style="width:158px;">
-						<f:selectItem id="sltSessao" itemLabel="Selecione..." itemValue="" />
-						<f:selectItems value="#{GerarProvaControl.sessoes}" var="sys" itemLabel="#{sys.sessao.titulo}" itemValue="#{sys}" />
-						<p:ajax event="valueChange" listener="#{GerarProvaControl.carregaSelecao()}" />
+		<h:form id="formCadastro">
+			<p:panel id="panel">
+				<a:field label="Código">
+					<h:outputText value="#{ProvaControl.provaSelecionada.id}" />
+				</a:field>
+				<a:newLine />
+				<a:field label="Instituição" spaceLeft="10px">
+					<p:autoComplete id="completInstituicao" minQueryLength="3" value="#{ProvaControl.provaSelecionada.instituicao}" dropdown="tre"
+						completeMethod="#{ProvaControl.completarInstituicao}" var="ins" itemLabel="#{ins.nomeFantasia}" itemValue="#{ins}" converter="objectConverter" forceSelection="true"
+						effect="fade" />
+				</a:field>
+				<a:field label="Curso" spaceLeft="10px">
+					<p:autoComplete id="completCurso" minQueryLength="3" value="#{ProvaControl.provaSelecionada.curso}" completeMethod="#{ProvaControl.completarCurso}" var="cur" dropdown="tre"
+						itemLabel="#{cur.nome}" itemValue="#{cur}" converter="objectConverter" forceSelection="true" effect="fade"/>
+				</a:field>
+				<a:field label="Disciplina" spaceLeft="10px">
+					<p:autoComplete id="completDisciplina" minQueryLength="3" value="#{ProvaControl.provaSelecionada.disciplina}" completeMethod="#{ProvaControl.completarDisciplina}" var="disc" dropdown="tre"
+						itemLabel="#{disc.nome}" itemValue="#{disc}" converter="objectConverter" forceSelection="true" effect="fade"/>
+				</a:field>
+				<a:field label="Período" spaceLeft="10px">
+					<p:selectOneMenu id="periodo" value="#{ProvaControl.provaSelecionada.periodo}" converter="objectConverter" style="width:180px;">
+						<f:selectItem id="sltPeriodo" itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
+						<f:selectItems value="#{ProvaControl.periodos}" itemLabel="#{sys}" itemValue="#{sys}" />
 					</p:selectOneMenu>
 				</a:field>
-			</p:panelGrid>
-			<p:panelGrid columns="2">
-				<p:commandButton value="Buscar questão" update=":formCorpo:tblQuestoes" oncomplete="PF('dlgQuestao').show();" style="width:158px;"/>
-				<p:outputLabel />
-			</p:panelGrid>
-			<a:field>
-				<p:commandButton value="Salvar" icon="ui-icon-disk"/>
-			</a:field>
-			<a:field>
-				<p:commandButton value="Limpar" icon="ui-icon-trash"/>
-			</a:field>
-			<a:field>
-				<p:commandButton value="Sair" icon="ui-icon-close"/>
-			</a:field>
-			<a:newLine/>
-			<a:newLine/>
-			<p:dataTable id="tblGerarProv" var="provaGerada">
-				<p:column headerText="Código" style="width: 120px">
-				</p:column>
-				<p:column headerText="Cód. Prova" style="width: 120px">
-				</p:column>
-				<p:column headerText="Sessão" style="width: 120px">
-				</p:column>
-				<p:column headerText="N. Questão" style="width: 120px">
-				</p:column>
-				<p:column headerText="Enunciado">
-				</p:column>
-				<p:column headerText="Editar" style="width: 60px">
-				</p:column>
-				<p:column headerText="Excluir" style="width: 60px">
-				</p:column>
-			</p:dataTable>
-		</p:panel>
-		<p:dialog header="Questões" widgetVar="dlgQuestao" resizable="true" showEffect="fade" hideEffect="fade" modal="true">
-			<p:panel header="Pesquisar">
-				<a:newLine/>
-				<a:field label="Pesquisar questão...">
-					<p:selectOneRadio id="pesQuestao" value="#{GerarProvaControl.tipoPesquisa}">
-						<f:selectItem itemLabel="Dificuldade" itemValue="Dificuldade" />
-						<f:selectItem itemLabel="Assunto" itemValue="Assunto" />
-						<f:selectItem itemLabel="Disciplina" itemValue="Disciplina" />
-					</p:selectOneRadio>
+				<a:newLine />
+				<a:field label="Data da Prova">
+					<p:inputMask value="#{ProvaControl.prova.data}" mask="99/99/9999">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</p:inputMask>
 				</a:field>
-				<a:field spaceLeft="10px" label=".">
-					<p:inputText id="dadoPesquisa" value="#{GerarProvaControl.pesquisa}"/>
-				</a:field>
-				<a:field spaceLeft="10px" label="." styleClassLabel="color: #fff">
-					<p:commandButton icon="ui-icon-search" value="Pesquisar" action="#{GerarProvaControl.pesquisarQuestao}" update="@form" title="Icon Only">
-					</p:commandButton>
+				<a:field label="Sessões" spaceLeft="15px">
+					<p:selectOneMenu id="sessoesProva" value="#{ProvaControl.provaSelecionada}" style="width:200px;">
+						<f:selectItem id="sltSessao" itemLabel="Selecione..." itemValue="" />
+						<f:selectItems value="#{ProvaControl.provaSelecionada.sessoes}" var="sys" itemLabel="#{sys.sessao.titulo}" itemValue="#{sys.sessao.titulo}" />
+						<p:ajax event="valueChange" listener="#{ProvaControl.carregaSelecao()}" />
+					</p:selectOneMenu>
 				</a:field>
 				<a:newLine />
-			</p:panel>
-			<p:panel header="Questões">
 				<a:newLine />
+				<div id="pesquisa">
+					<a:field label="Pesquisar questão...">
+						<p:selectOneRadio id="pesQuestao"
+							value="#{ProvaControl.tipoPesquisa}">
+							<f:selectItem itemLabel="Dificuldade" itemValue="Dificuldade" />
+							<f:selectItem itemLabel="Assunto" itemValue="Assunto" />
+							<f:selectItem itemLabel="Disciplina" itemValue="Disciplina" />
+						</p:selectOneRadio>
+					</a:field>
+					<a:newLine />
+					<a:field>
+						<p:inputText id="dadoPesquisa" value="#{ProvaControl.pesquisa}" />
+					</a:field>
+					<a:field spaceLeft="2px">
+						<p:commandButton icon="ui-icon-search" action="#{ProvaControl.pesquisarQuestao}" partialSubmit="formCadastro, pesQuestao, formCadastro, dadoPesquisa @this"  
+							update="formCadastro:avaliableQuestionsField" title="Icon Only">
+						</p:commandButton>
+					</a:field>
+				</div>
 				<a:newLine />
-				<p:dataTable id="tblQuestoes" widgetVar="tblQuestoes" var="questaoTemplate" style="width: 900px" value="#{GerarProvaControl.questoes }" emptyMessage="Sem registros">
-					<p:column headerText="Código" style="width: 120px">
-						<h:outputText value="#{questaoTemplate.questao.id}"/>
-					</p:column>
-					<p:column headerText="Disciplina">
-						<h:outputText value="#{questaoTemplate.questao.disciplina.nome}"/>
-					</p:column>
+				<p:panel id="avaliableQuestionsField" header="Questões disponiveis">
+					<a:newLine/>
+					<p:dataTable id="avaliableQuestao" var="que" value="#{ProvaControl.questoes}">
+						<p:column style="width:20px">
+							<h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
+							<p:draggable for="dragIcon" revert="true" helper="clone" />
+						</p:column>
+						<p:column headerText="Enunciado" style="width:260px">
+							<h:outputText value="#{que.questao.enunciado}" />
+						</p:column>
+						<p:column headerText="Disciplina" style="width:260px">
+							<h:outputText value="#{que.questao.disciplina}" />
+						</p:column>
+						<p:column headerText="Dificuldade" style="width:160px">
+							<h:outputText value="#{que.questao.dificuldade}" />
+						</p:column>
+						<p:column style="width:32px">
+							<p:commandButton update="formCadastro, display" oncomplete="PF('queDialog').show()" icon="ui-icon-search" ajax="false">
+								<f:setPropertyActionListener value="#{que}" target="#{ProvaControl.questaoSelecionada}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+				<a:newLine />
+				<p:panel id="selectedQuestions" header="Questões Selecionadas">
+					<p:outputPanel id="dropArea">
+						<a:newLine />
+						<h:outputText rendered="#{empty ProvaControl.provaSelecionada.sessoes}" style="font-size: 24px;" />
+						<p:dataTable id="selectedQuestionsTable" var="sess"
+							value="#{ProvaControl.provaSelecionada.sessoes}"
+							rendered="#{not empty ProvaControl.provaSelecionada.sessoes}">
+							<p:subTable var="itemQ" value="#{sess.itemQuestao}">
+								<f:facet name="header">
+									<h:outputText value="#{sess.sessao.titulo}" />
+								</f:facet>
+								<p:column headerText="Enunciado" style="width:260px">
+									<h:outputText value="#{itemQ.questao.questao.enunciado}" />
+								</p:column>
+								<p:column headerText="Disciplina" style="width:260px">
+									<h:outputText value="#{itemQ.questao.questao.disciplina}" />
+								</p:column>
+								<p:column headerText="Dificuladede" style="width:160px">
+									<h:outputText value="#{itemQ.questao.questao.dificuldade}" />
+								</p:column>
+							</p:subTable>
+						</p:dataTable>
+					</p:outputPanel>
+				</p:panel>
+				<p:droppable for="selectedQuestions" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="avaliableQuestao" onDrop="handleDrop">
+					<p:ajax listener="#{ProvaControl.onQuestaoDrop}" update="dropArea, formCadastro, avaliableQuestao" />
+				</p:droppable>
+				<a:newLine />
+				<p:commandButton icon="ui-icon-disk"
+					actionListener="#{ProvaControl.confirmarNovaProva}" value="Confirmar"
+					update="formCadastro" process="@this"  />
 					
-					
-				</p:dataTable>
+				<p:commandButton value="Cancelar"
+				action="#{ProvaControl.limpar}" partialSubmit="true"
+				process="@this" update="formCadastro" />
 			</p:panel>
-		</p:dialog>
-		<p:dialog id="dlgProvas" header="Provas cadastradas" resizable="true" modal="true" widgetVar="dlgProva">
-			<p:panel header="Provas">
-				<a:newLine />
-				<p:dataTable id="tblProva" widgetVar="tblProva" var="prova" style="width: 900px" value="#{GerarProvaControl.provas }" emptyMessage="Sem registros">
-					<p:column headerText="Código" style="width: 60px">
-						<h:outputText value="#{prova.id}"/>
-					</p:column>
-					<p:column headerText="Data" style="width: 100px">
-						<h:outputText value="#{prova.data}" style="text-align: center">
-							<f:convertDateTime pattern="dd/MM/yyyy"/>
-						</h:outputText>
-					</p:column>
-					<p:column headerText="Instituição">
-						<h:outputText value="#{prova.instituicao.nomeFantasia}" style="text-align: center"/>
-					</p:column>
-					<p:column headerText="Curso">
-						<h:outputText value="#{prova.curso.nome}" style="text-align: center"/>
-					</p:column>
-					<p:column headerText="Período" style="width: 110px">
-						<h:outputText value="#{prova.periodo.descricao}"/>
-					</p:column>
-					<p:column headerText="Selecionar" style="width: 120px">
-						<h:commandLink value="Selecionar" style="color: blue" actionListener="#{GerarProvaControl.selecionarProva(prova)}">
-						</h:commandLink>
-					</p:column>
-				</p:dataTable>
-			</p:panel>
-		</p:dialog>
-		<p:dialog header="Alternativas" widgetVar="dlgAlternativa" minHeight="40">
-			<p:panel header="Alternativas da questão">
-				<a:field>
-					<h:outputLabel value="Primeira"/>
-				</a:field>
-				<a:newLine/>
-				<a:field>
-					<h:outputLabel value="Segunda"/>
-				</a:field>
-				<a:newLine/>
-				<a:field>
-					<h:outputLabel value="Terceira"/>
-				</a:field>
-				<a:newLine/>
-				<a:field>
-					<h:outputLabel value="Quarta"/>
-				</a:field>
-				<a:newLine/>	
-				<a:field>
-					<h:outputLabel value="Quinta"/>
-				</a:field>
-			</p:panel>
-		</p:dialog>
-		<p:dialog header="Enunciado da questão" widgetVar="dlgEnunciado" minHeight="40">
-			<p:panel header="Enunciado">
-				<a:field label="Enunciado">
-					<h:outputText style="width: 200px"/>
-					<h:outputText value="#{GerarProvaControl.questaoSelecionada.questao.enunciado}"/>
-				</a:field>
-			</p:panel>
-		</p:dialog>
+
+			<p:dialog header="Car Detail" widgetVar="queDialog" resizable="false"
+				draggable="false" showEffect="fade" hideEffect="fade" modal="true">
+				<p:outputPanel id="display">
+					<h:panelGrid columns="2" cellpadding="4">
+						<h:outputText value="Enunciado" />
+						<h:outputText
+							value="#{ProvaControl.questaoSelecionada.questao.enunciado}" />
+						<h:outputText value="Assunto" />
+						<h:outputText
+							value="#{ProvaControl.questaoSelecionada.questao.assunto}" />
+						<h:outputText value="Estado" />
+						<h:outputText
+							value="#{ProvaControl.questaoSelecionada.questao.estado}" />
+						<h:outputText value="Dificuldade" />
+						<h:outputText
+							value="#{ProvaControl.questaoSelecionada.questao.dificuldade}" />
+					</h:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
 	</ui:define>
 </ui:composition>
