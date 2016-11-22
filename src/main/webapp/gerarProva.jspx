@@ -36,49 +36,9 @@
 				</a:field>
 				<a:newLine />
 				<a:newLine />
-				<div id="pesquisa">
-					<a:field label="Pesquisar questão...">
-						<p:selectOneRadio id="pesQuestao"
-							value="#{ProvaControl.tipoPesquisa}">
-							<f:selectItem itemLabel="Dificuldade" itemValue="Dificuldade" />
-							<f:selectItem itemLabel="Assunto" itemValue="Assunto" />
-							<f:selectItem itemLabel="Disciplina" itemValue="Disciplina" />
-						</p:selectOneRadio>
-					</a:field>
-					<a:newLine />
-					<a:field>
-						<p:inputText id="dadoPesquisa" value="#{ProvaControl.pesquisa}" />
-					</a:field>
-					<a:field spaceLeft="2px">
-						<p:commandButton icon="ui-icon-search" action="#{ProvaControl.pesquisarQuestao}" update="formCadastro:avaliableQuestionsField" title="Icon Only">
-						</p:commandButton>
-					</a:field>
-				</div>
+				
 				<a:newLine />
-				<p:panel id="avaliableQuestionsField" header="Questões disponiveis">
-					<a:newLine/>
-					<p:dataTable id="avaliableQuestao" var="que" value="#{ProvaControl.questoes}">
-						<p:column style="width:20px">
-							<h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
-							<p:draggable for="dragIcon" revert="true" helper="clone" />
-						</p:column>
-						<p:column headerText="Enunciado" style="width:260px">
-							<h:outputText value="#{que.questao.enunciado}" />
-						</p:column>
-						<p:column headerText="Disciplina" style="width:260px">
-							<h:outputText value="#{que.questao.disciplina}" />
-						</p:column>
-						<p:column headerText="Dificuldade" style="width:160px">
-							<h:outputText value="#{que.questao.dificuldade}" />
-						</p:column>
-						<p:column style="width:32px">
-							<p:commandButton update="formCadastro, display" oncomplete="PF('queDialog').show()" icon="ui-icon-search" ajax="false">
-								<f:setPropertyActionListener value="#{que}" target="#{ProvaControl.questaoSelecionada}" />
-							</p:commandButton>
-						</p:column>
-					</p:dataTable>
-				</p:panel>
-				<a:newLine />
+				
 				<p:panel id="selectedQuestions" header="Sessões adicionadas">
 					<p:outputPanel id="dropArea">
 						<a:newLine />
