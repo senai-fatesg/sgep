@@ -32,7 +32,7 @@
 				</p:column>
 				<p:column headerText="Gerar prova" style="width: 105px">
 					<p:remoteCommand name="preencherProva"  action="#{ProvaControl.preencherProva}"/>
-					<p:commandButton icon="ui-icon-bookmark" action="/gerarProva.jspx?faces-redirect=true" onsuccess="preencherProva()" style="margin-left: 10%; width: 80px">
+					<p:commandButton icon="ui-icon-bookmark" action="/gerarProva.jspx?faces-redirect=true" onsuccess="preencherProva()" style="margin-left: 10%; width: 80px" update="@all">
 						<f:setPropertyActionListener target="#{ProvaControl.template}" value="#{tem}" />
 					</p:commandButton>
 				</p:column>

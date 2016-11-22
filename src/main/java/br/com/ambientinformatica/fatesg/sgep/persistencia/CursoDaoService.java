@@ -45,5 +45,13 @@ public class CursoDaoService extends PersistenciaJpa<Curso> implements CursoDao,
 			return null;
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@RequestMapping("/curso")
+	public List<Curso> listarCursos() throws PersistenciaException {
+		String conteudo = target.path("/listarCursos").request().get(String.class);
+		return (List<Curso>) new XStream().fromXML(conteudo);
+	}
 
 }

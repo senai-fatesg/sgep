@@ -26,8 +26,6 @@ public class SessaoProva extends Entidade implements Serializable {
 	@SequenceGenerator(name = "sessaoProva_seq", sequenceName = "sessaoProva_seq", allocationSize = 1, initialValue = 1)
 	private Integer id;
 
-	//@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY, orphanRemoval = true)
-	//@PrimaryKeyJoinColumn
 	@OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
 	private Sessao sessao = new Sessao();
 

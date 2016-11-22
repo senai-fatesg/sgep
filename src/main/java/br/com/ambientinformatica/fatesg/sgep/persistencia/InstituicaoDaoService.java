@@ -46,4 +46,12 @@ public class InstituicaoDaoService extends PersistenciaJpa<Instituicao> implemen
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	@RequestMapping("/instituicao")
+	public List<Instituicao> listarInstituicoes() throws PersistenciaException {
+		String conteudo = target.path("/listarInstituicoes").request().get(String.class);
+		return (List<Instituicao>) new XStream().fromXML(conteudo);
+	}
+
 }
