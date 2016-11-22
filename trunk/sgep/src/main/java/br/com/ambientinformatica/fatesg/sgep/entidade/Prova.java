@@ -1,5 +1,6 @@
 package br.com.ambientinformatica.fatesg.sgep.entidade;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,9 +23,12 @@ import br.com.ambientinformatica.fatesg.api.entidade.Aluno;
 import br.com.ambientinformatica.fatesg.api.entidade.Curso;
 import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
 import br.com.ambientinformatica.fatesg.api.entidade.Instituicao;
+import br.com.ambientinformatica.util.Entidade;
 
 @Entity
-public class Prova {
+public class Prova extends Entidade implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "prova_seq", strategy = GenerationType.SEQUENCE)
@@ -50,8 +54,6 @@ public class Prova {
 	private Instituicao instituicao;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinTable(name = "prova_sessao", joinColumns = { @JoinColumn(name = "idProva") }, inverseJoinColumns = { @JoinColumn(name = "idSessaoProva") })
-	//@IndexColumn(name = "sessao")
 	private List<SessaoProva> sessoes = new ArrayList<SessaoProva>();
 
 	public void addSessao(SessaoProva sessao) throws Exception {

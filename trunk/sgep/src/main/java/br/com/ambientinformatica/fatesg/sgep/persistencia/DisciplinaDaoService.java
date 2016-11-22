@@ -9,6 +9,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
 import br.com.ambientinformatica.jpa.exception.PersistenciaException;
@@ -45,5 +46,14 @@ public class DisciplinaDaoService extends PersistenciaJpa<Disciplina> implements
 			return null;
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@RequestMapping("/disciplina")
+	public List<Disciplina> listarDisciplinas() throws PersistenciaException {
+		String conteudo = target.path("/listarDisciplinas").request().get(String.class);
+		return (List<Disciplina>) new XStream().fromXML(conteudo);
+	}
+
 
 }
