@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2016-11-21T17:59:13 -->
+<!-- 2016-11-23T14:18:23 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sessaoProva" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="281df8b5-beed-4d57-9f2f-f9a8bc3c3657">
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
+	<field name="sessao" class="br.com.ambientinformatica.fatesg.sgep.entidade.Sessao">
+		<fieldDescription><![CDATA[sessao]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="43" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="100" height="30" uuid="334d7b57-8549-4889-9c2d-0cd6a8098a2d"/>
-				<text><![CDATA[Titulo da sessao]]></text>
-			</staticText>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="550" height="20" uuid="61f01636-2169-41d2-aa72-e17ae6df3fd7"/>
+				<textFieldExpression><![CDATA[$F{sessao}.getTitulo()]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="251" splitType="Stretch">
+		<band height="132" splitType="Stretch">
 			<subreport>
-				<reportElement x="280" y="51" width="200" height="200" uuid="59eebd8d-8b36-4769-8904-559ba5b8bd95"/>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["src/main/jasperreports/questao.jasper"]]></subreportExpression>
+				<reportElement x="0" y="0" width="550" height="130" uuid="59eebd8d-8b36-4769-8904-559ba5b8bd95"/>
+				<subreportExpression><![CDATA[br.com.ambientinformatica.util.UtilRecurso.getClassLoader().getResourceAsStream("jasper/questao.jasper")]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

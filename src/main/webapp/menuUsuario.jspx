@@ -8,13 +8,13 @@
 		<p:menubar id="menubar" autoDisplay="true" style="width: 1000px"> 
 			<p:menuitem icon="ui-icon-home" value="Início" action="/inicio?faces-redirect=true" ajax="false" />
 			<p:submenu label="Prova" icon="ui-icon-document">
-				<p:menuitem icon="ui-icon-search" value="Listar provas" actionListener="#{MenuControl.gerenciarSessao}" action="/prova?faces-redirect=true" ajax="false" />
+				<p:menuitem icon="ui-icon-search" value="Provas" actionListener="#{MenuControl.gerenciarSessao}" action="/prova?faces-redirect=true" ajax="false" />
 				<p:menuitem icon="ui-icon-document" value="Gerar prova" actionListener="#{MenuControl.gerenciarSessao}" action="gerarProva?faces-redirect=true" ajax="false" />
 			</p:submenu>
-			<p:submenu label="Questões" icon="ui-icon-pencil">
-				<p:menuitem icon="ui-icon-search" value="Listar questões" actionListener="#{MenuControl.gerenciarSessao}" action="questao?faces-redirect=true" ajax="false"/>
+			<p:submenu label="Cadastros" icon="ui-icon-gear">
+				<p:menuitem icon="ui-icon-search" value="Questão" actionListener="#{MenuControl.gerenciarSessao}" action="questao?faces-redirect=true" ajax="false"/>
+				<p:menuitem icon="ui-icon-search" value="Sessão" actionListener="#{MenuControl.gerenciarSessao}" action="sessao?faces-redirect=true" ajax="false" />
 			</p:submenu>
-			<p:menuitem icon="ui-icon-search" value="Sessão" actionListener="#{MenuControl.gerenciarSessao}" action="sessao?faces-redirect=true" ajax="false" />
 			<p:menuitem icon="ui-icon-search" value="Modelo de prova" actionListener="#{MenuControl.gerenciarSessao}" action="template?faces-redirect=true" ajax="false" />
 			<p:menuitem icon="ui-icon-search" value="Colaboradores" actionListener="#{MenuControl.gerenciarSessao}" action="colaboradorlista?faces-redirect=true" ajax="false" />
 			<p:menuitem value="Sair" icon="ui-icon-power" onclick="document.location.href='/sgep/sair.jsp'" immediate="true" />

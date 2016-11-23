@@ -8,7 +8,8 @@
 				droppedCar.fadeOut('fast');
 			}
 		</script>
-			<p:panel id="pnlGerarProva">
+			<p:panel id="pnlGerarProva" header="Gerar prova">
+				<a:newLine/>
 				<a:newLine/>
 				<a:field label="Data da Prova">
 					<p:inputMask value="#{ProvaControl.prova.data}" mask="99/99/9999">
@@ -39,16 +40,12 @@
 						<f:selectItems value="#{ProvaControl.periodos}"/>
 					</p:selectOneMenu>
 				</a:field>
-				<a:newLine />
-				<a:newLine />
+				<a:newLine/>
+				<a:field spaceLeft="10px" rendered="#{ProvaControl.template == null}">
+					<p:commandButton value="Adicionar sessões" icon="ui-icon-document" actionListener="#{ProvaControl.novaSessao}" process="@this" update=":formCorpo:dlgSessao"/>
+				</a:field>
 			</p:panel>
-			<a:newLine />
-			
-			<p:panel id="pnlSessao2" header="Adicionar sessões" rendered="#{empty ProvaControl.prova.sessoes}">
-				
-			</p:panel>
-			
-			<a:newLine />
+			<a:newLine/>
 			<p:panel id="selectedQuestions" header="Sessões adicionadas">
 				<p:outputPanel id="dropArea">
 					<a:newLine />
@@ -76,30 +73,33 @@
 					</p:dataTable>
 					</p:panel>
 				</p:outputPanel>
+				<a:field>
+					<p:commandButton icon="ui-icon-disk" actionListener="#{ProvaControl.confirmarNovaProva}" value="Confirmar" update="@all"/>
+				</a:field>
+				<a:field spaceLeft="10px">
+					<p:commandButton value="Cancelar" action="#{ProvaControl.limpar}" partialSubmit="true" process="@this" update="@form"/>
+				</a:field>
 			</p:panel>
-
 			<a:newLine />
-			<p:commandButton icon="ui-icon-disk" actionListener="#{ProvaControl.confirmarNovaProva}" value="Confirmar" update="@all"/>
-			<p:commandButton value="Cancelar" action="#{ProvaControl.limpar}" partialSubmit="true" process="@this" update="@form"/>
 		
-			<p:dialog id="dlgSessao" modal="true" widgetVar="vCadSessao" header="Cadastro de Sessões" resizable="false">
+			<p:dialog id="dlgSessao" modal="true" widgetVar="vCadSessao" header="Sessões" resizable="false">
 				<p:messages autoUpdate="true" closable="true" />
 				<p:panel id="panel">
 				<a:newLine/>
 					<a:newLine />
 					<a:field label="Título">
-						<p:inputText value="#{ProvaControl.sessaoSelecionada.sessao.titulo}" style="width: 600px"/>
+						<p:inputText value="#{ProvaControl.sessaoTemplate.sessao.titulo}" style="width: 600px"/>
 					</a:field>
 					<a:newLine />
 					<a:field label="Descrição">
-						<p:inputTextarea value="#{ProvaControl.sessaoSelecionada.sessao.descricao}"
+						<p:inputTextarea value="#{ProvaControl.sessaoTemplate.sessao.descricao}"
 							 style="width: 600px" />
 					</a:field>
 					<a:newLine/>
 					<p:panel id="pnlQuestao" header="Adicionar questões">
 						<a:newLine/>
 						<a:field label="Questão" spaceLeft="10px">
-							<p:outputLabel id="oupQuestao" value="#{ProvaControl.questaoProva.questao.id} - #{ProvaControl.questaoProva.questao.enunciado}" style="width: 500px"/>
+							<p:outputLabel id="oupQuestao" value="#{ProvaControl.questaoSelecionada.questao.id} - #{ProvaControl.questaoSelecionada.questao.enunciado}" style="width: 500px"/>
 						</a:field>
 						<a:field label="Pesquisar" spaceLeft="10px">
 							<p:commandButton icon="ui-icon-search" update="tblQuestoes" oncomplete="PF('dlgQuestao').show();"/>
@@ -107,12 +107,12 @@
 						<a:newLine/>
 						<p:commandButton value="Adicionar" actionListener="#{ProvaControl.adicionarItemQuestao}" update="tblItemSess oupQuestao"/>
 						<a:newLine/>
-						<p:dataTable id="tblItemSess" widgetVar="tblItemSess" var="item" style="width: 600px" value="#{ProvaControl.sessaoSelecionada.itensQuestao}" emptyMessage="Sem registros">
+						<p:dataTable id="tblItemSess" widgetVar="tblItemSess" var="item" style="width: 600px" value="#{ProvaControl.sessaoTemplate.itensQuestao}" emptyMessage="Sem registros">
 							<p:column headerText="Código" style="width: 60px">
-								<h:outputText value="#{item.questaoProva.questao.id }"/>
+								<h:outputText value="#{item.questaoTemplate.questao.id }"/>
 							</p:column>
 							<p:column headerText="Enunciado">
-								<h:outputText value="#{item.questaoProva.questao.enunciado }"/>
+								<h:outputText value="#{item.questaoTemplate.questao.enunciado }"/>
 							</p:column>
 							<p:column headerText="Remover" style="width: 70px; text-align: center">
 								<p:commandButton icon="ui-icon-trash" action="#{ProvaControl.removerItemQuestao(item)}" update=":formCorpo:tblItemSess">
@@ -121,42 +121,42 @@
 						</p:dataTable>
 					</p:panel>
 					<a:newLine/>
-					<p:commandButton icon="ui-icon-disk" actionListener="#{ProvaControl.confirmar}"  value="Confirmar" update="@form :formCorpo:dlgSessao" ajax="false" oncomplete="vCadSessao.hide();">
-						<f:param value="#{ProvaControl.sessaoSelecionada}" id="sessaoSelecionada"/>
+					<p:commandButton icon="ui-icon-disk" actionListener="#{ProvaControl.confirmarNovaSessaoProva}"  value="Confirmar" update="@form :formCorpo:dlgSessao" ajax="false" oncomplete="vCadSessao.hide();">
+						<f:param value="#{ProvaControl.sessaoTemplate}" id="sessaoTemplate"/>
 					</p:commandButton>
 					<p:spacer width="45px" />
 				</p:panel>
-				<p:ajax event="close" listener="#{ProvaControl.listar}" />
+				<p:ajax event="close" listener="#{ProvaControl.limpar}"/>
 			</p:dialog>
 			<p:dialog header="Questões" widgetVar="dlgQuestao" resizable="true" showEffect="fade" hideEffect="fade" modal="true">
 				<p:panel header="Questões">
 					<a:newLine />
 					<a:newLine />
-					<p:dataTable id="tblQuestoes" widgetVar="tblQuestoes" var="questaoProva" style="width: 900px" value="#{ProvaControl.questoesProva}" emptyMessage="Sem registros" rows="10" paginator="true">
+					<p:dataTable id="tblQuestoes" widgetVar="tblQuestoes" var="questaoTemplate" style="width: 900px" value="#{ProvaControl.questoesTemplate}" emptyMessage="Sem registros" rows="10" paginator="true">
 						<p:column headerText="Código" style="width: 60px; text-align: center">
-							<h:outputText value="#{questaoProva.questao.id}"/>
+							<h:outputText value="#{questaoTemplate.questao.id}"/>
 						</p:column>
 						<p:column headerText="Assunto" style="width: 280px; text-align: center">
-							<h:outputText value="#{questaoProva.questao.assunto}"/>
+							<h:outputText value="#{questaoTemplate.questao.assunto}"/>
 						</p:column>
 						<p:column headerText="Dificuldade" style="text-align: center">
-							<h:outputText value="#{questaoProva.questao.dificuldade}"/>
+							<h:outputText value="#{questaoTemplate.questao.dificuldade}"/>
 						</p:column>
 						<p:column headerText="Enunciado" style="text-align: center">
-							<p:commandLink value="Visualizar" action="#{ProvaControl.consultarEnunciadoQuestao(questaoProva)}" update=":formCorpo:dlgEnunciado">
+							<p:commandLink value="Visualizar" action="#{ProvaControl.consultarEnunciadoQuestao(questaoTemplate)}" update=":formCorpo:dlgEnunciado">
 							</p:commandLink>
 						</p:column>
 						<p:column headerText="Alternativa" style="text-align: center">
-							<p:commandLink value="Visualizar" action="#{ProvaControl.consultarAlternativasQuestao(questaoProva)}" update=":formCorpo:dlQuestao"/>
+							<p:commandLink value="Visualizar" action="#{ProvaControl.consultarAlternativasQuestao(questaoTemplate)}" update=":formCorpo:dlQuestao"/>
 						</p:column>
 						<p:column headerText="Resposta" style="width: 80px; text-align: center">
-							<h:outputText value="#{questaoProva.questao.resposta}"/>
+							<h:outputText value="#{questaoTemplate.questao.resposta}"/>
 						</p:column>
 						<p:column headerText="Estado" style="text-align: center">
 							<h:outputText value="#{questaoProva.questao.estado}"/>
 						</p:column>
 						<p:column headerText="Selecionar" style="text-align: center">
-							<h:commandLink value="Selecionar" actionListener="#{ProvaControl.selecionarQuestao(questaoProva)}">
+							<h:commandLink value="Selecionar" actionListener="#{ProvaControl.selecionarQuestao(questaoTemplate)}">
 								<p:ajax update=":formCorpo:oupQuestao" oncomplete="PF('dlgQuestao').hide();"/>
 							</h:commandLink>
 						</p:column>

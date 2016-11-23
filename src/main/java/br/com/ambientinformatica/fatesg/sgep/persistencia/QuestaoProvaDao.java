@@ -6,8 +6,4 @@ import br.com.ambientinformatica.jpa.persistencia.Persistencia;
 
 public interface QuestaoProvaDao extends Persistencia<QuestaoProva> {
 
-	QuestaoProva consultarAlternativasQuestao(QuestaoProva questaoProva) throws PersistenciaException;
-
-	QuestaoProva consultarEnunciadoQuestao(QuestaoProva questaoProva) throws PersistenciaException;
-
 }

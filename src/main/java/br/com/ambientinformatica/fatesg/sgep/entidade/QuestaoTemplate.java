@@ -25,7 +25,7 @@ public class QuestaoTemplate extends Entidade implements Serializable {
 	private Integer id;
 
 
-	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
 	private Questao questao;
 
 	public QuestaoTemplate() {
