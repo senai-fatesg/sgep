@@ -191,7 +191,7 @@ a:hover {
 
  .ui-menu ul:nth-child(1) > li:nth-child(1) > a 
 {    
-    margin-left: -10px;
+    margin-left: 10px;
 }
 
 .ui-datatable .ui-datatable-header{

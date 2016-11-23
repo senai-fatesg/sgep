@@ -26,7 +26,6 @@ import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
 import br.com.ambientinformatica.fatesg.api.entidade.Instituicao;
 import br.com.ambientinformatica.fatesg.sgep.entidade.AlternativaQuestao;
 import br.com.ambientinformatica.fatesg.sgep.entidade.EnumPeriodo;
-import br.com.ambientinformatica.fatesg.sgep.entidade.ItemQuestaoProva;
 import br.com.ambientinformatica.fatesg.sgep.entidade.ItemQuestaoTemplate;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Prova;
 import br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoProva;
@@ -45,7 +44,6 @@ import br.com.ambientinformatica.fatesg.sgep.persistencia.QuestaoTemplateDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoProvaDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoTemplateDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.TemplateDao;
-import br.com.ambientinformatica.fatesg.sgep.persistencia.UnidadeEnsinoDao;
 
 @Controller("ProvaControl")
 @Scope("conversation")
@@ -61,7 +59,7 @@ public class ProvaControl {
 
 	private ItemQuestaoTemplate itensProva = new ItemQuestaoTemplate();
 
-	private Template template = new Template();
+	private Template template;
 
 	private String pesquisa = new String();
 	
@@ -71,15 +69,15 @@ public class ProvaControl {
 
 	private SessaoProva sessaoSelecionada = new SessaoProva();
 	
+	private SessaoTemplate sessaoTemplate = new SessaoTemplate();
+	
 	private QuestaoTemplate questaoSelecionada = new QuestaoTemplate();
 	
 	private QuestaoProva questaoProva = new QuestaoProva();
 	
 	private List<Prova> provas = new ArrayList<Prova>();
 	
-	private List<QuestaoTemplate> questoes = new ArrayList<QuestaoTemplate>();
-	
-	private List<QuestaoTemplate> questoesProva = new ArrayList<QuestaoTemplate>();
+	private List<QuestaoTemplate> questoesTemplate = new ArrayList<>();
 	
 	private List<SessaoTemplate> sessoes = new ArrayList<>();
 
@@ -126,16 +124,13 @@ public class ProvaControl {
 	@Autowired
 	private AlunoDao alunoDao;
 
-	@Autowired
-	private UnidadeEnsinoDao unidadeEnsinoDao;
-
-
 	@PostConstruct
 	public void init() {
 		listarSessoes();
 		listarInstituicoes();
 		listarCursos();
 		listarDisciplinas();
+		listarQuestoes();
 		try {
 			provaDao.listar();
 			listar();
@@ -146,17 +141,18 @@ public class ProvaControl {
 
 	public void imprimirProva(ActionEvent evt) {
 		Prova provaImprimir = (Prova) UtilFaces.getValorParametro(evt, "sesImprimir");
+		
+		List<SessaoProva> sessoes = new ArrayList<SessaoProva>(provaImprimir.getSessoes());
 
 		Map<String, Object> parametros = new HashMap<String, Object>();
-		parametros.put("nomeInstituicao", "Senai");
-		parametros.put("nomeCurso", "ADS");
-		parametros.put("nomeAluno", "Lucas");
-		parametros.put("nomeDisciplina", "Teste");
-		parametros.put("data", new Date());
-		parametros.put("periodo", 2);
+		parametros.put("data", provaImprimir.getData());
+		parametros.put("nomeInstituicao", provaImprimir.getInstituicao().getNomeFantasia());
+		parametros.put("nomeCurso", provaImprimir.getCurso().getDescricao());
+		parametros.put("nomeDisciplina", provaImprimir.getDisciplina().getNome());
+		parametros.put("periodo", provaImprimir.getPeriodo().getDescricao());
 
 		try {
-			UtilFacesRelatorio.gerarRelatorioFaces("jasper/prova2.jasper", provaImprimir.getSessoes(), parametros);
+			UtilFacesRelatorio.gerarRelatorioFaces("jasper/prova2.jasper", sessoes, parametros);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Houve um erro ao gerar o Relatório: " + e);
 		}
@@ -221,7 +217,7 @@ public class ProvaControl {
 			limpar();
 			UtilFaces.addMensagemFaces("Operação realizada com sucesso");
 		} catch (Exception e) {
-			UtilFaces.addMensagemFaces(e);
+			UtilFaces.addMensagemFaces("É necessário o preenchimento de todos os campos", FacesMessage.SEVERITY_ERROR);
 		}
 	}
 	private boolean isInstituicaoJaCadastrado(Instituicao instituicao) {
@@ -249,7 +245,7 @@ public class ProvaControl {
 
 	public List<QuestaoTemplate> listarQuestoes(){
 		try {
-			return questoes = questaoTemplateDao.listar();
+			return questoesTemplate = questaoTemplateDao.listar();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
@@ -279,6 +275,7 @@ public class ProvaControl {
 		prova = new Prova();
 		questaoSelecionada = new QuestaoTemplate();
 		provaSelecionada = new Prova();
+		sessaoTemplate = new SessaoTemplate();
 	}
 
 	public void carregaSelecao() {
@@ -388,11 +385,28 @@ public class ProvaControl {
 			return questaoProva;
 		}
 	}
+	
+	public void confirmarNovaSessaoProva(){
+		try {
+				SessaoProva sessaoPro = new SessaoProva();
+				sessaoPro.getSessao().setDescricao(sessaoTemplate.getSessao().getDescricao());
+				sessaoPro.getSessao().setTitulo(sessaoTemplate.getSessao().getTitulo());
+
+				for (ItemQuestaoTemplate item : sessaoTemplate.getItensQuestao()) {
+					sessaoPro.addQuestao(converterQuestao(item.getQuestaoTemplate()));
+				}
+				prova.addSessao(sessaoPro);
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces("Erro "
+					+ e.getMessage());
+		}
+		
+	}
 
 	public void pesquisarQuestao() {
 		try {
 			String p = (String) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("pesQuestao");
-			questoes = questaoTemplateDao.consultarPor(pesquisa, tipoPesquisa);
+			questoesTemplate = questaoTemplateDao.consultarPor(pesquisa, tipoPesquisa);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Não foi possivel consultar as questões.");
 		} finally {
@@ -415,27 +429,37 @@ public class ProvaControl {
 		
 	}
 	
+	public void novaSessao(){
+		sessaoTemplate = new SessaoTemplate();
+		RequestContext context = RequestContext.getCurrentInstance(); 
+		context.execute("PF('vCadSessao').show();");	
+	}
+	
+	public void selecionarQuestao(QuestaoTemplate questaoTemplate){
+		this.questaoSelecionada = questaoTemplate;
+	}
+	
 	public void adicionarItemQuestao(){
-		if (questaoProva.getQuestao().getId() != null) {
+		if (questaoSelecionada.getQuestao().getId() != null) {
 			try {
-				sessaoSelecionada.addQuestao(questaoProva);
+				sessaoTemplate.addItemQuestao(questaoSelecionada);
 			} catch (Exception e) {
 				UtilFaces.addMensagemFaces(e.getMessage(), FacesMessage.SEVERITY_WARN);
 			}
-			questaoProva = new QuestaoProva();
+			questaoSelecionada = new QuestaoTemplate();
 		}else{
 			UtilFaces.addMensagemFaces("Selecione uma questão para adicionar!", FacesMessage.SEVERITY_ERROR);
 		}
 	}
 	
-	public void removerItemQuestao(ItemQuestaoProva item){
-		sessaoSelecionada.removeQuestao(item);
+	public void removerItemQuestao(ItemQuestaoTemplate item){
+		sessaoTemplate.removeQuestao(item);
 	}
 	
-	public QuestaoProva consultarAlternativasQuestao(QuestaoProva questaoProva){
+	public QuestaoTemplate consultarAlternativasQuestao(QuestaoTemplate questaoTemplate){
 		try {
 			if (questaoProva != null) {
-				QuestaoProva questaoTemp = questaoProvaDao.consultarAlternativasQuestao(questaoProva);
+				QuestaoTemplate questaoTemp = questaoTemplateDao.consultarAlternativasQuestao(questaoTemplate);
 				alternativas = new ArrayList<>();
 				for (AlternativaQuestao alternativaQuestao : questaoTemp.getQuestao().getAlternativas()) {
 					alternativas.add(alternativaQuestao);
@@ -448,10 +472,10 @@ public class ProvaControl {
 		return null;
 	}
 
-	public QuestaoProva consultarEnunciadoQuestao(QuestaoProva questaoProva){
+	public QuestaoTemplate consultarEnunciadoQuestao(QuestaoTemplate questaoTemplate){
 		try {
-			if (questaoProva != null) {
-				QuestaoProva questaoTemp = questaoProvaDao.consultarEnunciadoQuestao(questaoProva);
+			if (questaoTemplate != null) {
+				QuestaoTemplate questaoTemp = questaoTemplateDao.consultarEnunciadoQuestao(questaoTemplate);
 				enunciado = questaoTemp.getQuestao().getEnunciado();
 				RequestContext.getCurrentInstance().execute("PF('dlgEnunciado').show();");
 			}
@@ -516,14 +540,6 @@ public class ProvaControl {
 
 	public void setTemplate(Template template) {
 		this.template = template;
-	}
-
-	public List<QuestaoTemplate> getQuestoes() {
-		return questoes;
-	}
-
-	public void setQuestoes(List<QuestaoTemplate> questoes) {
-		this.questoes = questoes;
 	}
 
 	public String getPesquisa() {
@@ -630,14 +646,6 @@ public class ProvaControl {
 		this.enunciado = enunciado;
 	}
 
-	public List<QuestaoTemplate> getQuestoesProva() {
-		return questoesProva;
-	}
-
-	public void setQuestoesProva(List<QuestaoTemplate> questoesProva) {
-		this.questoesProva = questoesProva;
-	}
-
 	public List<AlternativaQuestao> getAlternativas() {
 		return alternativas;
 	}
@@ -645,5 +653,22 @@ public class ProvaControl {
 	public void setAlternativas(List<AlternativaQuestao> alternativas) {
 		this.alternativas = alternativas;
 	}
+
+	public SessaoTemplate getSessaoTemplate() {
+		return sessaoTemplate;
+	}
+
+	public void setSessaoTemplate(SessaoTemplate sessaoTemplate) {
+		this.sessaoTemplate = sessaoTemplate;
+	}
+
+	public List<QuestaoTemplate> getQuestoesTemplate() {
+		return questoesTemplate;
+	}
+
+	public void setQuestoesTemplate(List<QuestaoTemplate> questoesTemplate) {
+		this.questoesTemplate = questoesTemplate;
+	}
+	
 	
 }

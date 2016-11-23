@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2016-11-21T18:10:13 -->
+<!-- 2016-11-23T17:57:34 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prova2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9bdb456e-bc0e-4dc4-a89b-586f4e7ca19b">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<subDataset name="Sessao" uuid="347e50d7-fce9-4101-9dfb-cd009f697e3c">
@@ -24,65 +24,50 @@
 			<variableExpression><![CDATA[$F{numero}]]></variableExpression>
 		</variable>
 	</subDataset>
+	<parameter name="data" class="java.util.Date"/>
+	<parameter name="nomeInstituicao" class="java.lang.String"/>
+	<parameter name="nomeDisciplina" class="java.lang.String"/>
+	<parameter name="nomeCurso" class="java.lang.String"/>
+	<parameter name="periodo" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="id" class="java.lang.Integer">
-		<fieldDescription><![CDATA[id]]></fieldDescription>
-	</field>
-	<field name="sessoes" class="java.util.List">
-		<fieldDescription><![CDATA[sessoes]]></fieldDescription>
-	</field>
-	<field name="curso" class="br.com.ambientinformatica.fatesg.api.entidade.Curso">
-		<fieldDescription><![CDATA[curso]]></fieldDescription>
-	</field>
-	<field name="data" class="java.util.Date">
-		<fieldDescription><![CDATA[data]]></fieldDescription>
-	</field>
-	<field name="instituicao" class="br.com.ambientinformatica.fatesg.api.entidade.Instituicao">
-		<fieldDescription><![CDATA[instituicao]]></fieldDescription>
-	</field>
-	<field name="periodo" class="br.com.ambientinformatica.fatesg.sgep.entidade.EnumPeriodo">
-		<fieldDescription><![CDATA[periodo]]></fieldDescription>
-	</field>
-	<field name="disciplina" class="br.com.ambientinformatica.fatesg.api.entidade.Disciplina">
-		<fieldDescription><![CDATA[disciplina]]></fieldDescription>
-	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<title>
+	<pageHeader>
 		<band height="81" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="440" height="20" uuid="59736b13-4a23-448f-bf6f-723f26d75208"/>
-				<textFieldExpression><![CDATA[$F{instituicao}.getNomeFantasia()]]></textFieldExpression>
+				<reportElement x="230" y="0" width="100" height="20" uuid="ee2037c4-3cbd-487f-b8cf-e6ca52c8db86"/>
+				<textFieldExpression><![CDATA[$P{nomeInstituicao}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="20" width="440" height="20" uuid="3384e388-8e36-422b-879f-b942d7a30d32"/>
-				<textFieldExpression><![CDATA[$F{curso}.getDescricao()]]></textFieldExpression>
+				<reportElement x="0" y="20" width="250" height="20" uuid="1f0f50f5-fcba-40ec-bf09-fff606f2f9bf"/>
+				<textFieldExpression><![CDATA[$P{nomeDisciplina}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="40" width="440" height="20" uuid="4cbed65d-fa12-4665-bb68-028b31b40c95"/>
-				<textFieldExpression><![CDATA[$F{disciplina}.getNome()]]></textFieldExpression>
+				<reportElement x="0" y="40" width="250" height="20" uuid="edf621d3-3f21-4c17-9b57-0a5cdcf7bbf0"/>
+				<textFieldExpression><![CDATA[$P{nomeCurso}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="60" width="440" height="20" uuid="0a7bebd0-6e2e-450e-92c7-ad3da3286a84"/>
-				<textFieldExpression><![CDATA[$F{periodo}.getDescricao()]]></textFieldExpression>
+				<reportElement x="0" y="60" width="140" height="20" uuid="c263288c-9295-4ae2-be41-36e985948287"/>
+				<textFieldExpression><![CDATA[$P{periodo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="0a628e34-afac-462b-9a88-d46406f36644"/>
+				<textFieldExpression><![CDATA[$P{data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="510" y="0" width="40" height="20" uuid="50bd034d-e3c3-4916-bcba-8e6c77237607"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
-	</title>
-	<pageHeader>
-		<band height="35" splitType="Stretch"/>
 	</pageHeader>
-	<columnHeader>
-		<band height="61" splitType="Stretch"/>
-	</columnHeader>
 	<detail>
 		<band height="206" splitType="Stretch">
 			<subreport>
-				<reportElement x="0" y="0" width="570" height="200" uuid="3d8888ab-ebed-431e-828e-ac6becefe9a7"/>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["src/main/jasperreports/sessaoProva.jasper"]]></subreportExpression>
+				<reportElement x="0" y="0" width="550" height="200" uuid="3d8888ab-ebed-431e-828e-ac6becefe9a7"/>
+				<subreportExpression><![CDATA[br.com.ambientinformatica.util.UtilRecurso.getClassLoader().getResourceAsStream("jasper/sessaoProva.jasper")]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

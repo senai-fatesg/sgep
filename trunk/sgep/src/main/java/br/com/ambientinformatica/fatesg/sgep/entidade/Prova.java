@@ -18,11 +18,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import br.com.ambientinformatica.fatesg.api.entidade.Aluno;
 import br.com.ambientinformatica.fatesg.api.entidade.Curso;
 import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
 import br.com.ambientinformatica.fatesg.api.entidade.Instituicao;
+import br.com.ambientinformatica.util.AmbientValidator;
 import br.com.ambientinformatica.util.Entidade;
 
 @Entity
@@ -36,21 +38,26 @@ public class Prova extends Entidade implements Serializable{
 	private Integer id;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull(message="Informe a data da prova.", groups=AmbientValidator.class)
 	private Date data;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@NotNull(message="Informe curso.", groups=AmbientValidator.class)
 	private Curso curso;
 	
 	@Enumerated(EnumType.STRING)
+	@NotNull(message="Informe o período.", groups=AmbientValidator.class)
 	private EnumPeriodo periodo;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@NotNull(message="Informe a disciplina.", groups=AmbientValidator.class)
 	private Disciplina disciplina;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private Aluno aluno;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@NotNull(message="Informe a instituição.", groups=AmbientValidator.class)
 	private Instituicao instituicao;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
