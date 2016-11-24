@@ -62,38 +62,38 @@ public class ProvaControl {
 	private Template template;
 
 	private String pesquisa = new String();
-	
+
 	private String enunciado;
 
 	private String tipoPesquisa = new String();
 
 	private SessaoProva sessaoSelecionada = new SessaoProva();
-	
+
 	private SessaoTemplate sessaoTemplate = new SessaoTemplate();
-	
+
 	private QuestaoTemplate questaoSelecionada = new QuestaoTemplate();
-	
+
 	private QuestaoProva questaoProva = new QuestaoProva();
-	
+
 	private List<Prova> provas = new ArrayList<Prova>();
-	
+
 	private List<QuestaoTemplate> questoesTemplate = new ArrayList<>();
-	
+
 	private List<SessaoTemplate> sessoes = new ArrayList<>();
 
 	private List<Template> templates = new ArrayList<>(); 
-	
+
 	private List<AlternativaQuestao> alternativas = new ArrayList<>();
-	
+
 	private List<Instituicao> instituicoes = new ArrayList<>();
 
 	private List<Curso> cursos = new ArrayList<>();
-	
+
 	private List<Disciplina> disciplinas = new ArrayList<>();
-	
+
 	@Autowired
 	private QuestaoTemplateDao questaoTemplateDao;
-	
+
 	@Autowired
 	private QuestaoProvaDao questaoProvaDao;
 
@@ -141,7 +141,7 @@ public class ProvaControl {
 
 	public void imprimirProva(ActionEvent evt) {
 		Prova provaImprimir = (Prova) UtilFaces.getValorParametro(evt, "sesImprimir");
-		
+
 		List<SessaoProva> sessoes = new ArrayList<SessaoProva>(provaImprimir.getSessoes());
 
 		Map<String, Object> parametros = new HashMap<String, Object>();
@@ -212,9 +212,11 @@ public class ProvaControl {
 			}else {
 				prova.setDisciplina(disciplinaDao.consultarPorChaveDisciplinaCorporatum(prova.getDisciplina().getId()));
 			}
+
 			provaDao.alterar(prova);
 			listar();
 			limpar();
+
 			UtilFaces.addMensagemFaces("Operação realizada com sucesso");
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("É necessário o preenchimento de todos os campos", FacesMessage.SEVERITY_ERROR);
@@ -385,22 +387,26 @@ public class ProvaControl {
 			return questaoProva;
 		}
 	}
-	
+
 	public void confirmarNovaSessaoProva(){
 		try {
-				SessaoProva sessaoPro = new SessaoProva();
-				sessaoPro.getSessao().setDescricao(sessaoTemplate.getSessao().getDescricao());
-				sessaoPro.getSessao().setTitulo(sessaoTemplate.getSessao().getTitulo());
+			SessaoProva sessaoPro = new SessaoProva();
+			sessaoPro.getSessao().setDescricao(sessaoTemplate.getSessao().getDescricao());
+			sessaoPro.getSessao().setTitulo(sessaoTemplate.getSessao().getTitulo());
 
-				for (ItemQuestaoTemplate item : sessaoTemplate.getItensQuestao()) {
-					sessaoPro.addQuestao(converterQuestao(item.getQuestaoTemplate()));
-				}
+			for (ItemQuestaoTemplate item : sessaoTemplate.getItensQuestao()) {
+				sessaoPro.addQuestao(converterQuestao(item.getQuestaoTemplate()));
+			}
+			
+			if (!prova.getSessoes().isEmpty()) {
 				prova.addSessao(sessaoPro);
+			}else {
+				UtilFaces.addMensagemFaces("Operação não realizada, por favor adicione as sessões", FacesMessage.SEVERITY_ERROR);
+			}
 		} catch (Exception e) {
-			UtilFaces.addMensagemFaces("Erro "
-					+ e.getMessage());
+			UtilFaces.addMensagemFaces("Erro " + e.getMessage());
 		}
-		
+
 	}
 
 	public void pesquisarQuestao() {
@@ -426,19 +432,19 @@ public class ProvaControl {
 		} catch (IOException e) {
 			UtilFaces.addMensagemFaces(e.getMessage());
 		}
-		
+
 	}
-	
+
 	public void novaSessao(){
 		sessaoTemplate = new SessaoTemplate();
 		RequestContext context = RequestContext.getCurrentInstance(); 
 		context.execute("PF('vCadSessao').show();");	
 	}
-	
+
 	public void selecionarQuestao(QuestaoTemplate questaoTemplate){
 		this.questaoSelecionada = questaoTemplate;
 	}
-	
+
 	public void adicionarItemQuestao(){
 		if (questaoSelecionada.getQuestao().getId() != null) {
 			try {
@@ -451,11 +457,11 @@ public class ProvaControl {
 			UtilFaces.addMensagemFaces("Selecione uma questão para adicionar!", FacesMessage.SEVERITY_ERROR);
 		}
 	}
-	
+
 	public void removerItemQuestao(ItemQuestaoTemplate item){
 		sessaoTemplate.removeQuestao(item);
 	}
-	
+
 	public QuestaoTemplate consultarAlternativasQuestao(QuestaoTemplate questaoTemplate){
 		try {
 			if (questaoProva != null) {
@@ -669,6 +675,6 @@ public class ProvaControl {
 	public void setQuestoesTemplate(List<QuestaoTemplate> questoesTemplate) {
 		this.questoesTemplate = questoesTemplate;
 	}
-	
-	
+
+
 }
