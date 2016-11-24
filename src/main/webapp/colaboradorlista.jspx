@@ -67,6 +67,7 @@
 		</p:dataTable>
 		</p:panel>
 		<p:dialog id="usuario" header="Cadastro de usuário" widgetVar="usuario" dynamic="true" modal="true">
+			<p:messages autoUpdate="true" closable="true" />
 			<p:outputPanel id="opUsuario">
 				<a:field label="CPF">
 					<p:inputMask value="#{ColaboradorControl.cpf }" mask="999.999.999-99" />
@@ -145,6 +146,7 @@
 		</p:dialog>
 
 		<p:dialog id="usuarioEditar" header="Editar Usuário" widgetVar="usuarioEditar" dynamic="true" modal="true">
+			<p:messages autoUpdate="true" closable="true" />
 			<a:field label="Nome">
 				<p:inputText value="#{ColaboradorControl.colaboradorAlterar.nome }" />
 			</a:field>
