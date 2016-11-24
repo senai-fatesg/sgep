@@ -28,7 +28,7 @@
 			<h:outputLabel style="margin-left:1.5%" value="Etc: "/>
 			<h:outputText value=" ..."/>
 		</p:panel>
-		<p:dataTable var="listaPaginada" id="dTblRespostas" emptyMessage="Não há nenhuma questão para esta prova!" scrollable="true" scrollHeight="440" style="width:30%; margin-left:30%" value="#{GabaritoRespostaControl.gabarito.dataTableDividido }">
+		<p:dataTable  var="listaPaginada" id="dTblRespostas" emptyMessage="Não há nenhuma questão para esta prova!" scrollable="true" scrollHeight="440" style="width:30%; margin-left:30%" value="#{GabaritoRespostaControl.gabarito.dataTableDividido }">
 			<p:subTable id="subTableRespostas" value="#{listaPaginada }"  var="questao">
 				<p:column headerText="Questão">
 					<h:outputText value="#{questao.key }"/>

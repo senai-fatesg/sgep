@@ -43,8 +43,8 @@
 					</p:commandButton>
 				</p:column>
 				<p:column headerText="Gabarito resposta" style="width:80px; text-align: center">
-					<p:remoteCommand name="gabaritoResposta"  action="#{GabaritoRespostaControl.inicializarItensQuestaoProva}"/>
-					<p:commandButton icon="ui-icon-bookmark" action="/gerarGabarito.jspx?faces-redirect=true" onsuccess="gabaritoResposta()" style="margin-left: 10%; width: 60px">
+					<p:remoteCommand name="gabaritoResposta"  action="/gerarGabarito.jspx?faces-redirect=true"/>
+					<p:commandButton icon="ui-icon-bookmark" action="#{GabaritoRespostaControl.inicializarItensQuestaoProva}" oncomplete="gabaritoResposta()" style="margin-left: 10%; width: 60px">
 						<f:setPropertyActionListener target="#{GabaritoRespostaControl.prova}" value="#{prova}" />
 					</p:commandButton>					
 				</p:column>

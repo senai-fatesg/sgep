@@ -51,7 +51,6 @@ public class GabaritoRespostaControl {
 		}
 		this.setQuestoes(entryListaQuestoes);
 		this.getGabarito().setQuestoes(this.getQuestoes());
-		this.init();
 	}
 
 
