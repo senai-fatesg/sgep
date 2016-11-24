@@ -71,7 +71,7 @@
 					</p:dataTable>
 				</p:panel>
 				<a:field>
-					<p:commandButton icon="ui-icon-plusthick" actionListener="#{TemplateControl.confirmar}" value="Confirmar" update="@form" oncomplete="dlgTemplate.hide();" />
+					<p:commandButton icon="ui-icon-plusthick" actionListener="#{TemplateControl.confirmar}" value="Confirmar"/>
 				</a:field>
 				<p:spacer width="45px" />
 				<a:newLine />
