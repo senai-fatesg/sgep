@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template2.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+		<style>
+			td{
+				text-align: center;
+			}
+			body{
+				overflow: hidden;
+			}
+			.ui-datatable-scrollable-body{
+				overflow-x:hidden;
+			}
+		</style>
+	<p:panel>
+		<p:commandButton id="btnImprimir" action="#{GabaritoRespostaControl.imprimirGabarito }" value="Imprimir Gabarito" style="margin-left:38%"/>
+		<a:newLine/><a:newLine/><a:newLine/>
+		<p:panel style="margin-left:30%" id="pnlTituloGabarito">
+			<h:outputLabel value="Instituição: "/>
+			<h:outputText value=" teste"/>
+			<h:outputLabel style="margin-left:2.5%" value="Turma / Período: "/>
+			<h:outputText value=" teste"/>
+			<a:newLine/>
+			<h:outputLabel value="Titulo Prova: "/>
+			<h:outputText value=" teste"/>
+			<h:outputLabel style="margin-left:1.5%" value="Etc: "/>
+			<h:outputText value=" ..."/>
+		</p:panel>
+		<p:dataTable var="listaPaginada" id="dTblRespostas" emptyMessage="Não há nenhuma questão para esta prova!" scrollable="true" scrollHeight="440" style="width:30%; margin-left:30%" value="#{GabaritoRespostaControl.gabarito.dataTableDividido }">
+			<p:subTable id="subTableRespostas" value="#{listaPaginada }"  var="questao">
+				<p:column headerText="Questão">
+					<h:outputText value="#{questao.key }"/>
+				</p:column>
+				<p:column headerText="Resposta">
+					<h:outputText value="#{questao.value }"/>
+				</p:column>
+			</p:subTable>
+		</p:dataTable>
+	</p:panel>	
+	</ui:define>
+	</ui:composition>
