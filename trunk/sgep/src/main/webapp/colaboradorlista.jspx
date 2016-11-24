@@ -201,24 +201,7 @@
                </p:selectOneMenu>
 		    </a:field>
 			<a:newLine />
-			<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="20">
-				<a:field>
-					<h:outputLabel value="Cadastro Confirmado?" />
-				</a:field>
-				<a:field spaceLeft="10PX">
-					<p:selectBooleanButton id="confirmado" value="#{ColaboradorControl.colaboradorAlterar.confirmado}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" />
-				</a:field>
-
-				<a:field spaceLeft="10px">
-					<h:outputLabel value="Senha alterada?" />
-				</a:field>
-				<a:field spaceLeft="10px">
-					<p:selectBooleanButton id="alterado" value="#{ColaboradorControl.colaboradorAlterar.alterarSenha}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close"/>
-				</a:field>
-				
-			</h:panelGrid>
 			<p:separator/>
-
 			<h4>Papeis do usuário</h4>
 			<a:field label="Adicionar papel:">
 				<p:selectOneMenu styleClass="obrigatorio" value="#{ColaboradorControl.papel}" style="width:350px;">
