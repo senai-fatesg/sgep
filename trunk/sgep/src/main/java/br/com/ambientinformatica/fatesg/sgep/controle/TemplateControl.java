@@ -41,8 +41,12 @@ public class TemplateControl {
 
 	public void confirmar(ActionEvent evt) {
 		try {
-			templateDao.alterar(templateSelecionada);
-			listar();
+			if (!templateSelecionada.getSessoes().isEmpty() && !templateSelecionada.getDescricao().equals(null)) {
+				templateDao.alterar(templateSelecionada);
+				listar();
+			}else {
+				UtilFaces.addMensagemFaces("Os campos na tela de cadastros deverão ser preenchidos", FacesMessage.SEVERITY_ERROR);
+			}
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		} finally {
