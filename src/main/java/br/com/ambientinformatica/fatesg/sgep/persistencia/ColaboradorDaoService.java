@@ -3,6 +3,7 @@ package br.com.ambientinformatica.fatesg.sgep.persistencia;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
+import br.com.ambientinformatica.jpa.exception.PersistenciaException;
 import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
 import br.com.ambientinformatica.util.UtilLog;
 
@@ -25,7 +28,7 @@ public class ColaboradorDaoService extends PersistenciaJpa<Colaborador> implemen
 	private WebTarget target = client.target("http://localhost:8080/corporatum/service/colaborador");
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Override
 	@Transactional
 	public void incluir(Colaborador clb){
@@ -60,22 +63,17 @@ public class ColaboradorDaoService extends PersistenciaJpa<Colaborador> implemen
 			UtilLog.getLog().info("Não foi possível persistir o colaborador. Log:\n "+ e.getMessage());
 		}
 	}
-	
+
 	public Colaborador consultarPorIdPaiSgep(int idPai){
 		return (Colaborador) em.createQuery("FROM Colaborador as colab WHERE colab.idColaboradorPai = :idPai")
 				.setParameter("idPai", idPai).getSingleResult();
 	}
-	
+
 	@Override
 	@RequestMapping("/colaborador")
 	public Colaborador consultarPorCpf(String cpf) {
 		String conteudo = target.path("/listarPorCPF/" + cpf).request().get(String.class);
 		return (Colaborador) new XStream().fromXML(conteudo);
-	}
-	
-	public Colaborador consultarPorCpfSgep(String cpf){
-		return (Colaborador) em.createQuery("FROM Colaborador colab WHERE colab.cpfCnpj like :cpf")
-				.setParameter("cpf", cpf).getSingleResult();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -85,4 +83,23 @@ public class ColaboradorDaoService extends PersistenciaJpa<Colaborador> implemen
 		String conteudo = target.path("/listarPorNome/" + nome).request().get(String.class);
 		return (List<Colaborador>) new XStream().fromXML(conteudo);
 	}
+
+	@Override
+	public Colaborador consultarPorCpfSgep(String cpf) throws PersistenciaException{
+		try {
+			Query query = em.createQuery("select c from Colaborador c left join fetch c.municipio m WHERE c.cpfCnpj = :cpf");
+			query.setParameter("cpf", cpf);
+			query.setMaxResults(1);
+			List<Colaborador> colaboradores = query.getResultList();
+			if (colaboradores.isEmpty()) {
+				return null;
+			}else {
+				return colaboradores.get(0);
+			}
+		} catch (Exception e) {
+			UtilLog.getLog().error(e.getMessage(), e);
+			throw new PersistenciaException("Erro ao consultar colaborador por cpf", e);
+		}
+	}
+
 }

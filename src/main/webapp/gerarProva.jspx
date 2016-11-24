@@ -164,7 +164,7 @@
 				</p:panel>
 			</p:dialog>
 			<p:dialog header="Alternativas da questão" widgetVar="dlgAlternativa" minHeight="40" modal="true">
-	    		<p:dataList id="dlQuestao" value="#{SessaoControl.alternativas}" var="alt" type="unordered" itemType="none" rows="10" styleClass="paginated">
+	    		<p:dataList id="dlQuestao" value="#{ProvaControl.alternativas}" var="alt" type="unordered" itemType="none" rows="10" styleClass="paginated">
 			        <p:panelGrid columns="2" style="margin-bottom: 1px">
 			        	<p:outputLabel value="#{alt.ordem}"/>
 			        	<p:outputLabel value="#{alt.descricao}"/>
@@ -173,7 +173,7 @@
 			</p:dialog>
 			<p:dialog id="dlgEnunciado" header="Enunciado da questão" widgetVar="dlgEnunciado" minHeight="40">
 		        <p:panelGrid columns="2" style="margin-bottom: 1px">
-		        	<p:outputLabel value="#{SessaoControl.enunciado}"/>
+		        	<p:outputLabel value="#{ProvaControl.enunciado}"/>
 		        </p:panelGrid>
 			</p:dialog>
 				
