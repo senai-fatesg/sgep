@@ -76,7 +76,7 @@
 				</a:field>
 				<a:newLine/>
 				<a:field label="Nome">
-					<p:inputText value="#{ColaboradorControl.colaborador.nome }" style="width: 520px"/>
+					<p:inputText value="#{ColaboradorControl.colaborador.nome }" style="width: 580px"/>
 				</a:field>
 				<a:field label="RG" spaceLeft="10px">
 					<p:inputText value="#{ColaboradorControl.colaborador.rg }" />
@@ -94,14 +94,14 @@
 				<a:field label="Nº Reservista" spaceLeft="10px">
 					<p:inputText value="#{ColaboradorControl.colaborador.reservista }" />
 				</a:field>
+				<a:field label="Histórico" spaceLeft="10px">
+					<p:inputText value="#{ColaboradorControl.colaborador.historico }" />
+				</a:field>
 				<a:field label="Tipo Colaborador" spaceLeft="10px">
 					<h:selectOneMenu id="tipocolaborador" value="#{ColaboradorControl.colaborador.tipo}" style="width:290px">
 						<f:selectItem itemLabel="Selecione" itemValue="" />
 						<f:selectItems value="#{ColaboradorControl.tiposColaboradores}" var="tipocolaborador" itemValue="#{tipo}" itemLabel="#{tipo}" />
 					</h:selectOneMenu>
-				</a:field>
-				<a:field label="Histórico" spaceLeft="10px">
-					<p:inputText value="#{ColaboradorControl.colaborador.historico }" />
 				</a:field>
 				<a:newLine />
 				<a:field label="Telefone">
@@ -118,7 +118,7 @@
 				</a:field>
 				<a:newLine />
 				<a:field label="Endereço">
-					<p:inputText value="#{ColaboradorControl.colaborador.endereco }" style="width:444px" />
+					<p:inputText value="#{ColaboradorControl.colaborador.endereco }" style="width:524px" />
 				</a:field>
 				<a:field label="UF" spaceLeft="10px">
 					<p:selectOneMenu id="uf" value="#{ColaboradorControl.uf }" style="width:190px;" converter="objectConverter">

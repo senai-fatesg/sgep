@@ -72,7 +72,7 @@ public class ColaboradorDaoService extends PersistenciaJpa<Colaborador> implemen
 	@Override
 	@RequestMapping("/colaborador")
 	public Colaborador consultarPorCpf(String cpf) {
-		String conteudo = target.path("/listarPorCPF/" + cpf).request().get(String.class);
+		String conteudo = target.path("/listarPorCPFNovo/" + cpf).request().get(String.class);
 		return (Colaborador) new XStream().fromXML(conteudo);
 	}
 

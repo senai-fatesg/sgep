@@ -47,35 +47,37 @@
 						</f:facet>
 						<h:outputText value="#{cont.questao.assunto}"></h:outputText>
 					</p:column>
-					<p:column sortBy="#{cont.questao.resposta}">
+					<p:column sortBy="#{cont.questao.resposta}" style="width: 100px">
 						<f:facet name="header">
 							<h:outputText value="Resposta"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{cont.questao.resposta}"></h:outputText>
 					</p:column>
-					<p:column sortBy="#{cont.questao.estado}">
+					<p:column sortBy="#{cont.questao.estado}" style="width: 100px">
 						<f:facet name="header">
 							<h:outputText value="Estado"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{cont.questao.estado.descricao}"></h:outputText>
 					</p:column>
-					<p:column sortBy="#{cont.questao.dificuldade}">
+					<p:column sortBy="#{cont.questao.dificuldade}" style="width: 100px">
 						<f:facet name="header">
 							<h:outputText value="Dificuldade"></h:outputText>
 						</f:facet>
 						<h:outputText value="#{cont.questao.dificuldade.descricao}"></h:outputText>
 					</p:column>
-					<p:column>
-						<p:commandButton update=":formCorpo:sclPanel" action="#{QuestaoControl.carregarQuestao}" oncomplete="PF('wNewFile').show()" icon="ui-icon-pencil" value="Editar">
+					<p:column headerText="Editar" style="width: 55px">
+						<p:commandButton update=":formCorpo:sclPanel" action="#{QuestaoControl.carregarQuestao}" oncomplete="PF('wNewFile').show()" icon="ui-icon-pencil">
 							<f:setPropertyActionListener value="#{cont}" target="#{QuestaoControl.questaoSelecionada}" />
 						</p:commandButton>
-						<p:commandButton icon="ui-icon-trash" value="Excluir" oncomplete="PF('confirmacao').show()">
+					</p:column>
+					<p:column headerText="Excluir"  style="width: 55px">
+						<p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacao').show()">
 							<f:setPropertyActionListener target="#{QuestaoControl.questaoSelecionada}" value="#{cont}" />
 						</p:commandButton>
 					</p:column>
 				</p:dataTable>
 			</p:panel>
-			<p:dialog id="dlgQuestao" modal="true" widgetVar="wNewFile" header="Cadastro de Questões" resizable="false" onHide="#{QuestaoControl.limpar()}">
+			<p:dialog id="dlgQuestao" modal="true" widgetVar="wNewFile" header="Cadastro de Questões" resizable="true" onHide="#{QuestaoControl.limpar()}">
 				<p:scrollPanel id="sclPanel" mode="native" style="height:500px;padding: 5px 10px;" rendered="true">
 					<a:field label="Deseja criar questões utilizando o usuário do professor logado?">
 							<div id="divRdbProf" style="margin-left: 15%">
