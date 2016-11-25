@@ -91,7 +91,7 @@ public class QuestaoControl implements Serializable {
 
 	private Colaborador getColaboradorLogado() {
 		Colaborador colaboradorLogado = colaboradorDao //consultar na base do sgep
-				.consultarPorCpf(UsuarioLogadoControl.getUsuarioConfigurado().getCpfCnpj());
+				.consultarPorCpfSgep(UsuarioLogadoControl.getUsuarioConfigurado().getCpfCnpj());
 		return colaboradorLogado;
 	}
 
@@ -100,7 +100,7 @@ public class QuestaoControl implements Serializable {
 	}
 	//consultar idpai base sgep
 	private boolean isProfessorJaCadastrado(Colaborador colaborador) {
-		Colaborador colab = colaboradorDao.consultarPorIdPaiSgep(colaborador.getId());
+		Colaborador colab = colaboradorDao.consultarPorCpfSgep(colaborador.getCpfCnpj());
 		questaoSelecionada.getQuestao().setProfessor(colab != null ? colab : new Colaborador());
 		return colab != null;
 	}
