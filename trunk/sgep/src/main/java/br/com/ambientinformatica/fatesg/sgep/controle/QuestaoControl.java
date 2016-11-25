@@ -91,7 +91,7 @@ public class QuestaoControl implements Serializable {
 
 	private Colaborador getColaboradorLogado() {
 		Colaborador colaboradorLogado = colaboradorDao //consultar na base do sgep
-				.consultarPorCpfSgep(UsuarioLogadoControl.getUsuarioConfigurado().getCpfCnpj());
+				.consultarPorCpf(UsuarioLogadoControl.getUsuarioConfigurado().getCpfCnpj());
 		return colaboradorLogado;
 	}
 
