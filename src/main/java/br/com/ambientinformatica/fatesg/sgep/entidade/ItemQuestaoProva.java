@@ -30,10 +30,8 @@ public class ItemQuestaoProva extends Entidade	 implements Serializable {
 
 	private int numero;
 	
-	public ItemQuestaoProva() {
-
-	}
-
+	public ItemQuestaoProva() {}
+	
 	public ItemQuestaoProva(SessaoProva sessao, QuestaoProva questao) {
 		this.sessao = sessao;
 		this.questao = questao;

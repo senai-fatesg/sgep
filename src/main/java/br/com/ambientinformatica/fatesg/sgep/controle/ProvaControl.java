@@ -2,7 +2,6 @@ package br.com.ambientinformatica.fatesg.sgep.controle;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -142,7 +141,7 @@ public class ProvaControl {
 	public void imprimirProva(ActionEvent evt) {
 		Prova provaImprimir = (Prova) UtilFaces.getValorParametro(evt, "sesImprimir");
 
-		List<SessaoProva> sessoes = new ArrayList<SessaoProva>(provaImprimir.getSessoes());
+		List<SessaoProva> sessoesProva = new ArrayList<SessaoProva>(provaImprimir.getSessoes());
 
 		Map<String, Object> parametros = new HashMap<String, Object>();
 		parametros.put("data", provaImprimir.getData());
@@ -150,9 +149,10 @@ public class ProvaControl {
 		parametros.put("nomeCurso", provaImprimir.getCurso().getDescricao());
 		parametros.put("nomeDisciplina", provaImprimir.getDisciplina().getNome());
 		parametros.put("periodo", provaImprimir.getPeriodo().getDescricao());
+		parametros.put("", provaImprimir);
 
 		try {
-			UtilFacesRelatorio.gerarRelatorioFaces("jasper/prova2.jasper", sessoes, parametros);
+			UtilFacesRelatorio.gerarRelatorioFaces("jasper/prova2.jasper",sessoesProva, parametros);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Houve um erro ao gerar o Relatório: " + e);
 		}
@@ -398,7 +398,7 @@ public class ProvaControl {
 				sessaoPro.addQuestao(converterQuestao(item.getQuestaoTemplate()));
 			}
 			
-			if (!prova.getSessoes().isEmpty()) {
+			if (!sessaoTemplate.getItensQuestao().isEmpty()) {
 				prova.addSessao(sessaoPro);
 			}else {
 				UtilFaces.addMensagemFaces("Operação não realizada, por favor adicione as sessões", FacesMessage.SEVERITY_ERROR);
