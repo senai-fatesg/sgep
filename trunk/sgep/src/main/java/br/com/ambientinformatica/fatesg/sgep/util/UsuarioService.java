@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,6 +23,7 @@ import br.com.ambientinformatica.util.UtilLog;
 
 public class UsuarioService implements UserDetailsService{
 
+	@Autowired
 	private DataSource dataSource;
 
 	private void registrarHistoricoLogin(Connection con, String cpfcnpj) throws SQLException{
@@ -70,6 +72,7 @@ public class UsuarioService implements UserDetailsService{
 						throw new UsernameNotFoundException("Usuário " + cpfcnpj + " não encontrado");
 					}
 				} finally {
+					pstmt.close();
 					rs.close();
 				}
 			}finally{
