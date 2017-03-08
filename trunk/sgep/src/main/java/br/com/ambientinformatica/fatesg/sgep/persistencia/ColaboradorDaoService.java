@@ -12,13 +12,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
+import com.thoughtworks.xstream.XStream;
+
 import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
 import br.com.ambientinformatica.jpa.exception.PersistenciaException;
 import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
 import br.com.ambientinformatica.util.UtilLog;
-
-import com.thoughtworks.xstream.XStream;
 
 @Repository("colaboradorDao")
 public class ColaboradorDaoService extends PersistenciaJpa<Colaborador> implements ColaboradorDao, Serializable {

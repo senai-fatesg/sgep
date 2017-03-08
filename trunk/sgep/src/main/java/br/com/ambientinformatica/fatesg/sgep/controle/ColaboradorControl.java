@@ -21,7 +21,6 @@ import br.com.ambientinformatica.fatesg.api.entidade.EnumPapelUsuario;
 import br.com.ambientinformatica.fatesg.api.entidade.EnumTipoColaborador;
 import br.com.ambientinformatica.fatesg.api.entidade.EnumTipoSexo;
 import br.com.ambientinformatica.fatesg.api.entidade.EnumUf;
-import br.com.ambientinformatica.fatesg.api.entidade.Instituicao;
 import br.com.ambientinformatica.fatesg.api.entidade.Municipio;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.ColaboradorDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.MunicipioDao;
