@@ -25,6 +25,7 @@ public class GabaritoResposta {
 
 	//Gera respostas não divididas em sublistas a partir do hashmap de questoes
 	public List<Map.Entry<Integer, String>> getRespostas() {
+		@SuppressWarnings("unchecked")
 		Set<Map.Entry<Integer, String>> respostas = this.getQuestoes() != null
 				? this.getQuestoes().entrySet()
 				: new HashMap<>().entrySet();
