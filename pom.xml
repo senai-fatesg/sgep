@@ -32,6 +32,11 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4.1212.jre7</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
@@ -42,19 +47,17 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
-				<!-- https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api -->
+
 		<dependency>
 		    <groupId>javax.ws.rs</groupId>
 		    <artifactId>javax.ws.rs-api</artifactId>
 		    <version>2.0</version>
 		</dependency>
-		
 		<dependency>
 		    <groupId>org.jboss.resteasy</groupId>
 		    <artifactId>resteasy-client</artifactId>
 		    <version>3.0.2.Final</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>br.com.ambientinformatica</groupId>
 			<artifactId>ambient-jpa</artifactId>
@@ -133,14 +136,6 @@
 			<artifactId>bootstrap</artifactId>
 			<version>1.0.9</version>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
-		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongo-java-driver</artifactId>
-			<version>3.4.2</version>
-		</dependency>
-
 
 		<!-- Ambient JSF -->
 		<dependency>
@@ -231,12 +226,14 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jasperreports-maven-plugin</artifactId>
 				<version>1.0-beta-2</version>
 				<configuration>
+					<sourceDirectory>src/main/jasperreports</sourceDirectory>
 					<outputDirectory>${project.build.directory}/classes/jasper</outputDirectory>
+					<outputFileExt>.jasper</outputFileExt>
 				</configuration>
 				<executions>
 					<execution>
@@ -253,7 +250,8 @@
 						<version>5.2.0</version>
 					</dependency>
 				</dependencies>
-			</plugin>
+			</plugin> -->
+			
 		</plugins>
 		<finalName>${project.artifactId}</finalName>
 	</build>

@@ -1,7 +1,9 @@
+
 package br.com.ambientinformatica.fatesg.sgep.controle;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -154,11 +156,14 @@ public class QuestaoControl implements Serializable {
 	}
 
 	private void compareToAlternativas() {
-		questaoSelecionada.getQuestao().getAlternativas().sort(new Comparator<AlternativaQuestao>() {
+		List<AlternativaQuestao> alternativas = questaoSelecionada.getQuestao().getAlternativas();
+		Comparator<AlternativaQuestao> comparator = new Comparator<AlternativaQuestao>() {
 			public int compare(AlternativaQuestao o1, AlternativaQuestao o2) {
 				return o1.getOrdem().compareTo(o2.getOrdem());
 			};
-		});
+		};
+		
+		Collections.sort(alternativas,comparator);
 	}
 
 	private boolean isAlternativaValida() {

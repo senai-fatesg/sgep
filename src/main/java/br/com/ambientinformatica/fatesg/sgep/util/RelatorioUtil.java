@@ -35,9 +35,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import javax.naming.Context;
@@ -46,6 +49,7 @@ import javax.naming.NamingException;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.springframework.stereotype.Component;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
@@ -57,6 +61,7 @@ import net.sf.jasperreports.engine.export.JRHtmlExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
 
+@Component
 public class RelatorioUtil {
 
 	public static final int	PROVA_PDF							= 1;
@@ -122,5 +127,33 @@ public class RelatorioUtil {
 			throw new UtilException("Ocorreu um erro de SQL.", e);
 		}
 		return conexao;
+	}
+	
+	
+	public void gerarRelatorio(Map<String,Object> parametros,OutputStream outputStream){
+		 	String driver = "org.postgresql.Driver";
+	        String user = "postgres";
+	        String senha = "123456";
+	        String url = "jdbc:postgresql://localhost:5432/sgep";
+		
+		try {
+			
+			Class.forName(driver);
+			
+			JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\areaDeTrabalho\\meusProjetos\\sgep\\target\\sgep\\WEB-INF\\relatorios\\provaSgep.jasper", parametros,(Connection) DriverManager.getConnection(url, user, senha));
+			
+			JRExporter exporter = new JRPdfExporter();
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
+			exporter.exportReport();
+		} catch (JRException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
