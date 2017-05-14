@@ -1,6 +1,7 @@
 package br.com.ambientinformatica.fatesg.sgep.controle;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,9 +9,11 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletResponse;
 
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +21,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
-import br.com.ambientinformatica.ambientjsf.util.UtilFacesRelatorio;
 import br.com.ambientinformatica.fatesg.api.entidade.Aluno;
 import br.com.ambientinformatica.fatesg.api.entidade.Curso;
 import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
@@ -43,6 +45,7 @@ import br.com.ambientinformatica.fatesg.sgep.persistencia.QuestaoTemplateDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoProvaDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoTemplateDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.TemplateDao;
+import br.com.ambientinformatica.fatesg.sgep.util.RelatorioUtil;
 
 @Controller("ProvaControl")
 @Scope("conversation")
@@ -139,20 +142,21 @@ public class ProvaControl {
 	}
 
 	public void imprimirProva(ActionEvent evt) {
+	   //TODO organizar esse metodo
 		Prova provaImprimir = (Prova) UtilFaces.getValorParametro(evt, "sesImprimir");
-
-		List<SessaoProva> sessoesProva = new ArrayList<SessaoProva>(provaImprimir.getSessoes());
-
 		Map<String, Object> parametros = new HashMap<String, Object>();
-		parametros.put("data", provaImprimir.getData());
-		parametros.put("nomeInstituicao", provaImprimir.getInstituicao().getNomeFantasia());
-		parametros.put("nomeCurso", provaImprimir.getCurso().getDescricao());
-		parametros.put("nomeDisciplina", provaImprimir.getDisciplina().getNome());
-		parametros.put("periodo", provaImprimir.getPeriodo().getDescricao());
-		parametros.put("", provaImprimir);
-
+		parametros.put("PROVA_ID", provaImprimir.getId());
+		
 		try {
-			UtilFacesRelatorio.gerarRelatorioFaces("jasper/prova2.jasper",sessoesProva, parametros);
+			FacesContext fc = FacesContext.getCurrentInstance();
+		    ExternalContext ec = fc.getExternalContext();
+		    ec.responseReset(); 
+		    HttpServletResponse response = (HttpServletResponse) fc.getExternalContext().getResponse();
+		    ec.setResponseHeader("Content-Disposition", "attachment; filename=\"prova.pdf\"");
+			OutputStream output = response.getOutputStream();
+			new RelatorioUtil().gerarRelatorio(parametros,output);
+			fc.responseComplete();
+			
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Houve um erro ao gerar o Relatório: " + e);
 		}
@@ -212,7 +216,7 @@ public class ProvaControl {
 			}else {
 				prova.setDisciplina(disciplinaDao.consultarPorChaveDisciplinaCorporatum(prova.getDisciplina().getId()));
 			}
-
+			
 			provaDao.alterar(prova);
 			listar();
 			limpar();
@@ -223,7 +227,11 @@ public class ProvaControl {
 		}
 	}
 	private boolean isInstituicaoJaCadastrado(Instituicao instituicao) {
-		return instituicaoDao.consultarPorChaveInstituicaoCorporatum(instituicao.getId()) != null;
+		if(instituicao != null){
+			return instituicaoDao.consultarPorChaveInstituicaoCorporatum(instituicao.getId()) != null;
+		}
+		
+		return false;
 	}
 	private boolean isCursoJaCadastrado(Curso curso) {
 		return cursoDao.consultarPorChaveCursoCorporatum(curso.getId()) != null;
