@@ -1,4 +1,3 @@
-
 package br.com.ambientinformatica.fatesg.sgep.controle;
 
 import java.io.Serializable;
@@ -65,21 +64,19 @@ public class QuestaoControl implements Serializable {
 	public void confirmar() {
 		try {
 			if (this.isQuestaoValida(questaoSelecionada.getQuestao().getAlternativas().size())) {
-				// verifica se professor consultado a partir do corporatum já
-				// está cadastrado na base do SGEP
-				if (!isRdbUsrLogadoSelecionado()
-						&& !isProfessorJaCadastrado(questaoSelecionada.getQuestao().getProfessor())) {
-					colaboradorDao.incluir(questaoSelecionada.getQuestao().getProfessor());
-				}else if(isRdbUsrLogadoSelecionado()){
-					Colaborador colaboradorLogado = this.getColaboradorLogado();
-					questaoSelecionada.getQuestao().setProfessor(colaboradorLogado);
+				if(isRdbUsrLogadoSelecionado()){
+					questaoSelecionada.getQuestao().setProfessor(this.getColaboradorLogado());
+				}else {
+					Colaborador colaborador = colaboradorDao.consultarPorCpfSgep(questaoSelecionada.getQuestao().getProfessor().getCpfCnpj());
+					if (colaborador != null) {
+						questaoSelecionada.getQuestao().setProfessor(colaborador);
+					}
 				}
-				
 				questaoDao.alterar(questaoSelecionada);
 				this.listar();
 				questaoSelecionada = new QuestaoTemplate();
 				RequestContext.getCurrentInstance()
-					.showMessageInDialog(new FacesMessage("SGEP", "Questão gravada com sucesso!"));
+				.showMessageInDialog(new FacesMessage("SGEP", "Questão gravada com sucesso!"));
 				RequestContext.getCurrentInstance().execute("fecharDlgQuestao();");
 			}
 		} catch (Exception e) {
@@ -88,7 +85,7 @@ public class QuestaoControl implements Serializable {
 	}
 
 	private boolean isColaboradorValidoPreenchido() {
-			return questaoSelecionada.getQuestao().getProfessor() != null;
+		return questaoSelecionada.getQuestao().getProfessor() != null;
 	}
 
 	private Colaborador getColaboradorLogado() {
@@ -106,6 +103,7 @@ public class QuestaoControl implements Serializable {
 		questaoSelecionada.getQuestao().setProfessor(colab != null ? colab : new Colaborador());
 		return colab != null;
 	}
+
 
 	public void listar() {
 		try {
@@ -162,7 +160,7 @@ public class QuestaoControl implements Serializable {
 				return o1.getOrdem().compareTo(o2.getOrdem());
 			};
 		};
-		
+
 		Collections.sort(alternativas,comparator);
 	}
 
@@ -188,7 +186,7 @@ public class QuestaoControl implements Serializable {
 			UtilFaces.setFocusComponente("completUsuario");
 			return false;
 		}
-		
+
 		if (!this.isCamposObrigatoriosPreenchidos()) {
 			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", "Campo(s) obrigatório(s) não informado(s)!"));
 			return false;

@@ -40,7 +40,7 @@ public class Questao extends Entidade implements Serializable {
 	@Column(length=500)
 	private String assunto;
 
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	private Colaborador professor;
 
 	@ManyToOne
