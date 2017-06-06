@@ -19,14 +19,14 @@
 		<a:newLine/><a:newLine/><a:newLine/>
 		<p:panel style="margin-left:30%" id="pnlTituloGabarito">
 			<h:outputLabel value="Instituição: "/>
-			<h:outputText value=" teste"/>
+			<h:outputText value="#{GabaritoRespostaControl.prova.instituicao.nomeFantasia}"/>
 			<h:outputLabel style="margin-left:2.5%" value="Turma / Período: "/>
-			<h:outputText value=" teste"/>
+			<h:outputText value=" #{GabaritoRespostaControl.prova.periodo}"/>
 			<a:newLine/>
-			<h:outputLabel value="Titulo Prova: "/>
-			<h:outputText value=" teste"/>
-			<h:outputLabel style="margin-left:1.5%" value="Etc: "/>
-			<h:outputText value=" ..."/>
+			<h:outputLabel value="Curso: "/>
+			<h:outputText value=" #{GabaritoRespostaControl.prova.curso.nome}"/>
+			<h:outputLabel style="margin-left:1.5%" value="Disciplina: "/>
+			<h:outputText value="#{GabaritoRespostaControl.prova.disciplina.nome}"/>
 		</p:panel>
 		<p:dataTable  var="listaPaginada" id="dTblRespostas" emptyMessage="Não há nenhuma questão para esta prova!" scrollable="true" scrollHeight="440" style="width:30%; margin-left:30%" value="#{GabaritoRespostaControl.gabarito.dataTableDividido }">
 			<p:subTable id="subTableRespostas" value="#{listaPaginada }"  var="questao">
