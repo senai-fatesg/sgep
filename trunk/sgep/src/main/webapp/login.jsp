@@ -53,7 +53,7 @@
 					 		<label for="j_username">CPF:</label> 
 							<input type="text"  maxlength="14" id=j_username name="j_username" class="form-control" placeholder="Informe o CPF" required="true" autofocus="true" />
 							<script>
-/* 								$("#j_username").mask("999.999.999-99"); */
+ 							$("#j_username").mask("999.999.999-99");
 								$("#usuario").mask("999.999.999-99");
 							</script>
 						</div>
