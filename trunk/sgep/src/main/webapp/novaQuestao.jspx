@@ -1,86 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ui:composition template="template2.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a="http://www.ambientinformatica.com.br/jsf2" xmlns:p="http://primefaces.org/ui">
+<ui:composition template="template2.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a="http://www.ambientinformatica.com.br/jsf2" xmlns:p="http://primefaces.org/ui">
 	<ui:define name="corpo">
-		<style>
-			.ui-radiobutton{
-				margin-left: 20px;
-			}
-			
-			td{
-				text-align: center;
-			}
-			.ui-dialog .ui-dialog-content {
-				width: 600px;
-			}
-		</style>
-		<script>
-			var fecharDlgQuestao = function(){
-				$(PrimeFaces.escapeClientId('formCorpo:dlgQuestao_modal')).hide();
-				$(PrimeFaces.escapeClientId('formCorpo:dlgQuestao')).hide()
+		<script type="text/javascript">
+			function handleDrop(event, ui) {
+				var droppedCar = ui.draggable;
+				droppedCar.fadeOut('fast');
 			}
 		</script>
-		<p:growl id="messages" life="6000" />
-			<a:newLine />
-			<p:panel id="pnlListarQuestoes">
-				<a:field>
-					<p:commandButton value="Nova Questão" update=":formCorpo:dlgQuestao" action="#{QuestaoControl.limpar}" oncomplete="PF('wNewFile').show()" />
-				</a:field>
+			<p:panel id="pnlGerarProva" header="Gerar Nova Questão">
 				<a:newLine/>
-				<a:newLine/>
-				<p:dataTable widgetVar="questoes" id="dtQuestoes"
-					value="#{QuestaoControl.questoes}" var="cont" width="100%"
-					emptyMessage="Sem registros" rows="10" paginator="true" currentPageReportTemplate="(Questões nesta página: {endRecord} - Total: {totalRecords} registro(s) - Página: {currentPage}/{totalPages})"
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-					<f:facet name="header">
-						<h:outputText value="Lista de Questões" style="margin-left: 10px"></h:outputText>
-					</f:facet>
-					<p:column sortBy="#{cont.questao.enunciado}">
-						<f:facet name="header">
-							<h:outputText value="Enunciado"></h:outputText>
-						</f:facet>
-						<h:outputText value="#{cont.questao.enunciado}"></h:outputText>
-					</p:column>
-					<p:column sortBy="#{cont.questao.assunto}">
-						<f:facet name="header">
-							<h:outputText value="Assunto"></h:outputText>
-						</f:facet>
-						<h:outputText value="#{cont.questao.assunto}"></h:outputText>
-					</p:column>
-					<p:column sortBy="#{cont.questao.resposta}" style="width: 100px">
-						<f:facet name="header">
-							<h:outputText value="Resposta"></h:outputText>
-						</f:facet>
-						<h:outputText value="#{cont.questao.resposta}"></h:outputText>
-					</p:column>
-					<p:column sortBy="#{cont.questao.estado}" style="width: 100px">
-						<f:facet name="header">
-							<h:outputText value="Estado"></h:outputText>
-						</f:facet>
-						<h:outputText value="#{cont.questao.estado.descricao}"></h:outputText>
-					</p:column>
-					<p:column sortBy="#{cont.questao.dificuldade}" style="width: 100px">
-						<f:facet name="header">
-							<h:outputText value="Dificuldade"></h:outputText>
-						</f:facet>
-						<h:outputText value="#{cont.questao.dificuldade.descricao}"></h:outputText>
-					</p:column>
-					<p:column headerText="Editar" style="width: 55px">
-						<p:commandButton update=":formCorpo:sclPanel" action="#{QuestaoControl.carregarQuestao}" oncomplete="PF('wNewFile').show()" icon="ui-icon-pencil">
-							<f:setPropertyActionListener value="#{cont}" target="#{QuestaoControl.questaoSelecionada}" />
-						</p:commandButton>
-					</p:column>
-					<p:column headerText="Excluir"  style="width: 55px">
-						<p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacao').show()">
-							<f:setPropertyActionListener target="#{QuestaoControl.questaoSelecionada}" value="#{cont}" />
-						</p:commandButton>
-					</p:column>
-				</p:dataTable>
-			</p:panel>
-			<p:dialog id="dlgQuestao" modal="true" widgetVar="wNewFile" header="Cadastro de Questões" resizable="true"   onHide="#{QuestaoControl.limpar()}">
-				<p:scrollPanel id="sclPanel" mode="native"  style="height:500px;;padding: 5px 10px;" rendered="true">
-					<a:field label="Deseja criar questões utilizando o usuário do professor logado?">
-							<div id="divRdbProf" style="margin-left: 15%">
+				<p:panelGrid>
+				<p:dialog id="dlgQuestao" modal="true" widgetVar="wNewFile" header="Cadastro de Questões" resizable="true" onHide="#{QuestaoControl.limpar()}">
+				<p:scrollPanel id="sclPanel" mode="native" style="height:500px;padding: 5px 10px;" rendered="true">
+					<a:field label="Deseja criar questões utilizando o usuário do professor logado?" />
+							<div id="divRdbProf" style="margin-left: 15%" >
 								<p:selectOneRadio id="rdbUsrSelecionado" value="#{QuestaoControl.rdbUsrLogadoSelecionado}" immediate="true">
 									<f:selectItem itemLabel="Sim" itemValue="true"/>
 									<f:selectItem itemLabel="Não" itemValue="false"/>
@@ -95,12 +29,8 @@
 									<p:watermark value="Pesquise pelo Nome" for="completUsuario" />
 								</p:outputPanel>
 							</div>
-					</a:field>
-					<a:newLine/>
-					<a:newLine/>
 					
 					<a:newLine/>
-					<a:newLine />
 					<a:field label="Enunciado">
 						<p:inputTextarea id="txtEnunciado" value="#{QuestaoControl.questaoSelecionada.questao.enunciado}" scrollHeight="1" style="width:500px" />
 						<p:watermark for="txtEnunciado" value="Descreva aqui o enunciado principal da questão."/>
@@ -125,7 +55,7 @@
 					<a:field label="Descrição da Alternativa" spaceLeft="15px">
 						<p:inputTextarea id="lItem" value="#{QuestaoControl.item.descricao}" 
 						placeholder="Descreva aqui a alternativa a ser adicionada para a questão em elaboração." 
-						scrollHeight="1" style="width:500px" />
+						scrollHeight="1" style="width:568px" />
 					</a:field>
 					<a:newLine />
 					<a:newLine />
@@ -139,7 +69,6 @@
 					<a:field spaceLeft="15px">
 						<p:commandButton action="#{QuestaoControl.adicionarItem}" styleClass="primary" value="Adicionar" update="alternativas,lItem" oncomplete="PF('wNewFile').show()" icon="ui-icon-plusthick" />
 					</a:field>
-					<a:newLine />
 					<a:newLine />
 					<a:newLine />
 					<p:growl id="messages2" life="6000" />
@@ -161,18 +90,14 @@
 				<p:spacer width="45px" />
 				<p:commandButton action="#{QuestaoControl.limpar}" value="Limpar" icon="ui-icon-refresh" update="sclPanel" />
 			</p:dialog>
-			<p:confirmDialog				
-					widgetVar="confirmacaoAlternativas" header="Confirmar" severity="alert" closable="true" width="550px" 
-					message="As informações da questão serão salvas. Deseja Continuar?">
-					<p:commandButton actionListener="#{QuestaoControl.confirmar}" 
-					update="formCorpo:pnlListarQuestoes" value="Sim" oncomplete="PF('confirmacaoAlternativas').hide()"/>
-					<p:commandButton value="Não" onclick="PF('confirmacaoAlternativas').hide()"/>
-			</p:confirmDialog>
-			<p:confirmDialog widgetVar="confirmacao" message="Tem Certeza que deseja excluir?" severity="alert" closable="true">
-				<p:commandButton value="Sim" actionListener="#{QuestaoControl.excluir}" onclick="confirmacao.hide()" update="@form" process="@this" />
-				<p:commandButton value="Não" onclick="PF('confirmacao').hide()" />
-			</p:confirmDialog>
-		<a:newLine />
-		<p:spacer width="25px" />
+				
+				</p:panelGrid>
+					
+			</p:panel>
+			<a:newLine/>
+			<p:panel id="selectedQuestions" header="Gerar Nova Questão">
+				
+			</p:panel>
+			<a:newLine />
 	</ui:define>
 </ui:composition>
