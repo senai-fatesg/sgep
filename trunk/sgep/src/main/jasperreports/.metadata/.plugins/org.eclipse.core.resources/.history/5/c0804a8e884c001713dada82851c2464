@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-06-08T17:25:04 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gabaritoR" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d03a1b71-aa8c-44a4-af4d-a498dcbbcde2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="Y3Vyc28gQVMgLDIyNSwxNSw4ZjdiOWEzZC01MDliLTQ1YzgtOWYwYi0zYTg4OGNjN2Y5NzM7cXVl&#xA;c3RhbyBBUyAsODc4LDE1LDA3MWIwZGE2LTFlZDAtNGRhNC04ZjVjLWQxMTZiYmQyY2M2YjtzZXNz&#xA;YW8gQVMgLDYxMCwxNSw4ZWM5Njc0Yy03YWZlLTQzNjctOTQ2Yy1jOTg4NDE5NzU5OTk7aXRlbXF1&#xA;ZXN0YW9wcm92YSBBUyAsNzA3LDE1LDZkMzZkNTQzLWFhNDUtNDMxNS04YTI4LTViZmY0YzU4ODQy&#xA;YjthbHRlcm5hdGl2YXF1ZXN0YW8gQVMgLDk4NSwxNSwwODFiM2E3NS1kMjRjLTQzYzQtOTcxYy03&#xA;OTFkNDVkOWVhOWQ7ZGlzY2lwbGluYSBBUyAsMTUsMTUsMWY5ZDlhODUtNGIxMy00MWQwLWE4MDYt&#xA;NDQyMzZiNzM2ZTg3O3Byb3ZhIEFTICwxMzAsMTUsZGIwODkwZjgtZWYwNS00ZTE5LWEzYzgtMDk0&#xA;YTY1OTU1MmUwO2luc3RpdHVpY2FvIEFTICwzMTgsMTUsNjhiYjFmODUtNDhhZS00OTIxLThiYzQt&#xA;MmYxY2U2YjU5MTZhO3Byb3ZhX3Nlc3Nhb3Byb3ZhIEFTICw0MzQsMTUsNGUwYmQ4ZTgtNzI1My00&#xA;YzQ0LWI1N2UtODgxYzhkN2RkYmE2Ow=="/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<queryString language="SQL">
+		<![CDATA[SELECT id AS prova_id,
+	nome AS nome_do_curso,
+	nomefantasia AS instituicao_nome,
+	enunciado AS enunciado_da_questao,
+	id AS questao_id,
+	descricao AS alternativa_da_questao,
+	ordem AS ordem_da_questao,
+	nome AS nome_da_disciplina,
+	resposta AS resposta_questao
+FROM prova AS p
+	INNER JOIN curso AS c ON 
+	 'NULL' = 'NULL' 
+	INNER JOIN instituicao AS i ON 
+	 'NULL' = 'NULL' 
+	INNER JOIN prova_sessaoprova AS psp ON 
+	 'NULL' = 'NULL' 
+	INNER JOIN sessao AS s ON 
+	 'NULL' = 'NULL' 
+	INNER JOIN itemquestaoprova AS iqp ON 
+	 'NULL' = 'NULL' 
+	INNER JOIN questao AS q ON 
+	 'NULL' = 'NULL' 
+	INNER JOIN alternativaquestao AS aq ON 
+	 'NULL' = 'NULL' 
+	INNER JOIN disciplina AS d ON 
+	 'NULL' = 'NULL' 
+WHERE 
+	 'NULL' = 1 
+ORDER BY id DESC,
+	id DESC,
+	ordem_da_questao DESC]]>
+	</queryString>
+	<field name="nome_do_curso" class="java.lang.String"/>
+	<field name="instituicao_nome" class="java.lang.String"/>
+	<field name="enunciado_da_questao" class="java.lang.String"/>
+	<field name="questao_id" class="java.lang.Integer"/>
+	<field name="alternativa_da_questao" class="java.lang.String"/>
+	<field name="resposta_questao" class="java.lang.String"/>
+	<field name="nome_da_disciplina" class="java.lang.String"/>
+	<field name="ordem_da_questao" class="java.lang.String"/>
+	<title>
+		<band height="216" splitType="Stretch">
+			<staticText>
+				<reportElement x="60" y="100" width="50" height="30" uuid="d1cb6426-32dc-4024-920e-3673446dc901"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="100" width="100" height="30" uuid="af3428a7-4bc9-4387-966f-3cf4e9f9a927"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_do_curso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="330" y="100" width="80" height="30" uuid="cd43b398-ff60-4ab9-824b-402c40dc572b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Instituição: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="100" width="100" height="30" uuid="99c559da-04c0-44e4-a3fe-4b836c3d29e3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{instituicao_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="60" y="160" width="110" height="30" uuid="2e36b729-c728-4602-af78-0e27e8985bb4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turma/Período:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="160" width="80" height="30" uuid="49ec7d81-054d-412a-b555-f90ac984bbd1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Disciplina: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="160" width="100" height="30" uuid="3bef24e3-9089-46f0-9746-0cf0e7b6040e"/>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="160" width="134" height="30" uuid="23af8f2e-d3bf-4898-95f2-15621157ad38"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_da_disciplina}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="162" y="30" width="230" height="70" uuid="1086168a-a408-48b4-9656-215ffc3bfbb9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26"/>
+				</textElement>
+				<text><![CDATA[GABARITO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnFooter>
+		<band height="109" splitType="Stretch">
+			<textField>
+				<reportElement x="140" y="20" width="100" height="30" uuid="93a97b64-8744-44cb-98c8-91cc4e2df0b0"/>
+				<textFieldExpression><![CDATA[$F{questao_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="20" width="100" height="30" uuid="ecec3be5-91a1-4445-b9c2-b3821ebfd0ca"/>
+				<textFieldExpression><![CDATA[$F{resposta_questao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

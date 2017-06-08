@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-06-08T16:57:00 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d03a1b71-aa8c-44a4-af4d-a498dcbbcde2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<queryString language="SQL">
+		<![CDATA[SELECT p.id as prova_id,
+	c.nome as nome_do_curso ,
+	i.nomefantasia as instituicao_nome ,
+	q.enunciado as enunciado_da_questao , q.id as questao_id,
+	aq.descricao as alternativa_da_questao ,
+	aq.ordem as ordem_da_questao ,
+	d.nome as nome_da_disciplina ,
+	q.resposta as resposta_questao
+	FROM prova as p
+
+	INNER JOIN curso as c ON p.curso_id = c.id
+	INNER JOIN instituicao as i ON p.instituicao_id = i.id
+	INNER JOIN prova_sessaoprova as psp ON p.id = psp.prova_id
+	INNER JOIN sessao as s ON psp.sessoes_id = s.id
+	INNER JOIN itemquestaoprova as iqp ON s.id = iqp.sessao_id
+	INNER JOIN questao as q ON iqp.questao_id = q.id
+	INNER JOIN alternativaquestao as aq ON q.id = aq.questao_id
+	INNER JOIN disciplina as d ON p.disciplina_id = d.id
+
+	WHERE p.id = 1
+	ORDER BY s.id,q.id,ordem_da_questao]]>
+	</queryString>
+	<field name="nome_do_curso" class="java.lang.String"/>
+	<field name="instituicao_nome" class="java.lang.String"/>
+	<field name="enunciado_da_questao" class="java.lang.String"/>
+	<field name="questao_id" class="java.lang.Integer"/>
+	<field name="alternativa_da_questao" class="java.lang.String"/>
+	<field name="resposta_questao" class="java.lang.String"/>
+	<field name="nome_da_disciplina" class="java.lang.String"/>
+	<field name="ordem_da_questao" class="java.lang.String"/>
+	<group name="ordem_da_questao">
+		
+				<textField>
+					<reportElement x="100" y="10" width="140" height="20" uuid="0e8d76bd-b1b2-4cb4-8221-7a7ad6f1742a"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nome_do_curso}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="10" width="91" height="21" uuid="72472441-b348-480c-91a9-287b3ee6cdfd"/>
+					<textElement>
+						<font fontName="Arial" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Curso :]]></text>
+				</staticText>
+			
+		<groupExpression><![CDATA[$F{ordem_da_questao}]]></groupExpression>
+		<groupHeader>
+			
+		</groupHeader>
+	</group>
+	<group name="questao_id">
+		<groupExpression><![CDATA[$F{questao_id}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<columnFooter>
+		<band height="109" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>
