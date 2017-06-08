@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-06-08T17:12:00 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d03a1b71-aa8c-44a4-af4d-a498dcbbcde2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<queryString language="SQL">
+		<![CDATA[SELECT p.id as prova_id,
+	c.nome as nome_do_curso ,
+	i.nomefantasia as instituicao_nome ,
+	q.enunciado as enunciado_da_questao , q.id as questao_id,
+	aq.descricao as alternativa_da_questao ,
+	aq.ordem as ordem_da_questao ,
+	d.nome as nome_da_disciplina ,
+	q.resposta as resposta_questao
+	FROM prova as p
+
+	INNER JOIN curso as c ON p.curso_id = c.id
+	INNER JOIN instituicao as i ON p.instituicao_id = i.id
+	INNER JOIN prova_sessaoprova as psp ON p.id = psp.prova_id
+	INNER JOIN sessao as s ON psp.sessoes_id = s.id
+	INNER JOIN itemquestaoprova as iqp ON s.id = iqp.sessao_id
+	INNER JOIN questao as q ON iqp.questao_id = q.id
+	INNER JOIN alternativaquestao as aq ON q.id = aq.questao_id
+	INNER JOIN disciplina as d ON p.disciplina_id = d.id
+
+	WHERE p.id = 1
+	ORDER BY s.id,q.id,ordem_da_questao]]>
+	</queryString>
+	<field name="nome_do_curso" class="java.lang.String"/>
+	<field name="instituicao_nome" class="java.lang.String"/>
+	<field name="enunciado_da_questao" class="java.lang.String"/>
+	<field name="questao_id" class="java.lang.Integer"/>
+	<field name="alternativa_da_questao" class="java.lang.String"/>
+	<field name="resposta_questao" class="java.lang.String"/>
+	<field name="nome_da_disciplina" class="java.lang.String"/>
+	<field name="ordem_da_questao" class="java.lang.String"/>
+	
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="216" splitType="Stretch">
+			<staticText>
+				<reportElement x="60" y="100" width="50" height="30" uuid="d1cb6426-32dc-4024-920e-3673446dc901"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="100" width="100" height="30" uuid="af3428a7-4bc9-4387-966f-3cf4e9f9a927"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_do_curso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="330" y="100" width="80" height="30" uuid="cd43b398-ff60-4ab9-824b-402c40dc572b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Instituição: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="100" width="100" height="30" uuid="99c559da-04c0-44e4-a3fe-4b836c3d29e3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{instituicao_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="60" y="160" width="110" height="30" uuid="2e36b729-c728-4602-af78-0e27e8985bb4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turma/Período:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="160" width="80" height="30" uuid="49ec7d81-054d-412a-b555-f90ac984bbd1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Disciplina: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="170" y="160" width="100" height="30" uuid="3bef24e3-9089-46f0-9746-0cf0e7b6040e"/>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="160" width="134" height="30" uuid="23af8f2e-d3bf-4898-95f2-15621157ad38"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome_da_disciplina}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="162" y="30" width="230" height="70" uuid="1086168a-a408-48b4-9656-215ffc3bfbb9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26"/>
+				</textElement>
+				<text><![CDATA[GABARITO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnFooter>
+		<band height="109" splitType="Stretch">
+			<textField>
+				<reportElement x="140" y="20" width="100" height="30" uuid="93a97b64-8744-44cb-98c8-91cc4e2df0b0"/>
+				<textFieldExpression><![CDATA[$F{questao_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="20" width="100" height="30" uuid="ecec3be5-91a1-4445-b9c2-b3821ebfd0ca"/>
+				<textFieldExpression><![CDATA[$F{resposta_questao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<group name="questao">
+		<groupExpression><![CDATA[$F{questao_id}]]></groupExpression>
+		<groupHeader>
+			<band height="23" splitType="Prevent">
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="520" height="17" uuid="d3fa07d5-8654-497c-b006-1ddb01737ecd"/>
+					<textElement>
+						<paragraph tabStopWidth="40"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{questao_id}+]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>
