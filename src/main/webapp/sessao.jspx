@@ -45,12 +45,16 @@
 				</a:field>
 				<a:newLine />
 				<a:field label="Título">
-					<p:inputText value="#{SessaoControl.sessao.sessao.titulo}" style="width: 600px"/>
+					<p:inputText value="#{SessaoControl.sessao.sessao.titulo}" style="width: 600px">
+						<p:ajax event="keyup" update="buttonConfirm" />
+					</p:inputText>
 				</a:field>
 				<a:newLine />
 				<a:field label="Descrição">
 					<p:inputTextarea value="#{SessaoControl.sessao.sessao.descricao}"
-						 style="width: 600px" />
+						 style="width: 600px" >
+						 	<p:ajax event="keyup" update="buttonConfirm" />
+						 </p:inputTextarea>
 				</a:field>
 				<a:newLine/>
 				<p:panel id="pnlQuestao" header="Adicionar questões">
@@ -62,7 +66,9 @@
 						<p:commandButton icon="ui-icon-search" update="tblQuestoes" oncomplete="PF('dlgQuestao').show();"/>
 					</a:field>
 					<a:newLine/>
-					<p:commandButton value="Adicionar" actionListener="#{SessaoControl.adicionarItemQuestao}" update=":formCorpo:tblItemSess oupQuestao"/>
+					<p:commandButton value="Adicionar" actionListener="#{SessaoControl.adicionarItemQuestao}" update=":formCorpo:tblItemSess oupQuestao buttonConfirm">
+					
+					</p:commandButton>
 					<a:newLine/>
 					<p:dataTable id="tblItemSess" widgetVar="tblItemSess" var="item" style="width: 600px" value="#{SessaoControl.sessao.itensQuestao}" emptyMessage="Sem registros">
 						<p:column headerText="Código" style="width: 60px">
@@ -78,7 +84,10 @@
 					</p:dataTable>
 				</p:panel>
 				<a:newLine/>
-				<p:commandButton icon="ui-icon-disk" actionListener="#{SessaoControl.confirmar}"  value="Confirmar" update="@form :formCorpo:dlgSessao" ajax="false" oncomplete="vCadSessao.hide();">
+				<p:commandButton id="buttonConfirm" icon="ui-icon-disk" actionListener="#{SessaoControl.confirmar}"  value="Confirmar" update="@form :formCorpo:dlgSessao" ajax="false" oncomplete="vCadSessao.hide();"
+				disabled="#{empty SessaoControl.sessao.sessao.titulo or
+							empty SessaoControl.sessao.sessao.descricao or
+							empty SessaoControl.sessao.itensQuestao}">
 					<f:param value="#{SessaoControl.sessao}" id="sessaoSelecionada"/>
 				</p:commandButton>
 				<p:spacer width="45px" />

@@ -42,7 +42,9 @@
 			<p:messages autoUpdate="true" closable="true" />
 			<a:newLine/>
 			<a:field label="Descrição">
-				<p:inputText value="#{TemplateControl.templateSelecionada.descricao}" style="width:400px" />
+				<p:inputText value="#{TemplateControl.templateSelecionada.descricao}" style="width:400px" >
+					<p:ajax event="keyup" update="buttonConfirm" />
+				</p:inputText>
 			</a:field>
 			<a:newLine/>
 			<p:panel id="panel" header="Sessões">
@@ -55,7 +57,7 @@
 					</p:autoComplete>
 				</a:field>
 				<p:spacer width="45px"/>
-				<p:commandButton action="#{TemplateControl.adicionarSessao}" value="Adicionar" update=":formCorpo:dtsessoes :formCorpo:autCompSessao" oncomplete="PF('dlgTemplate').show()" icon="ui-icon-plusthick" style="margin-top: 30px" />
+				<p:commandButton action="#{TemplateControl.adicionarSessao}" value="Adicionar" update=":formCorpo:dtsessoes :formCorpo:autCompSessao buttonConfirm" oncomplete="PF('dlgTemplate').show()" icon="ui-icon-plusthick" style="margin-top: 30px" />
 				<a:newLine />
 					<a:newLine/>
 					<p:dataTable id="dtsessoes" value="#{TemplateControl.templateSelecionada.sessoes}" var="sess" emptyMessage="Sem registros" rows="10">
@@ -66,12 +68,14 @@
 							<h:outputText value="#{sess.sessao.descricao}" />
 						</p:column>
 						<p:column headerText="Remover" style="width: 70px; text-align: center">
-							<p:commandButton icon="ui-icon-trash" action="#{TemplateControl.removerSessao(sess)}" update=":formCorpo:pnlSessoes"/>
+							<p:commandButton icon="ui-icon-trash" action="#{TemplateControl.removerSessao(sess)}" update=":formCorpo:pnlSessoes :formCorpo:buttonConfirm"/>
 						</p:column>
 					</p:dataTable>
 				</p:panel>
 				<a:field>
-					<p:commandButton icon="ui-icon-plusthick" actionListener="#{TemplateControl.confirmar}" value="Confirmar"/>
+					<p:commandButton id="buttonConfirm" icon="ui-icon-plusthick" actionListener="#{TemplateControl.confirmar}" value="Confirmar" update=":formCorpo:pnLista"  oncomplete="dlgTemplate.hide()"
+					disabled="#{empty TemplateControl.templateSelecionada.descricao or 
+							    empty TemplateControl.templateSelecionada.sessoes}" />
 				</a:field>
 				<p:spacer width="45px" />
 				<a:newLine />

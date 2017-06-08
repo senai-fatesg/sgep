@@ -76,32 +76,51 @@
 				</a:field>
 				<a:newLine/>
 				<a:field label="Nome">
-					<p:inputText value="#{ColaboradorControl.colaborador.nome }" style="width: 580px"/>
+					<p:inputText value="#{ColaboradorControl.colaborador.nome }" style="width: 580px">
+						<p:ajax event="keyup" update="buttonConfirm" />
+					</p:inputText>
 				</a:field>
 				<a:field label="RG" spaceLeft="10px">
-					<p:inputText value="#{ColaboradorControl.colaborador.rg }" />
+					<p:inputText value="#{ColaboradorControl.colaborador.rg }" >
+						<p:ajax event="keyup" update="buttonConfirm" />
+					</p:inputText>
 				</a:field>
 				<a:field label="Sexo" spaceLeft="10px">
+				
+				
 					<h:selectOneMenu id="tiposexo" value="#{ColaboradorControl.colaborador.tipoSexo}" style="width:120px">
 						<f:selectItem itemLabel="Selecione" itemValue="" />
 						<f:selectItems value="#{ColaboradorControl.tiposSexo}" var="tipoSexo" itemValue="#{tipoSexo}" itemLabel="#{tipoSexo.descricao}" />
+						<p:ajax event="change" listener="#{ColaboradorControl.colaborador.tipoSexo}" update="buttonConfirm"/>
+						
 					</h:selectOneMenu>
 				</a:field>
+				<a:field>
+				</a:field>
+				
 				<a:newLine />
 				<a:field label="Titulo de Eleitor">
-					<p:inputText value="#{ColaboradorControl.colaborador.tituloEleitor }" />
+					<p:inputText value="#{ColaboradorControl.colaborador.tituloEleitor }" >
+						<p:ajax event="keyup" update="buttonConfirm" />
+					</p:inputText>
 				</a:field>
 				<a:field label="Nº Reservista" spaceLeft="10px">
-					<p:inputText value="#{ColaboradorControl.colaborador.reservista }" />
+					<p:inputText value="#{ColaboradorControl.colaborador.reservista }" >
+						<p:ajax event="keyup" update="buttonConfirm" />
+					</p:inputText>
 				</a:field>
 				<a:field label="Histórico" spaceLeft="10px">
-					<p:inputText value="#{ColaboradorControl.colaborador.historico }" />
+					<p:inputText value="#{ColaboradorControl.colaborador.historico }" >
+						<p:ajax event="keyup" update="buttonConfirm"/>
+					</p:inputText>
 				</a:field>
 				<a:field label="Tipo Colaborador" spaceLeft="10px">
 					<h:selectOneMenu id="tipocolaborador" value="#{ColaboradorControl.colaborador.tipo}" style="width:290px">
 						<f:selectItem itemLabel="Selecione" itemValue="" />
 						<f:selectItems value="#{ColaboradorControl.tiposColaboradores}" var="tipocolaborador" itemValue="#{tipo}" itemLabel="#{tipo}" />
+						<p:ajax event="change" listener="#{ColaboradorControl.colaborador.tipo}" update="buttonConfirm"/>
 					</h:selectOneMenu>
+						
 				</a:field>
 				<a:newLine />
 				<a:field label="Telefone">
@@ -111,14 +130,20 @@
 					<p:inputMask value="#{ColaboradorControl.colaborador.celular }" mask="(99)9999-9999" />
 				</a:field>
 				<a:field label="E-mail" spaceLeft="10px">
-					<p:inputText value="#{ColaboradorControl.colaborador.email }" style="width: 290px"/>
+					<p:inputText value="#{ColaboradorControl.colaborador.email }" style="width: 290px">
+						
+						<p:ajax event="keyup" update="buttonConfirm"/>
+					</p:inputText>
 				</a:field>
 				<a:field label="CEP" spaceLeft="10px">
-					<p:inputMask mask="99999-999" value="#{ColaboradorControl.colaborador.cep }" />
+					<p:inputMask mask="99999-999" value="#{ColaboradorControl.colaborador.cep }" >
+						
+					</p:inputMask>
 				</a:field>
 				<a:newLine />
 				<a:field label="Endereço">
 					<p:inputText value="#{ColaboradorControl.colaborador.endereco }" style="width:524px" />
+					<p:ajax event="keyup" update="buttonConfirm"/>
 				</a:field>
 				<a:field label="UF" spaceLeft="10px">
 					<p:selectOneMenu id="uf" value="#{ColaboradorControl.uf }" style="width:190px;" converter="objectConverter">
@@ -133,10 +158,20 @@
 	               </p:selectOneMenu>
 			    </a:field>
 				<a:newLine />
+					
 				<a:newLine />
 				<a:field>
-					<p:commandButton icon="ui-icon-disk" ajax="false" actionListener="#{ColaboradorControl.confirmar}" value="Confirmar"
-						update="colaboradores" />
+				
+					<p:commandButton id="buttonConfirm" icon="ui-icon-disk" ajax="false" actionListener="#{ColaboradorControl.confirmar}" value="Confirmar"
+						update="colaboradores" disabled="#{empty ColaboradorControl.colaborador.nome or
+														   empty ColaboradorControl.colaborador.rg or
+														   empty ColaboradorControl.colaborador.tipoSexo or
+														   empty ColaboradorControl.colaborador.tituloEleitor or
+														   empty ColaboradorControl.colaborador.reservista or
+														   empty ColaboradorControl.colaborador.historico or
+														   empty ColaboradorControl.colaborador.tipo or
+														   empty ColaboradorControl.colaborador.email or
+														   empty ColaboradorControl.colaborador.endereco}" />
 				</a:field>
 				<a:field spaceLeft="10px">
 					<p:commandButton icon="ui-icon-refresh" ajax="true" action="#{ColaboradorControl.limpar}" value="Limpar" update="@all" />
