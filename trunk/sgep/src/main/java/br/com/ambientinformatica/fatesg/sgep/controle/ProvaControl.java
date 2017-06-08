@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
+import br.com.ambientinformatica.ambientjsf.util.UtilFacesRelatorio;
 import br.com.ambientinformatica.fatesg.api.entidade.Aluno;
 import br.com.ambientinformatica.fatesg.api.entidade.Curso;
 import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
@@ -46,6 +47,7 @@ import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoProvaDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoTemplateDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.TemplateDao;
 import br.com.ambientinformatica.fatesg.sgep.util.RelatorioUtil;
+import br.com.ambientinformatica.util.UtilLog;
 
 @Controller("ProvaControl")
 @Scope("conversation")
@@ -140,6 +142,23 @@ public class ProvaControl {
 			UtilFaces.addMensagemFaces("Houve um erro ao listar Todos: " + e);
 		}
 	}
+	
+//	public void imprimirProva(Prova prova){
+//        try {
+//            Map<String, Object> parametros = new HashMap<String, Object>();
+////            List<ItemPrevisao> itemPrevisaoList = new ArrayList<ItemPrevisao>(previsoes.get(0).getItensPrevisao());
+////            parametros.put("1", itemPrevisaoList.get(0).getPoluente());
+////            parametros.put("2", itemPrevisaoList.get(1).getPoluente());
+////            parametros.put("3", itemPrevisaoList.get(2).getPoluente());
+////            parametros.put("4", itemPrevisaoList.get(3).getPoluente());
+//// 
+//            UtilFacesRelatorio.gerarRelatorioFaces("jasper/prova2.jasper", prova, parametros);
+// 
+//        } catch (Exception e) {
+//            UtilFaces.addMensagemFaces("Houve um erro ao Gerar o Relatório Solicitado.\n Msg:" + e.getMessage());
+//            UtilLog.getLog().error(e);
+//        }
+//    }
 
 	public void imprimirProva(ActionEvent evt) {
 	   //TODO organizar esse metodo

@@ -43,6 +43,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -51,6 +52,8 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.stereotype.Component;
 
+import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
+import br.com.ambientinformatica.ambientjsf.util.UtilFacesRelatorio;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
@@ -140,7 +143,10 @@ public class RelatorioUtil {
 			
 			Class.forName(driver);
 			
-			JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\areaDeTrabalho\\meusProjetos\\sgep\\target\\sgep\\WEB-INF\\relatorios\\provaSgep.jasper", parametros,(Connection) DriverManager.getConnection(url, user, senha));
+			
+			
+			
+			JasperPrint jasperPrint = JasperFillManager.fillReport("C:\\areaTrabalho\\sgep\\src\\main\\jasperreports\\provaSgep.jasper", parametros,(Connection) DriverManager.getConnection(url, user, senha));
 			
 			JRExporter exporter = new JRPdfExporter();
 			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
