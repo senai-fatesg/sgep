@@ -14,30 +14,35 @@
 				<a:field label="Data da Prova">
 					<p:inputMask value="#{ProvaControl.prova.data}" mask="99/99/9999">
 						<f:convertDateTime pattern="dd/MM/yyyy"/>
+						<p:ajax event="keyup" update="buttonConfirmProvaADD" />
 					</p:inputMask>
 				</a:field>
 				<a:field label="Instituição" spaceLeft="10px">
 					<p:selectOneMenu id="completInstituicao" value="#{ProvaControl.prova.instituicao}" converter="objectConverter" style="width:230px;" filter="true" filterMatchMode="contains">
 						<f:selectItem id="sltInst" itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
 						<f:selectItems value="#{ProvaControl.instituicoes}"  var="instituicao" itemLabel="#{instituicao.nomeFantasia}" itemValue="#{instituicao}" />
+						<p:ajax event="keyup" update="buttonConfirmProvaADD" />
 					</p:selectOneMenu>
 				</a:field>
 				<a:field label="Curso" spaceLeft="10px">
 					<p:selectOneMenu id="completCurso" value="#{ProvaControl.prova.curso}" converter="objectConverter" style="width:230px;" filter="true" filterMatchMode="contains">
 						<f:selectItem id="sltCurso" itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
 						<f:selectItems value="#{ProvaControl.cursos}"  var="curso" itemLabel="#{curso.descricao}" itemValue="#{curso}" />
+						<p:ajax event="keyup" update="buttonConfirmProvaADD" />
 					</p:selectOneMenu>
 				</a:field>
 				<a:field label="Disciplina" spaceLeft="10px">
 					<p:selectOneMenu id="completDisciplina" value="#{ProvaControl.prova.disciplina}" converter="objectConverter" style="width:230px;" filter="true" filterMatchMode="contains">
 						<f:selectItem id="sltDisc" itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
 						<f:selectItems value="#{ProvaControl.disciplinas}" var="disciplina"  itemLabel="#{disciplina.nome}" itemValue="#{disciplina}" />
+						<p:ajax event="keyup" update="buttonConfirmProvaADD" />
 					</p:selectOneMenu>
 				</a:field>
 				<a:field label="Período" spaceLeft="10px">
 					<p:selectOneMenu id="periodo" value="#{ProvaControl.prova.periodo}" converter="objectConverter" style="width:180px;">
 						<f:selectItem id="sltPeriodo" itemLabel="Selecione..." itemValue="" noSelectionOption="true"/>
 						<f:selectItems value="#{ProvaControl.periodos}"/>
+						<p:ajax event="keyup" update="buttonConfirmProvaADD" />
 					</p:selectOneMenu>
 				</a:field>
 				<a:newLine/>
@@ -74,7 +79,12 @@
 					</p:panel>
 				</p:outputPanel>
 				<a:field>
-					<p:commandButton icon="ui-icon-disk" actionListener="#{ProvaControl.confirmarNovaProva}" value="Confirmar" update="@all"/>
+					<p:commandButton id="buttonConfirmProvaADD" icon="ui-icon-disk" actionListener="#{ProvaControl.confirmarNovaProva}" value="Confirmar" update="@all"
+					 disabled="#{empty ProvaControl.prova.data or 
+					 			 empty ProvaControl.prova.instituicao or
+					 			 empty ProvaControl.prova.curso or
+					 			 empty ProvaControl.prova.disciplina or
+					 			 empty ProvaControl.prova.periodo}" />
 				</a:field>
 				<a:field spaceLeft="10px">
 					<p:commandButton value="Cancelar" action="#{ProvaControl.limpar}" partialSubmit="true" process="@this" update="@form"/>
@@ -88,12 +98,15 @@
 				<a:newLine/>
 					<a:newLine />
 					<a:field label="Título">
-						<p:inputText value="#{ProvaControl.sessaoTemplate.sessao.titulo}" style="width: 600px"/>
+						<p:inputText value="#{ProvaControl.sessaoTemplate.sessao.titulo}" style="width: 600px">
+							<p:ajax event="keyup" update="buttonConfirm" />
+						</p:inputText>
 					</a:field>
 					<a:newLine />
 					<a:field label="Descrição">
 						<p:inputTextarea value="#{ProvaControl.sessaoTemplate.sessao.descricao}"
-							 style="width: 600px" />
+							 style="width: 600px" ><p:ajax event="keyup" update="buttonConfirm" />
+							 </p:inputTextarea>
 					</a:field>
 					<a:newLine/>
 					<p:panel id="pnlQuestao" header="Adicionar questões">
@@ -121,7 +134,10 @@
 						</p:dataTable>
 					</p:panel>
 					<a:newLine/>
-					<p:commandButton icon="ui-icon-disk" actionListener="#{ProvaControl.confirmarNovaSessaoProva}"  value="Confirmar" update="@form :formCorpo:dlgSessao" ajax="false" oncomplete="vCadSessao.hide();">
+					<p:commandButton id="buttonConfirm" icon="ui-icon-disk" actionListener="#{ProvaControl.confirmarNovaSessaoProva}"  value="Confirmar" update="@form :formCorpo:dlgSessao" ajax="false" oncomplete="vCadSessao.hide();"
+					 disabled="#{empty ProvaControl.sessaoTemplate.sessao.titulo or
+					 			 empty ProvaControl.sessaoTemplate.sessao.descricao or
+					 			 empty ProvaControl.questoesTemplate }">
 						<f:param value="#{ProvaControl.sessaoTemplate}" id="sessaoTemplate"/>
 					</p:commandButton>
 					<p:spacer width="45px" />
