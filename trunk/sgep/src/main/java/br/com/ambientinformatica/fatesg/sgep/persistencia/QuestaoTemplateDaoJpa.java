@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoTemplate;
+import br.com.ambientinformatica.fatesg.sgep.util.UtilException;
 import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
 
 @Repository("questaoTemplateDao")
-public class QuestaoTemplateDaoJpa extends PersistenciaJpa<QuestaoTemplate>
-implements QuestaoTemplateDao {
+public class QuestaoTemplateDaoJpa extends PersistenciaJpa<QuestaoTemplate> implements QuestaoTemplateDao {
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,8 +22,7 @@ implements QuestaoTemplateDao {
 	@Override
 	public List<QuestaoTemplate> consultarPor(String palavra, String tipo) {
 		try {
-			String jpaql = "select distinct qt from QuestaoTemplate qt "
-					+ " left join fetch qt.questao q ";
+			String jpaql = "select distinct qt from QuestaoTemplate qt " + " left join fetch qt.questao q ";
 			if (!palavra.isEmpty() || palavra != null) {
 				if (!tipo.isEmpty() || tipo != null) {
 					if (tipo == "Dificuldade") {
@@ -41,16 +40,13 @@ implements QuestaoTemplateDao {
 			if (!palavra.isEmpty() || palavra != null) {
 				if (tipo.isEmpty() || tipo == null) {
 					if (tipo == "Dificuldade") {
-						query.setParameter("dificuldade",
-								"%" + palavra.toUpperCase() + "%");
+						query.setParameter("dificuldade", "%" + palavra.toUpperCase() + "%");
 					}
 					if (tipo == "Assunto") {
-						query.setParameter("assunto",
-								"%" + palavra.toUpperCase() + "%");
+						query.setParameter("assunto", "%" + palavra.toUpperCase() + "%");
 					}
 					if (tipo == "Disciplina") {
-						query.setParameter("disciplina",
-								"%" + palavra.toUpperCase() + "%");
+						query.setParameter("disciplina", "%" + palavra.toUpperCase() + "%");
 					}
 				}
 			}
@@ -62,18 +58,18 @@ implements QuestaoTemplateDao {
 
 	@Override
 	public QuestaoTemplate carregarQuestao(QuestaoTemplate questao) throws Exception {
-		Query q = em.createQuery("from QuestaoTemplate as qt "
-				+ " left join fetch qt.questao que "
-				+ " left join fetch que.professor pro"
-				+ " where qt = :questao");
+		Query q = em.createQuery("from QuestaoTemplate as qt " + " left join fetch qt.questao que "
+				+ " left join fetch que.professor pro" + " where qt = :questao");
 		q.setParameter("questao", questao);
 		return (QuestaoTemplate) q.getSingleResult();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<QuestaoTemplate> listarQuestoes() throws Exception {
 		try {
-			Query query = em.createQuery("select qt from QuestaoTemplate qt left join fetch qt.questao q left join fetch q.professor p");
+			Query query = em.createQuery(
+					"select qt from QuestaoTemplate qt left join fetch qt.questao q left join fetch q.professor p");
 			return query.getResultList();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -98,7 +94,7 @@ implements QuestaoTemplateDao {
 	}
 
 	@Override
-	public QuestaoTemplate consultarEnunciadoQuestao(QuestaoTemplate questaoTemplate){
+	public QuestaoTemplate consultarEnunciadoQuestao(QuestaoTemplate questaoTemplate) {
 		try {
 			String sql = "select qt from QuestaoTemplate qt left join fetch qt.questao q left join fetch q.professor p where q.id = :id";
 			Query query = em.createQuery(sql);
@@ -111,4 +107,25 @@ implements QuestaoTemplateDao {
 		}
 		return null;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<QuestaoTemplate> listarPorProfessorOuDisciplina(String professorOuDisciplina) throws Exception {
+		try {
+			Query query = em.createQuery(" select qt from QuestaoTemplate qt "
+					+ " left join fetch qt.questao q " 
+					+ " left join fetch q.professor p "
+					+ " left join fetch q.disciplina d " 
+					+ " where UPPER(p.nome) like UPPER(:nomeProfessor) "
+					+ " OR UPPER(d.nome) like UPPER(:nomeDisciplina)");
+			query.setParameter("nomeProfessor", professorOuDisciplina + "%");
+			query.setParameter("nomeDisciplina", professorOuDisciplina + "%");
+			return query.getResultList();
+		} catch (Exception e) {
+			System.out.println(e);
+			UtilFaces.addMensagemFaces(e.getMessage());
+		}
+		return null;
+	}
+
 }
