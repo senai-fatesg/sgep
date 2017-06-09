@@ -166,15 +166,18 @@ public class ColaboradorControl implements Serializable {
 	public void confirmar() {
 		try {
 			String cpf = colaborador.getCpfCnpj();
-			if (UtilCpf.validarCpf(cpf)) {
+			//if (UtilCpf.validarCpf(cpf)) { //COMENTADO PORQUE ESSE VALIDADOR ESTÁ INVALIDANDO TODO O CPF
 				colaborador.addPapel(EnumPapelUsuario.USUARIO);
 				colaborador.setSenhaNaoCriptografada("123456");
+				colaborador.setConfirmado(true);
 				colaboradorDao.alterar(colaborador);
-				limpar();
 				UtilFaces.addMensagemFaces("Operação realizada com sucesso");
-			} else {
-				UtilFaces.addMensagemFaces("CPF Inválido");
-			}
+				limpar();
+				
+			//} 
+				//else {
+				//UtilFaces.addMensagemFaces("CPF Inválido"); //COMENTADO PORQUE ESSE VALIDADOR ESTÁ INVALIDANDO TODO O CPF
+			//}
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
