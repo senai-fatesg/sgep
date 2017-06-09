@@ -23,11 +23,19 @@
 		<p:growl id="messages" life="6000" />
 			<a:newLine />
 			<p:panel id="pnlListarQuestoes">
-				<a:field>
-					<p:commandButton value="Nova Questão" update=":formCorpo:dlgQuestao" action="#{QuestaoControl.limpar}" oncomplete="PF('wNewFile').show()" />
+				<a:field> 
+					<p:commandButton value="Nova Questão" update=":formCorpo:dlgQuestao" action="#{QuestaoControl.pesquisar}" oncomplete="PF('wNewFile').show()" />
 				</a:field>
 				<a:newLine/>
+				<a:field label="Buscar Questões Pelo Nome do Professor ou Pela Disciplina">
+					<p:inputText id="pNome" value="#{QuestaoControl.professorOuDisciplina}" style="width:300px;" placeholder="Digite o nome do Professor ou Disciplina"/><br/> 
+						<a:newLine/>
+						<p:commandButton id="Pesquisa"  actionListener="#{QuestaoControl.pesquisar}" value="Pesquisar" update="dtQuestoes" icon="ui-icon ui-icon-search" />
+				</a:field>
+						
 				<a:newLine/>
+				<a:newLine/>
+			
 				<p:dataTable widgetVar="questoes" id="dtQuestoes"
 					value="#{QuestaoControl.questoes}" var="cont" width="100%"
 					emptyMessage="Sem registros" rows="10" paginator="true" currentPageReportTemplate="(Questões nesta página: {endRecord} - Total: {totalRecords} registro(s) - Página: {currentPage}/{totalPages})"
@@ -77,8 +85,14 @@
 					</p:column>
 				</p:dataTable>
 			</p:panel>
+<<<<<<< .mine
+			
+			<p:dialog id="dlgQuestao" modal="true" widgetVar="wNewFile" header="Cadastro de Questões" resizable="true" onHide="#{QuestaoControl.limpar()}">
+				<p:scrollPanel id="sclPanel" mode="native" style="height:500px;padding: 5px 10px;" rendered="true">
+=======
 			<p:dialog id="dlgQuestao" modal="true" widgetVar="wNewFile" header="Cadastro de Questões" resizable="true"   onHide="#{QuestaoControl.limpar()}">
 				<p:scrollPanel id="sclPanel" mode="native"  style="height:500px;;padding: 5px 10px;" rendered="true">
+>>>>>>> .r1743
 					<a:field label="Deseja criar questões utilizando o usuário do professor logado?">
 							<div id="divRdbProf" style="margin-left: 15%">
 								<p:selectOneRadio id="rdbUsrSelecionado" value="#{QuestaoControl.rdbUsrLogadoSelecionado}" immediate="true">
@@ -161,6 +175,7 @@
 				<p:spacer width="45px" />
 				<p:commandButton action="#{QuestaoControl.limpar}" value="Limpar" icon="ui-icon-refresh" update="sclPanel" />
 			</p:dialog>
+			
 			<p:confirmDialog				
 					widgetVar="confirmacaoAlternativas" header="Confirmar" severity="alert" closable="true" width="550px" 
 					message="As informações da questão serão salvas. Deseja Continuar?">
@@ -168,6 +183,7 @@
 					update="formCorpo:pnlListarQuestoes" value="Sim" oncomplete="PF('confirmacaoAlternativas').hide()"/>
 					<p:commandButton value="Não" onclick="PF('confirmacaoAlternativas').hide()"/>
 			</p:confirmDialog>
+			
 			<p:confirmDialog widgetVar="confirmacao" message="Tem Certeza que deseja excluir?" severity="alert" closable="true">
 				<p:commandButton value="Sim" actionListener="#{QuestaoControl.excluir}" onclick="confirmacao.hide()" update="@form" process="@this" />
 				<p:commandButton value="Não" onclick="PF('confirmacao').hide()" />
