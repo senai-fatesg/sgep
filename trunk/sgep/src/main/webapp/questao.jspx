@@ -85,14 +85,10 @@
 					</p:column>
 				</p:dataTable>
 			</p:panel>
-<<<<<<< .mine
 			
-			<p:dialog id="dlgQuestao" modal="true" widgetVar="wNewFile" header="Cadastro de Questões" resizable="true" onHide="#{QuestaoControl.limpar()}">
-				<p:scrollPanel id="sclPanel" mode="native" style="height:500px;padding: 5px 10px;" rendered="true">
-=======
+
 			<p:dialog id="dlgQuestao" modal="true" widgetVar="wNewFile" header="Cadastro de Questões" resizable="true"   onHide="#{QuestaoControl.limpar()}">
 				<p:scrollPanel id="sclPanel" mode="native"  style="height:500px;;padding: 5px 10px;" rendered="true">
->>>>>>> .r1743
 					<a:field label="Deseja criar questões utilizando o usuário do professor logado?">
 							<div id="divRdbProf" style="margin-left: 15%">
 								<p:selectOneRadio id="rdbUsrSelecionado" value="#{QuestaoControl.rdbUsrLogadoSelecionado}" immediate="true">
