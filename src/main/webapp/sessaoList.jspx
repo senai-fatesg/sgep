@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template2.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a="http://www.ambientinformatica.com.br/jsf2" xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+		<p:growl id="messages" life="6000" />
+		<p:panel header="Lista de Sessões">
+			<a:newLine/>
+			<a:field spaceLeft="10px">
+				<h:inputText value="#{SessaoControl.titulo}" style="width: 500px"/>
+				<p:commandButton icon="ui-icon-search" actionListener="#{SessaoControl.pesquisarPorTitulo}" style="margin-left: 10px" update="@all"/>
+				<p:commandButton icon="ui-icon-plus" actionListener="#{MenuControl.gerenciarSessao }" ajax="false" action="sessao?faces-redirect=true" style="margin-left: 10px"/>
+				<p:commandButton icon="ui-icon-arrowrefresh-1-w" actionListener="#{MenuControl.gerenciarSessao }" ajax="false" action="servicoList?faces-redirect=true" style="margin-left: 10px"/>
+			</a:field>
+			
+			<a:newLine/>
+			<a:newLine/>
+			<p:dataTable widgetVar="sessoes" id="dtsessoes" value="#{SessaoControl.sessoes}" var="ses" width="100%"	emptyMessage="Sem registros" rows="20" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<p:column headerText="Código">
+					<h:outputText value="#{ses.sessao.id}" />
+				</p:column>
+				<p:column headerText="Título">
+					<h:outputText value="#{ses.sessao.titulo}" />
+				</p:column>
+				<p:column headerText="Descrição">
+					<h:outputText value="#{ses.sessao.descricao}" />
+				</p:column>
+				<p:column headerText="Editar" style="width: 60px; text-align: center">
+					<p:commandButton id="btnEditar" icon="ui-icon-pencil" action="sessao?faces-redirect=true">
+						<f:setPropertyActionListener value="#{ses}" target="#{SessaoControl.sessao }" />
+					</p:commandButton>
+				</p:column>
+				<p:column headerText="Excluir" style="width: 60px; text-align: center">
+					<p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacao').show()">
+						<f:setPropertyActionListener target="#{SessaoControl.sessao}" value="#{ses}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+		<p:confirmDialog id="cdlExcluir" widgetVar="confirmacao" message="Tem Certeza que deseja excluir?" severity="alert" closable="true">
+			<p:commandButton value="Sim" actionListener="#{SessaoControl.excluir}" onclick="confirmacao.hide()" update="@form" process="@this" />
+			<p:commandButton value="Não" onclick="confirmacao.hide()" />
+		</p:confirmDialog>
+
+	</ui:define>
+</ui:composition>
