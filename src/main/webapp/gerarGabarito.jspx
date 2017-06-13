@@ -15,7 +15,10 @@
 			}
 		</style>
 	<p:panel>
-		<p:commandButton id="btnImprimir" action="#{GabaritoRespostaControl.imprimirGabarito }" value="Imprimir Gabarito" style="margin-left:38%"/>
+		
+		<p:commandButton id="btnImprimir" ajax="false" actionListener="#{GabaritoRespostaControl.imprimirGabarito}" value="Imprimir Gabarito" style="margin-left:38%">
+						<f:param value="#{GabaritoRespostaControl.prova}" id="sesImprimir"  />
+					</p:commandButton>
 		<a:newLine/><a:newLine/><a:newLine/>
 		<p:panel style="margin-left:30%" id="pnlTituloGabarito">
 			<h:outputLabel value="Instituição: "/>

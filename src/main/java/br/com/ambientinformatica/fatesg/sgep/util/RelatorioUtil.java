@@ -162,4 +162,36 @@ public class RelatorioUtil {
 			e.printStackTrace();
 		}
 	}
+	
+	public void gerarGabarito(Map<String,Object> parametros,OutputStream outputStream){
+	 	String driver = "org.postgresql.Driver";
+        String user = "postgres";
+        String senha = "123456";
+        String url = "jdbc:postgresql://localhost:5432/sgep";
+	
+	try {
+		
+		Class.forName(driver);
+		
+		
+		
+		
+		JasperPrint jasperPrint = JasperFillManager.fillReport("/home/workspace/sgep/src/main/jasperreports/MyReports/bin/gabaritoR.jasper", parametros,(Connection) DriverManager.getConnection(url, user, senha));
+		
+		JRExporter exporter = new JRPdfExporter();
+		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
+		exporter.exportReport();
+	} catch (JRException e) {
+		e.printStackTrace();
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+
+
 }
