@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-12T21:40:31 -->
+<!-- 2017-06-13T19:51:07 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gabaritoR" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="d03a1b71-aa8c-44a4-af4d-a498dcbbcde2">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PGdb"/>
@@ -47,20 +47,20 @@
 		<groupHeader>
 			<band height="23">
 				<rectangle>
-					<reportElement x="259" y="0" width="73" height="23" uuid="e346331d-63af-40f8-8a9c-1faadec10ab3"/>
+					<reportElement x="259" y="0" width="81" height="23" uuid="e346331d-63af-40f8-8a9c-1faadec10ab3"/>
 					<graphicElement>
 						<pen lineStyle="Solid"/>
 					</graphicElement>
 				</rectangle>
 				<rectangle>
-					<reportElement positionType="Float" x="186" y="0" width="73" height="23" uuid="564ef125-68bc-4dbd-b6b1-0be433b9a924"/>
+					<reportElement positionType="Float" x="180" y="0" width="79" height="23" uuid="564ef125-68bc-4dbd-b6b1-0be433b9a924"/>
 					<graphicElement>
 						<pen lineStyle="Solid"/>
 					</graphicElement>
 				</rectangle>
 				<textField>
 					<reportElement x="220" y="4" width="34" height="18" uuid="93a97b64-8744-44cb-98c8-91cc4e2df0b0"/>
-					<textFieldExpression><![CDATA[$F{questao_id}-2]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{questao_id}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="291" y="4" width="42" height="18" uuid="ecec3be5-91a1-4445-b9c2-b3821ebfd0ca"/>
@@ -78,10 +78,10 @@
 				<reportElement x="20" y="100" width="530" height="90" uuid="8a81a5d9-ad46-483a-91f3-40c3cbcb29f5"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="259" y="229" width="73" height="20" uuid="a95ee004-f799-473a-b066-6c873fccc251"/>
+				<reportElement x="259" y="229" width="81" height="20" uuid="a95ee004-f799-473a-b066-6c873fccc251"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="186" y="229" width="73" height="20" uuid="d1e4f4e3-089b-463e-a42d-9b8f45c24d54"/>
+				<reportElement x="180" y="229" width="79" height="20" uuid="d1e4f4e3-089b-463e-a42d-9b8f45c24d54"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="35" y="100" width="50" height="30" uuid="d1cb6426-32dc-4024-920e-3673446dc901"/>
@@ -147,14 +147,14 @@
 				<text><![CDATA[GABARITO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="195" y="228" width="59" height="20" uuid="1767d7fa-1907-4ed0-a3e0-9b0607a56baa"/>
+				<reportElement x="186" y="228" width="68" height="20" uuid="1767d7fa-1907-4ed0-a3e0-9b0607a56baa"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Questão]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="263" y="228" width="70" height="20" uuid="f0f98213-5228-4f85-b740-3a516f82d49c"/>
+				<reportElement x="262" y="229" width="74" height="20" uuid="f0f98213-5228-4f85-b740-3a516f82d49c"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
