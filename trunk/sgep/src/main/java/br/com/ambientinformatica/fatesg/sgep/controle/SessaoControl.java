@@ -36,17 +36,15 @@ public class SessaoControl implements Serializable {
 
 	private String enunciado;
 
+	private String titulo;
+
 	private List<SessaoTemplate> sessoes = new ArrayList<SessaoTemplate>();
 
 	private List<AlternativaQuestao> alternativas = new ArrayList<>();
 
-	private SessaoTemplate sessao = new SessaoTemplate();
-
-	private SessaoTemplate sessaoSelecionada = new SessaoTemplate();
+	private SessaoTemplate sessaoTemplate = new SessaoTemplate();
 
 	private List<ItemQuestaoTemplate> itensQuestao = new ArrayList<>();
-
-	private List<QuestaoTemplate> questoesTemplate = new ArrayList<>();
 
 	private List<QuestaoTemplate> questoes = new ArrayList<>();
 
@@ -60,7 +58,7 @@ public class SessaoControl implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		listar();
+		pesquisarPorTitulo();
 		listarQuestoes();
 	}
 
@@ -83,24 +81,26 @@ public class SessaoControl implements Serializable {
 		}
 	}
 
-	public void confirmar(ActionEvent evt) {
-		sessaoSelecionada = (SessaoTemplate) UtilFaces.getValorParametro(evt, "sessaoSelecionada");
+	public void confirmar() {
 		try {
-			sessaoDao.alterar(sessaoSelecionada);
-			listar();
-			UtilFaces.addMensagemFaces("Sessão incluída com sucesso.");
+			if (sessaoTemplate.getSessao().getTitulo() != null && !sessaoTemplate.getSessao().getTitulo().isEmpty() 
+					&& sessaoTemplate.getSessao().getDescricao() != null 
+					&& !sessaoTemplate.getSessao().getDescricao().isEmpty()) {
+				sessaoDao.alterar(sessaoTemplate);
+				sessaoTemplate = new SessaoTemplate();
+				UtilFaces.addMensagemFaces("Sessão incluída com sucesso.");
+			}else {
+				UtilFaces.addMensagemFaces("Os campos título e descrição devem ser preenchidos.", FacesMessage.SEVERITY_WARN);
+			}
 		} catch (PersistenciaException e) {
 			UtilFaces.addMensagemFaces(e.getMessage());
 		}
 	}
 
-	public void listar() {
+	public void pesquisarPorTitulo(){
 		try {
-			limpar();
-			sessoes = sessaoDao.listar();
-			for (int i = 0; i < sessoes.size(); i++) {
-				Hibernate.initialize(sessoes.get(i).getItensQuestao());
-			}
+			sessoes = sessaoDao.pesquisarPorTituloOuDescricao(titulo);
+			sessaoTemplate.getItensQuestao();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
@@ -115,10 +115,11 @@ public class SessaoControl implements Serializable {
 		return null;
 	}
 
+
 	public void excluir() {
 		try {
-			sessaoDao.excluirPorId(sessao.getId());
-			sessaoSelecionada = new SessaoTemplate();
+			sessaoDao.excluirPorId(sessaoTemplate.getId());
+			sessaoTemplate = new SessaoTemplate();
 			sessoes = sessaoDao.listar();
 			FacesContext.getCurrentInstance().getExternalContext()
 			.redirect("/sgep/sessao.jsf");
@@ -171,10 +172,10 @@ public class SessaoControl implements Serializable {
 		return null;
 	}
 
-	public void adicionarItemQuestao(){
+	public void adicionarItemQuestao(QuestaoTemplate questaoTemplate){
 		if (questaoTemplate.getQuestao().getId() != null) {
 			try {
-				sessao.addItemQuestao(questaoTemplate);
+				sessaoTemplate.addItemQuestao(questaoTemplate);
 			} catch (Exception e) {
 				UtilFaces.addMensagemFaces(e.getMessage(), FacesMessage.SEVERITY_WARN);
 			}
@@ -185,19 +186,7 @@ public class SessaoControl implements Serializable {
 	}
 
 	public void removerItemQuestao(ItemQuestaoTemplate item){
-		sessao.removeQuestao(item);
-	}
-
-	public void novaSessao(){
-		sessaoSelecionada = new SessaoTemplate();
-		RequestContext context = RequestContext.getCurrentInstance(); 
-		context.execute("PF('vCadSessao').show();");	
-	}
-
-	@Deprecated
-	public void editarSessao(ActionEvent evt) {
-		sessao = (SessaoTemplate) UtilFaces.getValorParametro(evt,
-				"sesEditar");
+		sessaoTemplate.removeQuestao(item);
 	}
 
 	public void selecionarQuestao(QuestaoTemplate questaoTemplate){
@@ -205,8 +194,7 @@ public class SessaoControl implements Serializable {
 	}
 
 	public void limpar() {
-		sessaoSelecionada = new SessaoTemplate();
-		sessao = new SessaoTemplate();
+		sessaoTemplate = new SessaoTemplate();
 		questaoTemplate =  new QuestaoTemplate();
 	}
 
@@ -226,20 +214,12 @@ public class SessaoControl implements Serializable {
 		this.sessoes = sessoes;
 	}
 
-	public SessaoTemplate getSessao() {
-		return sessao;
+	public SessaoTemplate getSessaoTemplate() {
+		return sessaoTemplate;
 	}
 
-	public void setSessao(SessaoTemplate sessao) {
-		this.sessao = sessao;
-	}
-
-	public SessaoTemplate getSessaoSelecionada() {
-		return sessaoSelecionada;
-	}
-
-	public void setSessaoSelecionada(SessaoTemplate sessaoSelecionada) {
-		this.sessaoSelecionada = sessaoSelecionada;
+	public void setSessao(SessaoTemplate sessaoTemplate) {
+		this.sessaoTemplate = sessaoTemplate;
 	}
 
 	public String getEnunciado() {
@@ -266,14 +246,6 @@ public class SessaoControl implements Serializable {
 		this.itensQuestao = itensQuestao;
 	}
 
-	public List<QuestaoTemplate> getQuestoesTemplate() {
-		return questoesTemplate;
-	}
-
-	public void setQuestoesTemplate(List<QuestaoTemplate> questoesTemplate) {
-		this.questoesTemplate = questoesTemplate;
-	}
-
 	public QuestaoTemplate getQuestaoTemplate() {
 		return questaoTemplate;
 	}
@@ -288,6 +260,14 @@ public class SessaoControl implements Serializable {
 
 	public void setQuestoes(List<QuestaoTemplate> questoes) {
 		this.questoes = questoes;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 
