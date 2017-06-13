@@ -15,16 +15,27 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.babel.editor.rbeBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>net.sf.jasperreports.nature</nature>
+		<nature>com.jaspersoft.studio.babel.editor.rbeNature</nature>
 	</natures>
 	<linkedResources>
 		<link>
 			<name>provaSgep.jasper</name>
 			<type>1</type>
 			<location>C:/Users/kai/workspace/sgep/src/main/jasperreports/provaSgep.jasper</location>
+		</link>
+		<link>
+			<name>provaSgep_1.jrxml</name>
+			<type>1</type>
+			<location>C:/Users/kai/workspace/sgep/src/main/jasperreports/provaSgep.jrxml</location>
 		</link>
 	</linkedResources>
 </projectDescription>
