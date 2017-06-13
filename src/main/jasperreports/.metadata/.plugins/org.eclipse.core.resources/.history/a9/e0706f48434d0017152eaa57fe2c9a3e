@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-08T17:24:15 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d03a1b71-aa8c-44a4-af4d-a498dcbbcde2">
-	<property name="com.jaspersoft.studio.data.sql.tables" value="Y3Vyc28gQVMgLDIyNSwxNSw4ZjdiOWEzZC01MDliLTQ1YzgtOWYwYi0zYTg4OGNjN2Y5NzM7cXVl&#xA;c3RhbyBBUyAsODc4LDE1LDA3MWIwZGE2LTFlZDAtNGRhNC04ZjVjLWQxMTZiYmQyY2M2YjtzZXNz&#xA;YW8gQVMgLDYxMCwxNSw4ZWM5Njc0Yy03YWZlLTQzNjctOTQ2Yy1jOTg4NDE5NzU5OTk7aXRlbXF1&#xA;ZXN0YW9wcm92YSBBUyAsNzA3LDE1LDZkMzZkNTQzLWFhNDUtNDMxNS04YTI4LTViZmY0YzU4ODQy&#xA;YjthbHRlcm5hdGl2YXF1ZXN0YW8gQVMgLDk4NSwxNSwwODFiM2E3NS1kMjRjLTQzYzQtOTcxYy03&#xA;OTFkNDVkOWVhOWQ7ZGlzY2lwbGluYSBBUyAsMTUsMTUsMWY5ZDlhODUtNGIxMy00MWQwLWE4MDYt&#xA;NDQyMzZiNzM2ZTg3O3Byb3ZhIEFTICwxMzAsMTUsZGIwODkwZjgtZWYwNS00ZTE5LWEzYzgtMDk0&#xA;YTY1OTU1MmUwO2luc3RpdHVpY2FvIEFTICwzMTgsMTUsNjhiYjFmODUtNDhhZS00OTIxLThiYzQt&#xA;MmYxY2U2YjU5MTZhO3Byb3ZhX3Nlc3Nhb3Byb3ZhIEFTICw0MzQsMTUsNGUwYmQ4ZTgtNzI1My00&#xA;YzQ0LWI1N2UtODgxYzhkN2RkYmE2Ow=="/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+<!-- 2017-06-09T15:41:04 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gabaritoR" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d03a1b71-aa8c-44a4-af4d-a498dcbbcde2">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sample DB"/>
+	<parameter name="PROVA_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString language="SQL">
 		<![CDATA[SELECT id AS prova_id,
 	nome AS nome_do_curso,
@@ -15,27 +18,16 @@
 	nome AS nome_da_disciplina,
 	resposta AS resposta_questao
 FROM prova AS p
-	INNER JOIN curso AS c ON 
-	 'NULL' = 'NULL' 
-	INNER JOIN instituicao AS i ON 
-	 'NULL' = 'NULL' 
-	INNER JOIN prova_sessaoprova AS psp ON 
-	 'NULL' = 'NULL' 
-	INNER JOIN sessao AS s ON 
-	 'NULL' = 'NULL' 
-	INNER JOIN itemquestaoprova AS iqp ON 
-	 'NULL' = 'NULL' 
-	INNER JOIN questao AS q ON 
-	 'NULL' = 'NULL' 
-	INNER JOIN alternativaquestao AS aq ON 
-	 'NULL' = 'NULL' 
-	INNER JOIN disciplina AS d ON 
-	 'NULL' = 'NULL' 
-WHERE 
-	 'NULL' = 1 
-ORDER BY id DESC,
-	id DESC,
-	ordem_da_questao DESC]]>
+	INNER JOIN curso as c ON p.curso_id = c.id
+	INNER JOIN instituicao as i ON p.instituicao_id = i.id
+	INNER JOIN prova_sessaoprova as psp ON p.id = psp.prova_id
+	INNER JOIN sessao as s ON psp.sessoes_id = s.id
+	INNER JOIN itemquestaoprova as iqp ON s.id = iqp.sessao_id
+	INNER JOIN questao as q ON iqp.questao_id = q.id
+	INNER JOIN alternativaquestao as aq ON q.id = aq.questao_id
+	INNER JOIN disciplina as d ON p.disciplina_id = d.id
+WHERE p.id = "1"
+	ORDER BY s.id,q.id,ordem_da_questao]]>
 	</queryString>
 	<field name="nome_do_curso" class="java.lang.String"/>
 	<field name="instituicao_nome" class="java.lang.String"/>
@@ -107,6 +99,9 @@ ORDER BY id DESC,
 				</textElement>
 				<text><![CDATA[GABARITO]]></text>
 			</staticText>
+			<rectangle>
+				<reportElement mode="Transparent" x="10" y="90" width="540" height="111" uuid="80a18fd6-09dc-4b69-af9c-a68428d56a21"/>
+			</rectangle>
 		</band>
 	</title>
 	<columnFooter>
