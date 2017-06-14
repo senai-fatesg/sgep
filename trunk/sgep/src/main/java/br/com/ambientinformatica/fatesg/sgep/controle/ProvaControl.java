@@ -155,7 +155,9 @@ public class ProvaControl {
 			UtilFaces.addMensagemFaces("Houve um erro ao Gerar o Relatório Solicitado.\n Msg:" + e.getMessage());
 		}
 	}
-
+		
+	
+	
 
 	public void confirmar() {
 		try {

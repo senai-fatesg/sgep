@@ -6,7 +6,9 @@
 package br.com.ambientinformatica.fatesg.sgep.controle;
 
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -15,6 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -118,5 +121,23 @@ public class GabaritoRespostaControl {
 
 	public void setProva(Prova prova) {
 		this.prova = prova;
+	}
+	
+	public void imprimirGabaritoF(ActionEvent evt){
+		try {
+			List<ItemQuestaoProva> itensquestao = new ArrayList<>();
+			Prova provaImprimir = provaDao.consultarGabarito(prova.getId());
+			for (SessaoProva sessaoProva : provaImprimir.getSessoes() ) {
+				for (ItemQuestaoProva itemQuestaoProva : sessaoProva.getItensQuestao()) {
+					itensquestao.add(itemQuestaoProva);
+				}
+			}
+			Map<String, Object> parametros = new HashMap<String, Object>();
+			
+			parametros.put("prova", provaImprimir);
+			UtilFacesRelatorio.gerarRelatorioFaces("jasper/aindaNADA.jasper", itensquestao, parametros);
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces("Houve um erro ao Gerar o Relatório Solicitado.\n Msg:" + e.getMessage());
+		}
 	}
 }

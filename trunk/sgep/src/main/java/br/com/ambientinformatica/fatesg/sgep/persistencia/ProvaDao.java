@@ -11,5 +11,7 @@ public interface ProvaDao extends Persistencia<Prova> {
 	List<Prova> listarProvas() throws PersistenciaException;
 
 	Prova consultarProva(Integer id) throws PersistenciaException;
+	
+	Prova consultarGabarito(Integer id) throws PersistenciaException; 
 
 }
