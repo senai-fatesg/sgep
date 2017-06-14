@@ -168,6 +168,10 @@ a:hover {
 	background:none;
 	background-color: #00B290;
 }
+.fundoBranco{
+	    background: white;
+}
+
 	
 .ui-menu.ui-menubar {
 	border:none;
@@ -202,13 +206,8 @@ a:hover {
 	padding: 0;
 }
 
-.ui-state-default, .ui-widget-content .ui-button .ui-state-default, .ui-widget-header .ui-button .ui-state-default, .ui-button, .ui-button .ui-widget .ui-state-default {
-	background: none;
-	background-color: #FF7F2A;
-	background: #c8a700;
-	background: -moz-linear-gradient(top, #c8a700 0%, #c8a700 60%, #e8c100 100%);
-	background: -webkit-linear-gradient(top, #c8a700 0%, #c8a700 60%, #e8c100 100%);
-	background: linear-gradient(to bottom, #c8a700 0%, #c8a700 60%, #e8c100 100%);
+.ui-state-default, .ui-widget-content .ui-button .ui-state-default, .ui-widget-header .ui-button .ui-state-default, .ui-button, .ui-button .ui-widget .ui-state-default {	
+	
 }
 
 .ui-widget-content .ui-button {

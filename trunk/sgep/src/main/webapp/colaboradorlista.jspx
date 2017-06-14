@@ -124,10 +124,10 @@
 				</a:field>
 				<a:newLine />
 				<a:field label="Telefone">
-					<p:inputMask value="#{ColaboradorControl.colaborador.telefone }" mask="(99)9999-9999" />
+					<p:inputMask value="#{ColaboradorControl.colaborador.telefone }" mask="(99)99999-9999" />
 				</a:field>
 				<a:field label="Celular" spaceLeft="10px">
-					<p:inputMask value="#{ColaboradorControl.colaborador.celular }" mask="(99)9999-9999" />
+					<p:inputMask value="#{ColaboradorControl.colaborador.celular }" mask="(99)99999-9999" />
 				</a:field>
 				<a:field label="E-mail" spaceLeft="10px">
 					<p:inputText value="#{ColaboradorControl.colaborador.email }" style="width: 290px">
@@ -148,13 +148,14 @@
 				<a:field label="UF" spaceLeft="10px">
 					<p:selectOneMenu id="uf" value="#{ColaboradorControl.uf }" style="width:190px;" converter="objectConverter">
 						<f:selectItems value="#{ColaboradorControl.ufs }" var="estado" itemLabel="#{estado.descricao}" itemValue="#{estado}"></f:selectItems>
-						<p:ajax event="change" listener="#{ColaboradorControl.atualizarMunicipios}" update="uf municipio"/>
+						<p:ajax event="change" listener="#{ColaboradorControl.atualizarMunicipios}" update="uf municipio buttonConfirm"/>
 					</p:selectOneMenu>
 				</a:field>
 	            <a:field label="Município" spaceLeft="10px;">
 	               <p:selectOneMenu id="municipio" value="#{ColaboradorControl.colaborador.municipio }" style="width:190px;" converter="objectConverter" filterMatchMode="contains" filter="true">
 	                  <f:selectItem itemLabel="Selecione"/>
 	                  <f:selectItems value="#{ColaboradorControl.municipios }" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.descricao}"/>
+	                  <p:ajax event="change" listener="#{ColaboradorControl.colaborador.municipio}" update="buttonConfirm"/>
 	               </p:selectOneMenu>
 			    </a:field>
 				<a:newLine />
@@ -171,7 +172,7 @@
 														   empty ColaboradorControl.colaborador.historico or
 														   empty ColaboradorControl.colaborador.tipo or
 														   empty ColaboradorControl.colaborador.email or
-														   empty ColaboradorControl.colaborador.endereco}" />
+														   empty ColaboradorControl.colaborador.endereco or}" />
 				</a:field>
 				<a:field spaceLeft="10px">
 					<p:commandButton icon="ui-icon-refresh" ajax="true" action="#{ColaboradorControl.limpar}" value="Limpar" update="@all" />
