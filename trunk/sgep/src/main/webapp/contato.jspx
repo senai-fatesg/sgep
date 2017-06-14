@@ -13,7 +13,7 @@
 				<h:outputText value="Nome"></h:outputText>
 				<p:inputText value="#{ContatoControl.contato.nome }"></p:inputText>
 				<h:outputText value="Telefone"></h:outputText>
-				<p:inputMask value="#{ContatoControl.contato.telefone }" mask="(99) 9999-9999"></p:inputMask>
+				<p:inputMask value="#{ContatoControl.contato.telefone }" mask="(99) 99999-9999"></p:inputMask>
 				<p:commandButton actionListener="#{ContatoControl.confirmar }" value="Confirmar" update="contatos, panel"></p:commandButton>
 			</h:panelGrid>
 		</p:panel>
