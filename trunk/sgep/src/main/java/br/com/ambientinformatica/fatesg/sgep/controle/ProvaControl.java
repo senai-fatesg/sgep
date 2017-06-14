@@ -142,44 +142,21 @@ public class ProvaControl {
 			UtilFaces.addMensagemFaces("Houve um erro ao listar Todos: " + e);
 		}
 	}
-	
-//	public void imprimirProva(Prova prova){
-//        try {
-//            Map<String, Object> parametros = new HashMap<String, Object>();
-////            List<ItemPrevisao> itemPrevisaoList = new ArrayList<ItemPrevisao>(previsoes.get(0).getItensPrevisao());
-////            parametros.put("1", itemPrevisaoList.get(0).getPoluente());
-////            parametros.put("2", itemPrevisaoList.get(1).getPoluente());
-////            parametros.put("3", itemPrevisaoList.get(2).getPoluente());
-////            parametros.put("4", itemPrevisaoList.get(3).getPoluente());
-//// 
-//            UtilFacesRelatorio.gerarRelatorioFaces("jasper/prova2.jasper", prova, parametros);
-// 
-//        } catch (Exception e) {
-//            UtilFaces.addMensagemFaces("Houve um erro ao Gerar o Relatório Solicitado.\n Msg:" + e.getMessage());
-//            UtilLog.getLog().error(e);
-//        }
-//    }
 
-	public void imprimirProva(ActionEvent evt) {
-	   //TODO organizar esse metodo
-		Prova provaImprimir = (Prova) UtilFaces.getValorParametro(evt, "sesImprimir");
-		Map<String, Object> parametros = new HashMap<String, Object>();
-		parametros.put("PROVA_ID", provaImprimir.getId());
-		
+	public void imprimirProva(Prova prova){
 		try {
-			FacesContext fc = FacesContext.getCurrentInstance();
-		    ExternalContext ec = fc.getExternalContext();
-		    ec.responseReset(); 
-		    HttpServletResponse response = (HttpServletResponse) fc.getExternalContext().getResponse();
-		    ec.setResponseHeader("Content-Disposition", "attachment; filename=\"prova.pdf\"");
-			OutputStream output = response.getOutputStream();
-			new RelatorioUtil().gerarRelatorio(parametros,output);
-			fc.responseComplete();
-			
+			Prova provaImprimir = provaDao.consultarProva(prova.getId());
+			Map<String, Object> parametros = new HashMap<String, Object>();
+			List<Prova> provas = new ArrayList<>();
+			provas.add(provaImprimir);
+
+			UtilFacesRelatorio.gerarRelatorioFaces("jasper/provaSenai.jasper", provas, parametros);
+
 		} catch (Exception e) {
-			UtilFaces.addMensagemFaces("Houve um erro ao gerar o Relatório: " + e);
+			UtilFaces.addMensagemFaces("Houve um erro ao Gerar o Relatório Solicitado.\n Msg:" + e.getMessage());
 		}
 	}
+
 
 	public void confirmar() {
 		try {
@@ -191,6 +168,27 @@ public class ProvaControl {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
+
+	//	public void imprimirProva(ActionEvent evt) {
+	//	   //TODO organizar esse metodo
+	//		Prova provaImprimir = (Prova) UtilFaces.getValorParametro(evt, "sesImprimir");
+	//		Map<String, Object> parametros = new HashMap<String, Object>();
+	//		parametros.put("PROVA_ID", provaImprimir.getId());
+	//		
+	//		try {
+	//			FacesContext fc = FacesContext.getCurrentInstance();
+	//		    ExternalContext ec = fc.getExternalContext();
+	//		    ec.responseReset(); 
+	//		    HttpServletResponse response = (HttpServletResponse) fc.getExternalContext().getResponse();
+	//		    ec.setResponseHeader("Content-Disposition", "attachment; filename=\"prova.pdf\"");
+	//			OutputStream output = response.getOutputStream();
+	//			new RelatorioUtil().gerarRelatorio(parametros,output);
+	//			fc.responseComplete();
+	//			
+	//		} catch (Exception e) {
+	//			UtilFaces.addMensagemFaces("Houve um erro ao gerar o Relatório: " + e);
+	//		}
+	//	}
 
 	public void confirmarNovaProva(){
 		Instituicao novaInstituicao = new Instituicao();
@@ -235,7 +233,7 @@ public class ProvaControl {
 			}else {
 				prova.setDisciplina(disciplinaDao.consultarPorChaveDisciplinaCorporatum(prova.getDisciplina().getId()));
 			}
-			
+
 			provaDao.alterar(prova);
 			listar();
 			limpar();
@@ -249,7 +247,7 @@ public class ProvaControl {
 		if(instituicao != null){
 			return instituicaoDao.consultarPorChaveInstituicaoCorporatum(instituicao.getId()) != null;
 		}
-		
+
 		return false;
 	}
 	private boolean isCursoJaCadastrado(Curso curso) {
@@ -424,7 +422,7 @@ public class ProvaControl {
 			for (ItemQuestaoTemplate item : sessaoTemplate.getItensQuestao()) {
 				sessaoPro.addQuestao(converterQuestao(item.getQuestaoTemplate()));
 			}
-			
+
 			if (!sessaoTemplate.getItensQuestao().isEmpty()) {
 				prova.addSessao(sessaoPro);
 			}else {

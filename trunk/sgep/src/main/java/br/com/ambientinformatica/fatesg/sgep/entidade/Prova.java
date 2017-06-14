@@ -81,10 +81,6 @@ public class Prova extends Entidade implements Serializable{
 		return id;
 	}
 
-	public void setIdProva(Integer id) {
-		this.id = id;
-	}
-
 	public Date getData() {
 		return data;
 	}

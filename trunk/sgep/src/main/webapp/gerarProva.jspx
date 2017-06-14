@@ -79,12 +79,7 @@
 					</p:panel>
 				</p:outputPanel>
 				<a:field>
-					<p:commandButton id="buttonConfirmProvaADD" icon="ui-icon-disk" actionListener="#{ProvaControl.confirmarNovaProva}" value="Confirmar" update="@all"
-					 disabled="#{empty ProvaControl.prova.data or 
-					 			 empty ProvaControl.prova.instituicao or
-					 			 empty ProvaControl.prova.curso or
-					 			 empty ProvaControl.prova.disciplina or
-					 			 empty ProvaControl.prova.periodo}" />
+					<p:commandButton id="buttonConfirmProvaADD" icon="ui-icon-disk" actionListener="#{ProvaControl.confirmarNovaProva}" value="Confirmar" update="@all" />
 				</a:field>
 				<a:field spaceLeft="10px">
 					<p:commandButton value="Cancelar" action="#{ProvaControl.limpar}" partialSubmit="true" process="@this" update="@form"/>
