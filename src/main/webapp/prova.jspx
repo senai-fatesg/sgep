@@ -38,8 +38,7 @@
 					<p:commandButton icon="ui-icon-pencil" actionListener="#{ProvaControl.editarProva(prova)}" process="@this" update="@form" style="width: 60px"/> 
 				</p:column>
 				<p:column headerText="Imprimir" style="width: 80px; text-align: center">
-					<p:commandButton icon="ui-icon-print" ajax="false" actionListener="#{ProvaControl.imprimirProva}" style="width: 60px">
-						<f:param value="#{prova}" id="sesImprimir"  />
+					<p:commandButton icon="ui-icon-print" actionListener="#{ProvaControl.imprimirProva(prova)}" ajax="false" style="width: 60px">
 					</p:commandButton>
 				</p:column>
 				<p:column headerText="Gabarito resposta" style="width:80px; text-align: center">
