@@ -35,9 +35,17 @@
 						</div>
 						<div class="col-md-12">
 							<div class="col-md-12">
-							<p:commandButton icon="ui-icon-disk" value="Confirmar"
-						     onclick="PF('confirmacaoAlternativas').show()" />
-						     <p:commandButton actionListener="#{QuestaoControl.confirmar}" value="Salvar Questão" />
+							
+						     <p:commandButton id="buttonConfirm" actionListener="#{QuestaoControl.confirmar}" value="Salvar Questão" 
+						     disabled="#{
+						     		empty QuestaoControl.rdbUsrLogadoSelecionado or
+						     		empty QuestaoControl.questaoSelecionada.questao.estado or
+						     		empty QuestaoControl.questaoSelecionada.questao.dificuldade or
+						     		empty QuestaoControl.questaoSelecionada.questao.enunciado or
+						     		empty QuestaoControl.questaoSelecionada.questao.assunto or
+						     		empty QuestaoControl.questaoSelecionada.questao.alternativas
+						     		
+						      }"/>
 					<p:spacer width="45px" />
 					<p:commandButton action="#{QuestaoControl.limpar}" value="Limpar"
 						icon="ui-icon-refresh" update="sclPanel" /></div>
@@ -51,7 +59,8 @@
 											<f:selectItem itemLabel="Sim" itemValue="true" />
 											<f:selectItem itemLabel="Não" itemValue="false" />
 											<f:ajax event="change"
-												render="formCorpo:outputPanelProfessor" />
+												render="formCorpo:outputPanelProfessor"  update="buttonConfirm" />
+												
 										</p:selectOneRadio>
 										<p:outputPanel id="outputPanelProfessor"
 											style="margin-left:12%" class="fundoBranco">
@@ -60,6 +69,7 @@
 												immediate="true" readonly="true"
 												value="#{UsuarioLogadoControl.colaborador.nome }"
 												style="margin-left=5px;">
+												<p:ajax event="keyup"  update="buttonConfirm" />
 											</p:inputText>
 											<p:autoComplete id="completUsuario" name="completUsuario" class="fundoBranco"
 												rendered="#{!QuestaoControl.rdbUsrLogadoSelecionado}"
@@ -69,6 +79,7 @@
 												minQueryLength="3" var="colaborador"
 												itemLabel="#{colaborador.nome}" itemValue="#{colaborador}"
 												converter="objectConverter">
+												<p:ajax event="keyup"  update="buttonConfirm" />
 											</p:autoComplete>
 											<p:watermark value="Pesquise pelo Nome" for="completUsuario" />
 										</p:outputPanel>
@@ -106,7 +117,9 @@
 								<a:field label="Enunciado" spaceLeft="15px">
 									<p:inputTextarea id="txtEnunciado" class="fundoBranco"
 										value="#{QuestaoControl.questaoSelecionada.questao.enunciado}"
-										scrollHeight="1" style="width:500px" />
+										scrollHeight="1" style="width:500px" >
+										<p:ajax event="keyup"  update="buttonConfirm" />
+										</p:inputTextarea>
 									<p:watermark for="txtEnunciado"
 										value="Descreva aqui o enunciado principal da questão." />
 
@@ -114,7 +127,9 @@
 								<a:field label="Assunto" spaceLeft="15px">
 									<p:inputTextarea id="txtAreaAssunto" class="fundoBranco"
 										value="#{QuestaoControl.questaoSelecionada.questao.assunto}"
-										scrollHeight="1" style="width:500px" />
+										scrollHeight="1" style="width:500px" >
+										<p:ajax event="keyup"  update="buttonConfirm" />
+										</p:inputTextarea>
 									<p:watermark for="txtAreaAssunto"
 										value="Descreva aqui o assunto referente à questão." />
 								</a:field>
@@ -122,7 +137,9 @@
 									<p:inputTextarea id="lItem" class="fundoBranco"
 										value="#{QuestaoControl.item.descricao}"
 										placeholder="Descreva aqui a alternativa a ser adicionada para a questão em elaboração."
-										scrollHeight="1" style="width:500px" />
+										scrollHeight="1" style="width:500px" >
+										<p:ajax event="keyup"  update="buttonConfirm" />
+										</p:inputTextarea>
 								</a:field>
 								<a:field
 									label="Selecione a alternativa correta para a questão em edição:">
@@ -136,9 +153,10 @@
 								<a:field spaceLeft="15px">
 									<p:commandButton action="#{QuestaoControl.adicionarItem}"
 										styleClass="primary" value="Adicionar"
-										update="alternativas,lItem" 
+										update="alternativas,lItem,buttonConfirm" 
 										icon="ui-icon-plusthick" />
 								</a:field>
+								
 							</div>
 							<div class="col-md-6">
 								<p:growl id="messages2" life="6000" />
@@ -155,10 +173,15 @@
 									<p:column headerText="Ação" width="85">
 										<p:commandButton icon="ui-icon-pencil" styleClass="flat"
 											action="#{QuestaoControl.editarItem(alt)}"
-											update="@([id$=lItem])" />
+											update="@([id$=lItem])" >
+												<f:ajax execute="@form" render="@form" />	
+											</p:commandButton>
+											
 										<p:commandButton icon="ui-icon-trash" styleClass="flat"
 											action="#{QuestaoControl.removerItem(alt)}"
-											update="alternativas" style="float: right;" />
+											update="alternativas" style="float: right;" >
+													<f:ajax execute="@form" render="@form" />
+											</p:commandButton>
 									</p:column>
 								</p:dataTable>
 							</div>

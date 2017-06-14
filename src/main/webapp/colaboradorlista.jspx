@@ -172,7 +172,7 @@
 														   empty ColaboradorControl.colaborador.historico or
 														   empty ColaboradorControl.colaborador.tipo or
 														   empty ColaboradorControl.colaborador.email or
-														   empty ColaboradorControl.colaborador.endereco or}" />
+														   empty ColaboradorControl.colaborador.endereco}" />
 				</a:field>
 				<a:field spaceLeft="10px">
 					<p:commandButton icon="ui-icon-refresh" ajax="true" action="#{ColaboradorControl.limpar}" value="Limpar" update="@all" />
