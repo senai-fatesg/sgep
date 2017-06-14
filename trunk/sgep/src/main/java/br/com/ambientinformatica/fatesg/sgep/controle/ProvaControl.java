@@ -147,10 +147,9 @@ public class ProvaControl {
 		try {
 			Prova provaImprimir = provaDao.consultarProva(prova.getId());
 			Map<String, Object> parametros = new HashMap<String, Object>();
-			List<Prova> provas = new ArrayList<>();
-			provas.add(provaImprimir);
-
-			UtilFacesRelatorio.gerarRelatorioFaces("jasper/provaSenai.jasper", provas, parametros);
+			
+			parametros.put("prova", provaImprimir);
+			UtilFacesRelatorio.gerarRelatorioFaces("jasper/provaSenai.jasper", provaImprimir.getSessoes(), parametros);
 
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Houve um erro ao Gerar o Relatório Solicitado.\n Msg:" + e.getMessage());
