@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-06-14T21:11:34 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gabaritoFinal" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a1358805-7bc1-40ff-a182-fafdd2cd2f2d">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="prova" class="br.com.ambientinformatica.fatesg.sgep.entidade.Prova">
+		<defaultValueExpression><![CDATA[$P{prova}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="sessao" class="br.com.ambientinformatica.fatesg.sgep.entidade.Sessao">
+		<fieldDescription><![CDATA[sessao]]></fieldDescription>
+	</field>
+	<field name="questao" class="br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoProva">
+		<fieldDescription><![CDATA[questao]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="53" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="63" splitType="Stretch">
+			<textField>
+				<reportElement x="37" y="11" width="100" height="30" uuid="c2e413b0-b797-43a5-ab45-9cc667762d6d"/>
+				<textFieldExpression><![CDATA[$P{prova}.getDisciplina().getNome()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="281" y="0" width="100" height="30" uuid="f7985901-13c3-4bf6-b310-7a00fe7bd7c3"/>
+				<text><![CDATA[questao]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="20" width="515" height="30" uuid="af298114-187b-42aa-98da-0d1f629acf04"/>
+				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getResposta()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
