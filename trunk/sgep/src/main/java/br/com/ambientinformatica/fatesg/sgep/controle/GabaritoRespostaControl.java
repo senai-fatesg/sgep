@@ -135,7 +135,7 @@ public class GabaritoRespostaControl {
 			Map<String, Object> parametros = new HashMap<String, Object>();
 			
 			parametros.put("prova", provaImprimir);
-			UtilFacesRelatorio.gerarRelatorioFaces("jasper/aindaNADA.jasper", itensquestao, parametros);
+			UtilFacesRelatorio.gerarRelatorioFaces("jasper/gabaritoFinal.jasper", itensquestao, parametros);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Houve um erro ao Gerar o Relatório Solicitado.\n Msg:" + e.getMessage());
 		}
