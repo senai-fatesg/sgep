@@ -71,15 +71,46 @@ public class ItemQuestaoTemplate extends Entidade implements Serializable {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + numero;
+		result = prime * result + ((questaoTemplate == null) ? 0 : questaoTemplate.hashCode());
+		result = prime * result + ((sessao == null) ? 0 : sessao.hashCode());
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
 		ItemQuestaoTemplate other = (ItemQuestaoTemplate) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (numero != other.numero)
+			return false;
 		if (questaoTemplate == null) {
 			if (other.questaoTemplate != null)
 				return false;
 		} else if (!questaoTemplate.equals(other.questaoTemplate))
 			return false;
+		if (sessao == null) {
+			if (other.sessao != null)
+				return false;
+		} else if (!sessao.equals(other.sessao))
+			return false;
 		return true;
 	}
+
+	
 	
 
 }

@@ -23,8 +23,8 @@ public class QuestaoTemplateDaoJpa extends PersistenciaJpa<QuestaoTemplate> impl
 	public List<QuestaoTemplate> consultarPor(String palavra, String tipo) {
 		try {
 			String jpaql = "select distinct qt from QuestaoTemplate qt " + " left join fetch qt.questao q ";
-			if (!palavra.isEmpty() || palavra != null) {
-				if (!tipo.isEmpty() || tipo != null) {
+			if (palavra != null || !palavra.isEmpty()) {
+				if (tipo != null || !tipo.isEmpty()) {
 					if (tipo == "Dificuldade") {
 						jpaql += " where upper(q.dificuldade) like :dificuldade";
 					}
@@ -37,7 +37,7 @@ public class QuestaoTemplateDaoJpa extends PersistenciaJpa<QuestaoTemplate> impl
 				}
 			}
 			Query query = em.createQuery(jpaql);
-			if (!palavra.isEmpty() || palavra != null) {
+			if (palavra != null || !palavra.isEmpty() ) {
 				if (tipo.isEmpty() || tipo == null) {
 					if (tipo == "Dificuldade") {
 						query.setParameter("dificuldade", "%" + palavra.toUpperCase() + "%");
@@ -72,7 +72,6 @@ public class QuestaoTemplateDaoJpa extends PersistenciaJpa<QuestaoTemplate> impl
 					"select qt from QuestaoTemplate qt left join fetch qt.questao q left join fetch q.professor p");
 			return query.getResultList();
 		} catch (Exception e) {
-			System.out.println(e);
 			UtilFaces.addMensagemFaces(e.getMessage());
 		}
 		return null;
@@ -122,7 +121,6 @@ public class QuestaoTemplateDaoJpa extends PersistenciaJpa<QuestaoTemplate> impl
 			query.setParameter("nomeDisciplina", professorOuDisciplina + "%");
 			return query.getResultList();
 		} catch (Exception e) {
-			System.out.println(e);
 			UtilFaces.addMensagemFaces(e.getMessage());
 		}
 		return null;

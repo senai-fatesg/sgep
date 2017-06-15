@@ -68,13 +68,12 @@ public class QuestaoControl implements Serializable {
 		try {
 			questoes = questaoDao.listarPorProfessorOuDisciplina(professorOuDisciplina);
 		} catch (Exception e) {
-			e.printStackTrace();
+			UtilFaces.addMensagemFaces(e);
 			questoes  = new ArrayList<QuestaoTemplate>();
 		}
 	}
 
 	public void confirmar() {
-		System.out.println("confirmar");
 		try {
 			if (this.isQuestaoValida(questaoSelecionada.getQuestao().getAlternativas().size())) {
 				if(isRdbUsrLogadoSelecionado()){
@@ -98,28 +97,22 @@ public class QuestaoControl implements Serializable {
 	}
 
 	private boolean isColaboradorValidoPreenchido() {
-		System.out.println("isCola");
-
 		return questaoSelecionada.getQuestao().getProfessor() != null;
 	}
 
 	private Colaborador getColaboradorLogado() {
-		System.out.println("get cola");
-
 		Colaborador colaboradorLogado = colaboradorDao //consultar na base do sgep
 				.consultarPorCpfSgep(UsuarioLogadoControl.getUsuarioConfigurado().getCpfCnpj());
 		return colaboradorLogado;
 	}
 
 	public boolean verificarSalvarDadosPreenchidosPerdidos() {
-		System.out.println("verifica salvar");
 
 		return isAlternativaEdicao() || this.item.getDescricao() != null;
 	}
 	
 	//consultar idpai base sgep
 	private boolean isProfessorJaCadastrado(Colaborador colaborador) {
-		System.out.println("isProf");
 
 		Colaborador colab = colaboradorDao.consultarPorCpfSgep(colaborador.getCpfCnpj());
 		questaoSelecionada.getQuestao().setProfessor(colab != null ? colab : new Colaborador());
@@ -128,8 +121,6 @@ public class QuestaoControl implements Serializable {
 
 
 	public void listar() {
-		System.out.println("lisatr");
-
 		try {
 			questoes = questaoDao.listar();
 		} catch (Exception e) {
@@ -138,8 +129,6 @@ public class QuestaoControl implements Serializable {
 	}
 
 	public void excluir() {
-		System.out.println("excluir");
-
 		try {
 			questaoDao.excluirPorId(questaoSelecionada.getId());
 			questaoSelecionada = new QuestaoTemplate();
@@ -153,8 +142,6 @@ public class QuestaoControl implements Serializable {
 
 	public void carregarQuestao() {
 		try {
-			System.out.println("carregar ques");
-
 			this.questaoSelecionada = questaoDao.carregarQuestao(questaoSelecionada);
 		} catch (Exception e) {
 			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", "Falha ao carregar objetos"));
@@ -168,8 +155,6 @@ public class QuestaoControl implements Serializable {
 
 	public void adicionarItem() {
 		try {
-			System.out.println("add Item");
-
 			if (isAlternativaValida()) {
 				item.setOrdem(questaoSelecionada.getQuestao().getAlternativas(), this.isAlternativaEdicao);
 				questaoSelecionada.getQuestao().addItem(item, isAlternativaEdicao);
@@ -184,8 +169,6 @@ public class QuestaoControl implements Serializable {
 	}
 
 	private void compareToAlternativas() {
-		System.out.println("compareToAlternativas");
-
 		List<AlternativaQuestao> alternativas = questaoSelecionada.getQuestao().getAlternativas();
 		Comparator<AlternativaQuestao> comparator = new Comparator<AlternativaQuestao>() {
 			public int compare(AlternativaQuestao o1, AlternativaQuestao o2) {
@@ -197,8 +180,6 @@ public class QuestaoControl implements Serializable {
 	}
 
 	private boolean isAlternativaValida() {
-		System.out.println("is altern");
-		
 		if(this.getItem().getDescricao().isEmpty()){
 			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", "O campo descrição da alternativa é de preenchimento obrigatório!"));
 			return false;
@@ -211,8 +192,6 @@ public class QuestaoControl implements Serializable {
 	}
 
 	public boolean isCapacidadeMaximaPreenchida(int quantidadeQuestao) {
-		System.out.println("is capa");
-		
 		return quantidadeQuestao == CAPACIDADE_MAXIMA_ALTERNATIVAS && !isAlternativaEdicao;
 	}
 
@@ -244,7 +223,6 @@ public class QuestaoControl implements Serializable {
 	}
 
 	public void editarItem(AlternativaQuestao alternativa) {
-		System.out.println("editar");
 		try {
 			this.item = alternativa;
 			this.isAlternativaEdicao = true;
@@ -254,7 +232,6 @@ public class QuestaoControl implements Serializable {
 	}
 
 	public void removerItem(AlternativaQuestao alternativa) {
-		System.out.println("remover");
 		try {
 			this.questaoSelecionada.getQuestao().removerItem(alternativa);
 		} catch (Exception e) {
