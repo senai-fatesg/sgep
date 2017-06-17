@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-14T21:11:34 -->
+<!-- 2017-06-16T20:48:19 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gabaritoFinal" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a1358805-7bc1-40ff-a182-fafdd2cd2f2d">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="prova" class="br.com.ambientinformatica.fatesg.sgep.entidade.Prova">
@@ -15,33 +15,119 @@
 	<field name="questao" class="br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoProva">
 		<fieldDescription><![CDATA[questao]]></fieldDescription>
 	</field>
+	<variable name="contador" class="java.math.BigDecimal" incrementType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$V{contador}.add(new BigDecimal("1"))]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal("0")]]></initialValueExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="53" splitType="Stretch"/>
+		<band height="141" splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="63" splitType="Stretch">
+		<band height="100" splitType="Stretch">
+			<rectangle>
+				<reportElement x="20" y="-100" width="525" height="200" uuid="7f6b12f0-2c4d-413a-95cb-431ccfe8c169"/>
+			</rectangle>
 			<textField>
-				<reportElement x="37" y="11" width="100" height="30" uuid="c2e413b0-b797-43a5-ab45-9cc667762d6d"/>
+				<reportElement x="420" y="49" width="120" height="30" uuid="c2e413b0-b797-43a5-ab45-9cc667762d6d"/>
 				<textFieldExpression><![CDATA[$P{prova}.getDisciplina().getNome()]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="160" y="49" width="130" height="30" uuid="adbd4437-0cf7-42c3-b4e9-488ea9d6de34"/>
+				<textFieldExpression><![CDATA[$P{prova}.getCurso().getNome()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="9" width="120" height="30" uuid="69c44da2-cc32-48af-9ba1-693d08f9a7ab"/>
+				<textFieldExpression><![CDATA[$P{prova}.getInstituicao().getNomeFantasia()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="60" y="9" width="70" height="20" uuid="441ccd44-f31a-448f-b7dd-e07fbe3c01fd"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Periodo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="160" y="9" width="130" height="30" uuid="2b48a764-cdeb-4fde-b51e-38d02d97e616"/>
+				<textFieldExpression><![CDATA[$P{prova}.getPeriodo()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="60" y="49" width="70" height="20" uuid="4f7f084d-f245-4915-b371-3523af0eb5b3"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Curso:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="10" width="90" height="20" uuid="5eb4563a-6afc-4e54-a276-0620b6aa312a"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Instituição:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="50" width="100" height="20" uuid="4007ec46-959e-42aa-9c24-8f24b8b69e1b"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Disciplina:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="215" y="-68" width="201" height="40" uuid="2ca6088e-d9d1-428c-809f-69169dcbf514"/>
+				<textElement textAlignment="Center">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GABARITO]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="76" splitType="Stretch">
+			<rectangle>
+				<reportElement x="179" y="44" width="101" height="31" uuid="b044e3aa-d070-4d36-ac76-dc57ec143e72"/>
+			</rectangle>
 			<staticText>
-				<reportElement x="281" y="0" width="100" height="30" uuid="f7985901-13c3-4bf6-b310-7a00fe7bd7c3"/>
-				<text><![CDATA[questao]]></text>
+				<reportElement x="198" y="45" width="81" height="30" uuid="24e410e2-d8bb-4a60-bcaf-98a74d046069"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Questão]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="280" y="44" width="101" height="31" uuid="41ef1e08-1900-45c3-b5d7-6b39cd1602de"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="290" y="45" width="90" height="30" uuid="538871d1-8539-41d2-a1c3-67144e2a7861"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Resposta]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="36" splitType="Stretch">
+			<rectangle>
+				<reportElement x="179" y="0" width="101" height="36" uuid="f9044639-2eb6-498a-a699-cfc4c8f33d5c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="280" y="0" width="101" height="36" uuid="50647788-b9f4-4fe1-a42a-44eebbde5af9"/>
+			</rectangle>
 			<textField>
-				<reportElement x="30" y="20" width="515" height="30" uuid="af298114-187b-42aa-98da-0d1f629acf04"/>
+				<reportElement x="329" y="6" width="40" height="24" uuid="bbe69a81-f3d8-4aa5-bf21-40f1c0c0daad"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getResposta()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="6" width="40" height="23" uuid="0d618621-8a00-4128-a49f-47ce457cc55a"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{contador}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
