@@ -13,12 +13,11 @@
 				droppedCar.fadeOut('fast');
 			}
 		</script>
-		<p:panel id="pnlGerarProva" header="Gerar Nova Questão">
+		<p:panel id="pnlGerarProva" header="Gerar Nova Questão" onHide="#{QuestaoControl.limpar}">
+		
 			<a:newLine />
-			<p:panelGrid>
-				<p:dialog id="dlgQuestao" modal="true" widgetVar="wNewFile"
-					header="Cadastro de Questões" resizable="true"
-					onHide="#{QuestaoControl.limpar()}" >
+			<p:panelGrid id="panelRest">
+				<p:dialog id="dlgQuestao" modal="true" widgetVar="wNewFile" header="Cadastro de Questões" resizable="true" >
 					<p:scrollPanel id="sclPanel" mode="native"
 						style="height:1000px;padding: 5px 10px;" rendered="true">
 
@@ -47,8 +46,12 @@
 						     		
 						      }"/>
 					<p:spacer width="45px" />
-					<p:commandButton action="#{QuestaoControl.limpar}" value="Limpar"
-						icon="ui-icon-refresh" update="pnlGerarProva" /></div>
+					
+            		<p:commandButton value="Limpar" actionListener="#{QuestaoControl.limpar}" immediate="true" ajax="false" style="margin-right:20px;">
+                		<p:resetInput target="pnlGerarProva" />
+            		</p:commandButton>
+            		
+					</div>
 							<div class="col-md-6">
 								<a:field label="Deseja criar questões utilizando o usuário do professor logado?"/>
 									<div id="divRdbProf" style="float: left;">
@@ -193,10 +196,6 @@
 				</p:dialog>
 
 			</p:panelGrid>
-
-		</p:panel>
-		<a:newLine />
-		<p:panel id="selectedQuestions" header="Gerar Nova Questão">
 
 		</p:panel>
 		<a:newLine />
