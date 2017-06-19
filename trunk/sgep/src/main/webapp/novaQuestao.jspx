@@ -48,10 +48,9 @@
 						      }"/>
 					<p:spacer width="45px" />
 					<p:commandButton action="#{QuestaoControl.limpar}" value="Limpar"
-						icon="ui-icon-refresh" update="sclPanel" /></div>
+						icon="ui-icon-refresh" update="pnlGerarProva" /></div>
 							<div class="col-md-6">
-								<a:field
-									label="Deseja criar questões utilizando o usuário do professor logado?"/>
+								<a:field label="Deseja criar questões utilizando o usuário do professor logado?"/>
 									<div id="divRdbProf" style="float: left;">
 										<p:selectOneRadio id="rdbUsrSelecionado" class="fundoBranco"
 											value="#{QuestaoControl.rdbUsrLogadoSelecionado}"
@@ -187,12 +186,6 @@
 							</div>
 
 						</div>
-
-
-
-
-
-
 
 					</p:scrollPanel>
 					<a:newLine />
