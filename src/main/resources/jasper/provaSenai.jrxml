@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-17T16:53:29 -->
+<!-- 2017-06-20T16:15:07 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="provaSenai" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b73a5c46-86a0-4d40-8825-55b11740e060">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="prova" class="br.com.ambientinformatica.fatesg.sgep.entidade.Prova"/>
@@ -96,11 +96,6 @@
 			<rectangle radius="20">
 				<reportElement x="20" y="190" width="507" height="469" backcolor="#BFC5C9" uuid="f8795f8d-8e65-4cf0-848e-62605d967bd2"/>
 			</rectangle>
-			<subreport>
-				<reportElement x="530" y="570" width="19" height="70" uuid="a905350f-cb54-493a-92e0-0cea430f9bf8"/>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["src/main/jasperreports/subGpSenai.jasper"]]></subreportExpression>
-			</subreport>
 			<staticText>
 				<reportElement x="36" y="230" width="478" height="32" uuid="78a34d07-f5f9-467c-8878-ee9d00837fe4"/>
 				<textElement textAlignment="Center">
@@ -280,4 +275,16 @@ cadernos ou anotações de qualquer espécie.]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
+	<detail>
+		<band height="43"/>
+	</detail>
+	<summary>
+		<band height="50">
+			<subreport>
+				<reportElement x="225" y="17" width="99" height="23" uuid="a905350f-cb54-493a-92e0-0cea430f9bf8"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["src/main/jasperreports/subGpSenai.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
 </jasperReport>

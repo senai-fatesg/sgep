@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2017-06-14T17:24:26 -->
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-06-20T16:54:50 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="provaSenai" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b73a5c46-86a0-4d40-8825-55b11740e060">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="prova" class="br.com.ambientinformatica.fatesg.sgep.entidade.Prova"/>
@@ -12,6 +12,9 @@
 	</field>
 	<field name="itensQuestao" class="java.util.List">
 		<fieldDescription><![CDATA[itensQuestao]]></fieldDescription>
+	</field>
+	<field name="questao" class="br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoProva">
+		<fieldDescription><![CDATA[questao]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -30,8 +33,8 @@
 	<columnHeader>
 		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement x="53" y="0" width="100" height="30" uuid="0accf6c8-3b78-4f20-810d-eb1a2a5a3758"/>
-				<text><![CDATA[sessao]]></text>
+				<reportElement x="91" y="0" width="100" height="30" uuid="3208be90-06e9-4312-a9f2-cdec6386c44b"/>
+				<text><![CDATA[questao]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -42,7 +45,16 @@
 				<textFieldExpression><![CDATA[$F{sessao}.getDescricao()]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="50"/>
+		<band height="82">
+			<textField>
+				<reportElement x="40" y="0" width="390" height="30" uuid="b388a49d-023a-45a4-87c5-a1f7669c6235"/>
+				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getEnunciado()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="40" width="100" height="30" uuid="54112021-e8e3-4e66-954f-9cf79ff35672"/>
+				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getAlternativas()]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>
