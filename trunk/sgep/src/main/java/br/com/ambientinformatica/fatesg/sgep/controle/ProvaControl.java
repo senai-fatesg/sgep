@@ -28,6 +28,7 @@ import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
 import br.com.ambientinformatica.fatesg.api.entidade.Instituicao;
 import br.com.ambientinformatica.fatesg.sgep.entidade.AlternativaQuestao;
 import br.com.ambientinformatica.fatesg.sgep.entidade.EnumPeriodo;
+import br.com.ambientinformatica.fatesg.sgep.entidade.ItemQuestaoProva;
 import br.com.ambientinformatica.fatesg.sgep.entidade.ItemQuestaoTemplate;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Prova;
 import br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoProva;
@@ -144,12 +145,23 @@ public class ProvaControl {
 	}
 
 	public void imprimirProva(Prova prova){
+		
+
 		try {
-			Prova provaImprimir = provaDao.consultarProva(prova.getId());
+			List<ItemQuestaoProva> itensquestao = new ArrayList<>();
+			Prova provaImprimir = provaDao.consultarGabarito(prova.getId());
+			for (SessaoProva sessaoProva : provaImprimir.getSessoes() ) {
+				for (ItemQuestaoProva itemQuestaoProva : sessaoProva.getItensQuestao()) {
+					itensquestao.add(itemQuestaoProva);
+				}
+			}
+		
+		
+			
 			Map<String, Object> parametros = new HashMap<String, Object>();
 			
 			parametros.put("prova", provaImprimir);
-			UtilFacesRelatorio.gerarRelatorioFaces("jasper/provaSenai.jasper", provaImprimir.getSessoes(), parametros);
+			UtilFacesRelatorio.gerarRelatorioFaces("jasper/provaSenai.jasper", itensquestao, parametros);
 
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces("Houve um erro ao Gerar o Relatório Solicitado.\n Msg:" + e.getMessage());
