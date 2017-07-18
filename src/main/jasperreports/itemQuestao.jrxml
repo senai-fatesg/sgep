@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2017-06-20T16:58:59 -->
+<!-- 2017-07-18T17:09:43 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="itemQuestao" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9b205739-563e-42a8-b5fd-bed1f43216b3">
 	<subDataset name="ItemQuestaoProva" uuid="0a852836-e561-4107-a969-88c77d133d52">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
@@ -14,6 +14,9 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
+	<field name="itensQuestao" class="java.util.List">
+		<fieldDescription><![CDATA[itensQuestao]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -33,6 +36,13 @@
 					</jr:listContents>
 				</jr:list>
 			</componentElement>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="0" y="0" width="550" height="50" uuid="e80244e8-6b5c-4042-b1ec-3503410bf030"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[br.com.ambientinformatica.util.UtilRecurso.getClassLoader().getResourceAsStream("jasper/alternativasQuestao.jasper")]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 </jasperReport>

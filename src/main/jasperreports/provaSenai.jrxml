@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-20T16:54:50 -->
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2017-07-18T17:09:43 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="provaSenai" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b73a5c46-86a0-4d40-8825-55b11740e060">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="prova" class="br.com.ambientinformatica.fatesg.sgep.entidade.Prova"/>
+	<parameter name="alternativasQuestao" class="br.com.ambientinformatica.fatesg.sgea.entidade.AlternativaQuestao"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="sessao" class="br.com.ambientinformatica.fatesg.sgep.entidade.Sessao">
-		<fieldDescription><![CDATA[sessao]]></fieldDescription>
-	</field>
 	<field name="itensQuestao" class="java.util.List">
 		<fieldDescription><![CDATA[itensQuestao]]></fieldDescription>
 	</field>
-	<field name="questao" class="br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoProva">
-		<fieldDescription><![CDATA[questao]]></fieldDescription>
+	<field name="sessao" class="br.com.ambientinformatica.fatesg.sgep.entidade.Sessao">
+		<fieldDescription><![CDATA[sessao]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
@@ -23,46 +21,24 @@
 		<band height="79" splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="37" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="3" width="455" height="30" uuid="2adea00f-1442-41c0-8038-d9b98b9efa66"/>
-				<textFieldExpression><![CDATA[$P{prova}.getDisciplina().getNome()]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="37" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="30" splitType="Stretch">
-			<staticText>
-				<reportElement x="91" y="0" width="100" height="30" uuid="3208be90-06e9-4312-a9f2-cdec6386c44b"/>
-				<text><![CDATA[questao]]></text>
-			</staticText>
-		</band>
+		<band height="53" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="44" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="340" height="20" uuid="c06a535e-c162-4ad2-8361-2f06501edbc2"/>
+				<reportElement x="0" y="0" width="550" height="20" uuid="a14d76f6-2eaa-4d1f-bfac-7471f6714505"/>
 				<textFieldExpression><![CDATA[$F{sessao}.getDescricao()]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="82">
-			<textField>
-				<reportElement x="40" y="0" width="390" height="30" uuid="b388a49d-023a-45a4-87c5-a1f7669c6235"/>
-				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getEnunciado()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="40" y="40" width="100" height="30" uuid="54112021-e8e3-4e66-954f-9cf79ff35672"/>
-				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getAlternativas()]]></textFieldExpression>
-			</textField>
+		<band height="50">
+			<subreport>
+				<reportElement x="2" y="0" width="550" height="50" uuid="e117e410-95ba-4824-895c-6a21cbebd010"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[br.com.ambientinformatica.util.UtilRecurso.getClassLoader().getResourceAsStream("jasper/itemQuestao.jasper")]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>
