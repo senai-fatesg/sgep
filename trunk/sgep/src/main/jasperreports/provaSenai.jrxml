@@ -1,44 +1,327 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2017-07-18T17:09:43 -->
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="provaSenai" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b73a5c46-86a0-4d40-8825-55b11740e060">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="prova" class="br.com.ambientinformatica.fatesg.sgep.entidade.Prova"/>
-	<parameter name="alternativasQuestao" class="br.com.ambientinformatica.fatesg.sgea.entidade.AlternativaQuestao"/>
+	<parameter name="sessao" class="br.com.ambientinformatica.fatesg.sgep.entidade.Sessao"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="itensQuestao" class="java.util.List">
-		<fieldDescription><![CDATA[itensQuestao]]></fieldDescription>
-	</field>
-	<field name="sessao" class="br.com.ambientinformatica.fatesg.sgep.entidade.Sessao">
+	<field name="sessao" class="br.com.ambientinformatica.fatesg.sgep.entidade.SessaoProva">
 		<fieldDescription><![CDATA[sessao]]></fieldDescription>
+	</field>
+	<field name="numero" class="java.lang.Integer">
+		<fieldDescription><![CDATA[numero]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="questao" class="br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoProva">
+		<fieldDescription><![CDATA[questao]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="43">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<image>
+				<reportElement x="170" y="0" width="170" height="30" uuid="ecaf7221-8d71-4b81-8e2f-9bdb1a796638"/>
+				<imageExpression><![CDATA["C:/Users/luks_/Desktop/jasper/senai.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="195" y="30" width="154" height="13" uuid="e84ca57c-9e17-4267-a4b0-b8f6961ae013"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Faculdade SENAI Fatesg]]></text>
+			</staticText>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="37" splitType="Stretch"/>
+		<band height="80">
+			<rectangle>
+				<reportElement x="0" y="2" width="554" height="75" backcolor="#BFC5C9" uuid="8bb89546-e6dd-405f-aab4-a0955c3f4a1a"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<ellipse>
+				<reportElement x="475" y="4" width="69" height="68" uuid="51f4c2d4-454f-4561-bd32-244efac238d7"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</ellipse>
+			<staticText>
+				<reportElement x="175" y="4" width="228" height="37" uuid="6dda3be1-49dc-41d1-af5b-14aacf122ab0"/>
+				<textElement>
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AII - 2018 - 1 ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="151" y="47" width="263" height="30" uuid="33e99be7-61f8-4107-8d3a-7df284b2cdc8"/>
+				<text><![CDATA[AVALIAÇÃO INTERDISCIPLINAR  INSTITUICIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="501" y="20" width="44" height="30" uuid="c953e880-4867-4166-b9ba-707c1f96714a"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[5]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="53" splitType="Stretch"/>
+		<band height="679">
+			<line>
+				<reportElement x="0" y="51" width="555" height="1" uuid="25c6eeb8-7bec-42bf-a178-9e1b537a78e7"/>
+				<graphicElement>
+					<pen lineWidth="3.0"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="11" y="65" width="50" height="20" uuid="317567ad-a38c-4d04-a3f5-042a7bcedf42"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="91" width="520" height="20" uuid="c78e6228-d196-4c5e-9278-3fbc0b20dc12"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="122" width="520" height="20" uuid="adde5f0b-1692-4324-a595-4e9ad3fb5a68"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="160" width="62" height="20" uuid="97b06890-dce2-4fe2-9246-92e4406d7b95"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Assinatura:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="68" y="170" width="460" height="1" uuid="2954cbe2-9c41-4889-9d32-f6b30aa18137"/>
+			</line>
+			<rectangle radius="20">
+				<reportElement x="20" y="190" width="507" height="469" backcolor="#BFC5C9" uuid="f8795f8d-8e65-4cf0-848e-62605d967bd2"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="36" y="230" width="478" height="32" uuid="78a34d07-f5f9-467c-8878-ee9d00837fe4"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LEIA COM ATENÇÃO AS INSTRUÇÕES ABAIXO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="282" width="470" height="28" uuid="616e9b67-950a-4579-b376-09050df84708"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[1.  Verifique se além deste caderno, você recebeu o Caderno de Respostas, destinado à transcrição das respostas das questões de
+múltipla escolha (objetivas), das questões discursivas e do questionário de percepção da prova.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="41" y="315" width="470" height="28" uuid="9a44db32-a9e8-42f0-8c49-3fd258f79d97"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[2.  - Confira se este caderno contém as questões de múltipla escolha (objetivas) e discursivas de formação geral e do componente
+especifico da área. e as questões relativas à sua percepção da prova, assim distribuídas:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="39" y="356" width="470" height="89" uuid="d5d067c7-6cb6-430c-a428-b14db649f6e0"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="39" y="386" width="470" height="21" uuid="cfa9d0c4-a93c-414b-ae71-45b47022ea7e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="39" y="407" width="470" height="20" uuid="73c5a6c2-dfce-4685-b1eb-6f4ecda3357c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="201" y="356" width="108" height="89" uuid="07f646c4-e07c-4b74-b16a-ad9f6eee84f4"/>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Transparent" x="309" y="356" width="88" height="89" uuid="fa121fff-e5a4-483d-b65d-a9b68ca9d2f1"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="54" y="360" width="132" height="20" uuid="4104d3f7-fb93-4c06-bb4f-c255d70c973f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Partes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="360" width="106" height="20" uuid="02168cd9-7fe6-4393-a9ea-b58f0d79202b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numero das questões]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="358" width="52" height="26" uuid="58a1fce4-1dee-488e-adff-8772f6bdceb8"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peso das
+questões]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="358" width="66" height="26" uuid="0dd5fd3b-f0ce-4d56-be86-59eaeb31b540"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Peso dos
+componentes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="42" y="390" width="150" height="12" uuid="28e2ff0b-266b-4cde-8d96-b670a44a40ea"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Formação Geral/Objetivas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="41" y="409" width="152" height="14" uuid="31841342-54ee-4a16-b350-878af313aacc"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Componente Específico/Objetivas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="41" y="430" width="152" height="14" uuid="97aeb4eb-ccb1-451f-bfcd-9d9bd4c7281a"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Questionário de Percepção da Prova]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="389" width="32" height="16" uuid="26821d59-9eec-4e72-aaef-2cde6747c411"/>
+				<text><![CDATA[1 a 10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="409" width="40" height="16" uuid="9c06d5d7-eccf-47c6-a388-5e8053e6e231"/>
+				<text><![CDATA[11 a 30]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="231" y="428" width="40" height="16" uuid="c5f51a9e-b1ba-4c25-a0ad-7f2c97de48f2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[31 a 39]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="332" y="428" width="40" height="16" uuid="c4989529-d1b0-4eb0-8baa-d36ffa9dd76c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="434" y="428" width="40" height="16" uuid="78a63fe2-42cd-461b-a734-33a8bd88f1e2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="410" width="36" height="14" uuid="c315043f-f33b-481a-8dfd-1d978084f26b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[85%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="389" width="36" height="14" uuid="fde0a00b-2fe9-4a97-9f50-e506deeac945"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[60%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="389" width="36" height="14" uuid="c84d28d7-bad7-40fc-b95b-50b7b5d9b042"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[25%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="438" y="410" width="36" height="14" uuid="bd0419d5-d7e9-42b0-8732-fff0f7f69a4c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[75%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="455" width="470" height="28" uuid="8e154bf9-f448-494b-975e-3f3e5fbd65a1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[3. Verifique se a prova está completa e se foi entregue Caderno de Respostas. Caso contrário, avise imediatamente um dos responsáveis
+pela aplicação da prova. Você deve assinar o Caderno de Respostas no espaço próprio, com caneta esferográfica de tinta preta.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="489" width="470" height="28" uuid="b99209dd-1574-446f-be0d-52b34f332547"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[4.  Observe as instruções expressas no Caderno de Respostas sobre a marcação das respostas ás questõesde múltipla escolha (apenas
+uma resposta por questão).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="524" width="470" height="28" uuid="3d89a0f8-0e17-4a69-a238-7cb6527a6651"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[5.  Use caneta esferográfica de tinta preta tanto para marcar as respostas das questões objetivas.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="558" width="470" height="31" uuid="44303ffb-5d25-4786-9734-c73701c9eed2"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[6.  Não use calculadora; não se comunique com os demais estudantes nem troque material com eles; não consulte material bibliográfico,
+cadernos ou anotações de qualquer espécie.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="594" width="470" height="31" uuid="69461bca-e4a9-4eb5-aa28-a823b1b635eb"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[7. Você terá três horas para responder as questões de múltipla escolha e ao questionário de percepção da prova.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="46" y="630" width="470" height="19" uuid="f52ea34d-0e36-47da-8ad3-70ea11245f95"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[8. Quando terminar, entregue ao Aplicador ou Professor o seu Caderno de Respostas.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="0" width="328" height="51" uuid="91c2114a-89d8-40e0-8608-de885a156bc0"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CURSO SUPERIOR DE TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="550" height="20" uuid="a14d76f6-2eaa-4d1f-bfac-7471f6714505"/>
-				<textFieldExpression><![CDATA[$F{sessao}.getDescricao()]]></textFieldExpression>
-			</textField>
-		</band>
-		<band height="50">
-			<subreport>
-				<reportElement x="2" y="0" width="550" height="50" uuid="e117e410-95ba-4824-895c-6a21cbebd010"/>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[br.com.ambientinformatica.util.UtilRecurso.getClassLoader().getResourceAsStream("jasper/itemQuestao.jasper")]]></subreportExpression>
-			</subreport>
-		</band>
+		<band height="43"/>
 	</detail>
+	<summary>
+		<band height="50"/>
+	</summary>
 </jasperReport>

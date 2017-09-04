@@ -82,4 +82,11 @@ public class AlternativaQuestao extends Entidade implements Serializable {
 		this.resposta = resposta;
 	}
 
+	@Override
+	public String toString() {
+		return this.ordem+") "+this.descricao;
+	}
+	
+	
+
 }

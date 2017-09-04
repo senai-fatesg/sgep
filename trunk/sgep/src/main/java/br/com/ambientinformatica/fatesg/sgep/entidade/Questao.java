@@ -34,13 +34,13 @@ public class Questao extends Entidade implements Serializable {
 	@SequenceGenerator(name = "questao_seq", sequenceName = "questao_seq", allocationSize = 1, initialValue = 1)
 	private Integer id;
 
-	@Column(length=2000)
+	@Column(length = 2000)
 	private String enunciado;
-	
-	@Column(length=500)
+
+	@Column(length = 500)
 	private String assunto;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Colaborador professor;
 
 	@ManyToOne
@@ -60,21 +60,22 @@ public class Questao extends Entidade implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "questao_id")
 	@IndexColumn(name = "index_alternativa")
-	//definido como eager pelo fato de a quantidade de alternativas relacionadas à questão ser pequena
+	// definido como eager pelo fato de a quantidade de alternativas
+	// relacionadas à questão ser pequena
 	private List<AlternativaQuestao> alternativas = new ArrayList<AlternativaQuestao>();
 
 	// Metodos
 	public void addItem(AlternativaQuestao alternativa, boolean isAlternativaEdicao) throws Exception {
 		if (!isAlternativaJaCadastrada(alternativa)) {
 			this.alternativas.add(alternativa);
-		} else if(!isAlternativaEdicao){
+		} else if (!isAlternativaEdicao) {
 			throw new Exception("Questão já contem este item!");
 		}
 	}
 
 	private boolean isAlternativaJaCadastrada(AlternativaQuestao alternativa) {
 		for (AlternativaQuestao alternativaQuestao : alternativas) {
-			if(alternativaQuestao.getDescricao().equalsIgnoreCase(alternativa.getDescricao())){
+			if (alternativaQuestao.getDescricao().equalsIgnoreCase(alternativa.getDescricao())) {
 				return true;
 			}
 		}
@@ -153,7 +154,10 @@ public class Questao extends Entidade implements Serializable {
 
 	public List<AlternativaQuestao> getAlternativas() {
 		return alternativas;
-	}
+
+}
+		
+	
 
 	public void setAlternativas(List<AlternativaQuestao> alternativas) {
 		this.alternativas = alternativas;
@@ -166,4 +170,10 @@ public class Questao extends Entidade implements Serializable {
 	public void setResposta(EnumAlternativa resposta) {
 		this.resposta = resposta;
 	}
+
+	@Override
+	public String toString() {
+		return "Questao [alternativas=" + alternativas + "]";
+	}
+
 }
