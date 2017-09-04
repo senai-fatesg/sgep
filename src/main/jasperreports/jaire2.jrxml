@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SenaiLucas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2a57774d-1f57-4320-b562-29bd5cd93c53">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="itemquestaoprova" class="br.com.ambientinformatica.fatesg.sgep.entidade.ItemQuestaoProva"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="sessao" class="br.com.ambientinformatica.fatesg.sgep.entidade.SessaoProva">
+		<fieldDescription><![CDATA[sessao]]></fieldDescription>
+	</field>
+	<field name="numero" class="java.lang.Integer">
+		<fieldDescription><![CDATA[numero]]></fieldDescription>
+	</field>
+	<field name="questao" class="br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoProva">
+		<fieldDescription><![CDATA[questao]]></fieldDescription>
+	</field>
+	<variable name="contador" class="java.math.BigDecimal" incrementType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$V{contador}.add(new BigDecimal("1"))]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal("0")]]></initialValueExpression>
+	</variable>
+	<background>
+		<band height="70" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="193" y="2" width="168" height="30" uuid="e9decda4-4a30-47fc-baaa-25a57f1346a3"/>
+				<text><![CDATA[PROVA  AI - SENAI FATESG]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="40" width="40" height="20" uuid="35ad56e4-6316-4ded-8a30-7b54158b6315"/>
+				<text><![CDATA[Questão]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="40" width="100" height="20" uuid="6e1d6f2f-7111-4f2e-8a88-25de5255bfb2"/>
+				<text><![CDATA[Enunciado:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="20" y="0" width="490" height="20" uuid="446048f1-be37-4fe4-bd45-2076d8e9af5d"/>
+				<textElement textAlignment="Justified" verticalAlignment="Justified">
+					<font fontName="Arial Black"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getEnunciado()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="42" height="20" uuid="7d54c326-6ddb-414e-84a1-1d00edb88fb9"/>
+				<textFieldExpression><![CDATA[$V{contador}+")"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="131" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="490" height="20" uuid="8608ae11-7da9-46b9-aeef-a10ec740fb69"/>
+				<textElement textAlignment="Justified" verticalAlignment="Justified">
+					<font fontName="Arial Black"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getAlternativas()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
