@@ -19,6 +19,7 @@
 		<field name="descricao" class="java.lang.String"/>
 		<field name="ordem" class="java.lang.String"/>
 	</subDataset>
+	<parameter name="prova" class="br.com.ambientinformatica.fatesg.sgep.entidade.Prova"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -42,7 +43,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="742" splitType="Stretch">
+		<band height="743" splitType="Stretch">
 			<rectangle>
 				<reportElement x="0" y="41" width="554" height="75" backcolor="#BFC5C9" uuid="88e82749-35c5-4de1-94d9-33f739e275bf"/>
 				<graphicElement>
@@ -60,25 +61,12 @@
 				<reportElement x="140" y="86" width="263" height="30" uuid="39ea97f0-3a87-40fb-8917-9b2fbaf37d96"/>
 				<text><![CDATA[AVALIAÇÃO INTERDISCIPLINAR  INSTITUICIONAL]]></text>
 			</staticText>
-			<ellipse>
-				<reportElement x="460" y="42" width="79" height="73" uuid="f3df1cc1-c1ed-4bcf-a22d-fb8a3401f1ed"/>
-				<graphicElement>
-					<pen lineColor="#FFFFFF"/>
-				</graphicElement>
-			</ellipse>
 			<staticText>
-				<reportElement x="494" y="63" width="44" height="30" uuid="ca9f8a17-31e3-4027-8294-03658947cb4c"/>
-				<textElement>
-					<font size="18"/>
-				</textElement>
-				<text><![CDATA[5]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="120" y="119" width="328" height="51" uuid="98b6cc62-b110-4012-b13d-6db7f92b1110"/>
+				<reportElement x="120" y="119" width="328" height="21" uuid="98b6cc62-b110-4012-b13d-6db7f92b1110"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[CURSO SUPERIOR DE TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS]]></text>
+				<text><![CDATA[CURSO SUPERIOR DE TECNOLOGIA EM:]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="170" width="555" height="1" uuid="5e09a6a7-67fb-46de-b0cf-b6ce4e080cb6"/>
@@ -295,12 +283,8 @@ cadernos ou anotações de qualquer espécie.]]></text>
 				</textElement>
 				<text><![CDATA[8. Quando terminar, entregue ao Aplicador ou Professor o seu Caderno de Respostas.]]></text>
 			</staticText>
-			<image>
-				<reportElement stretchType="ContainerBottom" x="170" y="-2" width="170" height="30" uuid="53ef3b7e-56b6-40dc-91e3-ad2dda881a6c"/>
-				<imageExpression><![CDATA["/src/main/webapp/imagens/senai.jpg"]]></imageExpression>
-			</image>
 			<staticText>
-				<reportElement x="197" y="28" width="154" height="13" uuid="dc585dab-c4d4-454a-82e0-1b447dd505f8"/>
+				<reportElement x="198" y="28" width="154" height="13" uuid="dc585dab-c4d4-454a-82e0-1b447dd505f8"/>
 				<textElement textAlignment="Justified">
 					<font isBold="true"/>
 				</textElement>
@@ -426,6 +410,27 @@ cadernos ou anotações de qualquer espécie.]]></text>
 			<rectangle>
 				<reportElement x="500" y="219" width="26" height="15" uuid="c36741f2-48d1-443b-9745-9fe7babd50d9"/>
 			</rectangle>
+			<image>
+				<reportElement x="179" y="0" width="169" height="28" uuid="3c49d343-c25a-4007-ac10-7d43448bfdf9"/>
+				<imageExpression><![CDATA["http://sne.iel.org.br/forum/assets/img/iel/logos/sesi_senai.png"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="410" y="66" width="135" height="24" uuid="1b02851a-5b1c-42b2-9896-0c350f336854"/>
+			</rectangle>
+			<textField>
+				<reportElement x="423" y="66" width="118" height="24" uuid="cdbd3993-2a24-48b8-ac0b-ea85a6c75f07"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{prova}.getPeriodo()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="169" y="140" width="259" height="19" uuid="48313159-7b2d-4038-ab5a-89123ca8112c"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{prova}.getCurso().getNome()]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -443,8 +448,8 @@ cadernos ou anotações de qualquer espécie.]]></text>
 				</reportElement>
 			</line>
 			<image>
-				<reportElement x="210" y="2" width="105" height="30" uuid="b0222759-5116-4515-9c79-b6a4942ee905"/>
-				<imageExpression><![CDATA["C:/Users/luks_/Desktop/jasper/senai.jpg"]]></imageExpression>
+				<reportElement x="199" y="0" width="169" height="23" uuid="53a8ad98-6cdd-4d85-bc8f-648a40e39cfb"/>
+				<imageExpression><![CDATA["http://sne.iel.org.br/forum/assets/img/iel/logos/sesi_senai.png"]]></imageExpression>
 			</image>
 		</band>
 	</pageHeader>
@@ -457,16 +462,17 @@ cadernos ou anotações de qualquer espécie.]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="75" splitType="Stretch">
+		<band height="106" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement x="-3" y="24" width="557" height="20" uuid="a4b19dc4-9347-474a-a482-8908c1172921"/>
+				<reportElement x="-3" y="55" width="557" height="20" uuid="a4b19dc4-9347-474a-a482-8908c1172921"/>
 				<textElement textAlignment="Justified" verticalAlignment="Justified">
 					<font fontName="Arial" size="12"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getEnunciado()]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement x="-3" y="45" width="557" height="30" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
+				<reportElement x="-3" y="76" width="557" height="30" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="itemquestao" uuid="0dca4663-6c84-4582-a9cf-4178f46d4f15">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{questao}.getQuestao().getAlternativas())]]></dataSourceExpression>
@@ -485,18 +491,32 @@ cadernos ou anotações de qualquer espécie.]]></text>
 				</jr:list>
 			</componentElement>
 			<staticText>
-				<reportElement mode="Opaque" x="-3" y="3" width="557" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
+				<reportElement mode="Opaque" x="-3" y="34" width="557" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
 				<textElement markup="none">
-					<font fontName="SansSerif" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Questao]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="31" y="5" width="20" height="14" forecolor="#FFFFFF" uuid="bde6ab16-abcf-440f-95e1-c74652a4e654"/>
+				<reportElement x="39" y="36" width="20" height="14" forecolor="#FFFFFF" uuid="bde6ab16-abcf-440f-95e1-c74652a4e654"/>
 				<textElement>
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{contador}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="-2" y="2" width="557" height="28" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" backcolor="#000000" uuid="7960ca7d-856d-42ac-9c06-590f0199d459"/>
+				<textElement markup="none">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="223" y="9" width="100" height="16" forecolor="#FFFFFF" uuid="6e786cba-8fcd-45b0-9de2-b9cdd69c3195"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sessao}.getSessao().getDescricao()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
