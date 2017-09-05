@@ -462,7 +462,7 @@ cadernos ou anotações de qualquer espécie.]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="106" splitType="Stretch">
+		<band height="125" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
 				<reportElement x="-3" y="55" width="557" height="20" uuid="a4b19dc4-9347-474a-a482-8908c1172921"/>
 				<textElement textAlignment="Justified" verticalAlignment="Justified">
@@ -520,4 +520,240 @@ cadernos ou anotações de qualquer espécie.]]></text>
 			</textField>
 		</band>
 	</detail>
+	<summary>
+		<band height="669">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="5" width="555" height="25" forecolor="#FFFFFF" backcolor="#000000" uuid="c2866aa2-1cf1-4661-94e9-328b6c9f27d3"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[QUESTÕES DE PERCEPÇÃO DA PROVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="50" width="262" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="9a221653-e7a0-44b7-874e-63cd5dc8faa5"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Questão 01:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="70" width="260" height="30" uuid="13c8c0e2-c761-4ee2-8d36-5984639b0785"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Na parte de formação geral da avaliação, qual o seu
+grau de dificuldade?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="104" width="100" height="66" uuid="0acfc318-fbea-4fda-a776-f358fac6ae63"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[a) Muito fácil.
+b) Fácil
+c) Médio.
+d) Difícil.
+e) Muito difícil.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="175" width="262" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="581aa3a5-ff1f-4fd4-bfee-0f7dd43896ef"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Questão 02:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="195" width="260" height="30" uuid="323577e0-7b20-4143-9053-6f7491e93038"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Na parte do componente específico da avaliação, qual
+o seu grau de dificuldade?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="229" width="100" height="66" uuid="275dbc29-de01-4cd6-9456-e986fa6cc599"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[a) Muito fácil.
+b) Fácil
+c) Médio.
+d) Difícil.
+e) Muito difícil.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="352" width="100" height="66" uuid="544bb33f-53da-4e3b-99d0-ec761068ccc6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[a) Muito fácil.
+b) Fácil
+c) Médio.
+d) Difícil.
+e) Muito difícil.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="318" width="260" height="30" uuid="5efa9be6-4bb0-4901-8e74-7d9e7a24e11f"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Na parte do componente específico da avaliação, qual
+o seu grau de dificuldade?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="2" y="298" width="262" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="26a69e13-2a64-4126-bde1-f7bf98043949"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Questão 03:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="3" y="420" width="262" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="209c880e-c91d-4793-8c6e-6c9607b7f3c8"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Questão 04:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="440" width="260" height="30" uuid="d3274f4f-7216-4c7f-a619-6a1280c225cf"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Você considerou os enunciados das questões da
+avaliação na parte de formação geral objetivos e
+claros?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="474" width="134" height="66" uuid="4dfcd683-48dd-4070-ae44-6118bcbe7cb5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[a) Sim, todos.
+b) Sim, a maioria.
+c) Apenas cerca da metade.
+d) Poucos.
+e) Não, nenhum.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="29" y="596" width="134" height="66" uuid="c793a1b1-95d7-483b-b891-11b9d4351a8f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[a) Sim, todos.
+b) Sim, a maioria.
+c) Apenas cerca da metade.
+d) Poucos.
+e) Não, nenhum.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="562" width="260" height="30" uuid="fde2d45b-17af-446b-87ad-a4e3afd4c026"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Você considerou os enunciados das questões da
+avaliação na parte de componentes específicos
+objetivos e claros?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="6" y="542" width="262" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="f23e662c-4b0f-4255-951e-24a931b9e735"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Questão 05:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="288" y="50" width="262" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="25cc41d7-b9d5-423b-b832-321c96738356"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Questão 06:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="70" width="260" height="30" uuid="c589f98d-542c-4d1b-aa7d-b8e844242001"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[As informações/instruções disponibilizadas para a
+resolução das questões foram suficientes para
+resolvê-las?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="311" y="104" width="134" height="66" uuid="4b211c75-ce27-4c8c-b817-b08667eb2c68"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[a) Sim, até excessivas.
+b) Sim, em todas elas.
+c) Sim, na maioria delas.
+d) Sim, somente em algumas.
+e) Não, em nenhuma delas.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="194" width="260" height="30" uuid="f3b55a1a-c9ab-43b8-9199-d1687644470d"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Das dificuldades apresentadas abaixo em qual delas
+você se identifica ao responder a avaliação?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="314" y="228" width="214" height="90" uuid="e15adbf0-0975-4f02-816f-88873887c598"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[a) Desconhecimento do conteúdo.
+b) Forma diferente de abordagem do conteúdo.
+c) Espaço insuficiente para responder as
+questões.
+d) Falta de motivação para fazer a prova.
+e) Não tive qualquer tipo de dificuldade para
+responder a prova.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="291" y="174" width="262" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="3b1f51ef-a58d-48f7-ad7e-716c6a5e0045"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Questão 07:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="314" y="379" width="236" height="151" uuid="b45d71a3-42f7-4072-8c58-f1958d3cb24d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[a) Não estudou ainda a maioria desses
+conteúdos.
+b) Estudou alguns desses conteúdos, mas não os
+aprendeu.
+c) Estudou a maioria desses conteúdos, mas
+não os aprendeu.
+d) Estudou e aprendeu muitos desses
+conteúdos.
+e) Estudou e aprendeu todos esses conteúdos.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="345" width="260" height="30" uuid="b9fde535-dacb-4c2f-ae9d-2c8d8573ffe9"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Analisando as questões objetivas da avaliação sua
+percepção é que:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="291" y="325" width="262" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="56f9a87c-e98f-4023-b869-9698a4a2502f"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Questão 08:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="314" y="569" width="239" height="71" uuid="6cb4a345-46c8-4f6a-bd43-fb43053f8fb7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[a) Menos de uma hora.
+b) Entre uma e duas horas.
+c) Entre duas e três horas.
+d) Entre três e quatro horas.
+e) Quatro horas, e não consegui terminar.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="293" y="535" width="260" height="30" uuid="ea4a6095-65a5-45d6-af91-b183f6f3512c"/>
+				<textElement textAlignment="Justified"/>
+				<text><![CDATA[Para concluir a avaliação qual foi o tempo que você
+gastou?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="291" y="515" width="262" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="88d0f577-c777-4f5e-a1f5-28bf30b3f900"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Questão 09:]]></text>
+			</staticText>
+		</band>
+	</summary>
 </jasperReport>
