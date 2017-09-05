@@ -42,7 +42,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="597" splitType="Stretch">
+		<band height="742" splitType="Stretch">
 			<rectangle>
 				<reportElement x="0" y="41" width="554" height="75" backcolor="#BFC5C9" uuid="88e82749-35c5-4de1-94d9-33f739e275bf"/>
 				<graphicElement>
@@ -100,7 +100,7 @@
 				<text><![CDATA[Nome:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="12" y="244" width="62" height="16" uuid="586343bd-98f3-4c87-8593-16129c1f0cad"/>
+				<reportElement x="12" y="250" width="62" height="16" uuid="586343bd-98f3-4c87-8593-16129c1f0cad"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -113,20 +113,20 @@
 				<text><![CDATA[Assinatura:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="68" y="254" width="460" height="1" uuid="8f99775b-3373-4995-b771-6faa800447b4"/>
+				<reportElement x="68" y="260" width="460" height="1" uuid="8f99775b-3373-4995-b771-6faa800447b4"/>
 			</line>
 			<rectangle radius="20">
-				<reportElement x="20" y="260" width="520" height="337" backcolor="#BFC5C9" uuid="b9ee900c-aac6-4c0c-8c1c-40633545dd28"/>
+				<reportElement x="20" y="283" width="520" height="380" backcolor="#BFC5C9" uuid="b9ee900c-aac6-4c0c-8c1c-40633545dd28"/>
 			</rectangle>
 			<staticText>
-				<reportElement stretchType="RelativeToBandHeight" x="37" y="265" width="478" height="26" uuid="fccca190-1017-4f45-b614-2d58a7c8dd0b"/>
+				<reportElement stretchType="RelativeToBandHeight" x="36" y="294" width="478" height="26" uuid="fccca190-1017-4f45-b614-2d58a7c8dd0b"/>
 				<textElement textAlignment="Center">
 					<font size="20" isBold="true"/>
 				</textElement>
 				<text><![CDATA[LEIA COM ATENÇÃO AS INSTRUÇÕES ABAIXO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="41" y="295" width="470" height="28" uuid="2b402cfc-c152-4872-b8ed-8d33a2522940"/>
+				<reportElement x="40" y="324" width="470" height="28" uuid="2b402cfc-c152-4872-b8ed-8d33a2522940"/>
 				<textElement textAlignment="Left">
 					<font size="8"/>
 				</textElement>
@@ -134,7 +134,7 @@
 múltipla escolha (objetivas), das questões discursivas e do questionário de percepção da prova.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="42" y="328" width="470" height="28" uuid="37adc69a-eb73-46d0-a3c8-f17bdaac5dcf"/>
+				<reportElement x="41" y="357" width="470" height="28" uuid="37adc69a-eb73-46d0-a3c8-f17bdaac5dcf"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -142,85 +142,85 @@ múltipla escolha (objetivas), das questões discursivas e do questionário de p
 especifico da área. e as questões relativas à sua percepção da prova, assim distribuídas:]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="39" y="358" width="470" height="89" uuid="0950745d-15b6-4c50-9f12-add85cef34df"/>
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="38" y="387" width="470" height="89" uuid="0950745d-15b6-4c50-9f12-add85cef34df"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="39" y="388" width="470" height="21" uuid="fa8ae908-1ece-4960-ac2d-29d844acdfca"/>
+				<reportElement mode="Transparent" x="38" y="417" width="470" height="21" uuid="fa8ae908-1ece-4960-ac2d-29d844acdfca"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="39" y="409" width="470" height="20" uuid="8cfa4b00-009b-44f8-8e95-90d950c5f940"/>
+				<reportElement mode="Transparent" x="38" y="438" width="470" height="20" uuid="8cfa4b00-009b-44f8-8e95-90d950c5f940"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="201" y="358" width="108" height="89" uuid="319b38b0-b654-4776-a11c-5f47a38823c7"/>
+				<reportElement mode="Transparent" x="200" y="387" width="108" height="89" uuid="319b38b0-b654-4776-a11c-5f47a38823c7"/>
 			</rectangle>
 			<rectangle>
-				<reportElement mode="Transparent" x="309" y="358" width="88" height="89" uuid="f295e98f-ef57-4659-8d24-e321ad3b12be"/>
+				<reportElement mode="Transparent" x="308" y="387" width="88" height="89" uuid="f295e98f-ef57-4659-8d24-e321ad3b12be"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="54" y="362" width="132" height="20" uuid="d52f0c41-a373-4170-a48f-584b0ed06314"/>
+				<reportElement x="53" y="391" width="132" height="20" uuid="d52f0c41-a373-4170-a48f-584b0ed06314"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Partes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="42" y="392" width="150" height="12" uuid="2e5504d3-a2e9-4579-bd08-69e374d1335c"/>
+				<reportElement x="41" y="421" width="150" height="12" uuid="2e5504d3-a2e9-4579-bd08-69e374d1335c"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[Formação Geral/Objetivas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="41" y="411" width="152" height="14" uuid="49cd0ffd-ff92-4f14-b31e-5ce963713a5f"/>
+				<reportElement x="40" y="440" width="152" height="14" uuid="49cd0ffd-ff92-4f14-b31e-5ce963713a5f"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[Componente Específico/Objetivas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="41" y="432" width="152" height="14" uuid="6124b025-2f46-472d-ad7f-9dba56446027"/>
+				<reportElement x="40" y="461" width="152" height="14" uuid="6124b025-2f46-472d-ad7f-9dba56446027"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[Questionário de Percepção da Prova]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="235" y="430" width="40" height="16" uuid="f19fcb84-1ba1-46ad-ae1f-9f9f4e1a8ddf"/>
+				<reportElement x="234" y="459" width="40" height="16" uuid="f19fcb84-1ba1-46ad-ae1f-9f9f4e1a8ddf"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[31 a 39]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="236" y="411" width="40" height="16" uuid="a642baeb-8965-4eeb-b938-d0186f8b6204"/>
+				<reportElement x="235" y="440" width="40" height="16" uuid="a642baeb-8965-4eeb-b938-d0186f8b6204"/>
 				<text><![CDATA[11 a 30]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="237" y="391" width="32" height="16" uuid="5e3abb17-7792-4945-906e-b5da5ec16ed6"/>
+				<reportElement x="236" y="420" width="32" height="16" uuid="5e3abb17-7792-4945-906e-b5da5ec16ed6"/>
 				<text><![CDATA[1 a 10]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="203" y="362" width="106" height="20" uuid="390cc9f6-f03a-4b10-82d4-f089b67f95b0"/>
+				<reportElement x="202" y="391" width="106" height="20" uuid="390cc9f6-f03a-4b10-82d4-f089b67f95b0"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Numero das questões]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="333" y="430" width="40" height="16" uuid="ed27ade0-9016-4e02-9b4d-5f4fd65be1bb"/>
+				<reportElement x="332" y="459" width="40" height="16" uuid="ed27ade0-9016-4e02-9b4d-5f4fd65be1bb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[-]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="335" y="412" width="36" height="14" uuid="a6336695-4eee-4885-b6bb-46d83a51e6b1"/>
+				<reportElement x="334" y="441" width="36" height="14" uuid="a6336695-4eee-4885-b6bb-46d83a51e6b1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[85%]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="335" y="391" width="36" height="14" uuid="08c959d4-73af-4762-9c3a-1a2eeae7059f"/>
+				<reportElement x="334" y="420" width="36" height="14" uuid="08c959d4-73af-4762-9c3a-1a2eeae7059f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[60%]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="327" y="360" width="52" height="26" uuid="024edd02-c7e1-4bd1-ae49-356a158dc3df"/>
+				<reportElement x="326" y="389" width="52" height="26" uuid="024edd02-c7e1-4bd1-ae49-356a158dc3df"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -228,7 +228,7 @@ especifico da área. e as questões relativas à sua percepção da prova, assim
 questões]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="420" y="360" width="66" height="26" uuid="c15589f1-62f2-40fb-bc84-283b34a302a1"/>
+				<reportElement x="419" y="389" width="66" height="26" uuid="c15589f1-62f2-40fb-bc84-283b34a302a1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -236,22 +236,22 @@ questões]]></text>
 componentes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="437" y="391" width="36" height="14" uuid="65157ecd-9230-4ce6-9f47-23eda1f29e55"/>
+				<reportElement x="436" y="420" width="36" height="14" uuid="65157ecd-9230-4ce6-9f47-23eda1f29e55"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[25%]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="438" y="412" width="36" height="14" uuid="41af4c3e-2866-42d7-a93c-c4d268ec2e71"/>
+				<reportElement x="437" y="441" width="36" height="14" uuid="41af4c3e-2866-42d7-a93c-c4d268ec2e71"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[75%]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="435" y="430" width="40" height="16" uuid="2ec90c22-b770-4658-afc1-226d9897b109"/>
+				<reportElement x="434" y="459" width="40" height="16" uuid="2ec90c22-b770-4658-afc1-226d9897b109"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[-]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="45" y="451" width="470" height="19" uuid="0385ef94-5c5a-4148-9d57-aaf9266977ec"/>
+				<reportElement x="44" y="480" width="470" height="19" uuid="0385ef94-5c5a-4148-9d57-aaf9266977ec"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -259,7 +259,7 @@ componentes]]></text>
 pela aplicação da prova. Você deve assinar o Caderno de Respostas no espaço próprio, com caneta esferográfica de tinta preta.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="46" y="472" width="470" height="25" uuid="a9377cae-2864-4c67-987f-7c9dc4c3e09d"/>
+				<reportElement x="45" y="501" width="470" height="25" uuid="a9377cae-2864-4c67-987f-7c9dc4c3e09d"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -267,14 +267,14 @@ pela aplicação da prova. Você deve assinar o Caderno de Respostas no espaço 
 uma resposta por questão).]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="46" y="499" width="470" height="20" uuid="7539df56-458a-46db-9f75-5cc16e825409"/>
+				<reportElement x="45" y="528" width="470" height="20" uuid="7539df56-458a-46db-9f75-5cc16e825409"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[5.  Use caneta esferográfica de tinta preta tanto para marcar as respostas das questões objetivas.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="47" y="522" width="470" height="31" uuid="3b647c5c-68c1-443d-bd31-3a76df8f4265"/>
+				<reportElement x="46" y="551" width="470" height="31" uuid="3b647c5c-68c1-443d-bd31-3a76df8f4265"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
@@ -282,22 +282,22 @@ uma resposta por questão).]]></text>
 cadernos ou anotações de qualquer espécie.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="47" y="576" width="470" height="21" uuid="86316aac-0cd5-4155-8130-91a58feb8891"/>
+				<reportElement x="46" y="605" width="470" height="21" uuid="86316aac-0cd5-4155-8130-91a58feb8891"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[7. Você terá três horas para responder as questões de múltipla escolha e ao questionário de percepção da prova.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="46" y="555" width="470" height="19" uuid="3918ff9b-1f78-4a80-8bfc-0d1ce63f549d"/>
+				<reportElement x="45" y="584" width="470" height="19" uuid="3918ff9b-1f78-4a80-8bfc-0d1ce63f549d"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[8. Quando terminar, entregue ao Aplicador ou Professor o seu Caderno de Respostas.]]></text>
 			</staticText>
 			<image>
-				<reportElement x="170" y="-2" width="170" height="30" uuid="53ef3b7e-56b6-40dc-91e3-ad2dda881a6c"/>
-				<imageExpression><![CDATA["C:/Users/luks_/Desktop/jasper/senai.jpg"]]></imageExpression>
+				<reportElement stretchType="ContainerBottom" x="170" y="-2" width="170" height="30" uuid="53ef3b7e-56b6-40dc-91e3-ad2dda881a6c"/>
+				<imageExpression><![CDATA["/src/main/webapp/imagens/senai.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="197" y="28" width="154" height="13" uuid="dc585dab-c4d4-454a-82e0-1b447dd505f8"/>
@@ -451,27 +451,27 @@ cadernos ou anotações de qualquer espécie.]]></text>
 	<columnHeader>
 		<band height="14" splitType="Stretch">
 			<textField>
-				<reportElement x="455" y="0" width="100" height="14" uuid="a3bb43ea-abe0-46aa-9594-aeec6ade428f"/>
+				<reportElement x="538" y="0" width="17" height="14" uuid="a3bb43ea-abe0-46aa-9594-aeec6ade428f"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="80" splitType="Stretch">
+		<band height="75" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement x="-18" y="30" width="572" height="20" uuid="a4b19dc4-9347-474a-a482-8908c1172921"/>
+				<reportElement x="-3" y="24" width="557" height="20" uuid="a4b19dc4-9347-474a-a482-8908c1172921"/>
 				<textElement textAlignment="Justified" verticalAlignment="Justified">
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getEnunciado()]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement x="-18" y="50" width="572" height="30" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
+				<reportElement x="-3" y="45" width="557" height="30" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="itemquestao" uuid="0dca4663-6c84-4582-a9cf-4178f46d4f15">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{questao}.getQuestao().getAlternativas())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:listContents height="30" width="572">
+					<jr:listContents height="30" width="557">
 						<textField isStretchWithOverflow="true">
 							<reportElement stretchType="RelativeToTallestObject" x="40" y="0" width="226" height="30" uuid="ab775e37-3c14-400c-8e39-23a5f472c94a"/>
 							<textElement textAlignment="Justified"/>
@@ -485,7 +485,7 @@ cadernos ou anotações de qualquer espécie.]]></text>
 				</jr:list>
 			</componentElement>
 			<staticText>
-				<reportElement mode="Opaque" x="-18" y="3" width="572" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
+				<reportElement mode="Opaque" x="-3" y="3" width="557" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
