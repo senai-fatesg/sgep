@@ -462,9 +462,9 @@ cadernos ou anotações de qualquer espécie.]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="75" splitType="Immediate">
+		<band height="75" splitType="Prevent">
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="-3" y="55" width="283" height="20" uuid="a4b19dc4-9347-474a-a482-8908c1172921"/>
+				<reportElement positionType="Float" x="-3" y="55" width="275" height="20" uuid="a4b19dc4-9347-474a-a482-8908c1172921"/>
 				<textElement textAlignment="Justified" verticalAlignment="Justified">
 					<font fontName="Arial" size="12"/>
 					<paragraph lineSpacing="Single"/>
@@ -472,7 +472,7 @@ cadernos ou anotações de qualquer espécie.]]></text>
 				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getEnunciado()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="-3" y="34" width="557" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
+				<reportElement mode="Opaque" x="-3" y="34" width="277" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
@@ -486,14 +486,14 @@ cadernos ou anotações de qualquer espécie.]]></text>
 				<textFieldExpression><![CDATA[$V{contador}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="-2" y="2" width="557" height="28" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" backcolor="#000000" uuid="7960ca7d-856d-42ac-9c06-590f0199d459"/>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="-2" y="2" width="276" height="28" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" backcolor="#000000" uuid="7960ca7d-856d-42ac-9c06-590f0199d459"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="223" y="9" width="100" height="16" forecolor="#FFFFFF" uuid="6e786cba-8fcd-45b0-9de2-b9cdd69c3195"/>
+				<reportElement x="1" y="8" width="100" height="16" forecolor="#FFFFFF" uuid="6e786cba-8fcd-45b0-9de2-b9cdd69c3195"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -502,12 +502,12 @@ cadernos ou anotações de qualquer espécie.]]></text>
 		</band>
 		<band height="40">
 			<componentElement>
-				<reportElement x="-1" y="10" width="557" height="30" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
+				<reportElement x="-1" y="10" width="281" height="30" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="itemquestao" uuid="0dca4663-6c84-4582-a9cf-4178f46d4f15">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{questao}.getQuestao().getAlternativas())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:listContents height="30" width="557">
+					<jr:listContents height="30" width="281">
 						<textField isStretchWithOverflow="true">
 							<reportElement stretchType="RelativeToTallestObject" x="40" y="0" width="226" height="30" uuid="ab775e37-3c14-400c-8e39-23a5f472c94a"/>
 							<textElement textAlignment="Justified"/>
