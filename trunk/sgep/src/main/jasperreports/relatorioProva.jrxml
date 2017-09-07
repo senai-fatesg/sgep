@@ -452,7 +452,7 @@ cadernos ou anotações de qualquer espécie.]]></text>
 				<imageExpression><![CDATA["http://sne.iel.org.br/forum/assets/img/iel/logos/sesi_senai.png"]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="233" y="20" width="135" height="20" uuid="dbae327f-5a14-4ca0-9b4a-ee38938fefa8"/>
+				<reportElement x="229" y="20" width="135" height="20" uuid="dbae327f-5a14-4ca0-9b4a-ee38938fefa8"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -472,7 +472,7 @@ cadernos ou anotações de qualquer espécie.]]></text>
 		<band height="75" splitType="Prevent">
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" x="-3" y="55" width="267" height="20" uuid="a4b19dc4-9347-474a-a482-8908c1172921"/>
-				<textElement textAlignment="Right" verticalAlignment="Justified" markup="none">
+				<textElement textAlignment="Justified" verticalAlignment="Justified" markup="none">
 					<font fontName="Arial" size="12"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
