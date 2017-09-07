@@ -51,11 +51,11 @@
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="175" y="43" width="228" height="37" uuid="0a647c81-c6e8-4730-a3a4-8254c9ed4f1c"/>
+				<reportElement x="175" y="43" width="61" height="37" uuid="0a647c81-c6e8-4730-a3a4-8254c9ed4f1c"/>
 				<textElement>
 					<font size="26" isBold="true"/>
 				</textElement>
-				<text><![CDATA[AII - 2018 - 1 ]]></text>
+				<text><![CDATA[AII -]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="140" y="86" width="263" height="30" uuid="39ea97f0-3a87-40fb-8917-9b2fbaf37d96"/>
@@ -283,13 +283,6 @@ cadernos ou anotações de qualquer espécie.]]></text>
 				</textElement>
 				<text><![CDATA[8. Quando terminar, entregue ao Aplicador ou Professor o seu Caderno de Respostas.]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="198" y="28" width="154" height="13" uuid="dc585dab-c4d4-454a-82e0-1b447dd505f8"/>
-				<textElement textAlignment="Justified">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Faculdade SENAI Fatesg]]></text>
-			</staticText>
 			<rectangle>
 				<reportElement x="20" y="195" width="26" height="15" uuid="05ddc4fd-c0fc-45f2-8f3b-5edd387a0f12"/>
 			</rectangle>
@@ -431,10 +424,24 @@ cadernos ou anotações de qualquer espécie.]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{prova}.getCurso().getNome()]]></textFieldExpression>
 			</textField>
+			<textField pattern="yyyy">
+				<reportElement x="240" y="43" width="163" height="34" uuid="34c46a0f-5bb6-47af-9bb1-d23158ddff03"/>
+				<textElement>
+					<font size="26" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="28" width="169" height="13" uuid="3834cf8b-b7a5-4c65-934d-b0fd990aa3ef"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{prova}.getInstituicao().getNomeFantasia()]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="45" splitType="Stretch">
+		<band height="48" splitType="Stretch">
 			<line direction="BottomUp">
 				<reportElement x="-11" y="40" width="558" height="1" uuid="309a2e1b-3873-4015-8dda-4b2f374604c1">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
@@ -444,13 +451,13 @@ cadernos ou anotações de qualquer espécie.]]></text>
 				<reportElement x="187" y="-3" width="169" height="23" uuid="53a8ad98-6cdd-4d85-bc8f-648a40e39cfb"/>
 				<imageExpression><![CDATA["http://sne.iel.org.br/forum/assets/img/iel/logos/sesi_senai.png"]]></imageExpression>
 			</image>
-			<staticText>
-				<reportElement x="199" y="20" width="154" height="13" uuid="c189339a-ab57-42c1-8146-78ae03e1d6d7"/>
-				<textElement textAlignment="Justified">
+			<textField>
+				<reportElement x="233" y="20" width="135" height="20" uuid="dbae327f-5a14-4ca0-9b4a-ee38938fefa8"/>
+				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Faculdade SENAI Fatesg]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P{prova}.getInstituicao().getNomeFantasia()]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -464,15 +471,15 @@ cadernos ou anotações de qualquer espécie.]]></text>
 	<detail>
 		<band height="75" splitType="Prevent">
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="-3" y="55" width="275" height="20" uuid="a4b19dc4-9347-474a-a482-8908c1172921"/>
-				<textElement textAlignment="Justified" verticalAlignment="Justified">
+				<reportElement positionType="Float" x="-3" y="55" width="267" height="20" uuid="a4b19dc4-9347-474a-a482-8908c1172921"/>
+				<textElement textAlignment="Right" verticalAlignment="Justified" markup="none">
 					<font fontName="Arial" size="12"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getEnunciado()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="-3" y="34" width="277" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
+				<reportElement mode="Opaque" x="-3" y="34" width="267" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
@@ -486,7 +493,7 @@ cadernos ou anotações de qualquer espécie.]]></text>
 				<textFieldExpression><![CDATA[$V{contador}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="-2" y="2" width="276" height="28" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" backcolor="#000000" uuid="7960ca7d-856d-42ac-9c06-590f0199d459"/>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="-2" y="2" width="266" height="28" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" backcolor="#000000" uuid="7960ca7d-856d-42ac-9c06-590f0199d459"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
@@ -502,19 +509,22 @@ cadernos ou anotações de qualquer espécie.]]></text>
 		</band>
 		<band height="40">
 			<componentElement>
-				<reportElement x="-1" y="10" width="281" height="30" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
+				<reportElement positionType="Float" x="-1" y="10" width="264" height="30" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="itemquestao" uuid="0dca4663-6c84-4582-a9cf-4178f46d4f15">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{questao}.getQuestao().getAlternativas())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:listContents height="30" width="281">
+					<jr:listContents height="30" width="264">
 						<textField isStretchWithOverflow="true">
-							<reportElement stretchType="RelativeToTallestObject" x="40" y="0" width="226" height="30" uuid="ab775e37-3c14-400c-8e39-23a5f472c94a"/>
-							<textElement textAlignment="Justified"/>
+							<reportElement stretchType="RelativeToTallestObject" x="20" y="0" width="244" height="30" uuid="ab775e37-3c14-400c-8e39-23a5f472c94a"/>
+							<textElement textAlignment="Justified" verticalAlignment="Justified"/>
 							<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 						</textField>
 						<textField>
 							<reportElement x="0" y="0" width="40" height="30" uuid="508941ed-dfd1-4eda-8524-cc4b9f36cd5e"/>
+							<textElement textAlignment="Justified" verticalAlignment="Justified">
+								<font fontName="Arial Black" isBold="true"/>
+							</textElement>
 							<textFieldExpression><![CDATA["("+ $F{ordem} +")"]]></textFieldExpression>
 						</textField>
 					</jr:listContents>
@@ -668,7 +678,7 @@ resolução das questões foram suficientes para
 resolvê-las?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="311" y="104" width="134" height="66" uuid="4b211c75-ce27-4c8c-b817-b08667eb2c68"/>
+				<reportElement x="311" y="104" width="161" height="66" uuid="4b211c75-ce27-4c8c-b817-b08667eb2c68"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -685,17 +695,17 @@ e) Não, em nenhuma delas.]]></text>
 você se identifica ao responder a avaliação?]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="314" y="228" width="214" height="90" uuid="e15adbf0-0975-4f02-816f-88873887c598"/>
+				<reportElement x="314" y="228" width="241" height="90" uuid="e15adbf0-0975-4f02-816f-88873887c598"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[a) Desconhecimento do conteúdo.
 b) Forma diferente de abordagem do conteúdo.
 c) Espaço insuficiente para responder as
-questões.
+     questões.
 d) Falta de motivação para fazer a prova.
 e) Não tive qualquer tipo de dificuldade para
-responder a prova.]]></text>
+     responder a prova.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="291" y="174" width="262" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="3b1f51ef-a58d-48f7-ad7e-716c6a5e0045"/>
@@ -711,12 +721,10 @@ responder a prova.]]></text>
 				</textElement>
 				<text><![CDATA[a) Não estudou ainda a maioria desses
 conteúdos.
-b) Estudou alguns desses conteúdos, mas não os
-aprendeu.
+b) Estudou alguns desses conteúdos, mas não      os aprendeu.
 c) Estudou a maioria desses conteúdos, mas
-não os aprendeu.
-d) Estudou e aprendeu muitos desses
-conteúdos.
+     não os aprendeu.
+d) Estudou e aprendeu muitos dessesconteúdos.
 e) Estudou e aprendeu todos esses conteúdos.]]></text>
 			</staticText>
 			<staticText>
