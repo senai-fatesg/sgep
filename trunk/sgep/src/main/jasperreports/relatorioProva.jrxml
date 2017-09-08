@@ -43,7 +43,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="740" splitType="Stretch">
+		<band height="689" splitType="Stretch">
 			<rectangle>
 				<reportElement x="0" y="41" width="554" height="75" backcolor="#BFC5C9" uuid="88e82749-35c5-4de1-94d9-33f739e275bf"/>
 				<graphicElement>
@@ -118,16 +118,16 @@
 				<textElement textAlignment="Left">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[1.  Verifique se além deste caderno, você recebeu o Caderno de Respostas, destinado à transcrição das respostas das questões de
-múltipla escolha (objetivas), das questões discursivas e do questionário de percepção da prova.]]></text>
+				<text><![CDATA[1.  Verifique se além deste caderno, você recebeu o Caderno de Respostas, destinado � transcriçãoo das respostas das questões de
+m�ltipla escolha (objetivas), das questções discursivas e do questionário de percepção da prova.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="41" y="357" width="470" height="28" uuid="37adc69a-eb73-46d0-a3c8-f17bdaac5dcf"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[2.  - Confira se este caderno contém as questões de múltipla escolha (objetivas) e discursivas de formação geral e do componente
-especifico da área. e as questões relativas à sua percepção da prova, assim distribuídas:]]></text>
+				<text><![CDATA[2.  - Confira se este caderno contém as questções de múltipla escolha (objetivas) e discursivas de formação geral e do componente
+especifico da àrea. e as questções relativas � sua percepção da prova, assim distribuídas:]]></text>
 			</staticText>
 			<rectangle>
 				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="38" y="387" width="470" height="89" uuid="0950745d-15b6-4c50-9f12-add85cef34df"/>
@@ -243,38 +243,38 @@ componentes]]></text>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[3. Verifique se a prova está completa e se foi entregue Caderno de Respostas. Caso contrário, avise imediatamente um dos responsáveis
-pela aplicação da prova. Você deve assinar o Caderno de Respostas no espaço próprio, com caneta esferográfica de tinta preta.]]></text>
+				<text><![CDATA[3. Verifique se a prova est� completa e se foi entregue Caderno de Respostas. Caso contr�rio, avise imediatamente um dos respons�veis
+pela aplica��o da prova. Voc� deve assinar o Caderno de Respostas no espa�o pr�prio, com caneta esferogr�fica de tinta preta.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="45" y="501" width="470" height="25" uuid="a9377cae-2864-4c67-987f-7c9dc4c3e09d"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[4.  Observe as instruções expressas no Caderno de Respostas sobre a marcação das respostas ás questõesde múltipla escolha (apenas
-uma resposta por questão).]]></text>
+				<text><![CDATA[4.  Observe as instru��es expressas no Caderno de Respostas sobre a marca��o das respostas �s quest�esde m�ltipla escolha (apenas
+uma resposta por quest�o).]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="45" y="528" width="470" height="20" uuid="7539df56-458a-46db-9f75-5cc16e825409"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[5.  Use caneta esferográfica de tinta preta tanto para marcar as respostas das questões objetivas.]]></text>
+				<text><![CDATA[5.  Use caneta esferogr�fica de tinta preta tanto para marcar as respostas das quest�es objetivas.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="46" y="551" width="470" height="31" uuid="3b647c5c-68c1-443d-bd31-3a76df8f4265"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[6.  Não use calculadora; não se comunique com os demais estudantes nem troque material com eles; não consulte material bibliográfico,
-cadernos ou anotações de qualquer espécie.]]></text>
+				<text><![CDATA[6.  N�o use calculadora; n�o se comunique com os demais estudantes nem troque material com eles; n�o consulte material bibliogr�fico,
+cadernos ou anota��es de qualquer esp�cie.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="46" y="605" width="470" height="21" uuid="86316aac-0cd5-4155-8130-91a58feb8891"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
-				<text><![CDATA[7. Você terá três horas para responder as questões de múltipla escolha e ao questionário de percepção da prova.]]></text>
+				<text><![CDATA[7. Voc� ter� tr�s horas para responder as quest�es de m�ltipla escolha e ao question�rio de percep��o da prova.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="45" y="584" width="470" height="19" uuid="3918ff9b-1f78-4a80-8bfc-0d1ce63f549d"/>
@@ -411,7 +411,7 @@ cadernos ou anotações de qualquer espécie.]]></text>
 				<reportElement x="410" y="66" width="135" height="24" uuid="1b02851a-5b1c-42b2-9896-0c350f336854"/>
 			</rectangle>
 			<textField>
-				<reportElement x="423" y="66" width="118" height="24" uuid="cdbd3993-2a24-48b8-ac0b-ea85a6c75f07"/>
+				<reportElement x="421" y="72" width="118" height="14" uuid="cdbd3993-2a24-48b8-ac0b-ea85a6c75f07"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -441,7 +441,7 @@ cadernos ou anotações de qualquer espécie.]]></text>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="48" splitType="Stretch">
+		<band height="73" splitType="Stretch">
 			<line direction="BottomUp">
 				<reportElement x="-11" y="40" width="558" height="1" uuid="309a2e1b-3873-4015-8dda-4b2f374604c1">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
@@ -458,6 +458,13 @@ cadernos ou anotações de qualquer espécie.]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{prova}.getInstituicao().getNomeFantasia()]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="-8" y="45" width="558" height="28" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" backcolor="#000000" uuid="7960ca7d-856d-42ac-9c06-590f0199d459"/>
+				<textElement markup="none">
+					<font fontName="SansSerif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -469,9 +476,9 @@ cadernos ou anotações de qualquer espécie.]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="75" splitType="Prevent">
+		<band height="42" splitType="Prevent">
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="-3" y="55" width="267" height="20" uuid="a4b19dc4-9347-474a-a482-8908c1172921"/>
+				<reportElement positionType="Float" x="-3" y="22" width="267" height="20" uuid="a4b19dc4-9347-474a-a482-8908c1172921"/>
 				<textElement textAlignment="Justified" verticalAlignment="Justified" markup="none">
 					<font fontName="Arial" size="12"/>
 					<paragraph lineSpacing="Single"/>
@@ -479,28 +486,21 @@ cadernos ou anotações de qualquer espécie.]]></text>
 				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getEnunciado()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement mode="Opaque" x="-3" y="34" width="267" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
+				<reportElement mode="Opaque" x="-3" y="1" width="267" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Questao]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="39" y="36" width="20" height="14" forecolor="#FFFFFF" uuid="bde6ab16-abcf-440f-95e1-c74652a4e654"/>
+				<reportElement x="40" y="3" width="20" height="14" forecolor="#FFFFFF" uuid="bde6ab16-abcf-440f-95e1-c74652a4e654"/>
 				<textElement>
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{contador}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="-2" y="2" width="266" height="28" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" backcolor="#000000" uuid="7960ca7d-856d-42ac-9c06-590f0199d459"/>
-				<textElement markup="none">
-					<font fontName="SansSerif" size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="1" y="8" width="100" height="16" forecolor="#FFFFFF" uuid="6e786cba-8fcd-45b0-9de2-b9cdd69c3195"/>
+				<reportElement isPrintRepeatedValues="false" x="0" y="-37" width="262" height="16" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" uuid="6e786cba-8fcd-45b0-9de2-b9cdd69c3195"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -509,7 +509,7 @@ cadernos ou anotações de qualquer espécie.]]></text>
 		</band>
 		<band height="40">
 			<componentElement>
-				<reportElement positionType="Float" x="-1" y="10" width="264" height="30" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
+				<reportElement positionType="Float" x="-1" y="3" width="264" height="30" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="itemquestao" uuid="0dca4663-6c84-4582-a9cf-4178f46d4f15">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{questao}.getQuestao().getAlternativas())]]></dataSourceExpression>
@@ -563,7 +563,7 @@ grau de dificuldade?]]></text>
 b) Fácil
 c) Médio.
 d) Difícil.
-e) Muito difícil.]]></text>
+e) Muito difácil.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="1" y="175" width="262" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="581aa3a5-ff1f-4fd4-bfee-0f7dd43896ef"/>
@@ -575,7 +575,7 @@ e) Muito difícil.]]></text>
 			<staticText>
 				<reportElement x="3" y="195" width="260" height="30" uuid="323577e0-7b20-4143-9053-6f7491e93038"/>
 				<textElement textAlignment="Justified"/>
-				<text><![CDATA[Na parte do componente específico da avaliação, qual
+				<text><![CDATA[Na parte do componente espec�fico da avalia��o, qual
 o seu grau de dificuldade?]]></text>
 			</staticText>
 			<staticText>
@@ -587,10 +587,10 @@ o seu grau de dificuldade?]]></text>
 b) Fácil
 c) Médio.
 d) Difícil.
-e) Muito difícil.]]></text>
+e) Muito difácil.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="25" y="352" width="100" height="66" uuid="544bb33f-53da-4e3b-99d0-ec761068ccc6"/>
+				<reportElement x="24" y="348" width="100" height="66" uuid="544bb33f-53da-4e3b-99d0-ec761068ccc6"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -598,13 +598,13 @@ e) Muito difícil.]]></text>
 b) Fácil
 c) Médio.
 d) Difícil.
-e) Muito difícil.]]></text>
+e) Muito difácil.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="4" y="318" width="260" height="30" uuid="5efa9be6-4bb0-4901-8e74-7d9e7a24e11f"/>
 				<textElement textAlignment="Justified"/>
-				<text><![CDATA[Na parte do componente específico da avaliação, qual
-o seu grau de dificuldade?]]></text>
+				<text><![CDATA[A avaliação com relação a extensão e o tempo de
+aplicação foi:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="2" y="298" width="262" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="26a69e13-2a64-4126-bde1-f7bf98043949"/>
@@ -661,7 +661,7 @@ objetivos e claros?]]></text>
 				<textElement textAlignment="Center" markup="none">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Questão 05:]]></text>
+				<text><![CDATA[	]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="288" y="50" width="262" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="25cc41d7-b9d5-423b-b832-321c96738356"/>
@@ -682,29 +682,29 @@ resolvê-las?]]></text>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[a) Sim, até excessivas.
+				<text><![CDATA[a) Sim, at� excessivas.
 b) Sim, em todas elas.
 c) Sim, na maioria delas.
 d) Sim, somente em algumas.
-e) Não, em nenhuma delas.]]></text>
+e) N�o, em nenhuma delas.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="293" y="194" width="260" height="30" uuid="f3b55a1a-c9ab-43b8-9199-d1687644470d"/>
 				<textElement textAlignment="Justified"/>
 				<text><![CDATA[Das dificuldades apresentadas abaixo em qual delas
-você se identifica ao responder a avaliação?]]></text>
+voc� se identifica ao responder a avalia��o?]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="314" y="228" width="241" height="90" uuid="e15adbf0-0975-4f02-816f-88873887c598"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[a) Desconhecimento do conteúdo.
-b) Forma diferente de abordagem do conteúdo.
-c) Espaço insuficiente para responder as
-     questões.
-d) Falta de motivação para fazer a prova.
-e) Não tive qualquer tipo de dificuldade para
+				<text><![CDATA[a) Desconhecimento do conte�do.
+b) Forma diferente de abordagem do conte�do.
+c) Espa�o insuficiente para responder as
+     quest�es.
+d) Falta de motiva��o para fazer a prova.
+e) N�o tive qualquer tipo de dificuldade para
      responder a prova.]]></text>
 			</staticText>
 			<staticText>
@@ -719,13 +719,13 @@ e) Não tive qualquer tipo de dificuldade para
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[a) Não estudou ainda a maioria desses
-conteúdos.
-b) Estudou alguns desses conteúdos, mas não      os aprendeu.
-c) Estudou a maioria desses conteúdos, mas
-     não os aprendeu.
-d) Estudou e aprendeu muitos dessesconteúdos.
-e) Estudou e aprendeu todos esses conteúdos.]]></text>
+				<text><![CDATA[a) N�o estudou ainda a maioria desses
+conte�dos.
+b) Estudou alguns desses conte�dos, mas n�o      os aprendeu.
+c) Estudou a maioria desses conte�dos, mas
+     n�o os aprendeu.
+d) Estudou e aprendeu muitos dessesconte�dos.
+e) Estudou e aprendeu todos esses conte�dos.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="293" y="345" width="260" height="30" uuid="b9fde535-dacb-4c2f-ae9d-2c8d8573ffe9"/>
@@ -747,9 +747,9 @@ percepção é que:]]></text>
 				</textElement>
 				<text><![CDATA[a) Menos de uma hora.
 b) Entre uma e duas horas.
-c) Entre duas e três horas.
-d) Entre três e quatro horas.
-e) Quatro horas, e não consegui terminar.]]></text>
+c) Entre duas e tr�s horas.
+d) Entre tr�s e quatro horas.
+e) Quatro horas, e n�o consegui terminar.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="293" y="535" width="260" height="30" uuid="ea4a6095-65a5-45d6-af91-b183f6f3512c"/>
