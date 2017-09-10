@@ -438,10 +438,14 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{prova}.getInstituicao().getNomeFantasia()]]></textFieldExpression>
 			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="454" y="0" width="100" height="30" uuid="ec6f5cbf-0d4f-4fb0-a17f-c9691afdcd28"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="73" splitType="Stretch">
+		<band height="83" splitType="Stretch">
 			<line direction="BottomUp">
 				<reportElement x="-11" y="40" width="558" height="1" uuid="309a2e1b-3873-4015-8dda-4b2f374604c1">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
@@ -459,12 +463,19 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 				<textFieldExpression><![CDATA[$P{prova}.getInstituicao().getNomeFantasia()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="-8" y="45" width="558" height="28" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" backcolor="#000000" uuid="7960ca7d-856d-42ac-9c06-590f0199d459"/>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="-11" y="47" width="560" height="28" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" backcolor="#000000" uuid="7960ca7d-856d-42ac-9c06-590f0199d459"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="198" y="54" width="256" height="16" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" uuid="6e786cba-8fcd-45b0-9de2-b9cdd69c3195"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sessao}.getSessao().getDescricao()]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -476,49 +487,42 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="54" splitType="Prevent">
-			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="-1" y="20" width="263" height="34" uuid="a4b19dc4-9347-474a-a482-8908c1172921"/>
-				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0"/>
-				<textElement textAlignment="Justified" verticalAlignment="Justified" markup="styled">
-					<font fontName="Arial" size="12"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getEnunciado()]]></textFieldExpression>
-			</textField>
+		<band height="65" splitType="Prevent">
 			<staticText>
-				<reportElement mode="Opaque" x="-3" y="1" width="267" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
+				<reportElement mode="Opaque" x="-1" y="3" width="265" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
 				<textElement markup="none">
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Questao]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="40" y="3" width="20" height="14" forecolor="#FFFFFF" uuid="bde6ab16-abcf-440f-95e1-c74652a4e654"/>
+				<reportElement x="40" y="5" width="20" height="14" forecolor="#FFFFFF" uuid="bde6ab16-abcf-440f-95e1-c74652a4e654"/>
 				<textElement>
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{contador}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement isPrintRepeatedValues="false" x="0" y="-37" width="262" height="16" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" uuid="6e786cba-8fcd-45b0-9de2-b9cdd69c3195"/>
-				<textElement>
-					<font size="12" isBold="true"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="2" y="25" width="260" height="40" uuid="6502f0ec-3738-4cb9-a06b-ab70d71f83f5"/>
+				<textElement textAlignment="Justified" verticalAlignment="Justified">
+					<font fontName="Arial"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{sessao}.getSessao().getDescricao()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getEnunciado()]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="40">
 			<componentElement>
-				<reportElement positionType="Float" x="-1" y="6" width="264" height="30" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
+				<reportElement positionType="Float" x="-1" y="7" width="263" height="30" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="itemquestao" uuid="0dca4663-6c84-4582-a9cf-4178f46d4f15">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{questao}.getQuestao().getAlternativas())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:listContents height="30" width="264">
+					<jr:listContents height="30" width="263">
 						<textField isStretchWithOverflow="true">
-							<reportElement stretchType="RelativeToTallestObject" x="20" y="0" width="244" height="30" uuid="ab775e37-3c14-400c-8e39-23a5f472c94a"/>
-							<textElement textAlignment="Justified" verticalAlignment="Justified"/>
+							<reportElement stretchType="RelativeToTallestObject" x="20" y="0" width="240" height="30" uuid="ab775e37-3c14-400c-8e39-23a5f472c94a"/>
+							<textElement textAlignment="Justified" verticalAlignment="Justified">
+								<font fontName="Arial"/>
+							</textElement>
 							<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 						</textField>
 						<textField>
