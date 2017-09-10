@@ -35,7 +35,7 @@
 	<field name="questao" class="br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoProva">
 		<fieldDescription><![CDATA[questao]]></fieldDescription>
 	</field>
-	<variable name="contador" class="java.math.BigDecimal" incrementType="Column" calculation="Sum">
+	<variable name="contador" class="java.math.BigDecimal" incrementType="Page" calculation="Sum">
 		<variableExpression><![CDATA[$V{contador}.add(new BigDecimal("1"))]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal("0")]]></initialValueExpression>
 	</variable>
@@ -476,10 +476,11 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="42" splitType="Prevent">
-			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="-3" y="22" width="267" height="20" uuid="a4b19dc4-9347-474a-a482-8908c1172921"/>
-				<textElement textAlignment="Justified" verticalAlignment="Justified" markup="none">
+		<band height="54" splitType="Prevent">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="-1" y="20" width="263" height="34" uuid="a4b19dc4-9347-474a-a482-8908c1172921"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Justified" markup="styled">
 					<font fontName="Arial" size="12"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
@@ -509,7 +510,7 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 		</band>
 		<band height="40">
 			<componentElement>
-				<reportElement positionType="Float" x="-1" y="3" width="264" height="30" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
+				<reportElement positionType="Float" x="-1" y="6" width="264" height="30" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="itemquestao" uuid="0dca4663-6c84-4582-a9cf-4178f46d4f15">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{questao}.getQuestao().getAlternativas())]]></dataSourceExpression>
