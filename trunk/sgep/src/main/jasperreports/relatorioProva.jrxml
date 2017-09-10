@@ -35,7 +35,7 @@
 	<field name="questao" class="br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoProva">
 		<fieldDescription><![CDATA[questao]]></fieldDescription>
 	</field>
-	<variable name="contador" class="java.math.BigDecimal" incrementType="Page" calculation="Sum">
+	<variable name="contador" class="java.math.BigDecimal" incrementType="Report" calculation="Sum">
 		<variableExpression><![CDATA[$V{contador}.add(new BigDecimal("1"))]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal("0")]]></initialValueExpression>
 	</variable>
