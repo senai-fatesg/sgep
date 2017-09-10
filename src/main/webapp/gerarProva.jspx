@@ -86,12 +86,16 @@
 				</a:field>
 			</p:panel>
 			<a:newLine />
-		
+			
+			
 			<p:dialog id="dlgSessao" modal="true" widgetVar="vCadSessao" header="Sessões" resizable="false">
+			
 				<p:messages autoUpdate="true" closable="true" />
 				<p:panel id="panel">
 				<a:newLine/>
 					<a:newLine />
+					<p:scrollPanel id="sclPanel" mode="native"
+				style="height:500px;;padding: 5px 10px;" rendered="true">
 					<a:field label="Título">
 						<p:inputText value="#{ProvaControl.sessaoTemplate.sessao.titulo}" style="width: 600px">
 							<p:ajax event="keyup" update="buttonConfirm" />
@@ -126,7 +130,9 @@
 								<p:commandButton icon="ui-icon-trash" action="#{ProvaControl.removerItemQuestao(item)}" update=":formCorpo:tblItemSess">
 								</p:commandButton>
 							</p:column>
+						
 						</p:dataTable>
+						
 					</p:panel>
 					<a:newLine/>
 					<p:commandButton id="buttonConfirm" icon="ui-icon-disk" actionListener="#{ProvaControl.confirmarNovaSessaoProva}"  value="Confirmar" update="@form :formCorpo:dlgSessao" ajax="false" oncomplete="vCadSessao.hide();"
@@ -136,10 +142,14 @@
 						<f:param value="#{ProvaControl.sessaoTemplate}" id="sessaoTemplate"/>
 					</p:commandButton>
 					<p:spacer width="45px" />
+						</p:scrollPanel>
 				</p:panel>
 				<p:ajax event="close" listener="#{ProvaControl.limpar}"/>
+			
 			</p:dialog>
+			
 			<p:dialog header="Questões" widgetVar="dlgQuestao" resizable="true" showEffect="fade" hideEffect="fade" modal="true">
+			
 				<p:panel header="Questões">
 					<a:newLine />
 					<a:newLine />
@@ -172,7 +182,9 @@
 							</h:commandLink>
 						</p:column>
 					</p:dataTable>
+				
 				</p:panel>
+				
 			</p:dialog>
 			<p:dialog header="Alternativas da questão" widgetVar="dlgAlternativa" minHeight="40" modal="true">
 	    		<p:dataList id="dlQuestao" value="#{ProvaControl.alternativas}" var="alt" type="unordered" itemType="none" rows="10" styleClass="paginated">
@@ -207,5 +219,6 @@
 					</h:panelGrid>
 				</p:outputPanel>
 			</p:dialog>
+	
 	</ui:define>
 </ui:composition>
