@@ -3,14 +3,6 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioProva" columnCount="2" pageWidth="595" pageHeight="842" columnWidth="277" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5b6ae5d9-d99f-4e59-9718-26bf056b6583">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<subDataset name="itemquestao" uuid="8f3db7a7-41de-453f-a847-3b293603bfb2">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 		<queryString>
@@ -464,8 +456,8 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 			</textField>
 			<staticText>
 				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="-11" y="47" width="560" height="28" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" backcolor="#000000" uuid="7960ca7d-856d-42ac-9c06-590f0199d459"/>
-				<textElement markup="none">
-					<font fontName="SansSerif" size="9" isBold="true"/>
+				<textElement textAlignment="Justified" markup="none">
+					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
@@ -487,10 +479,10 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="65" splitType="Prevent">
+		<band height="47" splitType="Prevent">
 			<staticText>
 				<reportElement mode="Opaque" x="-1" y="3" width="265" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
-				<textElement markup="none">
+				<textElement markup="styled">
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Questao]]></text>
@@ -503,32 +495,32 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 				<textFieldExpression><![CDATA[$V{contador}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="2" y="25" width="260" height="40" uuid="6502f0ec-3738-4cb9-a06b-ab70d71f83f5"/>
-				<textElement textAlignment="Justified" verticalAlignment="Justified">
-					<font fontName="Arial"/>
+				<reportElement positionType="Float" x="0" y="25" width="275" height="22" uuid="6502f0ec-3738-4cb9-a06b-ab70d71f83f5"/>
+				<textElement textAlignment="Justified" verticalAlignment="Justified" markup="styled">
+					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getEnunciado()]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="40">
 			<componentElement>
-				<reportElement positionType="Float" x="-1" y="7" width="263" height="30" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="-1" y="7" width="276" height="30" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="itemquestao" uuid="0dca4663-6c84-4582-a9cf-4178f46d4f15">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{questao}.getQuestao().getAlternativas())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:listContents height="30" width="263">
+					<jr:listContents height="30" width="276">
 						<textField isStretchWithOverflow="true">
-							<reportElement stretchType="RelativeToTallestObject" x="20" y="0" width="240" height="30" uuid="ab775e37-3c14-400c-8e39-23a5f472c94a"/>
-							<textElement textAlignment="Justified" verticalAlignment="Justified">
-								<font fontName="Arial"/>
+							<reportElement positionType="Float" x="20" y="0" width="255" height="30" uuid="ab775e37-3c14-400c-8e39-23a5f472c94a"/>
+							<textElement textAlignment="Justified" verticalAlignment="Top" markup="styled">
+								<font fontName="Arial" size="12"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 						</textField>
 						<textField>
-							<reportElement x="0" y="0" width="40" height="30" uuid="508941ed-dfd1-4eda-8524-cc4b9f36cd5e"/>
-							<textElement textAlignment="Justified" verticalAlignment="Justified">
-								<font fontName="Arial Black" isBold="true"/>
+							<reportElement positionType="Float" x="0" y="0" width="40" height="30" uuid="508941ed-dfd1-4eda-8524-cc4b9f36cd5e"/>
+							<textElement textAlignment="Justified" verticalAlignment="Top" markup="styled">
+								<font fontName="Arial Black" size="12" isBold="true"/>
 							</textElement>
 							<textFieldExpression><![CDATA["("+ $F{ordem} +")"]]></textFieldExpression>
 						</textField>
@@ -540,7 +532,7 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 	<summary>
 		<band height="671">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="5" width="555" height="25" forecolor="#FFFFFF" backcolor="#000000" uuid="c2866aa2-1cf1-4661-94e9-328b6c9f27d3"/>
+				<reportElement mode="Opaque" x="0" y="10" width="555" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="c2866aa2-1cf1-4661-94e9-328b6c9f27d3"/>
 				<textElement textAlignment="Center" markup="none">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
