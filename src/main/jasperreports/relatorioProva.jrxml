@@ -440,7 +440,7 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="85" splitType="Stretch">
+		<band height="44" splitType="Stretch">
 			<line direction="BottomUp">
 				<reportElement x="0" y="40" width="555" height="1" uuid="309a2e1b-3873-4015-8dda-4b2f374604c1">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
@@ -457,20 +457,6 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{prova}.getInstituicao().getNomeFantasia()]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="1" y="50" width="554" height="35" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#000000" uuid="7960ca7d-856d-42ac-9c06-590f0199d459"/>
-				<textElement textAlignment="Justified" markup="none">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<textField>
-				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="160" y="50" width="256" height="30" isPrintInFirstWholeBand="true" forecolor="#FFFFFF" backcolor="#000000" uuid="6e786cba-8fcd-45b0-9de2-b9cdd69c3195"/>
-				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{sessao}.getSessao().getDescricao()]]></textFieldExpression>
-			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -482,39 +468,46 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="40" splitType="Prevent">
+		<band height="74" splitType="Prevent">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="2" width="265" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
+				<reportElement mode="Opaque" x="12" y="36" width="253" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Questao]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="41" y="4" width="20" height="14" forecolor="#FFFFFF" uuid="bde6ab16-abcf-440f-95e1-c74652a4e654"/>
+				<reportElement x="54" y="38" width="20" height="14" forecolor="#FFFFFF" uuid="bde6ab16-abcf-440f-95e1-c74652a4e654"/>
 				<textElement>
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{contador}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="1" y="18" width="263" height="22" uuid="6502f0ec-3738-4cb9-a06b-ab70d71f83f5"/>
+				<reportElement positionType="Float" x="12" y="52" width="252" height="22" uuid="6502f0ec-3738-4cb9-a06b-ab70d71f83f5"/>
 				<textElement textAlignment="Justified" verticalAlignment="Justified" markup="none">
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getEnunciado()]]></textFieldExpression>
 			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="11" y="2" width="254" height="30" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#000000" uuid="6e786cba-8fcd-45b0-9de2-b9cdd69c3195"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sessao}.getSessao().getDescricao()]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="40">
 			<componentElement>
-				<reportElement positionType="Float" isPrintRepeatedValues="false" x="-1" y="5" width="265" height="35" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="11" y="5" width="253" height="35" uuid="f8c78182-972b-4397-b530-6451235bc68a"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="itemquestao" uuid="0dca4663-6c84-4582-a9cf-4178f46d4f15">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{questao}.getQuestao().getAlternativas())]]></dataSourceExpression>
 					</datasetRun>
-					<jr:listContents height="35" width="265">
+					<jr:listContents height="35" width="253">
 						<textField isStretchWithOverflow="true">
-							<reportElement positionType="Float" x="20" y="2" width="245" height="33" uuid="ab775e37-3c14-400c-8e39-23a5f472c94a"/>
+							<reportElement positionType="Float" x="20" y="2" width="233" height="33" uuid="ab775e37-3c14-400c-8e39-23a5f472c94a"/>
 							<textElement textAlignment="Justified" verticalAlignment="Justified" markup="none">
 								<font fontName="Arial" size="12"/>
 							</textElement>
