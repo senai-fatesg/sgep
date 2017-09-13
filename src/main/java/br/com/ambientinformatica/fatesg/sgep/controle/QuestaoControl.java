@@ -18,12 +18,14 @@ import org.springframework.stereotype.Controller;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
+import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
 import br.com.ambientinformatica.fatesg.sgep.entidade.AlternativaQuestao;
 import br.com.ambientinformatica.fatesg.sgep.entidade.EnumAlternativa;
 import br.com.ambientinformatica.fatesg.sgep.entidade.EnumDificuldade;
 import br.com.ambientinformatica.fatesg.sgep.entidade.EnumEstado;
 import br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoTemplate;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.ColaboradorDao;
+import br.com.ambientinformatica.fatesg.sgep.persistencia.DisciplinaDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.QuestaoTemplateDao;
 
 @Controller("QuestaoControl")
@@ -57,6 +59,9 @@ public class QuestaoControl implements Serializable {
 	@Autowired
 	private ColaboradorDao colaboradorDao;
 	
+	@Autowired
+	private DisciplinaDao disciplinaDao;
+	
 	private String professorOuDisciplina;
 	
 	@PostConstruct
@@ -84,6 +89,17 @@ public class QuestaoControl implements Serializable {
 						questaoSelecionada.getQuestao().setProfessor(colaborador);
 					}
 				}
+				Disciplina disciplinaCorporatumNoSgep = disciplinaDao.consultarPorChaveDisciplinaCorporatum(questaoSelecionada.getQuestao().getDisciplina().getId());
+				if(disciplinaCorporatumNoSgep == null){
+					disciplinaCorporatumNoSgep = new Disciplina();
+					disciplinaCorporatumNoSgep.setCargaHoraria(questaoSelecionada.getQuestao().getDisciplina().getCargaHoraria());
+					disciplinaCorporatumNoSgep.setChaveDisciplinaCorporatum(questaoSelecionada.getQuestao().getDisciplina().getId());
+					disciplinaCorporatumNoSgep.setCodigo(questaoSelecionada.getQuestao().getDisciplina().getCodigo());
+					disciplinaCorporatumNoSgep.setNome(questaoSelecionada.getQuestao().getDisciplina().getNome());
+					disciplinaDao.incluir(disciplinaCorporatumNoSgep);
+				}
+				questaoSelecionada.getQuestao().setDisciplina(disciplinaCorporatumNoSgep);
+				
 				questaoDao.alterar(questaoSelecionada);
 				this.listar();
 				questaoSelecionada = new QuestaoTemplate();
@@ -151,6 +167,11 @@ public class QuestaoControl implements Serializable {
 	public List<Colaborador> completarColaboradores(String nome) {
 		List<Colaborador> colaboradores = colaboradorDao.listarPorNome(nome);
 		return colaboradores;
+	}
+	
+	public List<Disciplina> completarDisciplinas(String nome) {
+		List<Disciplina> disciplinas = disciplinaDao.listarPorNome(nome);
+		return disciplinas;
 	}
 
 	public void adicionarItem() {

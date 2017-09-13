@@ -86,9 +86,21 @@
 											<p:watermark value="Pesquise pelo Nome" for="completUsuario" />
 										</p:outputPanel>
 										<div class="col-md-12">
+										<a:field label="Disciplina" spaceLeft="15px">
+											<p:autoComplete id="completeDisciplina" name="completeDisciplina" class="fundoBranco"
+												immediate="true"
+												value="#{QuestaoControl.questaoSelecionada.questao.disciplina}"
+												completeMethod="#{QuestaoControl.completarDisciplinas}"
+												minQueryLength="3" var="disciplina"
+												itemLabel="#{disciplina.nome}" itemValue="#{disciplina}"
+												converter="objectConverter">
+												<p:ajax event="keyup"  update="buttonConfirm" />
+											</p:autoComplete>
+											<p:watermark value="Pesquise pelo Nome" for="completeDisciplina" />
+										</a:field>
+										<a:newLine />
 
-
-											<div class="col-md-6">
+										<div class="col-md-6">
 											
 												<a:field label="Estado" spaceLeft="15px">
 													<p:selectOneMenu id="estado" class="fundoBranco"
