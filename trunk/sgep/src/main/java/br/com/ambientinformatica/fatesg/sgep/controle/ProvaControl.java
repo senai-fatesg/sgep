@@ -33,17 +33,13 @@ import br.com.ambientinformatica.fatesg.sgep.entidade.SessaoProva;
 import br.com.ambientinformatica.fatesg.sgep.entidade.SessaoTemplate;
 import br.com.ambientinformatica.fatesg.sgep.entidade.Template;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.AlunoDao;
-import br.com.ambientinformatica.fatesg.sgep.persistencia.ColaboradorDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.CursoDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.DisciplinaDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.InstituicaoDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.ProvaDao;
-import br.com.ambientinformatica.fatesg.sgep.persistencia.QuestaoProvaDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.QuestaoTemplateDao;
-import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoProvaDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.SessaoTemplateDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.TemplateDao;
-import br.com.ambientinformatica.fatesg.sgep.util.UtilRelatorio;
 
 @Controller("ProvaControl")
 @Scope("conversation")
@@ -55,6 +51,8 @@ public class ProvaControl {
 
 	private Prova provaAlterar = new Prova();
 
+	private String filtroDisciplina;
+	
 	private Prova provaExcluir;
 
 	private ItemQuestaoTemplate itensProva = new ItemQuestaoTemplate();
@@ -95,25 +93,16 @@ public class ProvaControl {
 	private QuestaoTemplateDao questaoTemplateDao;
 
 	@Autowired
-	private QuestaoProvaDao questaoProvaDao;
-
-	@Autowired
 	private ProvaDao provaDao;
 
 	@Autowired
 	private TemplateDao templateDao;
 
 	@Autowired
-	private ColaboradorDao colaboradorDao;
-
-	@Autowired
 	private InstituicaoDao instituicaoDao;
 
 	@Autowired
 	private CursoDao cursoDao;
-
-	@Autowired
-	private SessaoProvaDao sessaoProvaDao;
 
 	@Autowired
 	private SessaoTemplateDao sessaoTemplateDao;
@@ -200,6 +189,15 @@ public class ProvaControl {
 	// }
 	// }
 
+	public void filtrarQuestoes() {
+		try {
+			questoesTemplate = questaoTemplateDao.listarPorProfessorOuDisciplina(filtroDisciplina);
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces(e);
+			questoesTemplate  = new ArrayList<QuestaoTemplate>();
+		}
+	}
+	
 	public void confirmarNovaProva() {
 		Instituicao novaInstituicao = new Instituicao();
 		Curso novoCurso = new Curso();
@@ -714,6 +712,14 @@ public class ProvaControl {
 
 	public void setQuestoesTemplate(List<QuestaoTemplate> questoesTemplate) {
 		this.questoesTemplate = questoesTemplate;
+	}
+
+	public String getFiltroDisciplina() {
+		return filtroDisciplina;
+	}
+
+	public void setFiltroDisciplina(String filtroDisciplina) {
+		this.filtroDisciplina = filtroDisciplina;
 	}
 
 }
