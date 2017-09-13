@@ -153,6 +153,12 @@
 				<p:panel header="Questões">
 					<a:newLine />
 					<a:newLine />
+					<p:inputText id="pNome" value="#{ProvaControl.filtroDisciplina}" style="width:300px;" placeholder="Filtrar por Disciplina" />
+					<p:commandButton id="Pesquisa" value="Pesquisar" actionListener="#{ProvaControl.filtrarQuestoes }"
+					update="tblQuestoes" icon="ui-icon ui-icon-search"  
+					 />  
+					 <a:newLine />
+					<a:newLine />
 					<p:dataTable id="tblQuestoes" widgetVar="tblQuestoes" var="questaoTemplate" style="width: 900px" value="#{ProvaControl.questoesTemplate}" emptyMessage="Sem registros" rows="10" paginator="true">
 						<p:column headerText="Código" style="width: 60px; text-align: center">
 							<h:outputText value="#{questaoTemplate.questao.id}"/>
