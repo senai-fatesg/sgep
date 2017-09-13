@@ -43,7 +43,7 @@ public class Questao extends Entidade implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Colaborador professor;
 
-	@ManyToOne
+	@ManyToOne(optional=false)
 	private Disciplina disciplina;
 
 	@Enumerated(EnumType.STRING)
