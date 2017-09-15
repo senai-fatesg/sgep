@@ -14,7 +14,7 @@
 						 style="width: 600px" />
 				</a:field>
 				<a:field>
-					<p:commandButton value="Adicionar Questões" icon="ui-icon-search" update="tblQuestoes" oncomplete="PF('dlgQuestao').show();"/>
+					<p:commandButton value="Adicionar Questões" icon="ui-icon-search" update="tblQuestoes" actionListener="#{SessaoControl.alterarListasDeQuestoesSelecionadas}" oncomplete="PF('dlgQuestao').show();"/>
 				</a:field>
 				<a:newLine/>
 				<a:newLine/>
