@@ -148,9 +148,25 @@ td {
 				</a:field>
 				<a:newLine />
 				<a:newLine />
-
+				
+				
+	
 				<a:newLine />
+				<a:field label="Disciplina" spaceLeft="15px">
+											<p:autoComplete id="completeDisciplina" name="completeDisciplina" class="fundoBranco"
+												immediate="true"
+												value="#{QuestaoControl.questaoSelecionada.questao.disciplina}"
+												completeMethod="#{QuestaoControl.completarDisciplinas}"
+												minQueryLength="3" var="disciplina"
+												itemLabel="#{disciplina.nome}" itemValue="#{disciplina}"
+												converter="objectConverter">
+												<p:ajax event="keyup"   />
+											</p:autoComplete>
+											<p:watermark value="Pesquise pelo Nome" for="completeDisciplina" />
+										</a:field>
+		
 				<a:newLine />
+				
 				<a:field label="Enunciado">
 					<p:inputTextarea id="txtEnunciado"
 						value="#{QuestaoControl.questaoSelecionada.questao.enunciado}"
