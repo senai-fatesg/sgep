@@ -11,7 +11,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import org.hibernate.Hibernate;
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -81,6 +80,17 @@ public class SessaoControl implements Serializable {
 		}
 	}
 
+	public void alterarListasDeQuestoesSelecionadas(ActionEvent evt){
+		listarQuestoes();
+		for(int i = 0; i < sessaoTemplate.getItensQuestao().size(); i++){
+			for(int j = 0; j < questoes.size(); j++){
+				if(sessaoTemplate.getItensQuestao().get(i).getQuestaoTemplate().equals(questoes.get(j))){
+					questoes.remove(j);
+				}
+			}
+		}	
+	}
+	
 	public void confirmar() {
 		try {
 			if (sessaoTemplate.getSessao().getTitulo() != null && !sessaoTemplate.getSessao().getTitulo().isEmpty() 
