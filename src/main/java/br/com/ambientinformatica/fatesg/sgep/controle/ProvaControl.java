@@ -153,6 +153,32 @@ public class ProvaControl {
 		}
 
 	}
+	
+	public void imprimirCartaoResposta(Prova prova) {
+
+		try {
+			List<ItemQuestaoProva> itensquestao = new ArrayList<>();
+			List<AlternativaQuestao> alternativasQuestoes = new ArrayList<>();
+
+			Prova provaImprimir = provaDao.consultarGabarito(prova.getId());
+			for (SessaoProva sessaoProva : provaImprimir.getSessoes()) {
+				for (ItemQuestaoProva itemQuestaoProva : sessaoProva.getItensQuestao()) {
+					itensquestao.add(itemQuestaoProva);
+					for (AlternativaQuestao alternativasQuestao : itemQuestaoProva.getQuestao().getQuestao().getAlternativas()) {
+						alternativasQuestoes.add(alternativasQuestao);
+					}
+				}
+			}
+			Map<String, Object> parametros = new HashMap<String, Object>();
+
+			parametros.put("prova", provaImprimir);
+			UtilFacesRelatorio.gerarRelatorioFaces("jasper/cartaoResposta.jasper", itensquestao, parametros);
+
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces("Houve um erro ao Gerar o Relatório Solicitado.\n Msg:" + e.getMessage());
+		}
+
+	}
 
 	public void confirmar() {
 		try {

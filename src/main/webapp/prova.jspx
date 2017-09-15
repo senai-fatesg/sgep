@@ -41,6 +41,10 @@
 					<p:commandButton icon="ui-icon-print" actionListener="#{ProvaControl.imprimirProva(prova)}" ajax="false" style="width: 60px">
 					</p:commandButton>
 				</p:column>
+				<p:column headerText="Cartão Resposta" style="width: 80px; text-align: center">
+					<p:commandButton icon="ui-icon-print" actionListener="#{ProvaControl.imprimirCartaoResposta(prova)}" ajax="false" style="width: 60px">
+					</p:commandButton>
+				</p:column>
 				<p:column headerText="Gabarito resposta" style="width:80px; text-align: center">
 					<p:remoteCommand name="gabaritoResposta"  action="/gerarGabarito.jspx?faces-redirect=true"/>
 					<p:commandButton icon="ui-icon-bookmark" action="#{GabaritoRespostaControl.inicializarItensQuestaoProva}" oncomplete="gabaritoResposta()" style="margin-left: 10%; width: 60px">
