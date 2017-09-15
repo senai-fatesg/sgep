@@ -75,6 +75,14 @@ td {
 					</f:facet>
 					<h:outputText value="#{cont.questao.assunto}"></h:outputText>
 				</p:column>
+				
+				<p:column sortBy="#{cont.questao.disciplina.nome}">
+					<f:facet name="header">
+						<h:outputText value="Disciplina"></h:outputText>
+					</f:facet>
+					<h:outputText value="#{cont.questao.disciplina.nome}"></h:outputText>
+				</p:column>
+				
 				<p:column sortBy="#{cont.questao.resposta}" style="width: 100px">
 					<f:facet name="header">
 						<h:outputText value="Resposta"></h:outputText>
