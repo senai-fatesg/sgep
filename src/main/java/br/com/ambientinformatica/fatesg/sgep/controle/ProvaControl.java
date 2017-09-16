@@ -115,11 +115,11 @@ public class ProvaControl {
 
 	@PostConstruct
 	public void init() {
-		listarSessoes();
+		
 		listarInstituicoes();
 		listarCursos();
 		listarDisciplinas();
-		listarQuestoes();
+		
 		try {
 			provaDao.listar();
 			listar();

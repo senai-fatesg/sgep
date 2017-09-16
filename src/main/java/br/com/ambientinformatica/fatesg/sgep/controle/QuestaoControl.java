@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ import br.com.ambientinformatica.fatesg.sgep.persistencia.QuestaoTemplateDao;
 public class QuestaoControl implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	private List<QuestaoTemplate> questoes = new ArrayList<QuestaoTemplate>();
 
 	private Colaborador professor = new Colaborador();
@@ -66,7 +67,7 @@ public class QuestaoControl implements Serializable {
 	
 	@PostConstruct
 	public void init() {
-		this.listar();
+	//	this.listar();
 	}
 	
 	public void pesquisar() {
@@ -350,6 +351,4 @@ public class QuestaoControl implements Serializable {
 	}
 
 	
-	
-
-}
+	}

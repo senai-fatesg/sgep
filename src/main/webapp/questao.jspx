@@ -127,7 +127,7 @@ td {
 				style="height:500px;;padding: 5px 10px;" rendered="true">
 				<a:field
 					label="Deseja criar questões utilizando o usuário do professor logado?">
-					<div id="divRdbProf" style="margin-left: 15%">
+					<div id="divRdbProf">
 						<p:selectOneRadio id="rdbUsrSelecionado"
 							value="#{QuestaoControl.rdbUsrLogadoSelecionado}"
 							immediate="true">
@@ -135,7 +135,7 @@ td {
 							<f:selectItem itemLabel="Não" itemValue="false" />
 							<f:ajax event="change" render="formCorpo:outputPanelProfessor" />
 						</p:selectOneRadio>
-						<p:outputPanel id="outputPanelProfessor" style="margin-left:12%">
+						<p:outputPanel id="outputPanelProfessor">
 							<p:inputText id="txtProfessor" disabled="true"
 								rendered="#{QuestaoControl.rdbUsrLogadoSelecionado}"
 								immediate="true" readonly="true"
@@ -151,30 +151,27 @@ td {
 								converter="objectConverter">
 							</p:autoComplete>
 							<p:watermark value="Pesquise pelo Nome" for="completUsuario" />
+
 						</p:outputPanel>
+
 					</div>
 				</a:field>
 				<a:newLine />
 				<a:newLine />
-				
-				
-	
+				<a:field label="Disciplina">
+					<p:autoComplete id="completeDisciplina" name="completeDisciplina"
+						class="fundoBranco" immediate="true"
+						value="#{QuestaoControl.questaoSelecionada.questao.disciplina}"
+						completeMethod="#{QuestaoControl.completarDisciplinas}"
+						minQueryLength="3" var="disciplina" itemLabel="#{disciplina.nome}"
+						itemValue="#{disciplina}" converter="objectConverter">
+						<p:ajax event="keyup" />
+					</p:autoComplete>
+					<p:watermark value="Pesquise pelo Nome" for="completeDisciplina" />
+				</a:field>
 				<a:newLine />
-				<a:field label="Disciplina" spaceLeft="15px">
-											<p:autoComplete id="completeDisciplina" name="completeDisciplina" class="fundoBranco"
-												immediate="true"
-												value="#{QuestaoControl.questaoSelecionada.questao.disciplina}"
-												completeMethod="#{QuestaoControl.completarDisciplinas}"
-												minQueryLength="3" var="disciplina"
-												itemLabel="#{disciplina.nome}" itemValue="#{disciplina}"
-												converter="objectConverter">
-												<p:ajax event="keyup"   />
-											</p:autoComplete>
-											<p:watermark value="Pesquise pelo Nome" for="completeDisciplina" />
-										</a:field>
-		
 				<a:newLine />
-				
+			
 				<a:field label="Enunciado">
 					<p:inputTextarea id="txtEnunciado"
 						value="#{QuestaoControl.questaoSelecionada.questao.enunciado}"
@@ -182,6 +179,23 @@ td {
 					<p:watermark for="txtEnunciado"
 						value="Descreva aqui o enunciado principal da questão." />
 				</a:field>
+				<a:field label="Imagem Questao">
+				<h:form enctype="multipart/form-data">
+					<p:growl id="messages" showDetail="true" />
+
+					<p:fileUpload value="#{fileUploadView.file}" mode="simple"
+						skinSimple="true" />
+
+					<p:commandButton value="Submit" ajax="false"
+						actionListener="#{fileUploadView.upload}" disabled="true" />
+				</h:form>
+				</a:field>
+
+
+
+
+
+
 				<a:field label="Assunto" spaceLeft="15px">
 					<p:inputTextarea id="txtAreaAssunto"
 						value="#{QuestaoControl.questaoSelecionada.questao.assunto}"
@@ -190,7 +204,7 @@ td {
 						value="Descreva aqui o assunto referente à questão." />
 				</a:field>
 				<a:newLine />
-				<a:field label="Estado" spaceLeft="15px">
+				<a:field label="Estado" >
 					<p:selectOneMenu id="estado"
 						value="#{QuestaoControl.questaoSelecionada.questao.estado}"
 						style="width:200px">
@@ -208,31 +222,28 @@ td {
 							itemValue="#{tipo.descricao}" itemLabel="#{tipo.descricao}" />
 					</p:selectOneMenu>
 				</a:field>
-				<a:field label="Descrição da Alternativa" spaceLeft="15px">
+				<a:field label="Descrição da Alternativa" >
 					<p:inputTextarea id="lItem"
 						value="#{QuestaoControl.item.descricao}"
 						placeholder="Descreva aqui a alternativa a ser adicionada para a questão em elaboração."
 						scrollHeight="1" style="width:500px" />
 				</a:field>
 				<a:newLine />
-				<a:newLine />
 				<h:panelGrid columns="2" style="margin-left:1%" cellpadding="5">
 					<a:field
 						label="Selecione a alternativa correta para a questão em edição:">
 						<p:selectOneRadio
-							value="#{QuestaoControl.questaoSelecionada.questao.resposta }"
-							style="margin-left:10%">
+							value="#{QuestaoControl.questaoSelecionada.questao.resposta }">
 							<f:selectItems value="#{ QuestaoControl.alternativas}" var="tipo"
 								itemValue="#{tipo}" itemLabel="#{tipo}" />
 						</p:selectOneRadio>
 					</a:field>
 				</h:panelGrid>
-				<a:field spaceLeft="15px">
+				<a:field>
 					<p:commandButton action="#{QuestaoControl.adicionarItem}"
 						styleClass="primary" value="Adicionar" update="alternativas,lItem"
 						oncomplete="PF('wNewFile').show()" icon="ui-icon-plusthick" />
 				</a:field>
-				<a:newLine />
 				<a:newLine />
 				<a:newLine />
 				<p:growl id="messages2" life="6000" />
