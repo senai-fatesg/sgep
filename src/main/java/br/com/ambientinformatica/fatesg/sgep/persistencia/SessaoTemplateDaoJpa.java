@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
