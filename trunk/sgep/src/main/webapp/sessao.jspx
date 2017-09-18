@@ -47,7 +47,18 @@
 			<p:dialog header="Questões" widgetVar="dlgQuestao" resizable="true" showEffect="fade" hideEffect="fade" modal="true">
 				<p:panel>
 					<a:newLine />
-					<a:newLine />
+				<a:field label="Buscar Questões Pelo Nome do Professor ou Pela Disciplina">
+					<p:inputText id="pNome"
+						value="#{SessaoControl.filtroQuestaoProfessorOuDisciplina}"
+						style="width:300px;"
+						placeholder="Digite o nome do Professor ou Disciplina" />
+					
+					<p:commandButton id="Pesquisa"
+						actionListener="#{SessaoControl.pesquisarQuestoes}"
+						value="Pesquisar" update="tblQuestoes"
+						icon="ui-icon ui-icon-search" />
+				</a:field>
+				<a:newLine />
 					<p:dataTable id="tblQuestoes" widgetVar="tblQuestoes" var="questaoTemplate" style="width: 900px" value="#{SessaoControl.questoes}" emptyMessage="Sem registros" rows="10" paginator="true">
 						<p:column headerText="Código" style="width: 60px; text-align: center">
 							<h:outputText value="#{questaoTemplate.questao.id}"/>

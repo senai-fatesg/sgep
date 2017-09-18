@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -36,6 +35,8 @@ public class SessaoControl implements Serializable {
 	private String enunciado;
 
 	private String titulo;
+	
+	private String filtroQuestaoProfessorOuDisciplina;
 
 	private List<SessaoTemplate> sessoes = new ArrayList<SessaoTemplate>();
 
@@ -51,15 +52,12 @@ public class SessaoControl implements Serializable {
 
 	@Autowired
 	private SessaoTemplateDao sessaoDao;
+	
+	@Autowired
+	private QuestaoTemplateDao questaoDao;
 
 	@Autowired
 	private QuestaoTemplateDao questaoTemplateDao;
-
-	@PostConstruct
-	public void init() {
-		pesquisarPorTitulo();
-		listarQuestoes();
-	}
 
 	public void imprimir(ActionEvent evt) {
 		SessaoTemplate sessaoImprimir = (SessaoTemplate) UtilFaces
@@ -89,6 +87,15 @@ public class SessaoControl implements Serializable {
 				}
 			}
 		}	
+	}
+	
+	public void pesquisarQuestoes() {
+		try {
+			questoes = questaoDao.listarPorProfessorOuDisciplina(filtroQuestaoProfessorOuDisciplina);
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces(e);
+			questoes  = new ArrayList<QuestaoTemplate>();
+		}
 	}
 	
 	public void confirmar() {
@@ -278,6 +285,14 @@ public class SessaoControl implements Serializable {
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+
+	public String getFiltroQuestaoProfessorOuDisciplina() {
+		return filtroQuestaoProfessorOuDisciplina;
+	}
+
+	public void setFiltroQuestaoProfessorOuDisciplina(String filtroQuestaoProfessorOuDisciplina) {
+		this.filtroQuestaoProfessorOuDisciplina = filtroQuestaoProfessorOuDisciplina;
 	}
 
 
