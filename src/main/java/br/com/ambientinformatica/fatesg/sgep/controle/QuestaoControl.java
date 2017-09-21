@@ -1,5 +1,6 @@
 package br.com.ambientinformatica.fatesg.sgep.controle;
 
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +13,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.primefaces.context.RequestContext;
-import org.primefaces.model.UploadedFile;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -90,6 +93,8 @@ public class QuestaoControl implements Serializable {
 						questaoSelecionada.getQuestao().setProfessor(colaborador);
 					}
 				}
+				questaoSelecionada.getQuestao().setImagem(questaoSelecionada.getQuestao().getImagem());
+				
 				Disciplina disciplinaCorporatumNoSgep = disciplinaDao.consultarPorChaveDisciplinaCorporatum(questaoSelecionada.getQuestao().getDisciplina().getId());
 				if(disciplinaCorporatumNoSgep == null){
 					disciplinaCorporatumNoSgep = new Disciplina();
@@ -99,6 +104,8 @@ public class QuestaoControl implements Serializable {
 					disciplinaCorporatumNoSgep.setNome(questaoSelecionada.getQuestao().getDisciplina().getNome());
 					disciplinaDao.incluir(disciplinaCorporatumNoSgep);
 				}
+				
+				
 				questaoSelecionada.getQuestao().setDisciplina(disciplinaCorporatumNoSgep);
 				
 				questaoDao.alterar(questaoSelecionada);
@@ -260,7 +267,23 @@ public class QuestaoControl implements Serializable {
 			RequestContext.getCurrentInstance().showMessageInDialog(new FacesMessage("SGEP", e.getMessage()));
 		}
 	}
+	
+	public void processarImagem(FileUploadEvent uploadEvent) {
+        try {
+            questaoSelecionada.getQuestao().setImagem(uploadEvent.getFile().getContents());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
+	public StreamedContent getImage() {
+	    if (questaoSelecionada.getQuestao().getImagem() == null) {
+	        return new DefaultStreamedContent(); 
+	    } else {
+	        return new DefaultStreamedContent(new ByteArrayInputStream(questaoSelecionada.getQuestao().getImagem()), "image/png"); 
+	    }
+	}
+	
 	public List<SelectItem> getEstados() {
 		return UtilFaces.getListEnum(EnumEstado.values());
 	}

@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.IndexColumn;
+import org.primefaces.model.UploadedFile;
 
 import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
 import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
@@ -43,7 +44,7 @@ public class Questao extends Entidade implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Colaborador professor;
 
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	private Disciplina disciplina;
 
 	@Enumerated(EnumType.STRING)
@@ -56,6 +57,10 @@ public class Questao extends Entidade implements Serializable {
 	private EnumAlternativa resposta;
 
 	private Boolean objetiva = true;
+
+	
+	@Column(name = "figura")
+	private byte[] imagem;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "questao_id")
@@ -154,10 +159,7 @@ public class Questao extends Entidade implements Serializable {
 
 	public List<AlternativaQuestao> getAlternativas() {
 		return alternativas;
-
-}
-		
-	
+	}
 
 	public void setAlternativas(List<AlternativaQuestao> alternativas) {
 		this.alternativas = alternativas;
@@ -171,9 +173,16 @@ public class Questao extends Entidade implements Serializable {
 		this.resposta = resposta;
 	}
 
+	public byte[] getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
+	}
+
 	@Override
 	public String toString() {
 		return "Questao [alternativas=" + alternativas + "]";
 	}
-
 }
