@@ -181,6 +181,12 @@
 							<p:commandLink value="Visualizar" action="#{ProvaControl.consultarEnunciadoQuestao(questaoTemplate)}" update=":formCorpo:dlgEnunciado">
 							</p:commandLink>
 						</p:column>
+						<p:column headerText="Imagem" style="width: 80px; text-align: center">
+							<p:commandButton 
+								rendered="#{questaoTemplate.questao.imagem != null }"
+									icon="ui-icon-check"  >
+            				</p:commandButton>
+						</p:column>
 						<p:column headerText="Alternativa" style="width: 80px; text-align: center">
 							<p:commandLink value="Visualizar" action="#{ProvaControl.consultarAlternativasQuestao(questaoTemplate)}" update=":formCorpo:dlQuestao"/>
 						</p:column>

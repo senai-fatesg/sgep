@@ -83,9 +83,9 @@ td {
 					<h:outputText value="#{cont.questao.disciplina.nome}"></h:outputText>
 				</p:column>
 				
-				<p:column headerText="Imagem" style="width: 80px" sortBy="#{cont.questao.imagem}">
-					<p:commandButton update=":formCorpo:sclPanel, :formCorpo:file" 
-					icon="fa-edit"  >
+				<p:column headerText="Imagem"  sortBy="#{cont.questao.imagem}" style="width: 70px" >
+					<p:commandButton  
+					rendered="#{cont.questao.imagem != null }" icon="ui-icon-check"  >
             </p:commandButton>
 				</p:column>
 				
