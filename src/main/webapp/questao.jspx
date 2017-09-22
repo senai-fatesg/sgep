@@ -83,7 +83,7 @@ td {
 					<h:outputText value="#{cont.questao.disciplina.nome}"></h:outputText>
 				</p:column>
 				
-				<p:column headerText="Imagem"  sortBy="#{cont.questao.imagem}" style="width: 70px" >
+				<p:column headerText="Imagem" style="width: 70px" >
 					<p:commandButton  
 					rendered="#{cont.questao.imagem != null }" icon="ui-icon-check"  >
             </p:commandButton>
