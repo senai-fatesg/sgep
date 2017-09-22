@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -62,7 +63,7 @@ public class Prova extends Entidade implements Serializable{
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<SessaoProva> sessoes = new ArrayList<SessaoProva>();
-
+	
 	public void addSessao(SessaoProva sessao) throws Exception {
 		if (!sessoes.contains(sessao)) {
 			this.sessoes.add(sessao);
