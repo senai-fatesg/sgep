@@ -162,22 +162,22 @@
 					 />  
 					 <a:newLine />
 					<a:newLine />
-					<p:dataTable id="tblQuestoes" widgetVar="tblQuestoes" var="questaoTemplate" style="width: 1100px" value="#{ProvaControl.questoesTemplate}" emptyMessage="Sem registros" rows="10" paginator="true"
+					<p:dataTable id="tblQuestoes" widgetVar="tblQuestoes" var="questaoTemplate" style="width: 1130px" value="#{ProvaControl.questoesTemplate}" emptyMessage="Sem registros" rows="10" paginator="true"
 					currentPageReportTemplate="(Questões nesta página: {endRecord} - Total: {totalRecords} registro(s) - Página: {currentPage}/{totalPages})"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-						<p:column headerText="Código" style="width: 60px; text-align: center">
+						<p:column headerText="Código" style="width: 90px; text-align: center" sortBy="#{questaoTemplate.questao.id}">
 							<h:outputText value="#{questaoTemplate.questao.id}"/>
 						</p:column>
-						<p:column headerText="Assunto" style="width: 280px; text-align: center">
+						<p:column headerText="Assunto" style="width: 280px; text-align: center" sortBy="#{questaoTemplate.questao.assunto}">
 							<h:outputText value="#{questaoTemplate.questao.assunto}"/>
 						</p:column>
-						<p:column headerText="Disciplina" style="width: 200px; text-align: center">
+						<p:column headerText="Disciplina" style="width: 200px; text-align: center" sortBy="#{questaoTemplate.questao.disciplina.nome}">
 							<h:outputText value="#{questaoTemplate.questao.disciplina.nome}"/>
 						</p:column>
-						<p:column headerText="Dificuldade" style="width: 80px; text-align: center"  >
+						<p:column headerText="Dificuldade" style="width: 120px; text-align: center"  sortBy="#{questaoTemplate.questao.dificuldade}">
 							<h:outputText value="#{questaoTemplate.questao.dificuldade}"/>
 						</p:column>
-						<p:column headerText="Enunciado" style="width: 80px; text-align: center">
+						<p:column headerText="Enunciado" style="width: 80px; text-align: center" >
 							<p:commandLink value="Visualizar" action="#{ProvaControl.consultarEnunciadoQuestao(questaoTemplate)}" update=":formCorpo:dlgEnunciado">
 							</p:commandLink>
 						</p:column>
@@ -190,10 +190,10 @@
 						<p:column headerText="Alternativa" style="width: 80px; text-align: center">
 							<p:commandLink value="Visualizar" action="#{ProvaControl.consultarAlternativasQuestao(questaoTemplate)}" update=":formCorpo:dlQuestao"/>
 						</p:column>
-						<p:column headerText="Resposta" style="width: 80px; text-align: center">
+						<p:column headerText="Resposta" style="width: 100px; text-align: center" sortBy="#{questaoTemplate.questao.resposta}">
 							<h:outputText value="#{questaoTemplate.questao.resposta}"/>
 						</p:column>
-						<p:column headerText="Selecionar" style="text-align: center">
+						<p:column headerText="Selecionar" style="width: 100px; text-align: center">
 							<h:commandLink value="Selecionar" actionListener="#{ProvaControl.selecionarQuestao(questaoTemplate)}">
 								<p:ajax update=":formCorpo:oupQuestao" oncomplete="PF('dlgQuestao').hide();"/>
 							</h:commandLink>
