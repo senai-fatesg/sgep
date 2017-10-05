@@ -266,7 +266,10 @@ public class ProvaControl {
 				novaDisciplina.setNome(prova.getDisciplina().getNome());
 				novaDisciplina.setCodigo(prova.getDisciplina().getCodigo());
 				prova.setDisciplina(novaDisciplina);
-			} else {
+			}
+			
+			
+			else {
 				prova.setDisciplina(disciplinaDao.consultarPorChaveDisciplinaCorporatum(prova.getDisciplina().getId()));
 			}
 			// Reset as questoes..
