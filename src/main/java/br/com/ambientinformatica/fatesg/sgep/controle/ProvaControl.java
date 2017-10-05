@@ -269,7 +269,7 @@ public class ProvaControl {
 			} else {
 				prova.setDisciplina(disciplinaDao.consultarPorChaveDisciplinaCorporatum(prova.getDisciplina().getId()));
 			}
-			
+			// Reset as questoes..
 			provaDao.alterar(prova);
 			listar();
 			limpar();

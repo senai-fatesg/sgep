@@ -478,35 +478,40 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="74" splitType="Prevent">
+		<band height="95" splitType="Prevent">
 			<staticText>
-				<reportElement mode="Opaque" x="12" y="36" width="253" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
+				<reportElement mode="Opaque" x="12" y="56" width="253" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
 				<textElement markup="styled">
 					<font fontName="SansSerif" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Questao]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="54" y="38" width="20" height="14" forecolor="#FFFFFF" uuid="bde6ab16-abcf-440f-95e1-c74652a4e654"/>
+				<reportElement x="54" y="58" width="20" height="14" forecolor="#FFFFFF" uuid="bde6ab16-abcf-440f-95e1-c74652a4e654"/>
 				<textElement>
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{contador}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="12" y="52" width="252" height="22" uuid="6502f0ec-3738-4cb9-a06b-ab70d71f83f5"/>
+				<reportElement positionType="Float" x="12" y="72" width="252" height="22" uuid="6502f0ec-3738-4cb9-a06b-ab70d71f83f5"/>
 				<textElement textAlignment="Justified" verticalAlignment="Justified" markup="none">
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getEnunciado()]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="2" y="2" width="270" height="30" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#000000" uuid="6e786cba-8fcd-45b0-9de2-b9cdd69c3195"/>
+				<reportElement isPrintRepeatedValues="false" mode="Opaque" x="2" y="22" width="270" height="30" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" backcolor="#000000" uuid="6e786cba-8fcd-45b0-9de2-b9cdd69c3195"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sessao}.getSessao().getDescricao()]]></textFieldExpression>
 			</textField>
+			<break>
+				<reportElement x="0" y="10" width="550" height="1" uuid="b2abae69-61d8-424d-9846-d0e6d96cdb6d">
+					<printWhenExpression><![CDATA[$F{sessao}.getSessao().isNewPage()]]></printWhenExpression>
+				</reportElement>
+			</break>
 		</band>
 		<band height="40">
 			<componentElement>
