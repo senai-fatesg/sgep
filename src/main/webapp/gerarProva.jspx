@@ -261,6 +261,7 @@
 						<h:outputText value="Dificuldade" />
 						<h:outputText
 							value="#{ProvaControl.questaoSelecionada.questao.dificuldade}" />
+							
 					</h:panelGrid>
 				</p:outputPanel>
 			</p:dialog>

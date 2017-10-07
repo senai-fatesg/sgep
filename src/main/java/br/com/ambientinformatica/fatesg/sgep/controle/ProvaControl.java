@@ -112,6 +112,7 @@ public class ProvaControl {
 
 	@Autowired
 	private AlunoDao alunoDao;
+	
 
 	@PostConstruct
 	public void init() {
@@ -751,5 +752,7 @@ public class ProvaControl {
 	public void setFiltroDisciplina(String filtroDisciplina) {
 		this.filtroDisciplina = filtroDisciplina;
 	}
+
+	
 
 }
