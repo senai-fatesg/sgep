@@ -434,6 +434,7 @@ public class ProvaControl {
 		try {
 			questaoProva.getQuestao().setAssunto(item.getQuestao().getAssunto());
 			questaoProva.getQuestao().setEnunciado(item.getQuestao().getEnunciado());
+			questaoProva.getQuestao().setImagem(item.getQuestao().getImagem());
 			questaoProva.getQuestao().setResposta(item.getQuestao().getResposta());
 			questaoProva.getQuestao().setProfessor(item.getQuestao().getProfessor());
 			questaoProva.getQuestao().setDisciplina(item.getQuestao().getDisciplina());
