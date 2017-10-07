@@ -12,6 +12,9 @@
 		<field name="ordem" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="prova" class="br.com.ambientinformatica.fatesg.sgep.entidade.Prova"/>
+	<parameter name="imagem" class="java.io.InputStream">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -478,7 +481,7 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="95" splitType="Prevent">
+		<band height="120" splitType="Prevent">
 			<staticText>
 				<reportElement mode="Opaque" x="12" y="56" width="253" height="16" forecolor="#FFFFFF" backcolor="#000000" uuid="832c8d16-875d-4b00-b71b-c58f697fe5f3"/>
 				<textElement markup="styled">
@@ -493,6 +496,11 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{contador}]]></textFieldExpression>
 			</textField>
+			<break>
+				<reportElement x="0" y="10" width="550" height="1" uuid="b2abae69-61d8-424d-9846-d0e6d96cdb6d">
+					<printWhenExpression><![CDATA[$F{sessao}.getSessao().isNewPage()]]></printWhenExpression>
+				</reportElement>
+			</break>
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" x="12" y="72" width="252" height="22" uuid="6502f0ec-3738-4cb9-a06b-ab70d71f83f5"/>
 				<textElement textAlignment="Justified" verticalAlignment="Justified" markup="none">
@@ -507,11 +515,10 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sessao}.getSessao().getDescricao()]]></textFieldExpression>
 			</textField>
-			<break>
-				<reportElement x="0" y="10" width="550" height="1" uuid="b2abae69-61d8-424d-9846-d0e6d96cdb6d">
-					<printWhenExpression><![CDATA[$F{sessao}.getSessao().isNewPage()]]></printWhenExpression>
-				</reportElement>
-			</break>
+			<image>
+				<reportElement isPrintRepeatedValues="false" x="11" y="94" width="253" height="26" isRemoveLineWhenBlank="true" uuid="5b58cb12-8407-4853-8107-aadca30b284b"/>
+				<imageExpression><![CDATA[new ByteArrayInputStream($F{questao}.getQuestao().getImagem())]]></imageExpression>
+			</image>
 		</band>
 		<band height="40">
 			<componentElement>
