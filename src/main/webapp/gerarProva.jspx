@@ -77,9 +77,6 @@
 				<a:field spaceLeft="10px" rendered="#{ProvaControl.template == null}">
 					<p:commandButton value="Adicionar Nova Sessão" icon="ui-icon-document" actionListener="#{ProvaControl.novaSessao}" process="@this" update=":formCorpo:dlgSessao"/>
 				</a:field>
-				<a:field spaceLeft="10px" rendered="#{ProvaControl.template == null}">
-					<p:commandButton value="Adicionar Sessão Existente" icon="ui-icon-document" actionListener="#{ProvaControl.novaSessao}" process="@this" update=":formCorpo:dlgSessao"/>
-				</a:field>
 			</p:panel>
 			<a:newLine/>
 			<p:panel id="selectedQuestions" header="Sessões adicionadas">
