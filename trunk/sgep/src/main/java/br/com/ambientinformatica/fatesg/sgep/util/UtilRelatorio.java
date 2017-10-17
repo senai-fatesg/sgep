@@ -1,36 +1,27 @@
 package br.com.ambientinformatica.fatesg.sgep.util;
 
-import br.com.ambientinformatica.ambientjsf.controle.AmbientJsfFilter;
-import br.com.ambientinformatica.ambientjsf.util.ObjectConverterJpa;
-import br.com.ambientinformatica.util.UtilException;
-import br.com.ambientinformatica.util.UtilLog;
-import br.com.ambientinformatica.util.UtilRecurso;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
-import javax.faces.context.ExternalContext;
+
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.data.JRCsvDataSource;
-import org.apache.commons.logging.Log;
+import br.com.ambientinformatica.util.UtilException;
+import br.com.ambientinformatica.util.UtilLog;
+import br.com.ambientinformatica.util.UtilRecurso;
 
 
 public class UtilRelatorio {
