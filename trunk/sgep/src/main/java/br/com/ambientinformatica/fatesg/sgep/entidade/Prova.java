@@ -146,5 +146,31 @@ public class Prova extends Entidade implements Serializable{
 	        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 	        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Selecionada!", format.format(event.getObject())));
 	    }
+	 public String enumPeriodos(){
+		 if(getPeriodo() == EnumPeriodo.PRIMEIRO_PERIODO){
+			 return "1°"; 
+		 }
+		 if(getPeriodo() == EnumPeriodo.SEGUNGO_PERIODO){
+			 return "2°"; 
+		 }
 
-}
+		 if(getPeriodo() == EnumPeriodo.TERCEIRO_PERIODO){
+			 return "3°"; 
+		 }
+		 if(getPeriodo() == EnumPeriodo.QUARTO_PERIODO){
+			 return "4°"; 
+		 }
+		 if(getPeriodo() == EnumPeriodo.QUINTO_PERIODO){
+			 return "5°"; 
+		 }
+		return null;
+		
+
+	 }
+
+	
+		 
+	 }
+	 
+
+
