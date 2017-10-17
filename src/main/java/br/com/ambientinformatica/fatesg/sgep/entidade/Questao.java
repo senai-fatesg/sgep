@@ -19,7 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.IndexColumn;
-import org.primefaces.model.UploadedFile;
 
 import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
 import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;

@@ -25,7 +25,6 @@ import br.com.ambientinformatica.fatesg.api.entidade.Municipio;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.ColaboradorDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.MunicipioDao;
 import br.com.ambientinformatica.util.AmbientException;
-import br.com.ambientinformatica.util.UtilCpf;
 import br.com.ambientinformatica.util.UtilHash;
 import br.com.ambientinformatica.util.UtilHash.Algoritimo;
 
