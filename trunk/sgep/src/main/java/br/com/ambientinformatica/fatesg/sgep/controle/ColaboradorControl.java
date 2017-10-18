@@ -140,23 +140,7 @@ public class ColaboradorControl implements Serializable {
 		}
 	}
 	
-	 public void alterarSenhaNovo() throws AmbientException{
-		 String senhaAtualCripto = UtilHash.gerarStringHash(confirmarSenha, Algoritimo.MD5);
-		 Colaborador pessoaLogada = UsuarioLogadoControl.getUsuarioConfigurado();
-	      if(senhaAtualCripto.equals(pessoaLogada.getSenha())){
-	         if(senha1.equals(senha2)){
-	        	 pessoaLogada.setSenhaNaoCriptografada(senha2);
-	        	 colaboradorDao.alterar(pessoaLogada);
-	            UtilFaces.addMensagemFaces("Senha Alterada com sucesso!");
-	         }else{
-	            UtilFaces.addMensagemFaces("As senhas digitadas devem ser iguais.");
-	         }
-	      }else{
-	         UtilFaces.addMensagemFaces("Senha não confere.");
-	      }
-
-	   }
-
+	 
 	
 	
 	public String alterarSenha() {
