@@ -131,10 +131,11 @@ td {
 				style="height:500px;;padding: 5px 10px;" rendered="true">
 				<a:field
 					label="Deseja criar questões utilizando o usuário do professor logado?">
+					
 					<div id="divRdbProf">
 						<p:selectOneRadio id="rdbUsrSelecionado"
 							value="#{QuestaoControl.rdbUsrLogadoSelecionado}"
-							immediate="true">
+							immediate="true" >
 							<f:selectItem itemLabel="Sim" itemValue="true" />
 							<f:selectItem itemLabel="Não" itemValue="false" />
 							<f:ajax event="change" render="formCorpo:outputPanelProfessor" />
@@ -192,8 +193,8 @@ td {
 					mode="advanced" label="Escolher"
 					cancelLabel="Cancelar" sizeLimit="400000" fileLimit="1" uploadLabel="Anexar" />
 					<h:outputLabel for="file">
-						<p:graphicImage id="img" value="#{QuestaoControl.image}"  width="200" cache="false"/>
-						<p:resizable for="img"  minWidth="50" minHeight="70"  maxWidth="100" maxHeight="200"/>
+						<p:graphicImage id="img" value="#{QuestaoControl.image}"  width="400" cache="false"/>
+						<p:resizable for="img"  minWidth="150" minHeight="170"  maxWidth="300" maxHeight="500"/>
 					</h:outputLabel>
 				</a:field>
 				

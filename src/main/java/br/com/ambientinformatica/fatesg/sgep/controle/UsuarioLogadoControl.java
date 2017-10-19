@@ -30,6 +30,12 @@ public class UsuarioLogadoControl implements Serializable{
 	private String senhaAlteracaoNovamente;
 
 	private String senhaAtual;
+	
+	private String senha1;
+
+	private String senha2;
+
+	private String confirmarSenha;
 
 	@Autowired
 	private ColaboradorDao colaboradorDao;
@@ -54,11 +60,13 @@ public class UsuarioLogadoControl implements Serializable{
 
 	public void alterarSenhaDoUsuario(){
 		try {
-			if(!colaborador.getSenha().equals(UtilHash.gerarStringHash(senhaAtual, Algoritimo.MD5)) 
-					|| senhaAlteracao.isEmpty() || senhaAlteracaoNovamente.isEmpty()){
+			Colaborador colaborador = UsuarioLogadoControl.getUsuarioConfigurado();
+			colaborador = colaboradorDao.consultarPorCpfSgep(colaborador.getCpfCnpj());
+			if(!colaborador.getSenha().equals(UtilHash.gerarStringHash(confirmarSenha, Algoritimo.MD5)) 
+					|| senha1.isEmpty() || senha2.isEmpty()){
 				UtilFaces.addMensagemFaces("Campos não preenchidos, ou senha atual inválida ");    
-			}else if(senhaAlteracao.equals(senhaAlteracaoNovamente)){
-				colaborador.setSenhaNaoCriptografada(senhaAlteracao);
+			}else if(senha1.equals(senha2)){
+				colaborador.setSenhaNaoCriptografada(senha1);
 				colaboradorDao.alterar(colaborador);
 				UtilFaces.addMensagemFaces("Senha alterada com sucesso ");
 			}else{
@@ -81,5 +89,31 @@ public class UsuarioLogadoControl implements Serializable{
 	public void setColaborador(Colaborador colaborador) {
 		this.colaborador = colaborador;
 	}
+
+	public String getSenha1() {
+		return senha1;
+	}
+
+	public void setSenha1(String senha1) {
+		this.senha1 = senha1;
+	}
+
+	public String getSenha2() {
+		return senha2;
+	}
+
+	public void setSenha2(String senha2) {
+		this.senha2 = senha2;
+	}
+
+	public String getConfirmarSenha() {
+		return confirmarSenha;
+	}
+
+	public void setConfirmarSenha(String confirmarSenha) {
+		this.confirmarSenha = confirmarSenha;
+	}
+	
+	
 
 }
