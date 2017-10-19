@@ -24,7 +24,6 @@ import br.com.ambientinformatica.fatesg.api.entidade.EnumUf;
 import br.com.ambientinformatica.fatesg.api.entidade.Municipio;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.ColaboradorDao;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.MunicipioDao;
-import br.com.ambientinformatica.util.AmbientException;
 import br.com.ambientinformatica.util.UtilHash;
 import br.com.ambientinformatica.util.UtilHash.Algoritimo;
 
@@ -140,8 +139,6 @@ public class ColaboradorControl implements Serializable {
 		}
 	}
 	
-	 
-	
 	
 	public String alterarSenha() {
 		try {
@@ -153,6 +150,7 @@ public class ColaboradorControl implements Serializable {
 					pessoaLogada.setAlterarSenha(true);
 					pessoaLogada.setConfirmado(true);
 					colaboradorDao.alterar(pessoaLogada);
+					
 					UtilFaces.addMensagemFaces("Senha alterada com sucesso!");
 					return "inicio.secima";
 				} else {
@@ -212,7 +210,6 @@ public class ColaboradorControl implements Serializable {
 				//consulta a base do corporatum
 				novoColaborador = colaboradorDao.consultarPorCpf(cpf);
 				if (novoColaborador != null) {
-					colaborador.setIdColaboradorPai(novoColaborador.getId());
 					colaborador.setCpfCnpj(novoColaborador.getCpfCnpj());
 					colaborador.setNome(novoColaborador.getNome());
 					colaborador.setRg(novoColaborador.getRg());
