@@ -67,26 +67,26 @@
 		<h:form>
 			<p:dialog header="Alterar senha" widgetVar="dialogAlterarSenha" modal="true"  maximizable="true" dynamic="true">
 	    		 <a:field label="Informe a senha atual">
-	                <p:password styleClass="obrigatorio" value="#{ColaboradorControl.confirmarSenha}" id="snh" style="width:200px" />
+	                <p:password styleClass="obrigatorio" value="#{UsuarioLogadoControl.confirmarSenha}" id="snh" style="width:200px" />
 	            </a:field>
 	
 	            <a:newLine />
 	
 	            <a:field label="Informe uma nova senha">
-	                <p:password styleClass="obrigatorio" minLength="6" value="#{ColaboradorControl.senha1}" promptLabel="Digite a senha"
+	                <p:password styleClass="obrigatorio" minLength="6" value="#{UsuarioLogadoControl.senha1}" promptLabel="Digite a senha"
 	                    goodLabel="Senha boa" strongLabel="Senha forte" weakLabel="Senha Fraca" style="width:200px" />
 	            </a:field>
 	
 	            <a:newLine />
 	
 	            <a:field label="Reinforme a nova senha">
-	                <p:password styleClass="obrigatorio" minLength="6" value="#{ColaboradorControl.senha2}" style="width:200px" />
+	                <p:password styleClass="obrigatorio" minLength="6" value="#{UsuarioLogadoControl.senha2}" style="width:200px" />
 	            </a:field>
 	
 	            <a:newLine />
 	            
 	            <a:field>
-	                <p:commandButton id="alterarSenha" value="Alterar" action="#{ColaboradorControl.alterarSenha}" ajax="false" icon="ui-icon-refresh" oncomplete="PF('dialogAlterarSenha').close();" />
+	                <p:commandButton id="alterarSenha" value="Alterar" action="#{UsuarioLogadoControl.alterarSenhaDoUsuario}" ajax="false" icon="ui-icon-refresh" oncomplete="PF('dialogAlterarSenha').close();" />
 	            </a:field>
 	            
 	            <a:field spaceLeft="10px">
