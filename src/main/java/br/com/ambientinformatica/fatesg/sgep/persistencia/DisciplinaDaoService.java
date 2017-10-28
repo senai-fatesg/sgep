@@ -11,11 +11,11 @@ import javax.ws.rs.client.WebTarget;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.thoughtworks.xstream.XStream;
+
 import br.com.ambientinformatica.fatesg.api.entidade.Disciplina;
 import br.com.ambientinformatica.jpa.exception.PersistenciaException;
 import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
-
-import com.thoughtworks.xstream.XStream;
 
 @Repository("disciplinaDao")
 public class DisciplinaDaoService extends PersistenciaJpa<Disciplina> implements
@@ -23,7 +23,7 @@ public class DisciplinaDaoService extends PersistenciaJpa<Disciplina> implements
 
 	private Client client = ClientBuilder.newClient();
 
-	private WebTarget target = client.target("http://localhost:8080/corporatum/service/disciplina");
+	private WebTarget target = client.target("http://inpai.com.br/corporatum/service/disciplina");
 
 
 	private static final long serialVersionUID = 1L;

@@ -10,17 +10,17 @@ import javax.ws.rs.client.WebTarget;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.thoughtworks.xstream.XStream;
+
 import br.com.ambientinformatica.fatesg.api.entidade.Aluno;
 import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
-
-import com.thoughtworks.xstream.XStream;
 
 @Repository("alunoDao")
 public class AlunoDaoService extends PersistenciaJpa<Aluno> implements AlunoDao, Serializable {
 
 	private Client client = ClientBuilder.newClient();
 
-	private WebTarget target = client.target("http://localhost:8080/corporatum/service/aluno");
+	private WebTarget target = client.target("http://inpai.com.br/corporatum/service/aluno");
 
 	private static final long serialVersionUID = 1L;
 
