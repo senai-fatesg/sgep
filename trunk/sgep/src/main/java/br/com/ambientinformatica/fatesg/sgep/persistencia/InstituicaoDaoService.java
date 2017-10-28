@@ -11,18 +11,18 @@ import javax.ws.rs.client.WebTarget;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.thoughtworks.xstream.XStream;
+
 import br.com.ambientinformatica.fatesg.api.entidade.Instituicao;
 import br.com.ambientinformatica.jpa.exception.PersistenciaException;
 import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
-
-import com.thoughtworks.xstream.XStream;
 
 @Repository("instituicaoDao")
 public class InstituicaoDaoService extends PersistenciaJpa<Instituicao> implements InstituicaoDao, Serializable {
 
 	private Client client = ClientBuilder.newClient();
 
-	private WebTarget target = client.target("http://localhost:8080/corporatum/service/instituicao");
+	private WebTarget target = client.target("http://inpai.com.br/corporatum/service/instituicao");
 
 	private static final long serialVersionUID = 1L;
 

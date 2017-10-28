@@ -24,7 +24,7 @@ public class ColaboradorDaoService extends PersistenciaJpa<Colaborador> implemen
 
 	private Client client = ClientBuilder.newClient();
 
-	private WebTarget target = client.target("http://localhost:8080/corporatum/service/colaborador");
+	private WebTarget target = client.target("http://inpai.com.br/corporatum/service/colaborador");
 
 	private static final long serialVersionUID = 1L;
 
