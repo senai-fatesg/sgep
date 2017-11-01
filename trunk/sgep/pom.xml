@@ -221,16 +221,11 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-				<!-- 
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jasperreports-maven-plugin</artifactId>
-				<version>1.0-beta-2</version>
-				-->				
 			<plugin>
 				
 				<groupId>org.codehaus.mojo</groupId>
-    			<artifactId>jasperreports-maven-plugin</artifactId>
-    			<version>1.0-beta-4-OPENNMS-20160912-1</version>
+				<artifactId>jasperreports-maven-plugin</artifactId>
+				<version>1.0-beta-2</version>
 				<configuration>
 					<outputDirectory>${project.build.directory}${file.separator}classes${file.separator}jasper</outputDirectory>
 					<outputDirectory>src${file.separator}main${file.separator}resources${file.separator}jasper</outputDirectory>
