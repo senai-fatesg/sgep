@@ -243,18 +243,20 @@
 						</goals>
 					</execution>
 				</executions>
+					<!-- 
 				<dependencies>
 					<dependency>
 						<groupId>net.sf.jasperreports</groupId>
 						<artifactId>jasperreports</artifactId>
 						<version>6.4.0</version>
 					</dependency>
-					<dependency>
+					 <dependency>
 						<groupId>jasperreports</groupId>
 						<artifactId>barbecue</artifactId>
 						<version>1.5-beta1</version>
 					</dependency>
 				</dependencies>
+					 -->
 			</plugin>
 			
 		</plugins>
