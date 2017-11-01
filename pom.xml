@@ -310,6 +310,7 @@
 			</plugin>
 		</plugins>
 	</reporting>
+	<!-- 	
 	<repositories>
 		<repository>
 			<id>ambient</id>
@@ -318,4 +319,6 @@
 			<layout>default</layout>
 		</repository>
 	</repositories>
+	-->
+	
 </project>
