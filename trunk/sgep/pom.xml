@@ -222,7 +222,6 @@
 				</dependencies>
 			</plugin>
 			<plugin>
-				
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jasperreports-maven-plugin</artifactId>
 				<version>1.0-beta-2</version>
@@ -238,20 +237,18 @@
 						</goals>
 					</execution>
 				</executions>
-					<!-- 
 				<dependencies>
 					<dependency>
 						<groupId>net.sf.jasperreports</groupId>
 						<artifactId>jasperreports</artifactId>
 						<version>6.4.0</version>
 					</dependency>
-					 <dependency>
+					<dependency>
 						<groupId>jasperreports</groupId>
 						<artifactId>barbecue</artifactId>
 						<version>1.5-beta1</version>
 					</dependency>
 				</dependencies>
-					 -->
 			</plugin>
 			
 		</plugins>
@@ -313,4 +310,12 @@
 			</plugin>
 		</plugins>
 	</reporting>
+	<repositories>
+		<repository>
+			<id>ambient</id>
+			<name>Solutio-in Maven Repository</name>
+			<url>http://solutioin.com/nexus/content/groups/public</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 </project>
