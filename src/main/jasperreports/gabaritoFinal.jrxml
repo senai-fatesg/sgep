@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gabaritoFinal" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a1358805-7bc1-40ff-a182-fafdd2cd2f2d">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gabaritoFinal" columnCount="3" pageWidth="595" pageHeight="842" columnWidth="185" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a1358805-7bc1-40ff-a182-fafdd2cd2f2d">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="prova" class="br.com.ambientinformatica.fatesg.sgep.entidade.Prova">
 		<defaultValueExpression><![CDATA[$P{prova}]]></defaultValueExpression>
 	</parameter>
@@ -90,20 +99,20 @@
 	<columnHeader>
 		<band height="36" splitType="Stretch">
 			<rectangle>
-				<reportElement x="211" y="4" width="69" height="31" uuid="b044e3aa-d070-4d36-ac76-dc57ec143e72"/>
+				<reportElement x="24" y="4" width="69" height="31" uuid="b044e3aa-d070-4d36-ac76-dc57ec143e72"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="211" y="5" width="68" height="30" uuid="24e410e2-d8bb-4a60-bcaf-98a74d046069"/>
+				<reportElement isPrintRepeatedValues="false" x="25" y="5" width="68" height="30" isPrintInFirstWholeBand="true" uuid="24e410e2-d8bb-4a60-bcaf-98a74d046069"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Questão]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="280" y="4" width="77" height="31" uuid="41ef1e08-1900-45c3-b5d7-6b39cd1602de"/>
+				<reportElement x="93" y="4" width="77" height="31" uuid="41ef1e08-1900-45c3-b5d7-6b39cd1602de"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="280" y="5" width="77" height="30" uuid="538871d1-8539-41d2-a1c3-67144e2a7861"/>
+				<reportElement isPrintRepeatedValues="false" x="94" y="5" width="77" height="30" isPrintInFirstWholeBand="true" uuid="538871d1-8539-41d2-a1c3-67144e2a7861"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
@@ -114,20 +123,20 @@
 	<detail>
 		<band height="18" splitType="Stretch">
 			<rectangle>
-				<reportElement x="250" y="-1" width="30" height="19" uuid="f9044639-2eb6-498a-a699-cfc4c8f33d5c"/>
+				<reportElement x="63" y="-1" width="30" height="19" uuid="f9044639-2eb6-498a-a699-cfc4c8f33d5c"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="280" y="-1" width="30" height="19" uuid="50647788-b9f4-4fe1-a42a-44eebbde5af9"/>
+				<reportElement x="93" y="-1" width="30" height="19" uuid="50647788-b9f4-4fe1-a42a-44eebbde5af9"/>
 			</rectangle>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="283" y="1" width="17" height="15" uuid="bbe69a81-f3d8-4aa5-bf21-40f1c0c0daad"/>
+				<reportElement x="96" y="1" width="17" height="15" uuid="bbe69a81-f3d8-4aa5-bf21-40f1c0c0daad"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getResposta()]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="250" y="1" width="29" height="16" uuid="0d618621-8a00-4128-a49f-47ce457cc55a"/>
+				<reportElement x="63" y="1" width="29" height="16" forecolor="#FF0400" uuid="0d618621-8a00-4128-a49f-47ce457cc55a"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
