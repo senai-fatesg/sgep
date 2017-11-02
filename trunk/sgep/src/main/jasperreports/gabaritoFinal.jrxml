@@ -14,7 +14,7 @@
 	<field name="questao" class="br.com.ambientinformatica.fatesg.sgep.entidade.QuestaoProva">
 		<fieldDescription><![CDATA[questao]]></fieldDescription>
 	</field>
-	<variable name="contador" class="java.math.BigDecimal" incrementType="Column" calculation="Sum">
+	<variable name="contador" class="java.math.BigDecimal" incrementType="Report" calculation="Sum">
 		<variableExpression><![CDATA[$V{contador}.add(new BigDecimal("1"))]]></variableExpression>
 		<initialValueExpression><![CDATA[new BigDecimal("0")]]></initialValueExpression>
 	</variable>
@@ -22,105 +22,113 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="194" splitType="Immediate">
+		<band height="110" splitType="Immediate">
 			<rectangle>
-				<reportElement x="12" y="4" width="525" height="160" uuid="7f6b12f0-2c4d-413a-95cb-431ccfe8c169"/>
+				<reportElement x="12" y="4" width="525" height="106" uuid="7f6b12f0-2c4d-413a-95cb-431ccfe8c169"/>
 			</rectangle>
-			<textField>
-				<reportElement x="412" y="130" width="120" height="30" uuid="c2e413b0-b797-43a5-ab45-9cc667762d6d"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="393" y="70" width="120" height="20" uuid="c2e413b0-b797-43a5-ab45-9cc667762d6d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{prova}.getDisciplina().getNome()]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="152" y="130" width="130" height="30" uuid="adbd4437-0cf7-42c3-b4e9-488ea9d6de34"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="125" y="71" width="130" height="16" uuid="adbd4437-0cf7-42c3-b4e9-488ea9d6de34"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{prova}.getCurso().getNome()]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="412" y="90" width="120" height="30" uuid="69c44da2-cc32-48af-9ba1-693d08f9a7ab"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="393" y="46" width="120" height="20" uuid="69c44da2-cc32-48af-9ba1-693d08f9a7ab"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{prova}.getInstituicao().getNomeFantasia()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="52" y="90" width="70" height="20" uuid="441ccd44-f31a-448f-b7dd-e07fbe3c01fd"/>
-				<textElement textAlignment="Center">
-					<font fontName="SansSerif" size="14" isBold="true"/>
+				<reportElement x="30" y="45" width="92" height="20" uuid="441ccd44-f31a-448f-b7dd-e07fbe3c01fd"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Black" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Periodo:]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="152" y="90" width="130" height="30" uuid="2b48a764-cdeb-4fde-b51e-38d02d97e616"/>
-				<textFieldExpression><![CDATA[$P{prova}.getPeriodo()]]></textFieldExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="126" y="46" width="130" height="20" uuid="2b48a764-cdeb-4fde-b51e-38d02d97e616"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{prova}.getPeriodo().getDescricao()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="52" y="130" width="70" height="20" uuid="4f7f084d-f245-4915-b371-3523af0eb5b3"/>
-				<textElement textAlignment="Left">
-					<font fontName="SansSerif" size="14" isBold="true"/>
+				<reportElement x="30" y="67" width="92" height="20" uuid="4f7f084d-f245-4915-b371-3523af0eb5b3"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Black" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Curso:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="312" y="91" width="90" height="20" uuid="5eb4563a-6afc-4e54-a276-0620b6aa312a"/>
-				<textElement textAlignment="Center">
-					<font fontName="SansSerif" size="14" isBold="true"/>
+				<reportElement x="280" y="45" width="108" height="20" uuid="5eb4563a-6afc-4e54-a276-0620b6aa312a"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Black" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Instituição:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="312" y="131" width="100" height="20" uuid="4007ec46-959e-42aa-9c24-8f24b8b69e1b"/>
-				<textElement textAlignment="Left">
-					<font fontName="SansSerif" size="14" isBold="true"/>
+				<reportElement x="280" y="67" width="108" height="20" uuid="4007ec46-959e-42aa-9c24-8f24b8b69e1b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Black" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Disciplina:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="187" y="14" width="201" height="40" uuid="2ca6088e-d9d1-428c-809f-69169dcbf514"/>
+				<reportElement positionType="Float" x="200" y="11" width="168" height="26" uuid="2ca6088e-d9d1-428c-809f-69169dcbf514"/>
 				<textElement textAlignment="Center">
-					<font size="26" isBold="true"/>
+					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[GABARITO]]></text>
 			</staticText>
+			<image>
+				<reportElement x="15" y="9" width="169" height="28" uuid="41b9473e-0abd-421e-b040-f0a18db2828a"/>
+				<imageExpression><![CDATA["http://sne.iel.org.br/forum/assets/img/iel/logos/sesi_senai.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="76" splitType="Stretch">
+		<band height="36" splitType="Stretch">
 			<rectangle>
-				<reportElement x="179" y="44" width="101" height="31" uuid="b044e3aa-d070-4d36-ac76-dc57ec143e72"/>
+				<reportElement x="211" y="4" width="69" height="31" uuid="b044e3aa-d070-4d36-ac76-dc57ec143e72"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="198" y="45" width="81" height="30" uuid="24e410e2-d8bb-4a60-bcaf-98a74d046069"/>
-				<textElement textAlignment="Center">
-					<font size="18" isBold="true"/>
+				<reportElement x="211" y="5" width="68" height="30" uuid="24e410e2-d8bb-4a60-bcaf-98a74d046069"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Questão]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="280" y="44" width="101" height="31" uuid="41ef1e08-1900-45c3-b5d7-6b39cd1602de"/>
+				<reportElement x="280" y="4" width="77" height="31" uuid="41ef1e08-1900-45c3-b5d7-6b39cd1602de"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="290" y="45" width="90" height="30" uuid="538871d1-8539-41d2-a1c3-67144e2a7861"/>
-				<textElement textAlignment="Center">
-					<font size="18" isBold="true"/>
+				<reportElement x="280" y="5" width="77" height="30" uuid="538871d1-8539-41d2-a1c3-67144e2a7861"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Resposta]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="36" splitType="Stretch">
+		<band height="18" splitType="Stretch">
 			<rectangle>
-				<reportElement x="179" y="0" width="101" height="36" uuid="f9044639-2eb6-498a-a699-cfc4c8f33d5c"/>
+				<reportElement x="250" y="-1" width="30" height="19" uuid="f9044639-2eb6-498a-a699-cfc4c8f33d5c"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="280" y="0" width="101" height="36" uuid="50647788-b9f4-4fe1-a42a-44eebbde5af9"/>
+				<reportElement x="280" y="-1" width="30" height="19" uuid="50647788-b9f4-4fe1-a42a-44eebbde5af9"/>
 			</rectangle>
-			<textField>
-				<reportElement x="329" y="6" width="40" height="24" uuid="bbe69a81-f3d8-4aa5-bf21-40f1c0c0daad"/>
-				<textElement textAlignment="Right">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="283" y="1" width="17" height="15" uuid="bbe69a81-f3d8-4aa5-bf21-40f1c0c0daad"/>
+				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{questao}.getQuestao().getResposta()]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="230" y="6" width="40" height="23" uuid="0d618621-8a00-4128-a49f-47ce457cc55a"/>
-				<textElement textAlignment="Right">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="250" y="1" width="29" height="16" uuid="0d618621-8a00-4128-a49f-47ce457cc55a"/>
+				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{contador}]]></textFieldExpression>
