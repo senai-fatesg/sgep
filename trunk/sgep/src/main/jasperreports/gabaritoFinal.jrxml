@@ -123,10 +123,10 @@
 	<detail>
 		<band height="18" splitType="Stretch">
 			<rectangle>
-				<reportElement x="63" y="-1" width="30" height="19" uuid="f9044639-2eb6-498a-a699-cfc4c8f33d5c"/>
+				<reportElement x="24" y="-1" width="69" height="19" uuid="f9044639-2eb6-498a-a699-cfc4c8f33d5c"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="93" y="-1" width="30" height="19" uuid="50647788-b9f4-4fe1-a42a-44eebbde5af9"/>
+				<reportElement x="93" y="-1" width="77" height="19" uuid="50647788-b9f4-4fe1-a42a-44eebbde5af9"/>
 			</rectangle>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="96" y="1" width="17" height="15" uuid="bbe69a81-f3d8-4aa5-bf21-40f1c0c0daad"/>
