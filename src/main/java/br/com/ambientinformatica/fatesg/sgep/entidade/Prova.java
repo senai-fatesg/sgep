@@ -3,6 +3,7 @@ package br.com.ambientinformatica.fatesg.sgep.entidade;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -145,7 +146,18 @@ public class Prova extends Entidade implements Serializable{
 	        FacesContext facesContext = FacesContext.getCurrentInstance();
 	        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 	        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Selecionada!", format.format(event.getObject())));
+	        
 	    }
+	 
+	 public int validarMes(){
+		 Calendar calendar = Calendar.getInstance();
+		 int mes = calendar.get(Calendar.MONTH);
+		 if(mes <=6){
+			 return 1;
+		 }
+		 return 2;
+	 }
+	 
 	 public String enumPeriodos(){
 		 if(getPeriodo() == EnumPeriodo.PRIMEIRO_PERIODO){
 			 return "1°"; 

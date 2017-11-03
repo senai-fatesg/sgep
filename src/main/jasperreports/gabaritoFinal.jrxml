@@ -36,7 +36,7 @@
 				<reportElement x="12" y="4" width="525" height="106" uuid="7f6b12f0-2c4d-413a-95cb-431ccfe8c169"/>
 			</rectangle>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="393" y="70" width="120" height="20" uuid="c2e413b0-b797-43a5-ab45-9cc667762d6d"/>
+				<reportElement x="393" y="68" width="120" height="20" uuid="c2e413b0-b797-43a5-ab45-9cc667762d6d"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{prova}.getDisciplina().getNome()]]></textFieldExpression>
 			</textField>
@@ -46,7 +46,7 @@
 				<textFieldExpression><![CDATA[$P{prova}.getCurso().getNome()]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="393" y="46" width="120" height="20" uuid="69c44da2-cc32-48af-9ba1-693d08f9a7ab"/>
+				<reportElement x="393" y="44" width="120" height="20" uuid="69c44da2-cc32-48af-9ba1-693d08f9a7ab"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{prova}.getInstituicao().getNomeFantasia()]]></textFieldExpression>
 			</textField>
