@@ -416,7 +416,7 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 				<textFieldExpression><![CDATA[$P{prova}.getCurso().getNome()]]></textFieldExpression>
 			</textField>
 			<textField pattern="yyyy">
-				<reportElement x="240" y="43" width="94" height="34" uuid="34c46a0f-5bb6-47af-9bb1-d23158ddff03"/>
+				<reportElement x="240" y="43" width="68" height="34" uuid="34c46a0f-5bb6-47af-9bb1-d23158ddff03"/>
 				<textElement>
 					<font fontName="Arial" size="26" isBold="true"/>
 				</textElement>
@@ -437,13 +437,6 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="314" y="42" width="61" height="37" uuid="abd68abc-fce6-433a-9858-e4e4cce168a8"/>
-				<textElement>
-					<font fontName="Arial" size="26" isBold="true"/>
-				</textElement>
-				<text><![CDATA[- 2]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="449" y="50" width="79" height="20" uuid="b903d2d2-2d6d-4553-876d-c6dbd5a57c21"/>
 				<textElement>
 					<font fontName="Arial Black" size="14" isBold="true"/>
@@ -457,6 +450,20 @@ cadernos ou anota��es de qualquer esp�cie.]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{prova}.getPeriodo().getDescricao()]]></textFieldExpression>
 			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="300" y="39" width="38" height="39" uuid="2c7e659a-3c41-4ed6-b31c-09f6875d15d6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="26" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{prova}.validarMes()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="292" y="42" width="32" height="35" uuid="c9b75cf8-1a70-4c5c-ac28-6d97cef5908c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="26"/>
+				</textElement>
+				<text><![CDATA[/]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
