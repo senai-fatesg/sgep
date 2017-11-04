@@ -7,7 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<artifactId>sgep</artifactId>
 	<name>sgep</name>
-	<url>http://solutioin.com/projetos</url>
+	<url>http://inpai.com.br/sgep</url>
 
 	<properties>
 		<jdk.version>1.7</jdk.version>
@@ -231,7 +231,7 @@
 				</configuration>
 				<executions>
 					<execution>
-						<phase>compiler</phase>
+						<phase>compile</phase>
 						<goals>
 							<goal>compile-reports</goal>
 						</goals>
@@ -310,15 +310,16 @@
 			</plugin>
 		</plugins>
 	</reporting>
-	<!-- 	
-	<repositories>
-		<repository>
-			<id>ambient</id>
-			<name>Solutio-in Maven Repository</name>
-			<url>http://solutioin.com/nexus/content/groups/public</url>
-			<layout>default</layout>
-		</repository>
-	</repositories>
-	-->
+	<developers>
+		<developer>
+			<id>edjalma</id>
+			<name>Edjalma Queiroz</name>
+			<email>edjalmaqs@gmail.com</email>
+			<roles>
+				<role>Arquiteto</role>
+				<role>Analista</role>
+			</roles>
+		</developer>
+	</developers>
 	
 </project>
