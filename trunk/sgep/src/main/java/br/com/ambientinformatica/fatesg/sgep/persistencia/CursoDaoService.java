@@ -14,17 +14,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.thoughtworks.xstream.XStream;
 
 import br.com.ambientinformatica.fatesg.api.entidade.Curso;
+import br.com.ambientinformatica.fatesg.sgep.util.PropertiesLoader;
 import br.com.ambientinformatica.jpa.exception.PersistenciaException;
 import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
 
 @Repository("cursoDao")
 public class CursoDaoService extends PersistenciaJpa<Curso> implements CursoDao, Serializable {
-
-	private Client client = ClientBuilder.newClient();
-
-	private WebTarget target = client.target("http://inpai.com.br/corporatum/service/curso");
-
 	private static final long serialVersionUID = 1L;
+
+	private PropertiesLoader loader = new PropertiesLoader();
+	private Client client = ClientBuilder.newClient();
+	private WebTarget target = client.target(loader.getValor("sgep.properties", "urlServicoCorporatum") + "curso");
+
 
 	@SuppressWarnings("unchecked")
 	@Override

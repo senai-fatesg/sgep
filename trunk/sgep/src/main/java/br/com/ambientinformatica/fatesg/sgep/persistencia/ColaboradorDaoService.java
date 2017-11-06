@@ -15,18 +15,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.thoughtworks.xstream.XStream;
 
 import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
+import br.com.ambientinformatica.fatesg.sgep.util.PropertiesLoader;
 import br.com.ambientinformatica.jpa.exception.PersistenciaException;
 import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
 import br.com.ambientinformatica.util.UtilLog;
 
 @Repository("colaboradorDao")
 public class ColaboradorDaoService extends PersistenciaJpa<Colaborador> implements ColaboradorDao, Serializable {
-
-	private Client client = ClientBuilder.newClient();
-
-	private WebTarget target = client.target("http://inpai.com.br/corporatum/service/colaborador");
-
 	private static final long serialVersionUID = 1L;
+
+	private PropertiesLoader loader = new PropertiesLoader();
+	private Client client = ClientBuilder.newClient();
+	private WebTarget target = client.target(loader.getValor("sgep.properties", "urlServicoCorporatum") + "colaborador");
+
 
 	@Override
 	@Transactional
