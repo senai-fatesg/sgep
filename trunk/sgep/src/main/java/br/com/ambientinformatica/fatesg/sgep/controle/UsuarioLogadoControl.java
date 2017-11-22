@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.fatesg.api.entidade.Colaborador;
+import br.com.ambientinformatica.fatesg.api.entidade.EnumPapelUsuario;
 import br.com.ambientinformatica.fatesg.sgep.persistencia.ColaboradorDao;
 import br.com.ambientinformatica.jpa.exception.PersistenciaException;
 import br.com.ambientinformatica.util.UtilHash;
@@ -49,6 +50,10 @@ public class UsuarioLogadoControl implements Serializable{
 		}
 	}
 
+	public boolean isAdmin(){
+		return getUsuarioConfigurado().isContemPapel(EnumPapelUsuario.ADMIN);
+	}
+	
 	private void consultarUsuarioLogado(){
 		try {
 			HttpServletRequest req = UtilFaces.getRequest();

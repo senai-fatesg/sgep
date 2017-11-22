@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.primefaces.context.RequestContext;
@@ -63,6 +64,16 @@ public class ProvaControl {
 
 	private String enunciado;
 
+	private Prova provaSelecionadaParaExclusao;
+	
+	public Prova getProvaSelecionadaParaExclusao() {
+		return provaSelecionadaParaExclusao;
+	}
+
+	public void setProvaSelecionadaParaExclusao(Prova provaSelecionadaParaExclusao) {
+		this.provaSelecionadaParaExclusao = provaSelecionadaParaExclusao;
+	}
+
 	private String tipoPesquisa = new String();
 
 	private SessaoProva sessaoSelecionada = new SessaoProva();
@@ -113,6 +124,8 @@ public class ProvaControl {
 	@Autowired
 	private AlunoDao alunoDao;
 	
+	@Autowired
+	private UsuarioLogadoControl usuarioLogadoControl;
 
 	@PostConstruct
 	public void init() {
@@ -330,12 +343,13 @@ public class ProvaControl {
 		return null;
 	}
 
-	public void excluir() {
+	public void excluir(ActionEvent event) {
 		try {
-			provaDao.excluirPorId(provaExcluir.getId());
-			prova = new Prova();
-			provas = provaDao.listar();
-			UtilFaces.addMensagemFaces("Atividade excluída!");
+//			SessaoProva
+//			provaDao.excluir(provaSelecionadaParaExclusao.getId());
+//			prova = new Prova();
+//			provas = provaDao.listar();
+			UtilFaces.addMensagemFaces("Metodo não implementado!");
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
@@ -753,6 +767,8 @@ public class ProvaControl {
 		this.filtroDisciplina = filtroDisciplina;
 	}
 
-	
+	public UsuarioLogadoControl getUsuarioLogadoControl() {
+		return usuarioLogadoControl;
+	}
 
 }
