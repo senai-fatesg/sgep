@@ -1,117 +1,101 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
-	xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://www.ambientinformatica.com.br/jsf2" xmlns:p="http://primefaces.org/ui">
 
 	<ui:insert name="header">
 		<div class="header-topo-container">
 			<div class="header-topo-nav-links">
 				<ul>
-					<li><a href="http://www.senaigo.com.br/" target="_blank">SENAI
-							GO</a> <span>&#187;</span></li>
-					<li><a href="http://www.senaigo.com.br/portaldodocente/"
-						target="_blank">PORTAL DO DOCENTE</a></li>
+					<li><a href="http://www.senaigo.com.br/" target="_blank">SENAI GO</a> <span>&#187;</span></li>
+					<li><a href="http://www.senaigo.com.br/portaldodocente/" target="_blank">PORTAL DO DOCENTE</a></li>
 				</ul>
 			</div>
-			<div class="col-md-12" style="padding: 0px;">
+		  <div class="col-md-12" style="padding: 0px;"> 
 				<div class="col-md-1" style="padding-top: -10px;">
-					<!-- ESPAÇO A ESQUERDA -->
+					<!-- <a href="#{request.contextPath}/"><h:graphicImage value="/imagens/sgep.png" width="160" height="80"></h:graphicImage></a> -->
+				</div> 
+				<div class="col-md-6">
+					<ui:include src="/menuUsuario.jspx"/>
 				</div>
-				<div class="col-md-8">
-					<ui:include src="/menuUsuario.jspx" />
+				
+				<div class="col-md-4">
+					<h:form>
+						<div>
+							<div class="row">
+								<div class="col-md-10">
+									<p:outputLabel value="Usuário: #{UsuarioLogadoControl.colaborador.nome}" style="color: #fff; margin-top: 10px"/>
+									<br />
+								</div>
+								<div class="col-md-2">
+									<p:graphicImage id="imageBtn" width="64px" value="/imagens/user2.png" onclick="PF('panelPerfil').loadContents();" style="cursor: pointer; margin-top: 10px"/>
+								</div>								
+							</div>
+							<p:commandLink id="ppp" style="float:right;"></p:commandLink>
+							<p:overlayPanel id="panelPerfil" widgetVar="panelPerfil" for="ppp" hideEffect="fade" style="width: -400px">
+								<p:panel header="PERFIL">
+									<table style="width: 100%;">
+										<tr> 
+											<td rowspan="2" style="padding: 5px;">
+											<p:graphicImage width="100px;height:70px" value="/imagens/user2.png" style="margin-top: 20px;"/></td>
+											<td>
+												<h:outputText value="#{UsuarioLogadoControl.colaborador.nome}" style="font-size:12px" /> 
+												<a:newLine /> 
+												<a:newLine />
+												<h:outputText value="#{UsuarioLogadoControl.colaborador.dataUltimoAcesso}" style="font-size:10px;font-style:italic">
+													<f:convertDateTime pattern="'Último Acesso: ' dd/MM/yyyy 'às'  HH:mm" />
+												</h:outputText>
+											</td>
+										</tr>
+									</table>
+									<p:separator />
+									<a:field>
+										<p:commandButton value="Alterar senha" icon="ui-icon-person" onclick="PF('dialogAlterarSenha').show();" />
+									</a:field>
+									<a:field spaceLeft="10px">
+										<p:commandButton value="Sair" icon="ui-icon-power" onclick="document.location.href='/sgep/sair.jsp'" immediate="true" />
+									</a:field>
+									<a:newLine />
+								</p:panel>
+							</p:overlayPanel>
+						</div>
+					</h:form>
 				</div>
-
-				<div class="col-md-3">
-					<p:graphicImage id="imageBtn" width="64px"
-						value="/imagens/user2.png"
-						onclick="PF('panelPerfil').loadContents();"
-						style="cursor: pointer; margin-top: 10px"/>
 				</div>
-				<p:commandLink id="ppp" style="float:right;"></p:commandLink>
-				<p:overlayPanel id="panelPerfil" widgetVar="panelPerfil" for="ppp"
-					hideEffect="fade" style="width: -400px">
-					<p:panel header="PERFIL">
-						<table style="width: 100%;">
-							<tr>
-								<td rowspan="2" style="padding: 5px;"><p:graphicImage
-										width="100px;height:70px" value="/imagens/user2.png"
-										style="margin-top: 20px;" /></td>
-								<td><h:outputText
-										value="#{UsuarioLogadoControl.colaborador.nome}"
-										style="font-size:12px" /> 
-										<a:newLine /> 
-										<a:newLine /> 
-										<h:outputText
-										value="#{UsuarioLogadoControl.colaborador.dataUltimoAcesso}"
-										style="font-size:10px;font-style:italic">
-										<f:convertDateTime
-											pattern="'Último Acesso: ' dd/MM/yyyy 'às'  HH:mm" />
-									</h:outputText></td>
-							</tr>
-						</table>
-						<p:separator />
-						<a:field>
-							<p:commandButton value="Alterar senha" icon="ui-icon-person"
-								onclick="PF('dialogAlterarSenha').show();" />
-						</a:field>
-						<a:field spaceLeft="10px">
-							<p:commandButton value="Sair" icon="ui-icon-power"
-								onclick="document.location.href='/sgep/sair.jsp'"
-								immediate="true" />
-						</a:field>
-						<a:newLine />
-					</p:panel>
-				</p:overlayPanel>
 			</div>
+		<div class="header-topo">
 		</div>
-		
 		<h:form>
-			<p:dialog header="Alterar senha" widgetVar="dialogAlterarSenha"
-				modal="true" maximizable="true" dynamic="true">
-				<a:field label="Informe a senha atual">
-					<p:password styleClass="obrigatorio"
-						value="#{UsuarioLogadoControl.confirmarSenha}" id="snh"
-						style="width:200px" />
-				</a:field>
-
-				<a:newLine />
-
-				<a:field label="Informe uma nova senha">
-					<p:password styleClass="obrigatorio" minLength="6"
-						value="#{UsuarioLogadoControl.senha1}"
-						promptLabel="Digite a senha" goodLabel="Senha boa"
-						strongLabel="Senha forte" weakLabel="Senha Fraca"
-						style="width:200px" />
-				</a:field>
-
-				<a:newLine />
-
-				<a:field label="Reinforme a nova senha">
-					<p:password styleClass="obrigatorio" minLength="6"
-						value="#{UsuarioLogadoControl.senha2}" style="width:200px" />
-				</a:field>
-
-				<a:newLine />
-
-				<a:field>
-					<p:commandButton id="alterarSenha" value="Alterar"
-						action="#{UsuarioLogadoControl.alterarSenhaDoUsuario}"
-						ajax="false" icon="ui-icon-refresh"
-						oncomplete="PF('dialogAlterarSenha').close();" />
-				</a:field>
-
-				<a:field spaceLeft="10px">
-					<p:commandButton id="btnCancelarTransf" icon="ui-icon-circle-close"
-						onclick="PF('dialogAlterarSenha').close();" value="Cancelar" />
-				</a:field>
-
-				<a:newLine />
-				<a:newLine />
+			<p:dialog header="Alterar senha" widgetVar="dialogAlterarSenha" modal="true"  maximizable="true" dynamic="true">
+	    		 <a:field label="Informe a senha atual">
+	                <p:password styleClass="obrigatorio" value="#{UsuarioLogadoControl.confirmarSenha}" id="snh" style="width:200px" />
+	            </a:field>
+	
+	            <a:newLine />
+	
+	            <a:field label="Informe uma nova senha">
+	                <p:password styleClass="obrigatorio" minLength="6" value="#{UsuarioLogadoControl.senha1}" promptLabel="Digite a senha"
+	                    goodLabel="Senha boa" strongLabel="Senha forte" weakLabel="Senha Fraca" style="width:200px" />
+	            </a:field>
+	
+	            <a:newLine />
+	
+	            <a:field label="Reinforme a nova senha">
+	                <p:password styleClass="obrigatorio" minLength="6" value="#{UsuarioLogadoControl.senha2}" style="width:200px" />
+	            </a:field>
+	
+	            <a:newLine />
+	            
+	            <a:field>
+	                <p:commandButton id="alterarSenha" value="Alterar" action="#{UsuarioLogadoControl.alterarSenhaDoUsuario}" ajax="false" icon="ui-icon-refresh" oncomplete="PF('dialogAlterarSenha').close();" />
+	            </a:field>
+	            
+	            <a:field spaceLeft="10px">
+	                <p:commandButton id="btnCancelarTransf" icon="ui-icon-circle-close" onclick="PF('dialogAlterarSenha').close();" value="Cancelar" />
+	            </a:field>
+	
+	            <a:newLine />
+	            <a:newLine />
 			</p:dialog>
 		</h:form>
-		
 	</ui:insert>
 </ui:composition>

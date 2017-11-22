@@ -17,7 +17,7 @@
 			<p:menuitem icon="ui-icon-search" value="Sessão" actionListener="#{MenuControl.gerenciarSessao}" action="sessaoList?faces-redirect=true" ajax="false" />
 			<p:menuitem icon="ui-icon-search" value="Modelo de prova" actionListener="#{MenuControl.gerenciarSessao}" action="template?faces-redirect=true" ajax="false" />
 			<p:menuitem icon="ui-icon-search" value="Colaboradores" actionListener="#{MenuControl.gerenciarSessao}" action="colaboradorlista?faces-redirect=true" ajax="false" />
-			<p:menuitem value="Sair" icon="ui-icon-power" onclick="document.location.href='/sgep/sair.jsp'" immediate="true" />
+			<p:menuitem icon="ui-icon-power" value="Sair" onclick="document.location.href='/sgep/sair.jsp'" immediate="true" />
 		</p:menubar>
 		
 	</h:form>	 

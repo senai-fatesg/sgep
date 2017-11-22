@@ -52,6 +52,13 @@
 						<f:setPropertyActionListener target="#{GabaritoRespostaControl.prova}" value="#{prova}" />
 					</p:commandButton>					
 				</p:column>
+				<p:column headerText="Excluir" style="width:80px; text-align: center" rendered="#{ProvaControl.usuarioLogadoControl.admin}">
+					<p:commandButton icon="ui-icon-trash"
+						oncomplete="PF('confirmacaoExclusao').show()">
+						<f:setPropertyActionListener
+							target="#{ProvaControl.provaSelecionadaParaExclusao}" value="#{prova}" />
+					</p:commandButton>
+				</p:column>
 			</p:dataTable>
 		</p:panel>
 		<p:confirmDialog message="Confirma a exclusão deste registro?" header="Confirmação de exclusão" severity="alert" widgetVar="confirmacaoExclusao">
